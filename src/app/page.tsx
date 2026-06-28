@@ -1,289 +1,393 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   BadgeCheck,
   CircleDot,
   Gem,
   Heart,
+  HelpCircle,
   Mail,
-  Medal,
-  Moon,
-  Quote,
   ShieldCheck,
   Sparkles,
   Star,
 } from "lucide-react";
+import { SectionHeading } from "@/components/section-heading";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { brand } from "@/lib/site-data";
+import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/json-ld";
+import { websiteSchema } from "@/lib/structured-data";
 
-const navigation = [
-  { label: "Home", href: "#home" },
-  { label: "Collections", href: "#collections" },
-  { label: "Custom", href: "#custom" },
-  { label: "Certificates", href: "#certificates" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Contact", href: "#contact" },
+export const metadata = createPageMetadata({
+  title: "Moissanite & Lab-Grown Diamond Jewelry Manufacturer | XINGYUE",
+  description:
+    "Wholesale moissanite jewelry, lab-grown diamonds, colored gemstones, S925 silver jewelry and custom K gold production for overseas buyers.",
+  path: "/",
+});
+
+const coreProducts = [
+  {
+    title: "Moissanite",
+    copy: "High-fire loose stones and finished jewelry styles for wholesale buyers.",
+    image: "/images/xingyue-loose-moissanite.jpg",
+    alt: "Round moissanite stone held by tweezers",
+    href: "/collections/moissanite-wholesale",
+    cta: "Explore Moissanite",
+  },
+  {
+    title: "Lab-Grown Diamonds",
+    copy: "Precision-cut stones for modern fine jewelry and certificate-ready orders.",
+    image: "/images/xingyue-loose-stones.jpg",
+    alt: "Loose lab-grown diamond stones on a black surface",
+    href: "/collections/lab-grown-diamond-jewelry",
+    cta: "Explore Lab-Grown Diamonds",
+  },
+  {
+    title: "Lab-Grown Colored Gemstones",
+    copy: "Vivid color options for bracelets, rings, necklaces and custom collections.",
+    image: "/images/xingyue-colored-gemstones.jpg",
+    alt: "Assorted lab-grown colored gemstones",
+    href: "/collections/lab-grown-colored-gemstones",
+    cta: "Explore Colored Gemstones",
+  },
+  {
+    title: "Zirconia",
+    copy: "Bright, value-focused stone options for fashion jewelry and sample programs.",
+    image: "/images/xingyue-heart-tennis-chain.jpg",
+    alt: "Heart cut tennis chain jewelry on a blue surface",
+    href: "/collections/custom-jewelry-manufacturing",
+    cta: "Explore Zirconia",
+  },
+  {
+    title: "Cuban Chains",
+    copy: "Statement chain production with iced finishes and bold wholesale styling.",
+    image: "/images/xingyue-cuban-chain.jpg",
+    alt: "Iced Cuban chain bracelet on a dark background",
+    href: "/collections/cuban-chains",
+    cta: "Explore Cuban Chains",
+  },
+  {
+    title: "Tennis Chains",
+    copy: "Clean line necklaces and bracelets for daily luxury and gifting collections.",
+    image: "/images/xingyue-tennis-necklace.jpg",
+    alt: "Two tennis chain necklaces on a blue jewelry display",
+    href: "/collections/tennis-chains",
+    cta: "Explore Tennis Chains",
+  },
+  {
+    title: "Bracelets",
+    copy: "Moissanite, colored gemstone and custom line bracelet production.",
+    image: "/images/xingyue-tennis-bracelet.jpg",
+    alt: "Moissanite tennis bracelet on a black reflective surface",
+    href: "/collections/tennis-chains",
+    cta: "Explore Bracelets",
+  },
+  {
+    title: "Necklaces",
+    copy: "Pendant, chain and tennis necklace styles with flexible metal options.",
+    image: "/images/xingyue-tennis-necklace.jpg",
+    alt: "Layered tennis necklaces on a display bust",
+    href: "/collections/tennis-chains",
+    cta: "Explore Necklaces",
+  },
+  {
+    title: "Rings",
+    copy: "Sample rings, bridal-inspired styles and photo-based custom development.",
+    image: "/images/xingyue-ring-sample.jpg",
+    alt: "S925 silver ring sample on a white background",
+    href: "/collections/moissanite-wholesale",
+    cta: "Explore Rings",
+  },
 ];
 
 const categories = [
   {
-    name: "Rings",
-    cn: "戒指",
-    detail: "Solitaire, halo, promise and daily sparkle styles.",
-    note: "Moissanite / Lab-grown Diamond",
+    title: "Rings",
+    copy: "Solitaire, halo and bridal-inspired styles for refined everyday luxury.",
+    href: "/collections/moissanite-wholesale",
     icon: CircleDot,
   },
   {
-    name: "Necklaces",
-    cn: "项链",
-    detail: "Clean pendants and refined pieces for layering.",
-    note: "S925 Silver / K Gold Custom",
-    icon: Moon,
+    title: "Necklaces",
+    copy: "Elegant pendants, tennis chains and layering pieces with clean settings.",
+    href: "/collections/lab-grown-diamond-jewelry",
+    icon: Gem,
   },
   {
-    name: "Earrings",
-    cn: "耳饰",
-    detail: "Studs, drops and small luxuries with bright fire.",
-    note: "Brilliant Cut / Pear / Cushion",
+    title: "Earrings",
+    copy: "Moissanite and lab-grown diamond studs, drops and gift-ready pairs.",
+    href: "/collections/moissanite-wholesale",
     icon: Sparkles,
   },
   {
-    name: "Bracelets",
-    cn: "手链",
-    detail: "Minimal tennis and charm silhouettes for gifting.",
-    note: "Daily Fine Jewelry",
+    title: "Bracelets",
+    copy: "Tennis bracelets, Cuban chain styles and custom line jewelry programs.",
+    href: "/collections/tennis-chains",
     icon: Heart,
-  },
-  {
-    name: "K Gold Custom",
-    cn: "K 金定制",
-    detail: "Custom 10K, 14K or 18K settings by request.",
-    note: "Stone, size, cut and setting",
-    icon: Gem,
-  },
-];
-
-const materials = [
-  {
-    title: "Moissanite Fire",
-    cn: "莫桑钻火彩",
-    copy: "High brilliance, crisp sparkle and strong durability for everyday fine jewelry.",
-    icon: Sparkles,
-  },
-  {
-    title: "Lab-grown Diamond",
-    cn: "培育钻石",
-    copy: "Real diamond beauty with a modern, traceable and value-conscious path.",
-    icon: Gem,
-  },
-  {
-    title: "S925 Silver",
-    cn: "S925 银托镶嵌",
-    copy: "Elegant silver settings with polished finishing and approachable pricing.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Custom K Gold",
-    cn: "定制 K 金镶嵌",
-    copy: "Upgrade selected designs to 10K, 14K or 18K gold settings for special orders.",
-    icon: BadgeCheck,
   },
 ];
 
 const advantages = [
-  "Ethical sourcing and traceable stone options / 甄选来源，信息清晰",
-  "Strong sparkle for daily luxury / 日常佩戴也有明亮火彩",
-  "Flexible stone size, cut and setting / 支持尺寸、切工与镶口定制",
-  "Better value for gifts and milestones / 适合礼物与纪念日预算",
-];
-
-const certificates = [
   {
-    name: "IGI",
-    detail: "Available for selected lab-grown diamond orders.",
-    cn: "部分培育钻订单可配套。",
+    title: "Real Diamond",
+    copy: "Lab-grown diamonds have the same carbon crystal structure and optical beauty as mined diamonds.",
+    icon: Gem,
   },
   {
-    name: "GIA",
-    detail: "Optional documentation depends on stone type and availability.",
-    cn: "证书以石种和供应情况为准。",
+    title: "Ethical Choice",
+    copy: "A modern sourcing direction for clients who care about traceability, responsibility and transparency.",
+    icon: ShieldCheck,
   },
   {
-    name: "NGTC",
-    detail: "China-recognized testing support for eligible pieces.",
-    cn: "符合条件的款式可支持检测。",
+    title: "Better Value",
+    copy: "Moissanite, zirconia and lab-grown stones create strong price-to-sparkle advantages.",
+    icon: Star,
   },
   {
-    name: "S925",
-    detail: "Material mark and silver care guidance included.",
-    cn: "提供材质标识与银饰养护说明。",
+    title: "Certified Quality",
+    copy: "Certificate and testing options can be discussed by stone type, size and order needs.",
+    icon: BadgeCheck,
   },
 ];
 
-const reviews = [
+const factoryHighlights = [
   {
-    name: "Mia L.",
-    location: "Singapore",
-    quote:
-      "The ring is delicate but very bright. The team helped me choose the right stone size.",
-    cn: "戒指很精致，火彩比预期更亮，客服也帮我确认了合适尺寸。",
+    value: "15+ Years",
+    label: "Gemstone Production Experience",
+    copy: "Focused on premium loose stone production and stable repeat supply.",
   },
   {
-    name: "陈小姐",
-    location: "Shanghai",
-    quote:
-      "I ordered a S925 moissanite necklace first, then upgraded a custom K gold setting.",
-    cn: "先入了 S925 莫桑钻项链，后来又定制了 K 金镶嵌，沟通很顺。",
+    value: "1000+ sqm Laboratory",
+    label: "Testing and Production Space",
+    copy: "A dedicated gemstone environment for selection, testing and quality checks.",
   },
   {
-    name: "Olivia W.",
-    location: "Sydney",
-    quote:
-      "Soft, elegant packaging and a clean certificate explanation made the gift feel premium.",
-    cn: "包装温柔高级，证书说明也清楚，送礼很体面。",
+    value: "One-Stop Origin Factory",
+    label: "From Loose Stones to Finished Jewelry",
+    copy: "Integrated sourcing, stone production, setting, packaging and shipment support.",
+  },
+];
+
+const customCapabilities = [
+  {
+    title: "Photo-to-Sample Customization",
+    copy: "Send reference photos, stone size, metal preference and quantity. We can develop samples for review.",
+  },
+  {
+    title: "OEM / ODM Jewelry Production",
+    copy: "Private-label production support for overseas brands, online sellers and wholesale buyers.",
+  },
+  {
+    title: "Fine Jewelry Custom Manufacturing",
+    copy: "S925 silver, K gold settings, loose stone matching and premium finishing by project needs.",
+  },
+];
+
+const featuredProducts = [
+  {
+    name: "Moissanite Loose Stone Selection",
+    category: "Loose Stones",
+    material: "Round, oval, emerald and fancy cut options",
+    note: "Wholesale Moissanite Jewelry and OEM ready.",
+    image: "/images/xingyue-loose-stones.jpg",
+    alt: "Loose moissanite and lab-grown diamond stones",
+  },
+  {
+    name: "Lab-Grown Colored Gemstone Set",
+    category: "Colored Stones",
+    material: "Vivid custom color options for jewelry production",
+    note: "Suitable for bracelets, rings and custom collections.",
+    image: "/images/xingyue-colored-gemstones.jpg",
+    alt: "Lab-grown colored gemstone set on a dark surface",
+  },
+  {
+    name: "Custom Tennis Bracelet",
+    category: "Bracelets",
+    material: "S925 silver / K gold setting options",
+    note: "Sample, wholesale and private-label production supported.",
+    image: "/images/xingyue-tennis-bracelet.jpg",
+    alt: "Tennis bracelet product sample",
+  },
+];
+
+const faqs = [
+  {
+    question: "Can you produce jewelry from reference photos?",
+    answer:
+      "Yes. We support photo-to-sample customization for stones, settings, plating, packaging and private-label projects.",
+  },
+  {
+    question: "Do you support moissanite wholesale orders?",
+    answer:
+      "Yes. We support Wholesale Moissanite Jewelry inquiries, sample orders and repeat production discussions.",
+  },
+  {
+    question: "Can I request custom K gold settings?",
+    answer:
+      "Yes. Selected designs can be customized in 10K, 14K or 18K gold depending on style and quantity.",
   },
 ];
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/20 bg-[#0f1f33]/50 text-white backdrop-blur-md">
-        <nav
-          aria-label="Main navigation"
-          className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8"
-        >
-          <a href="#home" className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-white/10">
-              <Moon aria-hidden="true" className="h-4 w-4" />
-            </span>
-            <span className="font-serif text-lg">XINGYUE 星悦</span>
-          </a>
-          <div className="hidden items-center gap-7 text-sm text-white/82 lg:flex">
-            {navigation.map((item) => (
-              <a key={item.href} href={item.href} className="transition hover:text-white">
-                {item.label}
-              </a>
-            ))}
-          </div>
-          <a
-            href="#collections"
-            className="inline-flex items-center gap-2 rounded-md bg-[#e6cf96] px-4 py-2 text-sm font-medium text-[#17202a] transition hover:bg-[#f0dca8]"
-          >
-            View Collection
-            <ArrowRight aria-hidden="true" className="h-4 w-4" />
-          </a>
-        </nav>
-      </header>
+      <JsonLd data={websiteSchema()} />
+      <SiteHeader />
 
-      <section
-        id="home"
-        className="relative flex min-h-[84svh] items-center overflow-hidden bg-[#102039] px-5 pt-28 text-white sm:px-8"
-      >
+      <section className="relative min-h-[82svh] overflow-hidden bg-[#f8f6ef] px-5 py-24 sm:px-8 lg:py-28">
         <Image
-          src="/images/xingyue-hero.png"
-          alt="Moonlit silver ring and pendant jewelry with brilliant stones"
+          src="/images/xingyue-loose-moissanite.jpg"
+          alt="Luxury moissanite and lab-grown diamond close up"
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#071221]/92 via-[#071221]/54 to-[#071221]/14" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#f8f6ef] to-transparent" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl pb-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#fbfaf7]/96 via-[#fbfaf7]/84 to-[#fbfaf7]/20" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f8f6ef] to-transparent" />
+        <div className="relative z-10 mx-auto flex min-h-[62svh] max-w-7xl items-center">
           <div className="max-w-2xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/24 bg-white/10 px-4 py-2 text-sm text-white/88 backdrop-blur">
-              <Sparkles aria-hidden="true" className="h-4 w-4 text-[#e6cf96]" />
-              Moissanite, Lab-grown Diamond & S925 Silver
-            </div>
-            <p className="mb-4 text-sm uppercase text-[#e6cf96]">XINGYUE 星悦</p>
-            <h1 className="text-balance font-serif text-5xl leading-tight sm:text-6xl lg:text-7xl">
-              Moonlit jewelry for every luminous promise.
+            <p className="mb-5 text-sm uppercase text-[#9a7a36]">
+              {brand.name} One-Stop Jewelry Factory
+            </p>
+            <h1 className="text-balance font-serif text-5xl leading-tight text-[#17202a] sm:text-6xl lg:text-7xl">
+              Lab-Grown Diamond Jewelry
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-white/86">
-              莫桑钻、培育钻石与 S925 银托镶嵌珠宝，支持定制 K 金镶嵌。Soft sparkle,
-              transparent materials, and refined everyday luxury.
+            <p className="mt-6 text-2xl font-light text-[#8a734b]">
+              Ethical Brilliance, Modern Luxury
+            </p>
+            <p className="mt-6 max-w-xl leading-8 text-[#596575]">
+              Moissanite, Lab-Grown Diamonds, Lab-Grown Colored Gemstones,
+              Zirconia, Cuban Chains, Tennis Chains and custom fine jewelry
+              manufacturing for global buyers.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#collections"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#f1eadc]"
+              <Link
+                href="/collections"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
               >
-                Shop Collection
+                Explore Collection
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
-              </a>
-              <a
-                href="#custom"
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/38 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-[#cbb06e] bg-white/70 px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
               >
-                Custom Design
-                <Gem aria-hidden="true" className="h-4 w-4" />
-              </a>
+                Request a Quote
+                <Mail aria-hidden="true" className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-9 grid gap-3 sm:grid-cols-3">
+              {factoryHighlights.map((item) => (
+                <div
+                  key={item.value}
+                  className="rounded-md border border-[#e3dbcb] bg-white/76 p-4 shadow-sm backdrop-blur"
+                >
+                  <p className="font-serif text-2xl text-[#17202a]">{item.value}</p>
+                  <p className="mt-2 text-sm leading-6 text-[#596575]">{item.label}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section id="collections" className="bg-[#f8f6ef] px-5 py-20 sm:px-8">
+      <section className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-            <div>
-              <p className="mb-3 text-sm text-[#8a734b]">Collections / 产品分类</p>
-              <h2 className="font-serif text-4xl text-[#17202a]">Designed around your light.</h2>
-            </div>
-            <p className="max-w-xl leading-7 text-[#596575]">
-              From S925 silver daily pieces to K gold custom settings, XINGYUE keeps each
-              category focused, wearable and gift-ready.
-            </p>
+          <SectionHeading
+            eyebrow="Core Products"
+            title="Main product range for wholesale and custom orders."
+            copy="Real product visuals from loose stone supply to finished jewelry, selected for a cleaner overseas brand presentation."
+          />
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {coreProducts.map((product) => (
+              <article
+                key={product.title}
+                className="overflow-hidden rounded-md border border-[#e3dbcb] bg-white/86 shadow-sm"
+              >
+                <div className="relative aspect-[4/3] bg-[#f4efe3]">
+                  <Image
+                    src={product.image}
+                    alt={product.alt}
+                    fill
+                    sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h2 className="font-serif text-2xl text-[#17202a]">{product.title}</h2>
+                  <p className="mt-4 leading-7 text-[#596575]">{product.copy}</p>
+                  <Link
+                    href={product.href}
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#17202a]"
+                  >
+                    {product.cta}
+                    <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        </div>
+      </section>
+
+      <section className="bg-[#fbfaf7] px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Collections"
+            title="Jewelry categories for modern buyers."
+            copy="A clean product entry for international customers looking for elevated lab-grown diamond and moissanite jewelry."
+          />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {categories.map((category) => {
               const Icon = category.icon;
 
               return (
-                <article
-                  key={category.name}
-                  className="rounded-md border border-[#dfd7c6] bg-white/74 p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#d4b76d]"
-                >
-                  <div className="mb-8 flex h-11 w-11 items-center justify-center rounded-md bg-[#eef3f5] text-[#6e7f8b]">
+              <Link
+                key={category.title}
+                href={category.href}
+                className="group rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm transition hover:-translate-y-1 hover:border-[#cbb06e]"
+              >
+                  <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-md bg-[#f4efe3] text-[#a98945]">
                     <Icon aria-hidden="true" className="h-5 w-5" />
                   </div>
-                  <h3 className="font-serif text-2xl">{category.name}</h3>
-                  <p className="mt-1 text-base text-[#8a734b]">{category.cn}</p>
-                  <p className="mt-4 min-h-20 leading-7 text-[#596575]">{category.detail}</p>
-                  <p className="mt-5 border-t border-[#e5dece] pt-4 text-sm text-[#17202a]">
-                    {category.note}
-                  </p>
-                </article>
+                  <h2 className="font-serif text-2xl text-[#17202a]">{category.title}</h2>
+                  <p className="mt-5 leading-7 text-[#596575]">{category.copy}</p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#17202a]">
+                    View styles
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="h-4 w-4 transition group-hover:translate-x-1"
+                    />
+                  </span>
+                </Link>
               );
             })}
           </div>
         </div>
       </section>
 
-      <section id="custom" className="bg-[#eef3f5] px-5 py-20 sm:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div>
-            <p className="mb-3 text-sm text-[#8a734b]">Materials & Custom / 材质与定制</p>
-            <h2 className="text-balance font-serif text-4xl leading-tight text-[#17202a]">
-              Fine sparkle, flexible settings, clear choices.
-            </h2>
-            <p className="mt-6 leading-8 text-[#596575]">
-              主营莫桑钻、培育钻与 S925 银托镶嵌，适合日常佩戴、礼物和轻奢定制。
-              Selected designs can be made in K gold for engagement, anniversary and
-              bespoke orders.
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {materials.map((item) => {
-              const Icon = item.icon;
+      <section className="px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Advantages"
+            title="Why lab-grown diamonds and moissanite."
+            copy="Clear selling points for premium jewelry customers who want beauty, transparency and better value."
+          />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {advantages.map((advantage) => {
+              const Icon = advantage.icon;
 
               return (
                 <article
-                  key={item.title}
-                  className="rounded-md border border-white/70 bg-white/80 p-6 diamond-glow"
+                  key={advantage.title}
+                  className="rounded-md border border-[#e3dbcb] bg-[#fbfaf7] p-6"
                 >
-                  <Icon aria-hidden="true" className="mb-6 h-6 w-6 text-[#b59a5a]" />
-                  <h3 className="font-serif text-2xl text-[#17202a]">{item.title}</h3>
-                  <p className="mt-1 text-[#8a734b]">{item.cn}</p>
-                  <p className="mt-4 leading-7 text-[#596575]">{item.copy}</p>
+                  <Icon aria-hidden="true" className="mb-7 h-6 w-6 text-[#a98945]" />
+                  <h2 className="font-serif text-2xl">{advantage.title}</h2>
+                  <p className="mt-5 leading-7 text-[#596575]">{advantage.copy}</p>
                 </article>
               );
             })}
@@ -292,146 +396,166 @@ export default function Home() {
       </section>
 
       <section className="bg-[#17202a] px-5 py-20 text-white sm:px-8">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
           <div>
-            <p className="mb-3 text-sm text-[#e6cf96]">
-              Lab-grown & Moissanite Advantages / 培育钻与莫桑钻优势
-            </p>
+            <p className="mb-3 text-sm uppercase text-[#e6cf96]">Origin Factory</p>
             <h2 className="text-balance font-serif text-4xl leading-tight">
-              Brilliant choices for modern fine jewelry.
+              One-Stop Origin Factory for loose stones and fine jewelry.
+            </h2>
+            <p className="mt-6 leading-8 text-white/76">
+              XINGYUE focuses on premium loose stone production and high-end
+              jewelry customization, supporting overseas brands from product
+              development to finished goods.
+            </p>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {factoryHighlights.map((item) => (
+                <div key={item.value} className="rounded-md border border-white/12 bg-white/7 p-5">
+                  <p className="font-serif text-3xl text-[#e6cf96]">{item.value}</p>
+                  <p className="mt-3 text-sm leading-6 text-white/72">{item.copy}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative min-h-[420px] overflow-hidden rounded-md border border-white/12 bg-white/7">
+            <Image
+              src="/images/xingyue-certificate-testing.jpg"
+              alt="Gemstone certificate testing and quality control"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#fbfaf7] px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Customization"
+            title="Photo-based custom work and OEM production."
+            copy="Built for brands and sellers who need dependable factory communication, sample development and repeat production."
+          />
+          <div className="grid gap-4 lg:grid-cols-3">
+            {customCapabilities.map((capability) => (
+              <article
+                key={capability.title}
+                className="rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm"
+              >
+                <Sparkles aria-hidden="true" className="mb-7 h-6 w-6 text-[#a98945]" />
+                <h2 className="font-serif text-2xl">{capability.title}</h2>
+                <p className="mt-5 leading-7 text-[#596575]">{capability.copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Featured Products"
+            title="Featured Products"
+            copy="Selected loose stones and finished jewelry examples for wholesale, OEM and private-label inquiries."
+          />
+          <div className="grid gap-4 lg:grid-cols-3">
+            {featuredProducts.map((product) => (
+              <article
+                key={product.name}
+                className="overflow-hidden rounded-md border border-[#e3dbcb] bg-white/86 shadow-sm"
+              >
+                <div className="relative aspect-[4/3] bg-[#f4efe3]">
+                  <Image
+                    src={product.image}
+                    alt={product.alt}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <p className="text-sm text-[#8a734b]">{product.category}</p>
+                  <h2 className="mt-2 font-serif text-2xl">{product.name}</h2>
+                  <p className="mt-4 leading-7 text-[#596575]">{product.material}</p>
+                  <p className="mt-4 border-t border-[#e7ddc8] pt-4 text-sm text-[#344150]">
+                    {product.note}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#17202a] px-5 py-20 text-white sm:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="mb-3 text-sm uppercase text-[#e6cf96]">About</p>
+            <h2 className="text-balance font-serif text-4xl leading-tight">
+              About XINGYUE
             </h2>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {advantages.map((advantage, index) => (
-              <div key={advantage} className="rounded-md border border-white/12 bg-white/7 p-5">
-                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-md bg-white/10 text-[#e6cf96]">
-                  <Star aria-hidden="true" className="h-4 w-4" />
-                </div>
-                <p className="leading-7 text-white/82">
-                  <span className="mr-2 text-[#e6cf96]">0{index + 1}</span>
-                  {advantage}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="certificates" className="bg-[#fbfaf7] px-5 py-20 sm:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-            <div>
-              <p className="mb-3 text-sm text-[#8a734b]">Certificates / 证书与保障</p>
-              <h2 className="font-serif text-4xl text-[#17202a]">Clarity before sparkle.</h2>
-            </div>
-            <p className="max-w-2xl leading-7 text-[#596575]">
-              Certificate availability depends on stone type, size and order details. We keep
-              material notes transparent before production.
+          <div className="space-y-5 leading-8 text-white/76">
+            <p>
+              XINGYUE is a one-stop origin factory specializing in moissanite,
+              lab-grown diamonds, lab-grown colored gemstones, zirconia and
+              premium jewelry customization.
+            </p>
+            <p>
+              With 15+ years of gemstone production experience and a 1000+ sqm
+              laboratory, we support loose stone production, S925 silver jewelry,
+              K gold custom settings, OEM / ODM production and overseas wholesale
+              inquiries.
             </p>
           </div>
-          <div className="grid gap-4 md:grid-cols-4">
-            {certificates.map((certificate) => (
-              <article
-                key={certificate.name}
-                className="rounded-md border border-[#e3dbcb] bg-[#f8f6ef] p-6"
-              >
-                <Medal aria-hidden="true" className="mb-8 h-6 w-6 text-[#b59a5a]" />
-                <h3 className="font-serif text-3xl text-[#17202a]">{certificate.name}</h3>
-                <p className="mt-4 leading-7 text-[#596575]">{certificate.detail}</p>
-                <p className="mt-3 text-sm text-[#8a734b]">{certificate.cn}</p>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
 
-      <section id="reviews" className="bg-[#eef3f5] px-5 py-20 sm:px-8">
+      <section className="bg-[#fbfaf7] px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-10">
-            <p className="mb-3 text-sm text-[#8a734b]">Reviews / 客户评价</p>
-            <h2 className="font-serif text-4xl text-[#17202a]">Quiet luxury, warmly received.</h2>
-          </div>
+          <SectionHeading
+            eyebrow="FAQ"
+            title="FAQ"
+            copy="Short answers for first-time buyers before they request a quote."
+          />
           <div className="grid gap-4 lg:grid-cols-3">
-            {reviews.map((review) => (
-              <article key={review.name} className="rounded-md bg-white/82 p-6 shadow-sm">
-                <Quote aria-hidden="true" className="mb-7 h-7 w-7 text-[#b59a5a]" />
-                <p className="min-h-28 leading-8 text-[#344150]">“{review.quote}”</p>
-                <p className="mt-5 leading-7 text-[#596575]">{review.cn}</p>
-                <div className="mt-7 border-t border-[#e3dbcb] pt-5">
-                  <p className="font-semibold text-[#17202a]">{review.name}</p>
-                  <p className="text-sm text-[#8a734b]">{review.location}</p>
-                </div>
+            {faqs.map((faq) => (
+              <article
+                key={faq.question}
+                className="rounded-md border border-[#e3dbcb] bg-white/86 p-6"
+              >
+                <HelpCircle aria-hidden="true" className="mb-6 h-6 w-6 text-[#a98945]" />
+                <h2 className="font-serif text-2xl">{faq.question}</h2>
+                <p className="mt-5 leading-7 text-[#596575]">{faq.answer}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#f8f6ef] px-5 py-20 sm:px-8">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-md bg-[#17202a] p-8 text-white md:p-12">
-          <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+      <section className="px-5 py-20 sm:px-8">
+        <div className="mx-auto max-w-7xl rounded-md bg-[#f4efe3] p-8 md:p-12">
+          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
-              <p className="mb-3 text-sm text-[#e6cf96]">Official Domain / 官方独立站域名</p>
-              <h2 className="font-serif text-4xl">xingyuejewelry.com</h2>
-              <p className="mt-5 max-w-2xl leading-8 text-white/76">
-                The official online boutique for XINGYUE 星悦 collections, custom requests,
-                certificate support and new jewelry launches.
+              <p className="mb-3 text-sm uppercase text-[#8a734b]">Contact</p>
+              <h2 className="font-serif text-4xl">Ready to build your jewelry collection?</h2>
+              <p className="mt-5 max-w-2xl leading-8 text-[#596575]">
+                Send your target style, reference photo, stone size, metal,
+                certificate needs and quantity. We will prepare the next step for
+                your quote.
               </p>
             </div>
-            <a
-              href="mailto:hello@xingyuejewelry.com"
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#e6cf96] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#f0dca8]"
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
             >
-              Contact Studio
-              <Mail aria-hidden="true" className="h-4 w-4" />
-            </a>
+              Request a Quote
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
 
-      <footer id="contact" className="bg-[#0f1722] px-5 py-14 text-white sm:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
-          <div>
-            <div className="mb-5 flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/24 bg-white/8">
-                <Moon aria-hidden="true" className="h-4 w-4 text-[#e6cf96]" />
-              </span>
-              <span className="font-serif text-xl">XINGYUE 星悦</span>
-            </div>
-            <p className="max-w-sm leading-7 text-white/68">
-              Moissanite, lab-grown diamond, S925 silver and custom K gold jewelry with a
-              softly luminous point of view.
-            </p>
-          </div>
-          <div>
-            <h3 className="mb-4 text-sm text-[#e6cf96]">Products</h3>
-            <ul className="space-y-3 text-sm text-white/68">
-              <li>Rings / 戒指</li>
-              <li>Necklaces / 项链</li>
-              <li>Earrings / 耳饰</li>
-              <li>Bracelets / 手链</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 text-sm text-[#e6cf96]">Services</h3>
-            <ul className="space-y-3 text-sm text-white/68">
-              <li>K Gold Custom / K 金定制</li>
-              <li>Stone Selection / 石种选择</li>
-              <li>Certificate Support / 证书支持</li>
-              <li>Gift Orders / 礼品订单</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 text-sm text-[#e6cf96]">Contact</h3>
-            <ul className="space-y-3 text-sm text-white/68">
-              <li>xingyuejewelry.com</li>
-              <li>hello@xingyuejewelry.com</li>
-              <li>Instagram / WeChat</li>
-              <li>© 2026 XINGYUE</li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

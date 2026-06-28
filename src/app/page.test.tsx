@@ -2,18 +2,59 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import Home from "./page";
 
+const matchText = (value: string) =>
+  new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
+
 describe("XINGYUE homepage", () => {
-  it("renders the required bilingual jewelry homepage sections", () => {
-    render(<Home />);
+  it("renders the required luxury jewelry home page sections", () => {
+    const { container } = render(<Home />);
 
     expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/星悦/).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Moissanite/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Lab-grown Diamond/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/S925 Silver/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/K Gold Custom/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Certificates/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/IGI/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/xingyuejewelry.com/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole("heading", { name: /Lab-Grown Diamond Jewelry/i })).toBeInTheDocument();
+    expect(screen.getByText(/Ethical Brilliance, Modern Luxury/i)).toBeInTheDocument();
+
+    for (const category of ["Rings", "Necklaces", "Earrings", "Bracelets"]) {
+      expect(screen.getAllByText(new RegExp(category, "i")).length).toBeGreaterThan(0);
+    }
+
+    for (const advantage of [
+      "Real Diamond",
+      "Ethical Choice",
+      "Better Value",
+      "Certified Quality",
+    ]) {
+      expect(screen.getAllByText(new RegExp(advantage, "i")).length).toBeGreaterThan(0);
+    }
+
+    expect(screen.getByRole("heading", { name: /Featured Products/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /About XINGYUE/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /FAQ/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/Request a Quote/i).length).toBeGreaterThan(0);
+
+    for (const product of [
+      "Moissanite",
+      "Lab-Grown Diamonds",
+      "Lab-Grown Colored Gemstones",
+      "Zirconia",
+      "Cuban Chains",
+      "Tennis Chains",
+    ]) {
+      expect(screen.getAllByText(matchText(product)).length).toBeGreaterThan(0);
+    }
+
+    for (const capability of [
+      "Photo-to-Sample Customization",
+      "OEM / ODM Jewelry Production",
+      "15+ Years",
+      "1000+ sqm Laboratory",
+      "One-Stop Origin Factory",
+    ]) {
+      expect(screen.getAllByText(matchText(capability)).length).toBeGreaterThan(0);
+    }
+
+    expect(screen.getAllByText(/Wholesale Moissanite Jewelry/i).length).toBeGreaterThan(0);
+    expect(container.textContent).not.toMatch(
+      /Moissanite Diamond Wholesale|first homepage version|can be added later|Sample Products/i,
+    );
   });
 });
