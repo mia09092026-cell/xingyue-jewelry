@@ -11,6 +11,7 @@ export function organizationSchema() {
     "@type": "Organization",
     name: siteConfig.name,
     url: siteConfig.url,
+    logo: absoluteUrl("/logo-star-moon.png"),
     email: siteConfig.email,
     description: siteConfig.description,
   };
@@ -47,6 +48,21 @@ export function itemListSchema(items: LinkItem[]) {
       position: index + 1,
       name: item.name,
       url: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function faqPageSchema(items: Array<{ question: string; answer: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
     })),
   };
 }

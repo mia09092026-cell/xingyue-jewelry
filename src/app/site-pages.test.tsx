@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import AboutPage from "./about/page";
 import CollectionsPage from "./collections/page";
@@ -48,6 +48,12 @@ describe("XINGYUE independent site pages", () => {
     expect(
       screen.getByRole("link", { name: /Back to Wholesale Moissanite Jewelry/i }),
     ).toHaveAttribute("href", "/collections/moissanite-wholesale");
+    const breadcrumb = screen.getByRole("navigation", { name: "Breadcrumb" });
+    expect(breadcrumb).toBeInTheDocument();
+    expect(within(breadcrumb).getByRole("link", { name: "Wholesale Moissanite Jewelry" })).toHaveAttribute(
+      "href",
+      "/collections/moissanite-wholesale",
+    );
   });
 
   it("renders the Education page", () => {

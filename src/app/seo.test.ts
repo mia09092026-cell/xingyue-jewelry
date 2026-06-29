@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { statSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { collectionLandingPages } from "@/lib/collection-data";
 import { collectionCategories, products } from "@/lib/site-data";
@@ -14,6 +14,7 @@ describe("SEO foundations", () => {
 
     expect(value.sitemap).toBe("https://xingyuejewelry.com/sitemap.xml");
     expect(value.rules).toContainEqual({ userAgent: "OAI-SearchBot", allow: "/" });
+    expect(value.rules).toContainEqual({ userAgent: "ChatGPT-User", allow: "/" });
     expect(value.rules).toContainEqual({ userAgent: "GPTBot", disallow: "/" });
   });
 
@@ -77,5 +78,13 @@ describe("SEO foundations", () => {
     ];
 
     expect(publicImagePaths).not.toContain("/images/b2b-manual-setting-workshop.jpg");
+  });
+
+  it("publishes an AI-readable site summary for GEO discovery", () => {
+    const value = readFileSync(resolve("public/llms.txt"), "utf8");
+
+    expect(value).toContain("https://xingyuejewelry.com/sitemap.xml");
+    expect(value).toContain("/collections/moissanite-wholesale");
+    expect(value).toContain("/contact");
   });
 });

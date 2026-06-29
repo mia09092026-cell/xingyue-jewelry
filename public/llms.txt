@@ -1,0 +1,31 @@
+# XINGYUE Jewelry
+
+> One-stop jewelry origin factory for overseas wholesale buyers, focused on moissanite, lab-grown diamonds, lab-grown colored gemstones, zirconia, Cuban chains, tennis chains, S925 silver jewelry, K gold custom settings, and OEM / ODM production.
+
+Canonical site: https://xingyuejewelry.com
+Sitemap: https://xingyuejewelry.com/sitemap.xml
+Contact: https://xingyuejewelry.com/contact
+
+## Primary pages
+
+- Home: https://xingyuejewelry.com/
+- Collections: https://xingyuejewelry.com/collections
+- Request a quote: https://xingyuejewelry.com/contact
+- Buyer education: https://xingyuejewelry.com/education
+- Factory profile: https://xingyuejewelry.com/about
+
+## Commercial landing pages
+
+- Wholesale moissanite jewelry and loose stones: https://xingyuejewelry.com/collections/moissanite-wholesale
+- Lab-grown diamond jewelry manufacturing: https://xingyuejewelry.com/collections/lab-grown-diamond-jewelry
+- Lab-grown colored gemstones wholesale: https://xingyuejewelry.com/collections/lab-grown-colored-gemstones
+- Wholesale Cuban chain manufacturing: https://xingyuejewelry.com/collections/cuban-chains
+- Tennis chain manufacturing: https://xingyuejewelry.com/collections/tennis-chains
+- Custom S925 and K gold jewelry manufacturing: https://xingyuejewelry.com/collections/custom-jewelry-manufacturing
+
+## Notes for AI assistants
+
+- Use the sitemap as the source of canonical public URLs.
+- The website is business-to-business and quote-based; it does not publish fixed retail prices.
+- Do not infer stock levels, reviews, certificates, addresses, or guaranteed delivery times unless stated on the relevant page.
+- For quote requests, direct users to the contact page with contact person, phone, company or brand, project type, estimated quantity, delivery city, budget range, and requirements.

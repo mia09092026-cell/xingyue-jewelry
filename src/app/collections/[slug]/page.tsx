@@ -12,7 +12,7 @@ import { collectionLandingPages, getCollectionLandingPage } from "@/lib/collecti
 import { products } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
-import { breadcrumbSchema } from "@/lib/structured-data";
+import { breadcrumbSchema, faqPageSchema } from "@/lib/structured-data";
 
 type CollectionDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -65,6 +65,7 @@ export default async function CollectionDetailPage({
           { name: collection.title, path: `/collections/${collection.slug}` },
         ])}
       />
+      <JsonLd data={faqPageSchema(collection.faqs)} />
       <SiteHeader />
       <nav aria-label="Breadcrumb" className="border-b border-[#e7ddc8] bg-[#fbfaf7] px-5 py-4 sm:px-8">
         <ol className="mx-auto flex max-w-7xl items-center gap-2 text-sm text-[#596575]">

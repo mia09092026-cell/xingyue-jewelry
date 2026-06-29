@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   breadcrumbSchema,
+  faqPageSchema,
   itemListSchema,
   organizationSchema,
   productSchema,
@@ -13,6 +14,7 @@ describe("structured data", () => {
 
     expect(schema["@type"]).toBe("Organization");
     expect(schema.url).toBe("https://xingyuejewelry.com");
+    expect(schema.logo).toBe("https://xingyuejewelry.com/logo-star-moon.png");
     expect(schema).not.toHaveProperty("aggregateRating");
     expect(schema).not.toHaveProperty("address");
   });
@@ -39,5 +41,19 @@ describe("structured data", () => {
     expect(schema).not.toHaveProperty("review");
     expect(schema).not.toHaveProperty("aggregateRating");
     expect(schema).not.toHaveProperty("inventoryLevel");
+  });
+
+  it("builds FAQPage structured data from visible buyer questions", () => {
+    const schema = faqPageSchema([
+      {
+        question: "Can you produce jewelry from reference photos?",
+        answer: "Yes. We support photo-to-sample customization for buyer projects.",
+      },
+    ]);
+
+    expect(schema["@type"]).toBe("FAQPage");
+    expect(schema.mainEntity[0].acceptedAnswer.text).toContain(
+      "photo-to-sample customization",
+    );
   });
 });

@@ -55,11 +55,45 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
           { name: "Collections", path: "/collections" },
+          ...(collection
+            ? [
+                {
+                  name: collection.title,
+                  path: `/collections/${collection.slug}`,
+                },
+              ]
+            : []),
           { name: product.name, path: `/products/${product.slug}` },
         ])}
       />
       <JsonLd data={productSchema(product)} />
       <SiteHeader />
+      <nav aria-label="Breadcrumb" className="border-b border-[#e7ddc8] bg-[#fbfaf7] px-5 py-4 sm:px-8">
+        <ol className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 text-sm text-[#596575]">
+          <li>
+            <Link href="/" className="transition hover:text-[#17202a]">Home</Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <Link href="/collections" className="transition hover:text-[#17202a]">Collections</Link>
+          </li>
+          {collection ? (
+            <>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link
+                  href={`/collections/${collection.slug}`}
+                  className="transition hover:text-[#17202a]"
+                >
+                  {collection.eyebrow}
+                </Link>
+              </li>
+            </>
+          ) : null}
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" className="text-[#17202a]">{product.name}</li>
+        </ol>
+      </nav>
       <PageHero
         eyebrow="Wholesale Product"
         title={product.name}

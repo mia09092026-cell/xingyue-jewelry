@@ -20,7 +20,12 @@ describe("collection landing pages", () => {
       params: Promise.resolve({ slug: "moissanite-wholesale" }),
     });
 
-    render(page);
+    const { container } = render(page);
+    const faqJsonLd = Array.from(
+      container.querySelectorAll('script[type="application/ld+json"]'),
+    )
+      .map((script) => JSON.parse(script.textContent || "{}"))
+      .find((schema) => schema["@type"] === "FAQPage");
 
     expect(
       screen.getByRole("heading", { name: "Wholesale Moissanite Jewelry & Loose Stones" }),
@@ -46,6 +51,7 @@ describe("collection landing pages", () => {
       "href",
       "/contact",
     );
+    expect(faqJsonLd?.mainEntity.length).toBeGreaterThanOrEqual(3);
   });
 
   it("generates tennis chain metadata from the collection entry", async () => {

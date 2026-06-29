@@ -10,7 +10,11 @@ describe("XINGYUE homepage", () => {
     const { container } = render(<Home />);
 
     expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
-    expect(screen.getByRole("heading", { name: /Lab-Grown Diamond Jewelry/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: /Moissanite & Lab-Grown Diamond Jewelry Manufacturer/i,
+      }),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Ethical Brilliance, Modern Luxury/i)).toBeInTheDocument();
 
     for (const category of ["Rings", "Necklaces", "Earrings", "Bracelets"]) {
@@ -56,5 +60,17 @@ describe("XINGYUE homepage", () => {
     expect(container.textContent).not.toMatch(
       /Moissanite Diamond Wholesale|first homepage version|can be added later|Sample Products/i,
     );
+  });
+
+  it("renders visible FAQ content and matching FAQPage JSON-LD", () => {
+    const { container } = render(<Home />);
+    const faqJsonLd = Array.from(
+      container.querySelectorAll('script[type="application/ld+json"]'),
+    )
+      .map((script) => JSON.parse(script.textContent || "{}"))
+      .find((schema) => schema["@type"] === "FAQPage");
+
+    expect(screen.getByText("Can you produce jewelry from reference photos?")).toBeInTheDocument();
+    expect(faqJsonLd?.mainEntity).toHaveLength(3);
   });
 });

@@ -18,7 +18,7 @@ import { SiteHeader } from "@/components/site-header";
 import { brand } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
-import { websiteSchema } from "@/lib/structured-data";
+import { faqPageSchema, websiteSchema } from "@/lib/structured-data";
 
 export const metadata = createPageMetadata({
   title: "Moissanite & Lab-Grown Diamond Jewelry Manufacturer | XINGYUE",
@@ -234,6 +234,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
       <JsonLd data={websiteSchema()} />
+      <JsonLd data={faqPageSchema(faqs)} />
       <SiteHeader />
 
       <section className="relative min-h-[82svh] overflow-hidden bg-[#f8f6ef] px-5 py-24 sm:px-8 lg:py-28">
@@ -253,7 +254,7 @@ export default function Home() {
               {brand.name} One-Stop Jewelry Factory
             </p>
             <h1 className="text-balance font-serif text-5xl leading-tight text-[#17202a] sm:text-6xl lg:text-7xl">
-              Lab-Grown Diamond Jewelry
+              Moissanite & Lab-Grown Diamond Jewelry Manufacturer
             </h1>
             <p className="mt-6 text-2xl font-light text-[#8a734b]">
               Ethical Brilliance, Modern Luxury
