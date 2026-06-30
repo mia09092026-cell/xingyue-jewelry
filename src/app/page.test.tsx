@@ -21,6 +21,15 @@ describe("XINGYUE homepage", () => {
       expect(screen.getAllByText(new RegExp(category, "i")).length).toBeGreaterThan(0);
     }
 
+    for (const categoryImage of [
+      "Rings jewelry category sample",
+      "Necklaces jewelry category sample",
+      "Earrings jewelry category sample",
+      "Bracelets jewelry category sample",
+    ]) {
+      expect(screen.getByAltText(categoryImage)).toBeInTheDocument();
+    }
+
     for (const advantage of [
       "Real Diamond",
       "Ethical Choice",

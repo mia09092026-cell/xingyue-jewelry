@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { brand } from "@/lib/site-data";
+import { getLanguageAlternates } from "@/lib/i18n";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -14,6 +15,7 @@ export const metadata: Metadata = createPageMetadata({
   description:
     "Request a wholesale quote for moissanite, lab-grown diamonds, S925 silver jewelry, custom K gold settings and OEM production.",
   path: "/contact",
+  languages: getLanguageAlternates("/contact"),
 });
 
 const emailHref = `mailto:${brand.email}`;
@@ -56,8 +58,14 @@ export default function ContactPage() {
               </div>
               <div className="rounded-md border border-[#e3dbcb] bg-white/86 p-5">
                 <Mail aria-hidden="true" className="mb-4 h-5 w-5 text-[#a98945]" />
-                <h2 className="font-serif text-xl">Direct Email</h2>
+                <h2 className="font-serif text-xl">Email / WhatsApp</h2>
                 <p className="mt-3 break-all text-sm text-[#596575]">{brand.email}</p>
+                <a
+                  href={brand.whatsappHref}
+                  className="mt-2 inline-flex text-sm font-semibold text-[#17202a] transition hover:text-[#8a734b]"
+                >
+                  {brand.whatsapp}
+                </a>
               </div>
               <div className="rounded-md border border-[#e3dbcb] bg-white/86 p-5">
                 <PackageCheck aria-hidden="true" className="mb-4 h-5 w-5 text-[#a98945]" />

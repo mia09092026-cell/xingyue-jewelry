@@ -2,6 +2,8 @@ export const brand = {
   name: "XINGYUE",
   domain: "xingyuejewelry.com",
   email: "hello@xingyuejewelry.com",
+  whatsapp: "+8613324888759",
+  whatsappHref: "https://wa.me/8613324888759",
   tagline: "Moissanite Wholesale & Lab-Grown Diamond Jewelry",
 };
 

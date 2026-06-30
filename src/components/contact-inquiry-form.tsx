@@ -10,8 +10,10 @@ import {
   type ContactInquiryField,
   type ContactInquiryFieldErrors,
 } from "@/lib/contact-inquiry";
+import type { ContactFormCopy } from "@/content/i18n";
 
 type ContactInquiryFormProps = {
+  content?: ContactFormCopy;
   emailHref: string;
 };
 
@@ -35,15 +37,53 @@ const initialInquiry: ContactInquiry = {
 const inputClassName =
   "mt-2 w-full rounded-md border border-[#d8cfbc] bg-[#fbfaf7] px-4 py-3 outline-none transition focus:border-[#a98945]";
 
+const defaultContactFormCopy: ContactFormCopy = {
+  introTitle: "Quote-ready inquiry form",
+  introCopy:
+    "Submit the core project details our team needs before sample discussion: contact, quantity, delivery city, budget and production requirements.",
+  fieldLabels: {
+    contactName: contactInquiryFieldLabels.contactName,
+    phone: contactInquiryFieldLabels.phone,
+    companyBrand: contactInquiryFieldLabels.companyBrand,
+    projectType: contactInquiryFieldLabels.projectType,
+    estimatedQuantity: contactInquiryFieldLabels.estimatedQuantity,
+    deliveryCity: contactInquiryFieldLabels.deliveryCity,
+    budgetRange: contactInquiryFieldLabels.budgetRange,
+    requirements: contactInquiryFieldLabels.requirements,
+  },
+  placeholders: {
+    contactName: "Your name",
+    phone: "Phone, WhatsApp or WeChat",
+    companyBrand: "Company or brand name",
+    projectType: "Select project type",
+    estimatedQuantity: "Sample, 100 pieces, 500 pieces...",
+    deliveryCity: "City and country",
+    budgetRange: "Select budget range",
+    requirements:
+      "Reference style, stone size, metal, certificate, packaging, timeline and any quality requirements...",
+  },
+  projectTypes: [...contactProjectTypes],
+  budgetRanges: [...contactBudgetRanges],
+  submitting: "Submitting...",
+  submit: "Submit Inquiry",
+  email: "Email Your Inquiry",
+  successTitle: "Inquiry submitted",
+  successMessage: "Inquiry submitted.",
+  errorFallback: "The inquiry could not be submitted. Please email us directly.",
+  validationPrefix: "Please complete",
+};
+
 function FieldLabel({
   field,
+  labels,
 }: {
   field: ContactInquiryField;
+  labels: ContactFormCopy["fieldLabels"];
 }) {
-  return <span className="text-sm font-medium text-[#344150]">{contactInquiryFieldLabels[field]}</span>;
+  return <span className="text-sm font-medium text-[#344150]">{labels[field]}</span>;
 }
 
-export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
+export function ContactInquiryForm({ content = defaultContactFormCopy, emailHref }: ContactInquiryFormProps) {
   const [formData, setFormData] = useState<ContactInquiry>(initialInquiry);
   const [fieldErrors, setFieldErrors] = useState<ContactInquiryFieldErrors>({});
   const [submitState, setSubmitState] = useState<SubmitState>({
@@ -56,21 +96,21 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
     const subject = encodeURIComponent("XINGYUE Wholesale Jewelry Inquiry");
     const body = encodeURIComponent(
       [
-        `Contact Person: ${formData.contactName}`,
-        `Phone / WhatsApp: ${formData.phone}`,
-        `Company / Brand: ${formData.companyBrand}`,
-        `Project Type: ${formData.projectType}`,
-        `Estimated Quantity: ${formData.estimatedQuantity}`,
-        `Delivery City: ${formData.deliveryCity}`,
-        `Budget Range: ${formData.budgetRange}`,
+        `${content.fieldLabels.contactName}: ${formData.contactName}`,
+        `${content.fieldLabels.phone}: ${formData.phone}`,
+        `${content.fieldLabels.companyBrand}: ${formData.companyBrand}`,
+        `${content.fieldLabels.projectType}: ${formData.projectType}`,
+        `${content.fieldLabels.estimatedQuantity}: ${formData.estimatedQuantity}`,
+        `${content.fieldLabels.deliveryCity}: ${formData.deliveryCity}`,
+        `${content.fieldLabels.budgetRange}: ${formData.budgetRange}`,
         "",
-        "Requirements:",
+        `${content.fieldLabels.requirements}:`,
         formData.requirements,
       ].join("\n"),
     );
 
     return `${emailHref}${querySeparator}subject=${subject}&body=${body}`;
-  }, [emailHref, formData]);
+  }, [content.fieldLabels, emailHref, formData]);
 
   const updateField = (field: ContactInquiryField, value: string) => {
     setFormData((current) => ({ ...current, [field]: value }));
@@ -83,7 +123,7 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitState({ status: "submitting", message: "Submitting inquiry..." });
+    setSubmitState({ status: "submitting", message: content.submitting });
     setFieldErrors({});
 
     try {
@@ -103,23 +143,28 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
         setFieldErrors(payload.fieldErrors ?? {});
         setSubmitState({
           status: "error",
-          message: payload.message ?? "Please review the required fields and try again.",
+          message: payload.message ?? `${content.validationPrefix}.`,
         });
         return;
       }
 
       setSubmitState({
         status: "success",
-        message: payload.message ?? "Inquiry submitted.",
+        message: payload.message ?? content.successMessage,
         reference: payload.reference,
       });
     } catch {
       setSubmitState({
         status: "error",
-        message: "The inquiry could not be submitted. Please email us directly.",
+        message: content.errorFallback,
       });
     }
   }
+
+  const displayedFieldErrors = Object.keys(fieldErrors).map((field) => {
+    const contactField = field as ContactInquiryField;
+    return content.fieldLabels[contactField] ?? fieldErrors[contactField];
+  });
 
   return (
     <form
@@ -129,19 +174,18 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
       <div className="mb-6 rounded-md border border-[#eadfca] bg-[#fbfaf7] p-4 text-sm leading-6 text-[#596575]">
         <div className="mb-2 flex items-center gap-2 font-semibold text-[#17202a]">
           <ShieldCheck aria-hidden="true" className="h-4 w-4 text-[#a98945]" />
-          Quote-ready inquiry form
+          {content.introTitle}
         </div>
-        Submit the core project details our team needs before sample discussion:
-        contact, quantity, delivery city, budget and production requirements.
+        {content.introCopy}
       </div>
 
       <div className="grid gap-5 md:grid-cols-2">
         <label className="block">
-          <FieldLabel field="contactName" />
+          <FieldLabel field="contactName" labels={content.fieldLabels} />
           <input
             className={inputClassName}
             name="contactName"
-            placeholder="Your name"
+            placeholder={content.placeholders.contactName}
             type="text"
             value={formData.contactName}
             onChange={(event) => updateField("contactName", event.target.value)}
@@ -149,11 +193,11 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
           />
         </label>
         <label className="block">
-          <FieldLabel field="phone" />
+          <FieldLabel field="phone" labels={content.fieldLabels} />
           <input
             className={inputClassName}
             name="phone"
-            placeholder="Phone, WhatsApp or WeChat"
+            placeholder={content.placeholders.phone}
             type="tel"
             value={formData.phone}
             onChange={(event) => updateField("phone", event.target.value)}
@@ -161,11 +205,11 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
           />
         </label>
         <label className="block">
-          <FieldLabel field="companyBrand" />
+          <FieldLabel field="companyBrand" labels={content.fieldLabels} />
           <input
             className={inputClassName}
             name="companyBrand"
-            placeholder="Company or brand name"
+            placeholder={content.placeholders.companyBrand}
             type="text"
             value={formData.companyBrand}
             onChange={(event) => updateField("companyBrand", event.target.value)}
@@ -173,7 +217,7 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
           />
         </label>
         <label className="block">
-          <FieldLabel field="projectType" />
+          <FieldLabel field="projectType" labels={content.fieldLabels} />
           <select
             name="projectType"
             className={inputClassName}
@@ -181,8 +225,8 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
             onChange={(event) => updateField("projectType", event.target.value)}
             required
           >
-            <option value="">Select project type</option>
-            {contactProjectTypes.map((option) => (
+            <option value="">{content.placeholders.projectType}</option>
+            {content.projectTypes.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -190,11 +234,11 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
           </select>
         </label>
         <label className="block">
-          <FieldLabel field="estimatedQuantity" />
+          <FieldLabel field="estimatedQuantity" labels={content.fieldLabels} />
           <input
             className={inputClassName}
             name="estimatedQuantity"
-            placeholder="Sample, 100 pieces, 500 pieces..."
+            placeholder={content.placeholders.estimatedQuantity}
             type="text"
             value={formData.estimatedQuantity}
             onChange={(event) => updateField("estimatedQuantity", event.target.value)}
@@ -202,11 +246,11 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
           />
         </label>
         <label className="block">
-          <FieldLabel field="deliveryCity" />
+          <FieldLabel field="deliveryCity" labels={content.fieldLabels} />
           <input
             className={inputClassName}
             name="deliveryCity"
-            placeholder="City and country"
+            placeholder={content.placeholders.deliveryCity}
             type="text"
             value={formData.deliveryCity}
             onChange={(event) => updateField("deliveryCity", event.target.value)}
@@ -214,7 +258,7 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
           />
         </label>
         <label className="block md:col-span-2">
-          <FieldLabel field="budgetRange" />
+          <FieldLabel field="budgetRange" labels={content.fieldLabels} />
           <select
             name="budgetRange"
             className={inputClassName}
@@ -222,8 +266,8 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
             onChange={(event) => updateField("budgetRange", event.target.value)}
             required
           >
-            <option value="">Select budget range</option>
-            {contactBudgetRanges.map((option) => (
+            <option value="">{content.placeholders.budgetRange}</option>
+            {content.budgetRanges.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -233,11 +277,11 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
       </div>
 
       <label className="mt-5 block">
-        <FieldLabel field="requirements" />
+        <FieldLabel field="requirements" labels={content.fieldLabels} />
         <textarea
           className="mt-2 min-h-44 w-full rounded-md border border-[#d8cfbc] bg-[#fbfaf7] px-4 py-3 outline-none transition focus:border-[#a98945]"
           name="requirements"
-          placeholder="Reference style, stone size, metal, certificate, packaging, timeline and any quality requirements..."
+          placeholder={content.placeholders.requirements}
           value={formData.requirements}
           onChange={(event) => updateField("requirements", event.target.value)}
           required
@@ -246,7 +290,7 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
 
       {Object.keys(fieldErrors).length > 0 ? (
         <div className="mt-5 rounded-md border border-[#e8c6ba] bg-[#fff7f3] p-4 text-sm text-[#8a3f2c]">
-          Please complete: {Object.values(fieldErrors).join(", ")}.
+          {content.validationPrefix}: {displayedFieldErrors.join(", ")}.
         </div>
       ) : null}
 
@@ -255,7 +299,7 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
           <div className="rounded-md border border-[#c8dfc6] bg-[#f5fbf4] p-4 text-sm leading-6 text-[#28552d]">
             <div className="flex items-center gap-2 font-semibold">
               <CheckCircle2 aria-hidden="true" className="h-4 w-4" />
-              Inquiry submitted
+              {content.successTitle}
             </div>
             {submitState.reference ? (
               <p className="mt-1">Reference: {submitState.reference}</p>
@@ -275,14 +319,14 @@ export function ContactInquiryForm({ emailHref }: ContactInquiryFormProps) {
           disabled={submitState.status === "submitting"}
           className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542] disabled:cursor-not-allowed disabled:bg-[#596575]"
         >
-          {submitState.status === "submitting" ? "Submitting..." : "Submit Inquiry"}
+          {submitState.status === "submitting" ? content.submitting : content.submit}
           <Send aria-hidden="true" className="h-4 w-4" />
         </button>
         <a
           href={emailWithSubject}
           className="inline-flex items-center justify-center gap-2 rounded-md border border-[#d8c28a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#f4efe3]"
         >
-          Email Your Inquiry
+          {content.email}
           <Mail aria-hidden="true" className="h-4 w-4" />
         </a>
       </div>

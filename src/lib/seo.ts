@@ -6,6 +6,7 @@ type PageMetadataInput = {
   description: string;
   path: string;
   image?: string;
+  languages?: NonNullable<Metadata["alternates"]>["languages"];
 };
 
 export function absoluteUrl(path: string) {
@@ -17,6 +18,7 @@ export function createPageMetadata({
   description,
   path,
   image = siteConfig.socialImage,
+  languages,
 }: PageMetadataInput): Metadata {
   const url = absoluteUrl(path);
   const socialImage = absoluteUrl(image);
@@ -24,7 +26,10 @@ export function createPageMetadata({
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      ...(languages ? { languages } : {}),
+    },
     openGraph: {
       type: "website",
       siteName: siteConfig.name,

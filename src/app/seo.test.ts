@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { collectionLandingPages } from "@/lib/collection-data";
+import { getLanguageAlternates, localizedPath, localizedPublicPages } from "@/lib/i18n";
 import { collectionCategories, products } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
@@ -22,7 +23,13 @@ describe("SEO foundations", () => {
     const urls = sitemap().map((entry) => entry.url);
 
     expect(urls).toContain("https://xingyuejewelry.com/");
+    expect(urls).toContain("https://xingyuejewelry.com/products");
+    expect(urls).toContain("https://xingyuejewelry.com/faq");
     expect(urls).toContain("https://xingyuejewelry.com/collections");
+    for (const path of localizedPublicPages) {
+      expect(urls).toContain(`https://xingyuejewelry.com${localizedPath(path, "ar")}`);
+      expect(urls).toContain(`https://xingyuejewelry.com${localizedPath(path, "es")}`);
+    }
     for (const page of collectionLandingPages) {
       expect(urls).toContain(`https://xingyuejewelry.com/collections/${page.slug}`);
     }
@@ -37,11 +44,31 @@ describe("SEO foundations", () => {
       title: "About XINGYUE",
       description: "Factory profile",
       path: "/about",
+      languages: getLanguageAlternates("/about"),
     });
 
     expect(value.alternates?.canonical).toBe("https://xingyuejewelry.com/about");
+    expect(value.alternates?.languages).toEqual({
+      en: "https://xingyuejewelry.com/about",
+      ar: "https://xingyuejewelry.com/ar/about",
+      es: "https://xingyuejewelry.com/es/about",
+      "x-default": "https://xingyuejewelry.com/about",
+    });
     expect(value.openGraph?.url).toBe("https://xingyuejewelry.com/about");
-    expect(value.twitter?.card).toBe("summary_large_image");
+    expect(value.twitter).toMatchObject({ card: "summary_large_image" });
+  });
+
+  it("adds hreflang alternates to localized sitemap entries", () => {
+    const home = sitemap().find((entry) => entry.url === "https://xingyuejewelry.com/");
+    const arabicHome = sitemap().find((entry) => entry.url === "https://xingyuejewelry.com/ar");
+
+    expect(home?.alternates?.languages).toEqual({
+      en: "https://xingyuejewelry.com/",
+      ar: "https://xingyuejewelry.com/ar",
+      es: "https://xingyuejewelry.com/es",
+      "x-default": "https://xingyuejewelry.com/",
+    });
+    expect(arabicHome?.alternates?.languages).toEqual(home?.alternates?.languages);
   });
 
   it("keeps buyer-facing product metadata free of prototype labels", async () => {
