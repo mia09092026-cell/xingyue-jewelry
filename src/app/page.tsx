@@ -19,12 +19,14 @@ import { brand } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { faqPageSchema, websiteSchema } from "@/lib/structured-data";
+import { getLanguageAlternates } from "@/lib/i18n";
 
 export const metadata = createPageMetadata({
   title: "Moissanite & Lab-Grown Diamond Jewelry Manufacturer | XINGYUE",
   description:
     "Wholesale moissanite jewelry, lab-grown diamonds, colored gemstones, S925 silver jewelry and custom K gold production for overseas buyers.",
   path: "/",
+  languages: getLanguageAlternates("/"),
 });
 
 const coreProducts = [
@@ -107,24 +109,32 @@ const categories = [
     title: "Rings",
     copy: "Solitaire, halo and bridal-inspired styles for refined everyday luxury.",
     href: "/collections/moissanite-wholesale",
+    image: "/images/xingyue-ring-sample.jpg",
+    alt: "Rings jewelry category sample",
     icon: CircleDot,
   },
   {
     title: "Necklaces",
     copy: "Elegant pendants, tennis chains and layering pieces with clean settings.",
     href: "/collections/lab-grown-diamond-jewelry",
+    image: "/images/xingyue-tennis-necklace.jpg",
+    alt: "Necklaces jewelry category sample",
     icon: Gem,
   },
   {
     title: "Earrings",
     copy: "Moissanite and lab-grown diamond studs, drops and gift-ready pairs.",
     href: "/collections/moissanite-wholesale",
+    image: "/images/b2b-sample-packaging.jpg",
+    alt: "Earrings jewelry category sample",
     icon: Sparkles,
   },
   {
     title: "Bracelets",
     copy: "Tennis bracelets, Cuban chain styles and custom line jewelry programs.",
     href: "/collections/tennis-chains",
+    image: "/images/xingyue-tennis-bracelet.jpg",
+    alt: "Bracelets jewelry category sample",
     icon: Heart,
   },
 ];
@@ -349,20 +359,31 @@ export default function Home() {
               <Link
                 key={category.title}
                 href={category.href}
-                className="group rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm transition hover:-translate-y-1 hover:border-[#cbb06e]"
+                className="group overflow-hidden rounded-md border border-[#e3dbcb] bg-white/86 shadow-sm transition hover:-translate-y-1 hover:border-[#cbb06e]"
               >
-                  <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-md bg-[#f4efe3] text-[#a98945]">
-                    <Icon aria-hidden="true" className="h-5 w-5" />
-                  </div>
-                  <h2 className="font-serif text-2xl text-[#17202a]">{category.title}</h2>
-                  <p className="mt-5 leading-7 text-[#596575]">{category.copy}</p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#17202a]">
-                    View styles
-                    <ArrowRight
-                      aria-hidden="true"
-                      className="h-4 w-4 transition group-hover:translate-x-1"
+                  <div className="relative aspect-[4/3] bg-[#f4efe3]">
+                    <Image
+                      src={category.image}
+                      alt={category.alt}
+                      fill
+                      sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition duration-500 group-hover:scale-105"
                     />
-                  </span>
+                  </div>
+                  <div className="p-6">
+                    <div className="mb-7 flex h-12 w-12 items-center justify-center rounded-md bg-[#f4efe3] text-[#a98945]">
+                      <Icon aria-hidden="true" className="h-5 w-5" />
+                    </div>
+                    <h2 className="font-serif text-2xl text-[#17202a]">{category.title}</h2>
+                    <p className="mt-5 leading-7 text-[#596575]">{category.copy}</p>
+                    <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#17202a]">
+                      View styles
+                      <ArrowRight
+                        aria-hidden="true"
+                        className="h-4 w-4 transition group-hover:translate-x-1"
+                      />
+                    </span>
+                  </div>
                 </Link>
               );
             })}

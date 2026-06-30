@@ -21,4 +21,13 @@ describe("site chrome brand identity", () => {
 
     expect(screen.getByRole("img", { name: /Star & Moon Jewelry logo/i })).toBeInTheDocument();
   });
+
+  it("shows the direct WhatsApp contact link in the footer", () => {
+    render(<SiteFooter />);
+
+    expect(screen.getByRole("link", { name: "+8613324888759" })).toHaveAttribute(
+      "href",
+      "https://wa.me/8613324888759",
+    );
+  });
 });

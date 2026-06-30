@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { processSteps } from "@/lib/site-data";
+import { getLanguageAlternates } from "@/lib/i18n";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -14,6 +15,7 @@ export const metadata: Metadata = createPageMetadata({
   description:
     "Meet XINGYUE, a one-stop source factory for moissanite, lab-grown stones, S925 silver jewelry and custom K gold production.",
   path: "/about",
+  languages: getLanguageAlternates("/about"),
 });
 
 const capabilities = [

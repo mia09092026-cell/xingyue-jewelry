@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { collectionLandingPages, getCollectionLandingPage } from "@/lib/collection-data";
 import { products } from "@/lib/site-data";
+import { getLanguageAlternates, isLocalizedCollectionSlug } from "@/lib/i18n";
 import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, faqPageSchema } from "@/lib/structured-data";
@@ -39,6 +40,9 @@ export async function generateMetadata({
     description: collection.metaDescription,
     path: `/collections/${collection.slug}`,
     image: collection.image,
+    languages: isLocalizedCollectionSlug(collection.slug)
+      ? getLanguageAlternates(`/collections/${collection.slug}`)
+      : undefined,
   });
 }
 
