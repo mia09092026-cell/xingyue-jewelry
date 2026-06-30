@@ -27,7 +27,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="B2B Inquiry"
         title="Request a Quote"
-        subtitle="Send the key project details in one place: contact person, phone, brand, product type, quantity, delivery city, budget range and requirements."
+        subtitle="Send the key project details in one place: name, company, email, WhatsApp, country, product interest, quantity, custom requirement and message."
       />
 
       <section className="px-5 py-20 sm:px-8">
@@ -53,7 +53,7 @@ export default function ContactPage() {
                 <Clock3 aria-hidden="true" className="mb-4 h-5 w-5 text-[#e6cf96]" />
                 <h2 className="font-serif text-xl">Quotation Inputs</h2>
                 <p className="mt-3 text-sm leading-6 text-white/72">
-                  Contact, project type, estimated quantity, delivery city, budget and requirements.
+                  Name, company, email, WhatsApp, country, product interest, quantity and custom requirements.
                 </p>
               </div>
               <div className="rounded-md border border-[#e3dbcb] bg-white/86 p-5">
@@ -79,21 +79,21 @@ export default function ContactPage() {
                 <PackageCheck aria-hidden="true" className="mb-4 h-5 w-5 text-[#a98945]" />
                 <h2 className="font-serif text-xl">Project Match</h2>
                 <p className="mt-3 text-sm leading-6 text-[#596575]">
-                  We use your project type and budget range to suggest suitable metal, stone and packaging options.
+                  We use your product interest and quantity to suggest suitable metal, stone and packaging options.
                 </p>
               </div>
               <div className="rounded-md bg-[#f1eadc] p-5">
                 <Truck aria-hidden="true" className="mb-4 h-5 w-5 text-[#a98945]" />
                 <h2 className="font-serif text-xl">Delivery Planning</h2>
                 <p className="mt-3 text-sm leading-6 text-[#596575]">
-                  Delivery city helps us discuss sample timing, export packaging and shipment expectations earlier.
+                  Country or region helps us discuss sample timing, export packaging and shipment expectations earlier.
                 </p>
               </div>
             </div>
           </div>
 
           <div>
-            <ContactInquiryForm emailHref={emailHref} />
+            <ContactInquiryForm emailHref={emailHref} locale="en" sourcePath="/contact" />
             <div className="mt-6 flex gap-3 rounded-md border border-[#e3dbcb] bg-white/72 p-5 text-[#596575]">
               <MessageSquareText aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-[#a98945]" />
               <p className="leading-7">

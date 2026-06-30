@@ -1,4 +1,5 @@
 import type { SupportedLocale } from "@/lib/i18n";
+import type { ContactInquiryField } from "@/lib/contact-inquiry";
 
 type NavItem = { label: string; href: string };
 type SeoCopy = { title: string; description: string };
@@ -29,28 +30,10 @@ type CollectionContent = {
 export type ContactFormCopy = {
   introTitle: string;
   introCopy: string;
-  fieldLabels: {
-    contactName: string;
-    phone: string;
-    companyBrand: string;
-    projectType: string;
-    estimatedQuantity: string;
-    deliveryCity: string;
-    budgetRange: string;
-    requirements: string;
-  };
-  placeholders: {
-    contactName: string;
-    phone: string;
-    companyBrand: string;
-    projectType: string;
-    estimatedQuantity: string;
-    deliveryCity: string;
-    budgetRange: string;
-    requirements: string;
-  };
-  projectTypes: Array<{ value: string; label: string }>;
-  budgetRanges: Array<{ value: string; label: string }>;
+  fieldLabels: Partial<Record<ContactInquiryField, string>> & Record<string, string>;
+  placeholders: Partial<Record<ContactInquiryField, string>> & Record<string, string>;
+  projectTypes?: Array<{ value: string; label: string }>;
+  budgetRanges?: Array<{ value: string; label: string }>;
   submitting: string;
   submit: string;
   email: string;
@@ -539,50 +522,36 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       form: {
         introTitle: "Quote-ready inquiry form",
         introCopy:
-          "Submit the core project details our team needs before sample discussion: contact, quantity, delivery city, budget and production requirements.",
+          "Submit the core project details our team needs before sample discussion: company, email, WhatsApp, country, product interest, quantity and customization requirements.",
         fieldLabels: {
-          contactName: "Contact Person",
-          phone: "Phone / WhatsApp",
-          companyBrand: "Company / Brand",
-          projectType: "Project Type",
-          estimatedQuantity: "Estimated Quantity",
-          deliveryCity: "Delivery City",
-          budgetRange: "Budget Range",
-          requirements: "Requirements",
+          name: "Name",
+          company: "Company",
+          email: "Email",
+          phone: "WhatsApp / Phone",
+          country: "Country",
+          productInterest: "Product Interest",
+          quantity: "Quantity",
+          customRequirement: "Custom Requirement",
+          message: "Message",
         },
         placeholders: {
-          contactName: "Your name",
+          name: "Your name",
+          company: "Company or brand name",
+          email: "name@example.com",
           phone: "Phone, WhatsApp or WeChat",
-          companyBrand: "Company or brand name",
-          projectType: "Select project type",
-          estimatedQuantity: "Sample, 100 pieces, 500 pieces...",
-          deliveryCity: "City and country",
-          budgetRange: "Select budget range",
-          requirements:
+          country: "Country or region",
+          productInterest: "Rings, tennis bracelets, OEM/ODM, loose stones...",
+          quantity: "Sample, 100 pieces, 500 pieces...",
+          customRequirement: "14K / 18K gold, private label, custom packaging, certificate needs...",
+          message:
             "Reference style, stone size, metal, certificate, packaging, timeline and any quality requirements...",
         },
-        projectTypes: [
-          { value: "moissanite-wholesale", label: "Moissanite Wholesale" },
-          { value: "lab-grown-diamond-jewelry", label: "Lab-Grown Diamond Jewelry" },
-          { value: "colored-gemstones", label: "Lab-Grown Colored Gemstones" },
-          { value: "chains", label: "Cuban / Tennis Chains" },
-          { value: "custom-manufacturing", label: "Custom Jewelry Manufacturing" },
-          { value: "oem-odm", label: "OEM / ODM Production" },
-        ],
-        budgetRanges: [
-          { value: "under-usd-3000", label: "Under USD 3,000" },
-          { value: "usd-3000-5000", label: "USD 3,000 - 5,000" },
-          { value: "usd-5000-10000", label: "USD 5,000 - 10,000" },
-          { value: "usd-10000-30000", label: "USD 10,000 - 30,000" },
-          { value: "usd-30000-plus", label: "USD 30,000+" },
-          { value: "to-be-discussed", label: "To Be Discussed" },
-        ],
         submitting: "Submitting...",
         submit: "Send Inquiry",
         email: "Email Your Inquiry",
         successTitle: "Inquiry submitted",
-        successMessage: "Inquiry submitted.",
-        errorFallback: "The inquiry could not be submitted. Please email us directly.",
+        successMessage: "Thank you. We have received your inquiry and will contact you within 24 hours.",
+        errorFallback: "Submission failed. Please contact us by WhatsApp or email.",
         validationPrefix: "Please complete",
       },
       note:

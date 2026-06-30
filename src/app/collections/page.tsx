@@ -12,6 +12,7 @@ import { b2bInquiryProofs, collectionCategories, products } from "@/lib/site-dat
 import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
+import { contactInquiryHref } from "@/lib/contact-links";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Collections | XINGYUE B2B Jewelry Factory",
@@ -62,7 +63,10 @@ export default function CollectionsPage() {
         subtitle="Moissanite, lab-grown diamonds, colored gemstones, Cuban chains, tennis chains and custom jewelry manufacturing for wholesale buyers."
       >
         <Link
-          href="/contact"
+          href={contactInquiryHref({
+            sourcePath: "/collections",
+            interest: "B2B jewelry collections",
+          })}
           className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
         >
           Request Collection Quote

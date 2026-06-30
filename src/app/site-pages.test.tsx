@@ -36,6 +36,10 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.queryByRole("link", { name: "Product Detail" })).not.toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /Custom Manufacturing/i }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "View Product" }).length).toBeGreaterThan(0);
+    expect(screen.getByRole("link", { name: "Request Collection Quote" })).toHaveAttribute(
+      "href",
+      "/contact?source=%2Fcollections&interest=B2B+jewelry+collections",
+    );
   });
 
   it("renders the sample Product Detail page", async () => {
@@ -46,7 +50,10 @@ describe("XINGYUE independent site pages", () => {
     render(page);
 
     expect(screen.getByRole("heading", { name: /Moonlight Moissanite Solitaire Ring/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/Request Wholesale Quote/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole("link", { name: /Request Wholesale Quote/i })).toHaveAttribute(
+      "href",
+      "/contact?source=%2Fproducts%2Fmoissanite-solitaire-ring&interest=Moonlight+Moissanite+Solitaire+Ring",
+    );
     expect(screen.getAllByText(/Bulk Loose Stone Supply/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Quality Testing Before Shipment/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Sample & Packaging Support/i).length).toBeGreaterThan(0);
@@ -103,14 +110,15 @@ describe("XINGYUE independent site pages", () => {
     const { container } = render(<ContactPage />);
 
     expect(screen.getByRole("heading", { name: /Request a Quote/i })).toBeInTheDocument();
-    expect(screen.getByLabelText("Contact Person")).toBeInTheDocument();
-    expect(screen.getByLabelText("Phone / WhatsApp")).toBeInTheDocument();
-    expect(screen.getByLabelText("Company / Brand")).toBeInTheDocument();
-    expect(screen.getByLabelText("Project Type")).toBeInTheDocument();
-    expect(screen.getByLabelText("Estimated Quantity")).toBeInTheDocument();
-    expect(screen.getByLabelText("Delivery City")).toBeInTheDocument();
-    expect(screen.getByLabelText("Budget Range")).toBeInTheDocument();
-    expect(screen.getByLabelText("Requirements")).toBeInTheDocument();
+    expect(screen.getByLabelText("Name")).toBeInTheDocument();
+    expect(screen.getByLabelText("Company")).toBeInTheDocument();
+    expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.getByLabelText("WhatsApp / Phone")).toBeInTheDocument();
+    expect(screen.getByLabelText("Country")).toBeInTheDocument();
+    expect(screen.getByLabelText("Product Interest")).toBeInTheDocument();
+    expect(screen.getByLabelText("Quantity")).toBeInTheDocument();
+    expect(screen.getByLabelText("Custom Requirement")).toBeInTheDocument();
+    expect(screen.getByLabelText("Message")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Submit Inquiry/i })).toBeInTheDocument();
     const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
@@ -139,8 +147,16 @@ describe("XINGYUE independent site pages", () => {
 
     const contact = await LocalizedContactPage({ params: Promise.resolve({ locale: "ar" }) });
     render(contact);
-    expect(screen.getByLabelText("الشخص المسؤول")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /أرسل استفساراً/i })).toBeInTheDocument();
+    expect(screen.getByLabelText("الاسم")).toBeInTheDocument();
+    expect(screen.getByLabelText("اسم الشركة")).toBeInTheDocument();
+    expect(screen.getByLabelText("البريد الإلكتروني")).toBeInTheDocument();
+    expect(screen.getByLabelText("واتساب / الهاتف")).toBeInTheDocument();
+    expect(screen.getByLabelText("الدولة")).toBeInTheDocument();
+    expect(screen.getByLabelText("المنتج المطلوب")).toBeInTheDocument();
+    expect(screen.getByLabelText("الكمية")).toBeInTheDocument();
+    expect(screen.getByLabelText("متطلبات التخصيص")).toBeInTheDocument();
+    expect(screen.getByLabelText("الرسالة")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /إرسال الاستفسار/i })).toBeInTheDocument();
     const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
       "mailto:sales@xingyuejewelry.com",
@@ -175,6 +191,16 @@ describe("XINGYUE independent site pages", () => {
 
     const contact = await LocalizedContactPage({ params: Promise.resolve({ locale: "es" }) });
     render(contact);
+    expect(screen.getByLabelText("Nombre")).toBeInTheDocument();
+    expect(screen.getByLabelText("Empresa")).toBeInTheDocument();
+    expect(screen.getByLabelText("Correo electrónico")).toBeInTheDocument();
+    expect(screen.getByLabelText("WhatsApp / Teléfono")).toBeInTheDocument();
+    expect(screen.getByLabelText("País")).toBeInTheDocument();
+    expect(screen.getByLabelText("Producto de interés")).toBeInTheDocument();
+    expect(screen.getByLabelText("Cantidad")).toBeInTheDocument();
+    expect(screen.getByLabelText("Requisitos de personalización")).toBeInTheDocument();
+    expect(screen.getByLabelText("Mensaje")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Enviar consulta/i })).toBeInTheDocument();
     const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
       "mailto:sales@xingyuejewelry.com",

@@ -25,6 +25,7 @@ import {
 } from "@/content/i18n";
 import { localizedPath, type SupportedLocale } from "@/lib/i18n";
 import { brand } from "@/lib/site-data";
+import { contactInquiryHref } from "@/lib/contact-links";
 
 type LocalizedPageProps = {
   locale: SupportedLocale;
@@ -72,14 +73,24 @@ function LocalizedFooter({ locale }: LocalizedPageProps) {
 function CtaRow({
   catalogHref,
   contactHref,
+  interest,
   locale,
+  sourcePath,
 }: {
   catalogHref?: string;
   contactHref?: string;
   locale: SupportedLocale;
+  sourcePath?: string;
+  interest?: string;
 }) {
   const content = getI18nContent(locale);
-  const inquiryHref = contactHref ?? localizedPath("/contact", locale);
+  const inquiryHref =
+    contactHref ??
+    contactInquiryHref({
+      locale,
+      sourcePath: sourcePath ?? localizedPath("/", locale),
+      interest,
+    });
   const secondaryHref = catalogHref ?? localizedPath("/products", locale);
 
   return (
@@ -104,12 +115,17 @@ function CtaRow({
 
 function CollectionCta({ locale, slug }: LocalizedCollectionProps) {
   const content = getI18nContent(locale);
+  const collection = getLocalizedCollectionContent(locale, slug);
   const isCustom = slug === "custom-jewelry-manufacturing";
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
       <Link
-        href={localizedPath("/contact", locale)}
+        href={contactInquiryHref({
+          locale,
+          sourcePath: localizedPath(`/collections/${slug}`, locale),
+          interest: collection?.eyebrow ?? slug,
+        })}
         className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
       >
         {isCustom ? content.cta.sendDesign : content.cta.getWholesalePrice}
@@ -153,7 +169,11 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
             <p className="mt-6 text-2xl font-light text-[#8a734b]">{content.home.subtitle}</p>
             <p className="mt-6 max-w-xl leading-8 text-[#596575]">{content.home.copy}</p>
             <div className="mt-9">
-              <CtaRow locale={locale} />
+              <CtaRow
+                locale={locale}
+                sourcePath={localizedPath("/", locale)}
+                interest="Wholesale lab-grown diamond jewelry"
+              />
             </div>
             <div className="mt-9 grid gap-3 sm:grid-cols-3">
               {content.home.stats.map((item) => (
@@ -276,7 +296,11 @@ export function LocalizedProducts({ locale }: LocalizedPageProps) {
         title={content.products.title}
         subtitle={content.products.subtitle}
       >
-        <CtaRow locale={locale} />
+        <CtaRow
+          locale={locale}
+          sourcePath={localizedPath("/products", locale)}
+          interest="B2B jewelry products"
+        />
       </PageHero>
 
       <section className="px-5 py-20 sm:px-8">
@@ -603,7 +627,11 @@ export function LocalizedFaq({ locale }: LocalizedPageProps) {
     <main dir={content.dir} className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
       <SiteHeader {...localizedShellProps(locale, "/faq")} />
       <PageHero eyebrow={content.faq.eyebrow} title={content.faq.title} subtitle={content.faq.subtitle}>
-        <CtaRow locale={locale} contactHref={localizedPath("/contact", locale)} />
+        <CtaRow
+          locale={locale}
+          sourcePath={localizedPath("/faq", locale)}
+          interest="Wholesale jewelry inquiry"
+        />
       </PageHero>
 
       <section className="px-5 py-20 sm:px-8">
@@ -706,7 +734,12 @@ export function LocalizedContact({ locale }: LocalizedPageProps) {
           </div>
 
           <div>
-            <ContactInquiryForm content={content.contact.form} emailHref={emailHref} />
+            <ContactInquiryForm
+              content={content.contact.form}
+              emailHref={emailHref}
+              locale={locale}
+              sourcePath={localizedPath("/contact", locale)}
+            />
             <div className="mt-6 flex gap-3 rounded-md border border-[#e3dbcb] bg-white/72 p-5 text-[#596575]">
               <MessageSquareText aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-[#a98945]" />
               <p className="leading-7">{content.contact.note}</p>
