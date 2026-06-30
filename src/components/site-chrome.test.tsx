@@ -30,4 +30,13 @@ describe("site chrome brand identity", () => {
       "https://wa.me/8613324888759",
     );
   });
+
+  it("shows the sales email contact link in the footer", () => {
+    render(<SiteFooter />);
+
+    expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(
+      "href",
+      "mailto:sales@xingyuejewelry.com",
+    );
+  });
 });

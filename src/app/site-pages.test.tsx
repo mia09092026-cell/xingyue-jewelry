@@ -112,9 +112,18 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByLabelText("Budget Range")).toBeInTheDocument();
     expect(screen.getByLabelText("Requirements")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Submit Inquiry/i })).toBeInTheDocument();
+    const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
+    expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
+      "mailto:sales@xingyuejewelry.com",
+    );
+    expect(
+      screen.getByText(
+        "For wholesale pricing, OEM/ODM customization, and catalog requests, please contact us by email or WhatsApp.",
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Email Your Inquiry/i })).toHaveAttribute(
       "href",
-      expect.stringMatching(/^mailto:/),
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
     expect(container.textContent).not.toMatch(/front-end design only|next version|[\u4e00-\u9fff]/);
   });
@@ -132,6 +141,14 @@ describe("XINGYUE independent site pages", () => {
     render(contact);
     expect(screen.getByLabelText("الشخص المسؤول")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /أرسل استفساراً/i })).toBeInTheDocument();
+    const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
+    expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
+      "mailto:sales@xingyuejewelry.com",
+    );
+    expect(screen.getByRole("link", { name: /أرسل عبر البريد/i })).toHaveAttribute(
+      "href",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
+    );
   });
 
   it("renders Spanish localized products and collection pages", async () => {
@@ -145,7 +162,7 @@ describe("XINGYUE independent site pages", () => {
     const collection = await LocalizedCollectionPage({
       params: Promise.resolve({ locale: "es", slug: "lab-grown-diamond-jewelry" }),
     });
-    render(collection);
+    const collectionPage = render(collection);
     expect(
       screen.getByRole("heading", { name: /Fabricante de joyería con diamantes de laboratorio/i }),
     ).toBeInTheDocument();
@@ -153,6 +170,18 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByRole("link", { name: /Contactar por WhatsApp/i })).toHaveAttribute(
       "href",
       "https://wa.me/8613324888759",
+    );
+    collectionPage.unmount();
+
+    const contact = await LocalizedContactPage({ params: Promise.resolve({ locale: "es" }) });
+    render(contact);
+    const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
+    expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
+      "mailto:sales@xingyuejewelry.com",
+    );
+    expect(screen.getByRole("link", { name: /Enviar por email/i })).toHaveAttribute(
+      "href",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
   });
 });

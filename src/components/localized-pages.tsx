@@ -632,7 +632,7 @@ export function LocalizedFaq({ locale }: LocalizedPageProps) {
 
 export function LocalizedContact({ locale }: LocalizedPageProps) {
   const content = getI18nContent(locale);
-  const emailHref = `mailto:${brand.email}`;
+  const emailHref = brand.emailInquiryHref;
 
   return (
     <main dir={content.dir} className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
@@ -689,6 +689,14 @@ export function LocalizedContact({ locale }: LocalizedPageProps) {
                         className="mt-3 inline-flex text-sm font-semibold text-[#e6cf96] transition hover:text-white"
                       >
                         {brand.whatsapp}
+                      </a>
+                    ) : null}
+                    {index === 1 ? (
+                      <a
+                        href={brand.emailHref}
+                        className="mt-3 inline-flex break-all text-sm font-semibold text-[#17202a] transition hover:text-[#8a734b]"
+                      >
+                        Email: {brand.email}
                       </a>
                     ) : null}
                   </div>

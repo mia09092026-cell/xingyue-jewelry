@@ -92,6 +92,10 @@ export function ContactInquiryForm({ content = defaultContactFormCopy, emailHref
   });
 
   const emailWithSubject = useMemo(() => {
+    if (emailHref.includes("?subject=")) {
+      return emailHref;
+    }
+
     const querySeparator = emailHref.includes("?") ? "&" : "?";
     const subject = encodeURIComponent("XINGYUE Wholesale Jewelry Inquiry");
     const body = encodeURIComponent(

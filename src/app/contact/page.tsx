@@ -18,7 +18,7 @@ export const metadata: Metadata = createPageMetadata({
   languages: getLanguageAlternates("/contact"),
 });
 
-const emailHref = `mailto:${brand.email}`;
+const emailHref = brand.emailInquiryHref;
 
 export default function ContactPage() {
   return (
@@ -59,7 +59,15 @@ export default function ContactPage() {
               <div className="rounded-md border border-[#e3dbcb] bg-white/86 p-5">
                 <Mail aria-hidden="true" className="mb-4 h-5 w-5 text-[#a98945]" />
                 <h2 className="font-serif text-xl">Email / WhatsApp</h2>
-                <p className="mt-3 break-all text-sm text-[#596575]">{brand.email}</p>
+                <a
+                  href={brand.emailHref}
+                  className="mt-3 inline-flex break-all text-sm font-semibold text-[#17202a] transition hover:text-[#8a734b]"
+                >
+                  Email: {brand.email}
+                </a>
+                <p className="mt-3 text-sm leading-6 text-[#596575]">
+                  For wholesale pricing, OEM/ODM customization, and catalog requests, please contact us by email or WhatsApp.
+                </p>
                 <a
                   href={brand.whatsappHref}
                   className="mt-2 inline-flex text-sm font-semibold text-[#17202a] transition hover:text-[#8a734b]"

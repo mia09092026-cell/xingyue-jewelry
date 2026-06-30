@@ -78,7 +78,11 @@ export function SiteFooter({
           <h3 className="mb-4 text-sm text-[#e6cf96]">{sectionLabels.reachUs}</h3>
           <ul className="space-y-3 text-sm text-white/68">
             <li>{brand.domain}</li>
-            <li>{brand.email}</li>
+            <li>
+              <a href={brand.emailHref} className="transition hover:text-white">
+                Email: {brand.email}
+              </a>
+            </li>
             <li>
               <a href={brand.whatsappHref} className="transition hover:text-white">
                 {brand.whatsapp}
