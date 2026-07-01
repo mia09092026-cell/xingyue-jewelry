@@ -68,7 +68,7 @@ describe("XINGYUE homepage", () => {
     expect(screen.getAllByText(/Wholesale Moissanite Jewelry/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
     expect(container.textContent).not.toMatch(
       /Moissanite Diamond Wholesale|first homepage version|can be added later|Sample Products/i,

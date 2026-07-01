@@ -36,7 +36,7 @@ describe("site chrome brand identity", () => {
 
     expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
   });
 });

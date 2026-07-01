@@ -122,7 +122,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByRole("button", { name: /Submit Inquiry/i })).toBeInTheDocument();
     const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      "mailto:sales@xingyuejewelry.com",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
     expect(
       screen.getByText(
@@ -159,7 +159,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByRole("button", { name: /إرسال الاستفسار/i })).toBeInTheDocument();
     const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      "mailto:sales@xingyuejewelry.com",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
     expect(screen.getByRole("link", { name: /أرسل عبر البريد/i })).toHaveAttribute(
       "href",
@@ -203,7 +203,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByRole("button", { name: /Enviar consulta/i })).toBeInTheDocument();
     const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      "mailto:sales@xingyuejewelry.com",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
     expect(screen.getByRole("link", { name: /Enviar por email/i })).toHaveAttribute(
       "href",
