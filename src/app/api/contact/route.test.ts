@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { GoogleSheetsSafeError } from "@/lib/google-sheets";
 import { POST } from "./route";
 
 const saveInquiryRecordMock = vi.hoisted(() => vi.fn());
@@ -83,6 +84,8 @@ describe("contact inquiry API route", () => {
     expect(response.status).toBe(400);
     await expect(response.json()).resolves.toMatchObject({
       ok: false,
+      code: "VALIDATION_ERROR",
+      category: "form_payload_validation_error",
       fieldErrors: {
         company: "Company",
         email: "Email",
@@ -93,6 +96,25 @@ describe("contact inquiry API route", () => {
         customRequirement: "Custom Requirement",
         message: "Message",
       },
+    });
+    expect(saveInquiryRecordMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects invalid JSON payloads with a safe validation category", async () => {
+    const response = await POST(
+      new Request("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: { "x-forwarded-for": "203.0.113.16" },
+        body: "{",
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({
+      ok: false,
+      code: "VALIDATION_ERROR",
+      category: "form_payload_validation_error",
+      message: "Invalid inquiry payload.",
     });
     expect(saveInquiryRecordMock).not.toHaveBeenCalled();
   });
@@ -146,8 +168,58 @@ describe("contact inquiry API route", () => {
     await expect(response.json()).resolves.toMatchObject({
       ok: false,
       code: "CONFIG_MISSING",
+      category: "missing_environment_variables",
       message: "Inquiry service is being configured. Please contact us by WhatsApp or email.",
     });
+  });
+
+  it("returns a safe Google Sheets failure category without leaking raw errors", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    saveInquiryRecordMock.mockRejectedValue(
+      new GoogleSheetsSafeError("permission_denied", "Do not expose this raw Google detail.", {
+        operation: "append_inquiry",
+        status: 403,
+      }),
+    );
+
+    const response = await POST(
+      new Request("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: {
+          "x-forwarded-for": "203.0.113.17",
+          "user-agent": "Vitest Browser",
+        },
+        body: JSON.stringify(validInquiry({ email: "sheets-failure@example.com" })),
+      }),
+    );
+    const payload = await response.json();
+
+    expect(response.status).toBe(500);
+    expect(payload).toMatchObject({
+      ok: false,
+      code: "SHEETS_WRITE_FAILED",
+      category: "permission_denied",
+      message: "Submission failed. Please contact us by WhatsApp or email.",
+    });
+    expect(JSON.stringify(payload)).not.toContain("Do not expose");
+    expect(consoleError).toHaveBeenCalledWith(
+      "Contact inquiry submission failed",
+      expect.objectContaining({
+        category: "permission_denied",
+        operation: "append_inquiry",
+        status: 403,
+        env: expect.objectContaining({
+          GOOGLE_SHEETS_CLIENT_EMAIL: expect.any(Boolean),
+          GOOGLE_SHEETS_PRIVATE_KEY: expect.any(Boolean),
+          GOOGLE_SHEETS_SPREADSHEET_ID: expect.any(Boolean),
+          GOOGLE_SHEETS_SHEET_NAME: expect.any(Boolean),
+        }),
+        sourcePage: "/contact",
+        locale: "en",
+      }),
+    );
+    expect(JSON.stringify(consoleError.mock.calls)).not.toContain("Do not expose");
+    consoleError.mockRestore();
   });
 
   it("rate limits repeated submissions from the same IP", async () => {

@@ -5,13 +5,16 @@ import {
   inquirySheetHeaders,
   type InquirySheetRecord,
 } from "@/lib/contact-inquiry";
-import { appendInquiryToGoogleSheet, hasGoogleSheetsConfig } from "@/lib/google-sheets";
+import { appendInquiryToGoogleSheet, GoogleSheetsSafeError, hasGoogleSheetsConfig } from "@/lib/google-sheets";
 
 const devCsvPath = path.join(process.cwd(), "data", "inquiries-dev.csv");
 
-export class MissingGoogleSheetsConfigError extends Error {
+export class MissingGoogleSheetsConfigError extends GoogleSheetsSafeError {
   constructor() {
-    super("Google Sheets environment variables are not configured.");
+    super("missing_environment_variables", "Google Sheets environment variables are not configured.", {
+      operation: "read_environment",
+      status: 503,
+    });
     this.name = "MissingGoogleSheetsConfigError";
   }
 }
@@ -47,13 +50,14 @@ async function appendInquiryToDevCsv(record: InquirySheetRecord) {
 }
 
 export async function saveInquiryRecord(record: InquirySheetRecord) {
-  if (hasGoogleSheetsConfig()) {
+  if (process.env.NODE_ENV === "production") {
     await appendInquiryToGoogleSheet(record);
     return;
   }
 
-  if (process.env.NODE_ENV === "production") {
-    throw new MissingGoogleSheetsConfigError();
+  if (hasGoogleSheetsConfig()) {
+    await appendInquiryToGoogleSheet(record);
+    return;
   }
 
   await appendInquiryToDevCsv(record);

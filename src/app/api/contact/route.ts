@@ -3,6 +3,7 @@ import {
   createInquirySheetRecord,
   parseContactInquiry,
 } from "@/lib/contact-inquiry";
+import { getGoogleSheetsEnvStatus, googleSheetsErrorToResponse } from "@/lib/google-sheets";
 import { MissingGoogleSheetsConfigError, saveInquiryRecord } from "@/lib/inquiry-storage";
 
 export const runtime = "nodejs";
@@ -54,6 +55,24 @@ function isMissingGoogleSheetsConfigError(error: unknown) {
   );
 }
 
+function logContactSubmissionFailure(
+  request: Request,
+  source: ContactRequestBody,
+  failure: ReturnType<typeof googleSheetsErrorToResponse>,
+) {
+  const requestUrl = new URL(request.url);
+
+  console.error("Contact inquiry submission failed", {
+    category: failure.category,
+    operation: failure.operation,
+    status: failure.status,
+    env: getGoogleSheetsEnvStatus(),
+    path: requestUrl.pathname,
+    sourcePage: readString(source.sourcePage),
+    locale: readString(source.locale),
+  });
+}
+
 export async function POST(request: Request) {
   let body: unknown;
 
@@ -63,6 +82,8 @@ export async function POST(request: Request) {
     return Response.json(
       {
         ok: false,
+        code: "VALIDATION_ERROR",
+        category: "form_payload_validation_error",
         message: "Invalid inquiry payload.",
       },
       { status: 400 },
@@ -94,6 +115,8 @@ export async function POST(request: Request) {
     return Response.json(
       {
         ok: false,
+        code: "VALIDATION_ERROR",
+        category: "form_payload_validation_error",
         message: "Please complete the required inquiry fields.",
         fieldErrors: inquiry.fieldErrors,
       },
@@ -112,11 +135,15 @@ export async function POST(request: Request) {
   try {
     await saveInquiryRecord(record);
   } catch (error) {
-    if (isMissingGoogleSheetsConfigError(error)) {
+    const failure = googleSheetsErrorToResponse(error);
+    logContactSubmissionFailure(request, source, failure);
+
+    if (isMissingGoogleSheetsConfigError(error) || failure.category === "missing_environment_variables") {
       return Response.json(
         {
           ok: false,
           code: "CONFIG_MISSING",
+          category: "missing_environment_variables",
           message: "Inquiry service is being configured. Please contact us by WhatsApp or email.",
         },
         { status: 503 },
@@ -126,6 +153,8 @@ export async function POST(request: Request) {
     return Response.json(
       {
         ok: false,
+        code: "SHEETS_WRITE_FAILED",
+        category: failure.category,
         message: "Submission failed. Please contact us by WhatsApp or email.",
       },
       { status: 500 },

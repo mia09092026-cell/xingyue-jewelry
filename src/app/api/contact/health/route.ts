@@ -2,52 +2,51 @@ import { createInquirySheetRecord } from "@/lib/contact-inquiry";
 import {
   appendInquiryToGoogleSheet,
   canRunGoogleSheetsTestWrite,
+  getGoogleSheetsHealthStatus,
   googleSheetsErrorToResponse,
-  hasGoogleSheetsConfig,
 } from "@/lib/google-sheets";
 
 export const runtime = "nodejs";
+
+export function GET() {
+  const health = getGoogleSheetsHealthStatus();
+
+  return Response.json({
+    ok: true,
+    writable: null,
+    ...health,
+  });
+}
 
 export async function POST(request: Request) {
   if (!canRunGoogleSheetsTestWrite(request)) {
     return Response.json(
       {
         ok: false,
-        success: false,
-        message: "Google Sheets test writes are disabled for this environment.",
+        writable: false,
+        message: "Google Sheets health test writes are disabled for this environment.",
       },
       { status: 403 },
     );
   }
 
-  if (!hasGoogleSheetsConfig()) {
-    return Response.json(
-      {
-        ok: false,
-        success: false,
-        message: "Google Sheets environment variables are not configured.",
-      },
-      { status: 503 },
-    );
-  }
-
   const record = createInquirySheetRecord(
     {
-      name: "Google Sheets Test",
+      name: "Google Sheets Health Check",
       company: "Xingyue Jewelry",
-      email: "test@example.com",
+      email: "health-check@example.com",
       phone: "+86 133 2488 8759",
-      country: "Test",
-      productInterest: "Google Sheets integration test",
+      country: "Health Check",
+      productInterest: "Google Sheets contact API health check",
       quantity: "1 test row",
       customRequirement: "Configuration verification only",
-      message: "This is an automated test row from the inquiry configuration helper.",
+      message: "This is an automated test row from /api/contact/health.",
     },
     {
       locale: "en",
-      sourcePage: "/api/inquiry-config/test-write",
+      sourcePage: "/api/contact/health",
       currentUrl: request.url,
-      browserInfo: request.headers.get("user-agent") ?? "Configuration test",
+      browserInfo: request.headers.get("user-agent") ?? "Contact API health check",
     },
   );
 
@@ -60,13 +59,13 @@ export async function POST(request: Request) {
       {
         ok: false,
         success: false,
+        writable: false,
         category: failure.category,
         operation: failure.operation,
-        message: "Google Sheets test write failed.",
       },
       { status: failure.status },
     );
   }
 
-  return Response.json({ ok: true, success: true });
+  return Response.json({ ok: true, success: true, writable: true });
 }

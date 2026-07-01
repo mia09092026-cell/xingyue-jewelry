@@ -4,10 +4,12 @@ import { POST } from "./route";
 const appendInquiryToGoogleSheetMock = vi.hoisted(() => vi.fn());
 const canRunGoogleSheetsTestWriteMock = vi.hoisted(() => vi.fn());
 const hasGoogleSheetsConfigMock = vi.hoisted(() => vi.fn());
+const googleSheetsErrorToResponseMock = vi.hoisted(() => vi.fn());
 
 vi.mock("@/lib/google-sheets", () => ({
   appendInquiryToGoogleSheet: appendInquiryToGoogleSheetMock,
   canRunGoogleSheetsTestWrite: canRunGoogleSheetsTestWriteMock,
+  googleSheetsErrorToResponse: googleSheetsErrorToResponseMock,
   hasGoogleSheetsConfig: hasGoogleSheetsConfigMock,
 }));
 
@@ -16,6 +18,7 @@ describe("Google Sheets test write API", () => {
     appendInquiryToGoogleSheetMock.mockReset();
     canRunGoogleSheetsTestWriteMock.mockReset();
     hasGoogleSheetsConfigMock.mockReset();
+    googleSheetsErrorToResponseMock.mockReset();
   });
 
   it("rejects requests outside development or protected environments", async () => {
@@ -69,5 +72,29 @@ describe("Google Sheets test write API", () => {
         followUpStatus: "新询盘",
       }),
     );
+  });
+
+  it("returns safe Google Sheets failure categories for test-write failures", async () => {
+    canRunGoogleSheetsTestWriteMock.mockReturnValue(true);
+    hasGoogleSheetsConfigMock.mockReturnValue(true);
+    appendInquiryToGoogleSheetMock.mockRejectedValue(new Error("raw Google response"));
+    googleSheetsErrorToResponseMock.mockReturnValue({
+      category: "sheet_tab_not_found",
+      status: 404,
+      operation: "append_inquiry",
+    });
+
+    const response = await POST(new Request("http://localhost:3000/api/inquiry-config/test-write"));
+    const payload = await response.json();
+
+    expect(response.status).toBe(404);
+    expect(payload).toEqual({
+      ok: false,
+      success: false,
+      category: "sheet_tab_not_found",
+      operation: "append_inquiry",
+      message: "Google Sheets test write failed.",
+    });
+    expect(JSON.stringify(payload)).not.toContain("raw Google response");
   });
 });
