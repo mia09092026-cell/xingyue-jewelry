@@ -20,6 +20,7 @@ import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { faqPageSchema, websiteSchema } from "@/lib/structured-data";
 import { getLanguageAlternates } from "@/lib/i18n";
+import { contactInquiryHref } from "@/lib/contact-links";
 
 export const metadata = createPageMetadata({
   title: "Moissanite & Lab-Grown Diamond Jewelry Manufacturer | XINGYUE",
@@ -283,7 +284,10 @@ export default function Home() {
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </Link>
               <Link
-                href="/contact"
+                href={contactInquiryHref({
+                  sourcePath: "/",
+                  interest: "Wholesale lab-grown diamond jewelry",
+                })}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-[#cbb06e] bg-white/70 px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
               >
                 Request a Quote
@@ -567,7 +571,10 @@ export default function Home() {
               </p>
             </div>
             <Link
-              href="/contact"
+              href={contactInquiryHref({
+                sourcePath: "/",
+                interest: "Custom wholesale jewelry collection",
+              })}
               className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
             >
               Request a Quote

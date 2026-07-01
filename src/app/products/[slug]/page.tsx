@@ -12,6 +12,7 @@ import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, productSchema } from "@/lib/structured-data";
 import { getCollectionLandingPage } from "@/lib/collection-data";
+import { contactInquiryHref } from "@/lib/contact-links";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -101,7 +102,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
-            href="/contact"
+            href={contactInquiryHref({
+              sourcePath: `/products/${product.slug}`,
+              interest: product.name,
+            })}
             className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
           >
             Request Wholesale Quote
@@ -177,7 +181,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               ))}
             </div>
             <Link
-              href="/contact"
+              href={contactInquiryHref({
+                sourcePath: `/products/${product.slug}`,
+                interest: product.name,
+              })}
               className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542] sm:w-auto"
             >
               Send Inquiry
