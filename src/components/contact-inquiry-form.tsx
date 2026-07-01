@@ -24,6 +24,24 @@ type SubmitState = {
   reference?: string;
 };
 
+const inquiryConfiguringMessages: Record<SupportedLocale, string> = {
+  en: "Inquiry service is being configured. Please contact us by WhatsApp or email.",
+  ar: "خدمة الاستفسار قيد الإعداد. يرجى التواصل معنا عبر واتساب أو البريد الإلكتروني.",
+  es: "El servicio de consultas se está configurando. Por favor contáctanos por WhatsApp o correo electrónico.",
+};
+
+export function getLocalizedInquiryErrorMessage(
+  locale: SupportedLocale,
+  code: string | undefined,
+  fallback = localizedDefaultsFallback(locale),
+) {
+  if (code === "CONFIG_MISSING") {
+    return inquiryConfiguringMessages[locale];
+  }
+
+  return fallback;
+}
+
 type ResolvedContactFormCopy = Omit<ContactFormCopy, "fieldLabels" | "placeholders"> & {
   fieldLabels: Record<ContactInquiryField, string>;
   placeholders: Record<ContactInquiryField, string>;
@@ -144,6 +162,10 @@ const localizedDefaults: Record<SupportedLocale, ResolvedContactFormCopy> = {
     validationPrefix: "Por favor completa",
   },
 };
+
+function localizedDefaultsFallback(locale: SupportedLocale) {
+  return localizedDefaults[locale].errorFallback;
+}
 
 function resolveContent(content: ContactFormCopy | undefined, locale: SupportedLocale): ResolvedContactFormCopy {
   const defaults = localizedDefaults[locale];
@@ -270,6 +292,7 @@ export function ContactInquiryForm({
       });
       const payload = (await response.json()) as {
         ok?: boolean;
+        code?: string;
         reference?: string;
         fieldErrors?: ContactInquiryFieldErrors;
       };
@@ -278,7 +301,7 @@ export function ContactInquiryForm({
         setFieldErrors(payload.fieldErrors ?? {});
         setSubmitState({
           status: "error",
-          message: effectiveContent.errorFallback,
+          message: getLocalizedInquiryErrorMessage(locale, payload.code, effectiveContent.errorFallback),
         });
         return;
       }

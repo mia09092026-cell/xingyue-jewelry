@@ -3,7 +3,7 @@ import {
   createInquirySheetRecord,
   parseContactInquiry,
 } from "@/lib/contact-inquiry";
-import { saveInquiryRecord } from "@/lib/inquiry-storage";
+import { MissingGoogleSheetsConfigError, saveInquiryRecord } from "@/lib/inquiry-storage";
 
 export const runtime = "nodejs";
 
@@ -45,6 +45,13 @@ function isRateLimited(key: string, now = Date.now()) {
 
   current.count += 1;
   return false;
+}
+
+function isMissingGoogleSheetsConfigError(error: unknown) {
+  return (
+    error instanceof MissingGoogleSheetsConfigError ||
+    (error instanceof Error && error.name === "MissingGoogleSheetsConfigError")
+  );
 }
 
 export async function POST(request: Request) {
@@ -104,7 +111,18 @@ export async function POST(request: Request) {
 
   try {
     await saveInquiryRecord(record);
-  } catch {
+  } catch (error) {
+    if (isMissingGoogleSheetsConfigError(error)) {
+      return Response.json(
+        {
+          ok: false,
+          code: "CONFIG_MISSING",
+          message: "Inquiry service is being configured. Please contact us by WhatsApp or email.",
+        },
+        { status: 503 },
+      );
+    }
+
     return Response.json(
       {
         ok: false,

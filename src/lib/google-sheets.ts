@@ -12,6 +12,16 @@ type GoogleSheetsConfig = {
   sheetName: string;
 };
 
+const googleSheetsEnvKeys = [
+  "GOOGLE_SHEETS_CLIENT_EMAIL",
+  "GOOGLE_SHEETS_PRIVATE_KEY",
+  "GOOGLE_SHEETS_SPREADSHEET_ID",
+  "GOOGLE_SHEETS_SHEET_NAME",
+] as const;
+
+export type GoogleSheetsEnvKey = (typeof googleSheetsEnvKeys)[number];
+export type GoogleSheetsEnvStatus = Record<GoogleSheetsEnvKey, boolean>;
+
 type GoogleTokenResponse = {
   access_token?: string;
   error?: string;
@@ -28,11 +38,25 @@ function base64Url(input: string | Buffer) {
     .replaceAll("=", "");
 }
 
+function readGoogleSheetsEnv(key: GoogleSheetsEnvKey) {
+  const value = process.env[key]?.trim();
+  return value ? value : "";
+}
+
+export function getGoogleSheetsEnvStatus(): GoogleSheetsEnvStatus {
+  return {
+    GOOGLE_SHEETS_CLIENT_EMAIL: Boolean(readGoogleSheetsEnv("GOOGLE_SHEETS_CLIENT_EMAIL")),
+    GOOGLE_SHEETS_PRIVATE_KEY: Boolean(readGoogleSheetsEnv("GOOGLE_SHEETS_PRIVATE_KEY")),
+    GOOGLE_SHEETS_SPREADSHEET_ID: Boolean(readGoogleSheetsEnv("GOOGLE_SHEETS_SPREADSHEET_ID")),
+    GOOGLE_SHEETS_SHEET_NAME: Boolean(readGoogleSheetsEnv("GOOGLE_SHEETS_SHEET_NAME")),
+  };
+}
+
 function getGoogleSheetsConfig(): GoogleSheetsConfig | null {
-  const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL?.trim();
-  const privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, "\n").trim();
-  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID?.trim();
-  const sheetName = process.env.GOOGLE_SHEETS_SHEET_NAME?.trim();
+  const clientEmail = readGoogleSheetsEnv("GOOGLE_SHEETS_CLIENT_EMAIL");
+  const privateKey = readGoogleSheetsEnv("GOOGLE_SHEETS_PRIVATE_KEY").replace(/\\n/g, "\n");
+  const spreadsheetId = readGoogleSheetsEnv("GOOGLE_SHEETS_SPREADSHEET_ID");
+  const sheetName = readGoogleSheetsEnv("GOOGLE_SHEETS_SHEET_NAME");
 
   if (!clientEmail || !privateKey || !spreadsheetId || !sheetName) {
     return null;
@@ -48,6 +72,17 @@ function getGoogleSheetsConfig(): GoogleSheetsConfig | null {
 
 export function hasGoogleSheetsConfig() {
   return getGoogleSheetsConfig() !== null;
+}
+
+export function canRunGoogleSheetsTestWrite(request: Request) {
+  if (process.env.NODE_ENV === "development") {
+    return true;
+  }
+
+  const configuredToken = process.env.INQUIRY_TEST_TOKEN?.trim();
+  const requestToken = request.headers.get("x-inquiry-test-token")?.trim();
+
+  return Boolean(configuredToken && requestToken && configuredToken === requestToken);
 }
 
 function createServiceAccountJwt(config: GoogleSheetsConfig, nowInSeconds = Math.floor(Date.now() / 1000)) {

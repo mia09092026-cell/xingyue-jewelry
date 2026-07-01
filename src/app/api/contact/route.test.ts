@@ -4,6 +4,7 @@ import { POST } from "./route";
 const saveInquiryRecordMock = vi.hoisted(() => vi.fn());
 
 vi.mock("@/lib/inquiry-storage", () => ({
+  MissingGoogleSheetsConfigError: class MissingGoogleSheetsConfigError extends Error {},
   saveInquiryRecord: saveInquiryRecordMock,
 }));
 
@@ -125,6 +126,28 @@ describe("contact inquiry API route", () => {
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toMatchObject({ ok: true });
     expect(saveInquiryRecordMock).not.toHaveBeenCalled();
+  });
+
+  it("returns a configuration code when Google Sheets environment variables are missing", async () => {
+    const missingConfigError = Object.assign(new Error("Google Sheets is not configured."), {
+      name: "MissingGoogleSheetsConfigError",
+    });
+    saveInquiryRecordMock.mockRejectedValue(missingConfigError);
+
+    const response = await POST(
+      new Request("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: { "x-forwarded-for": "203.0.113.15" },
+        body: JSON.stringify(validInquiry({ locale: "es" })),
+      }),
+    );
+
+    expect(response.status).toBe(503);
+    await expect(response.json()).resolves.toMatchObject({
+      ok: false,
+      code: "CONFIG_MISSING",
+      message: "Inquiry service is being configured. Please contact us by WhatsApp or email.",
+    });
   });
 
   it("rate limits repeated submissions from the same IP", async () => {

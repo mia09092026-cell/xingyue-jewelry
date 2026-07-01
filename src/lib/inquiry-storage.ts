@@ -9,6 +9,13 @@ import { appendInquiryToGoogleSheet, hasGoogleSheetsConfig } from "@/lib/google-
 
 const devCsvPath = path.join(process.cwd(), "data", "inquiries-dev.csv");
 
+export class MissingGoogleSheetsConfigError extends Error {
+  constructor() {
+    super("Google Sheets environment variables are not configured.");
+    this.name = "MissingGoogleSheetsConfigError";
+  }
+}
+
 function escapeCsvCell(value: string) {
   return `"${value.replaceAll('"', '""')}"`;
 }
@@ -46,7 +53,7 @@ export async function saveInquiryRecord(record: InquirySheetRecord) {
   }
 
   if (process.env.NODE_ENV === "production") {
-    throw new Error("Google Sheets is not configured for production inquiry storage.");
+    throw new MissingGoogleSheetsConfigError();
   }
 
   await appendInquiryToDevCsv(record);

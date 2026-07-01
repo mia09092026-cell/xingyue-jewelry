@@ -146,6 +146,29 @@ describe("Contact inquiry page form", () => {
     expect(screen.getByLabelText("Email")).toHaveValue("avery@example.com");
   });
 
+  it("shows a friendly configuration message when the inquiry service is not ready", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: false,
+      json: async () => ({
+        ok: false,
+        code: "CONFIG_MISSING",
+      }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<ContactPage />);
+    fillRequiredInquiryFields();
+
+    fireEvent.click(screen.getByRole("button", { name: /Submit Inquiry/i }));
+
+    expect(
+      await screen.findByText(
+        "Inquiry service is being configured. Please contact us by WhatsApp or email.",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText("Name")).toHaveValue("Avery Chen");
+  });
+
   it("shows a loading state while the inquiry is submitting", async () => {
     let resolveFetch: (value: unknown) => void = () => {};
     const pendingFetch = new Promise((resolve) => {
