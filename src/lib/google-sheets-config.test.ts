@@ -36,7 +36,7 @@ function configureGoogleSheetsTestEnv() {
 
   process.env.GOOGLE_SHEETS_CLIENT_EMAIL = "service@example.iam.gserviceaccount.com";
   process.env.GOOGLE_SHEETS_PRIVATE_KEY = privateKey;
-  process.env.GOOGLE_SHEETS_SPREADSHEET_ID = "spreadsheet-id";
+  process.env.GOOGLE_SHEETS_SPREADSHEET_ID = "1AbCdEfGhIjKlMnOpQrStUvWxYz0123456789";
   process.env.GOOGLE_SHEETS_SHEET_NAME = "Inquiries";
 }
 
@@ -81,7 +81,7 @@ describe("Google Sheets configuration helpers", () => {
   it("defaults the sheet tab name while still reporting whether the env variable exists", () => {
     process.env.GOOGLE_SHEETS_CLIENT_EMAIL = "service@example.iam.gserviceaccount.com";
     process.env.GOOGLE_SHEETS_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\\nredacted\\n-----END PRIVATE KEY-----";
-    process.env.GOOGLE_SHEETS_SPREADSHEET_ID = "spreadsheet-id";
+    process.env.GOOGLE_SHEETS_SPREADSHEET_ID = "1AbCdEfGhIjKlMnOpQrStUvWxYz0123456789";
 
     expect(getGoogleSheetsEnvStatus()).toEqual({
       GOOGLE_SHEETS_CLIENT_EMAIL: true,
@@ -98,6 +98,59 @@ describe("Google Sheets configuration helpers", () => {
         defaultName: defaultGoogleSheetsSheetName,
       },
     });
+  });
+
+  it("reports invalid service account email format without exposing the email", async () => {
+    configureGoogleSheetsTestEnv();
+    process.env.GOOGLE_SHEETS_CLIENT_EMAIL = "sales@xingyuejewelry.com";
+    const fetchSpy = vi.spyOn(globalThis, "fetch");
+
+    expect(getGoogleSheetsHealthStatus()).toMatchObject({
+      ready: false,
+      clientEmail: {
+        present: true,
+        validFormat: false,
+      },
+      spreadsheetId: {
+        present: true,
+        validFormat: true,
+      },
+    });
+    await expect(probeGoogleSheetsWrite(healthCheckRecord())).resolves.toEqual({
+      canConnectGoogle: false,
+      canOpenSpreadsheet: false,
+      canFindSheetTab: false,
+      canWriteTestRow: false,
+      errorCategory: "invalid_client_email",
+    });
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it("reports invalid spreadsheet ID format without exposing the configured value", async () => {
+    configureGoogleSheetsTestEnv();
+    process.env.GOOGLE_SHEETS_SPREADSHEET_ID =
+      "https://docs.google.com/spreadsheets/d/not-an-id/edit";
+    const fetchSpy = vi.spyOn(globalThis, "fetch");
+
+    expect(getGoogleSheetsHealthStatus()).toMatchObject({
+      ready: false,
+      clientEmail: {
+        present: true,
+        validFormat: true,
+      },
+      spreadsheetId: {
+        present: true,
+        validFormat: false,
+      },
+    });
+    await expect(probeGoogleSheetsWrite(healthCheckRecord())).resolves.toEqual({
+      canConnectGoogle: false,
+      canOpenSpreadsheet: false,
+      canFindSheetTab: false,
+      canWriteTestRow: false,
+      errorCategory: "invalid_spreadsheet_id_format",
+    });
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
   it("normalizes private keys from Vercel escaped newlines, actual newlines, and outer quotes", () => {
@@ -249,7 +302,7 @@ describe("Google Sheets configuration helpers", () => {
   it("classifies service-account signing failures as invalid private key before any Google request", async () => {
     process.env.GOOGLE_SHEETS_CLIENT_EMAIL = "service@example.iam.gserviceaccount.com";
     process.env.GOOGLE_SHEETS_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\\nredacted\\n-----END PRIVATE KEY-----";
-    process.env.GOOGLE_SHEETS_SPREADSHEET_ID = "spreadsheet-id";
+    process.env.GOOGLE_SHEETS_SPREADSHEET_ID = "1AbCdEfGhIjKlMnOpQrStUvWxYz0123456789";
     const fetchSpy = vi.spyOn(globalThis, "fetch");
 
     const record = createInquirySheetRecord(

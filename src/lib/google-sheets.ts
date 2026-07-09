@@ -26,6 +26,8 @@ export const defaultGoogleSheetsSheetName = "Inquiries";
 
 export type GoogleSheetsOperation =
   | "read_environment"
+  | "validate_client_email"
+  | "validate_spreadsheet_id"
   | "normalize_private_key"
   | "create_service_account_jwt"
   | "authorize_google_sheets"
@@ -36,6 +38,8 @@ export type GoogleSheetsOperation =
 
 export type GoogleSheetsErrorCategory =
   | "missing_environment_variables"
+  | "invalid_client_email"
+  | "invalid_spreadsheet_id_format"
   | "invalid_private_key"
   | "spreadsheet_not_found"
   | "sheet_tab_not_found"
@@ -47,6 +51,8 @@ export type GoogleSheetsHealthErrorCategory =
   | "spreadsheet_not_found"
   | "sheet_tab_not_found"
   | "invalid_private_key"
+  | "invalid_client_email"
+  | "invalid_spreadsheet_id_format"
   | "google_api_error";
 
 export type GoogleSheetsWriteProbeResult = {
@@ -66,6 +72,14 @@ type GoogleTokenResponse = {
 type GoogleSheetsHealthStatus = {
   ready: boolean;
   variables: GoogleSheetsEnvStatus;
+  clientEmail: {
+    present: boolean;
+    validFormat: boolean;
+  };
+  spreadsheetId: {
+    present: boolean;
+    validFormat: boolean;
+  };
   privateKey: {
     present: boolean;
     validFormat: boolean;
@@ -89,6 +103,8 @@ const googleTokenUrl = "https://oauth2.googleapis.com/token";
 const googleSheetsScope = "https://www.googleapis.com/auth/spreadsheets";
 const privateKeyBeginMarker = "-----BEGIN PRIVATE KEY-----";
 const privateKeyEndMarker = "-----END PRIVATE KEY-----";
+const serviceAccountEmailPattern = /^[^@\s]+@[^@\s]+\.iam\.gserviceaccount\.com$/i;
+const spreadsheetIdPattern = /^[A-Za-z0-9_-]{20,200}$/;
 
 export class GoogleSheetsSafeError extends Error {
   category: GoogleSheetsErrorCategory;
@@ -191,6 +207,8 @@ export function getGoogleSheetsEnvStatus(): GoogleSheetsEnvStatus {
 
 export function getGoogleSheetsHealthStatus(): GoogleSheetsHealthStatus {
   const variables = getGoogleSheetsEnvStatus();
+  const clientEmail = readGoogleSheetsEnv("GOOGLE_SHEETS_CLIENT_EMAIL");
+  const spreadsheetId = readGoogleSheetsEnv("GOOGLE_SHEETS_SPREADSHEET_ID");
   const rawPrivateKey = readGoogleSheetsEnv("GOOGLE_SHEETS_PRIVATE_KEY");
   const privateKeyInspection = rawPrivateKey
     ? inspectPrivateKey(rawPrivateKey)
@@ -198,15 +216,27 @@ export function getGoogleSheetsHealthStatus(): GoogleSheetsHealthStatus {
   const validFormat = Boolean(
     rawPrivateKey && privateKeyInspection.normalized && privateKeyInspection.hasBegin && privateKeyInspection.hasEnd,
   );
+  const validClientEmailFormat = serviceAccountEmailPattern.test(clientEmail);
+  const validSpreadsheetIdFormat = spreadsheetIdPattern.test(spreadsheetId);
 
   return {
     ready: Boolean(
       variables.GOOGLE_SHEETS_CLIENT_EMAIL &&
         variables.GOOGLE_SHEETS_PRIVATE_KEY &&
         variables.GOOGLE_SHEETS_SPREADSHEET_ID &&
+        validClientEmailFormat &&
+        validSpreadsheetIdFormat &&
         validFormat,
     ),
     variables,
+    clientEmail: {
+      present: variables.GOOGLE_SHEETS_CLIENT_EMAIL,
+      validFormat: validClientEmailFormat,
+    },
+    spreadsheetId: {
+      present: variables.GOOGLE_SHEETS_SPREADSHEET_ID,
+      validFormat: validSpreadsheetIdFormat,
+    },
     privateKey: {
       present: variables.GOOGLE_SHEETS_PRIVATE_KEY,
       validFormat,
@@ -232,6 +262,22 @@ function resolveGoogleSheetsConfig(): GoogleSheetsConfig {
       "missing_environment_variables",
       "Google Sheets environment variables are not configured.",
       { operation: "read_environment", status: 503 },
+    );
+  }
+
+  if (!serviceAccountEmailPattern.test(clientEmail)) {
+    throw new GoogleSheetsSafeError(
+      "invalid_client_email",
+      "Google Sheets client email format is invalid.",
+      { operation: "validate_client_email", status: 503 },
+    );
+  }
+
+  if (!spreadsheetIdPattern.test(spreadsheetId)) {
+    throw new GoogleSheetsSafeError(
+      "invalid_spreadsheet_id_format",
+      "Google Sheets spreadsheet ID format is invalid.",
+      { operation: "validate_spreadsheet_id", status: 503 },
     );
   }
 
@@ -395,6 +441,8 @@ export function classifyGoogleSheetsApiError(
 function googleSheetsCategoryToHttpStatus(category: GoogleSheetsErrorCategory) {
   switch (category) {
     case "missing_environment_variables":
+    case "invalid_client_email":
+    case "invalid_spreadsheet_id_format":
       return 503;
     case "permission_denied":
       return 403;
@@ -573,6 +621,8 @@ function toHealthErrorCategory(error: unknown): GoogleSheetsHealthErrorCategory 
 
   switch (error.category) {
     case "invalid_private_key":
+    case "invalid_client_email":
+    case "invalid_spreadsheet_id_format":
     case "permission_denied":
     case "spreadsheet_not_found":
     case "sheet_tab_not_found":

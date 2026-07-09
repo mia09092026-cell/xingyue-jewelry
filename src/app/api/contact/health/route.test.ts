@@ -38,6 +38,14 @@ describe("contact Google Sheets health API", () => {
         defaulted: false,
         defaultName: "Inquiries",
       },
+      clientEmail: {
+        present: true,
+        validFormat: true,
+      },
+      spreadsheetId: {
+        present: true,
+        validFormat: true,
+      },
     });
     probeGoogleSheetsWriteMock.mockResolvedValue({
       canConnectGoogle: true,
@@ -77,6 +85,14 @@ describe("contact Google Sheets health API", () => {
         defaulted: false,
         defaultName: "Inquiries",
       },
+      clientEmail: {
+        present: true,
+        validFormat: true,
+      },
+      spreadsheetId: {
+        present: true,
+        validFormat: true,
+      },
     });
     expect(probeGoogleSheetsWriteMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -108,6 +124,14 @@ describe("contact Google Sheets health API", () => {
         configured: true,
         defaulted: false,
         defaultName: "Inquiries",
+      },
+      clientEmail: {
+        present: true,
+        validFormat: true,
+      },
+      spreadsheetId: {
+        present: true,
+        validFormat: true,
       },
     });
     probeGoogleSheetsWriteMock.mockResolvedValue({
