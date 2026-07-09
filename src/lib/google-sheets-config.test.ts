@@ -1,5 +1,6 @@
+import { generateKeyPairSync } from "crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { createInquirySheetRecord } from "./contact-inquiry";
+import { createInquirySheetRecord, inquirySheetHeaders } from "./contact-inquiry";
 import {
   appendInquiryToGoogleSheet,
   canRunGoogleSheetsTestWrite,
@@ -9,6 +10,7 @@ import {
   getGoogleSheetsHealthStatus,
   hasGoogleSheetsConfig,
   normalizeGooglePrivateKey,
+  probeGoogleSheetsWrite,
 } from "./google-sheets";
 
 const googleEnvKeys = [
@@ -25,10 +27,41 @@ function clearGoogleEnv() {
   delete process.env.INQUIRY_TEST_TOKEN;
 }
 
+function configureGoogleSheetsTestEnv() {
+  const { privateKey } = generateKeyPairSync("rsa", {
+    modulusLength: 1024,
+    privateKeyEncoding: { type: "pkcs8", format: "pem" },
+    publicKeyEncoding: { type: "spki", format: "pem" },
+  });
+
+  process.env.GOOGLE_SHEETS_CLIENT_EMAIL = "service@example.iam.gserviceaccount.com";
+  process.env.GOOGLE_SHEETS_PRIVATE_KEY = privateKey;
+  process.env.GOOGLE_SHEETS_SPREADSHEET_ID = "spreadsheet-id";
+  process.env.GOOGLE_SHEETS_SHEET_NAME = "Inquiries";
+}
+
+function healthCheckRecord() {
+  return createInquirySheetRecord(
+    {
+      name: "Health Check Test",
+      company: "Xingyue Jewelry",
+      email: "health-check@example.com",
+      phone: "+86 133 2488 8759",
+      country: "Health Check",
+      productInterest: "Google Sheets write health check",
+      quantity: "1 test row",
+      customRequirement: "Configuration verification only",
+      message: "Health Check Test",
+    },
+    { locale: "en", sourcePage: "/api/contact/health" },
+  );
+}
+
 describe("Google Sheets configuration helpers", () => {
   afterEach(() => {
     clearGoogleEnv();
     vi.unstubAllEnvs();
+    vi.restoreAllMocks();
   });
 
   it("reports only true/false environment variable status", () => {
@@ -119,6 +152,98 @@ describe("Google Sheets configuration helpers", () => {
         "append_inquiry",
       ),
     ).toMatchObject({ category: "sheet_tab_not_found", status: 400 });
+  });
+
+  it("classifies a disabled Google Sheets API as google API error rather than sheet permission", () => {
+    expect(
+      classifyGoogleSheetsApiError(
+        403,
+        JSON.stringify({
+          error: {
+            status: "PERMISSION_DENIED",
+            message: "Google Sheets API has not been used in project before or it is disabled.",
+            errors: [{ reason: "accessNotConfigured" }],
+          },
+        }),
+        "open_spreadsheet",
+      ),
+    ).toMatchObject({ category: "google_sheets_api_error", status: 403 });
+  });
+
+  it("probes Google auth, spreadsheet, tab, and writes through Inquiries!A:P", async () => {
+    configureGoogleSheetsTestEnv();
+    const fetchMock = vi.spyOn(globalThis, "fetch");
+    fetchMock
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ sheets: [{ properties: { title: "Inquiries" } }] }),
+          { status: 200 },
+        ),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ values: [inquirySheetHeaders] }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(new Response(JSON.stringify({ updates: {} }), { status: 200 }));
+
+    const result = await probeGoogleSheetsWrite(healthCheckRecord());
+
+    expect(result).toEqual({
+      canConnectGoogle: true,
+      canOpenSpreadsheet: true,
+      canFindSheetTab: true,
+      canWriteTestRow: true,
+      errorCategory: null,
+    });
+    const appendCall = fetchMock.mock.calls[3];
+    expect(decodeURIComponent(String(appendCall?.[0]))).toContain("/values/Inquiries!A:P:append");
+    expect(String(appendCall?.[1]?.body)).toContain("Health Check Test");
+  });
+
+  it("reports spreadsheet_not_found after Google auth succeeds but the spreadsheet cannot open", async () => {
+    configureGoogleSheetsTestEnv();
+    vi.spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ error: { status: "NOT_FOUND", message: "Requested entity was not found." } }),
+          { status: 404 },
+        ),
+      );
+
+    await expect(probeGoogleSheetsWrite(healthCheckRecord())).resolves.toEqual({
+      canConnectGoogle: true,
+      canOpenSpreadsheet: false,
+      canFindSheetTab: false,
+      canWriteTestRow: false,
+      errorCategory: "spreadsheet_not_found",
+    });
+  });
+
+  it("reports sheet_tab_not_found when the configured Inquiries tab is absent", async () => {
+    configureGoogleSheetsTestEnv();
+    vi.spyOn(globalThis, "fetch")
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ sheets: [{ properties: { title: "Sheet1" } }] }),
+          { status: 200 },
+        ),
+      );
+
+    await expect(probeGoogleSheetsWrite(healthCheckRecord())).resolves.toEqual({
+      canConnectGoogle: true,
+      canOpenSpreadsheet: true,
+      canFindSheetTab: false,
+      canWriteTestRow: false,
+      errorCategory: "sheet_tab_not_found",
+    });
   });
 
   it("classifies service-account signing failures as invalid private key before any Google request", async () => {

@@ -29,6 +29,7 @@ export type GoogleSheetsOperation =
   | "normalize_private_key"
   | "create_service_account_jwt"
   | "authorize_google_sheets"
+  | "open_spreadsheet"
   | "read_header_row"
   | "update_header_row"
   | "append_inquiry";
@@ -40,6 +41,21 @@ export type GoogleSheetsErrorCategory =
   | "sheet_tab_not_found"
   | "permission_denied"
   | "google_sheets_api_error";
+
+export type GoogleSheetsHealthErrorCategory =
+  | "permission_denied"
+  | "spreadsheet_not_found"
+  | "sheet_tab_not_found"
+  | "invalid_private_key"
+  | "google_api_error";
+
+export type GoogleSheetsWriteProbeResult = {
+  canConnectGoogle: boolean;
+  canOpenSpreadsheet: boolean;
+  canFindSheetTab: boolean;
+  canWriteTestRow: boolean;
+  errorCategory: GoogleSheetsHealthErrorCategory | null;
+};
 
 type GoogleTokenResponse = {
   access_token?: string;
@@ -329,6 +345,19 @@ export function classifyGoogleSheetsApiError(
   }
 
   if (
+    errorText.includes("accessnotconfigured") ||
+    errorText.includes("service_disabled") ||
+    errorText.includes("api has not been used") ||
+    errorText.includes("api is disabled")
+  ) {
+    return new GoogleSheetsSafeError(
+      "google_sheets_api_error",
+      "Google Sheets API is unavailable.",
+      { operation, status },
+    );
+  }
+
+  if (
     errorText.includes("unable to parse range") ||
     errorText.includes("range not found") ||
     errorText.includes("sheet not found")
@@ -437,8 +466,12 @@ async function getAccessToken(config: GoogleSheetsConfig) {
 }
 
 function sheetRange(config: GoogleSheetsConfig, range: string) {
-  const escapedSheetName = config.sheetName.replaceAll("'", "''");
-  return encodeURIComponent(`'${escapedSheetName}'!${range}`);
+  const simpleSheetName = /^[A-Za-z_][A-Za-z0-9_]*$/.test(config.sheetName);
+  const sheetName = simpleSheetName
+    ? config.sheetName
+    : `'${config.sheetName.replaceAll("'", "''")}'`;
+
+  return encodeURIComponent(`${sheetName}!${range}`);
 }
 
 async function safeFetch(url: string, init: RequestInit, operation: GoogleSheetsOperation) {
@@ -497,11 +530,12 @@ async function ensureHeaderRow(config: GoogleSheetsConfig, accessToken: string) 
   }
 }
 
-export async function appendInquiryToGoogleSheet(record: InquirySheetRecord) {
-  const config = resolveGoogleSheetsConfig();
-  const accessToken = await getAccessToken(config);
+async function appendInquiryWithConfig(
+  config: GoogleSheetsConfig,
+  accessToken: string,
+  record: InquirySheetRecord,
+) {
   await ensureHeaderRow(config, accessToken);
-
   const appendRange = sheetRange(config, "A:P");
   const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${config.spreadsheetId}/values/${appendRange}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
   const response = await safeFetch(
@@ -523,5 +557,107 @@ export async function appendInquiryToGoogleSheet(record: InquirySheetRecord) {
       await readGoogleErrorBody(response),
       "append_inquiry",
     );
+  }
+}
+
+export async function appendInquiryToGoogleSheet(record: InquirySheetRecord) {
+  const config = resolveGoogleSheetsConfig();
+  const accessToken = await getAccessToken(config);
+  await appendInquiryWithConfig(config, accessToken, record);
+}
+
+function toHealthErrorCategory(error: unknown): GoogleSheetsHealthErrorCategory {
+  if (!isGoogleSheetsSafeError(error)) {
+    return "google_api_error";
+  }
+
+  switch (error.category) {
+    case "invalid_private_key":
+    case "permission_denied":
+    case "spreadsheet_not_found":
+    case "sheet_tab_not_found":
+      return error.category;
+    case "missing_environment_variables":
+    case "google_sheets_api_error":
+    default:
+      return "google_api_error";
+  }
+}
+
+async function getSpreadsheetTabTitles(config: GoogleSheetsConfig, accessToken: string) {
+  const response = await safeFetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${config.spreadsheetId}?fields=sheets.properties.title`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    },
+    "open_spreadsheet",
+  );
+  const bodyText = await readGoogleErrorBody(response);
+
+  if (!response.ok) {
+    throw classifyGoogleSheetsApiError(response.status, bodyText, "open_spreadsheet");
+  }
+
+  const payload = parseJson(bodyText) as
+    | { sheets?: Array<{ properties?: { title?: string } }> }
+    | null;
+
+  return (payload?.sheets ?? [])
+    .map((sheet) => sheet.properties?.title)
+    .filter((title): title is string => Boolean(title));
+}
+
+export async function probeGoogleSheetsWrite(
+  record: InquirySheetRecord,
+): Promise<GoogleSheetsWriteProbeResult> {
+  const result: GoogleSheetsWriteProbeResult = {
+    canConnectGoogle: false,
+    canOpenSpreadsheet: false,
+    canFindSheetTab: false,
+    canWriteTestRow: false,
+    errorCategory: null,
+  };
+
+  let config: GoogleSheetsConfig;
+
+  try {
+    config = resolveGoogleSheetsConfig();
+  } catch (error) {
+    return { ...result, errorCategory: toHealthErrorCategory(error) };
+  }
+
+  let accessToken: string;
+
+  try {
+    accessToken = await getAccessToken(config);
+    result.canConnectGoogle = true;
+  } catch (error) {
+    return { ...result, errorCategory: toHealthErrorCategory(error) };
+  }
+
+  let tabTitles: string[];
+
+  try {
+    tabTitles = await getSpreadsheetTabTitles(config, accessToken);
+    result.canOpenSpreadsheet = true;
+  } catch (error) {
+    return { ...result, errorCategory: toHealthErrorCategory(error) };
+  }
+
+  if (!tabTitles.includes(config.sheetName)) {
+    return { ...result, errorCategory: "sheet_tab_not_found" };
+  }
+
+  result.canFindSheetTab = true;
+
+  try {
+    await appendInquiryWithConfig(config, accessToken, record);
+    result.canWriteTestRow = true;
+    return result;
+  } catch (error) {
+    return { ...result, errorCategory: toHealthErrorCategory(error) };
   }
 }
