@@ -14,8 +14,10 @@ import {
 } from "./google-sheets";
 
 const googleEnvKeys = [
+  "GOOGLE_SHEETS_CLIENT_EMAIL_V2",
   "GOOGLE_SHEETS_CLIENT_EMAIL",
   "GOOGLE_SHEETS_PRIVATE_KEY",
+  "GOOGLE_SHEETS_SPREADSHEET_ID_V2",
   "GOOGLE_SHEETS_SPREADSHEET_ID",
   "GOOGLE_SHEETS_SHEET_NAME",
 ] as const;
@@ -92,12 +94,56 @@ describe("Google Sheets configuration helpers", () => {
     expect(hasGoogleSheetsConfig()).toBe(true);
     expect(getGoogleSheetsHealthStatus()).toMatchObject({
       ready: true,
+      usingClientEmailSource: "legacy",
+      usingSpreadsheetIdSource: "legacy",
       sheetName: {
         configured: false,
         defaulted: true,
         defaultName: defaultGoogleSheetsSheetName,
       },
     });
+  });
+
+  it("prefers V2 client email and spreadsheet ID for health checks and Google requests", async () => {
+    configureGoogleSheetsTestEnv();
+    process.env.GOOGLE_SHEETS_CLIENT_EMAIL_V2 =
+      "service-v2@example-v2.iam.gserviceaccount.com";
+    process.env.GOOGLE_SHEETS_SPREADSHEET_ID_V2 =
+      "1V2SpreadsheetIdAbCdEfGhIjKlMnOpQrStUv";
+    const fetchMock = vi.spyOn(globalThis, "fetch");
+    fetchMock
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ access_token: "test-access-token" }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            error: { status: "NOT_FOUND", message: "Requested entity was not found." },
+          }),
+          { status: 404 },
+        ),
+      );
+
+    const health = getGoogleSheetsHealthStatus();
+    const result = await probeGoogleSheetsWrite(healthCheckRecord());
+    const tokenRequest = fetchMock.mock.calls[0]?.[1];
+    const assertion = (tokenRequest?.body as URLSearchParams).get("assertion") ?? "";
+    const jwtPayload = JSON.parse(
+      Buffer.from(assertion.split(".")[1] ?? "", "base64url").toString("utf8"),
+    ) as { iss?: string };
+
+    expect(health).toMatchObject({
+      ready: true,
+      usingClientEmailSource: "V2",
+      usingSpreadsheetIdSource: "V2",
+      clientEmail: { present: true, validFormat: true },
+      spreadsheetId: { present: true, validFormat: true },
+    });
+    expect(jwtPayload.iss).toBe("service-v2@example-v2.iam.gserviceaccount.com");
+    expect(String(fetchMock.mock.calls[1]?.[0])).toContain(
+      "1V2SpreadsheetIdAbCdEfGhIjKlMnOpQrStUv",
+    );
+    expect(result.errorCategory).toBe("spreadsheet_not_found");
   });
 
   it("reports invalid service account email format without exposing the email", async () => {

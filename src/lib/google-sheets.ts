@@ -72,6 +72,8 @@ type GoogleTokenResponse = {
 type GoogleSheetsHealthStatus = {
   ready: boolean;
   variables: GoogleSheetsEnvStatus;
+  usingClientEmailSource: "V2" | "legacy";
+  usingSpreadsheetIdSource: "V2" | "legacy";
   clientEmail: {
     present: boolean;
     validFormat: boolean;
@@ -146,9 +148,27 @@ function base64Url(input: string | Buffer) {
     .replaceAll("=", "");
 }
 
-function readGoogleSheetsEnv(key: GoogleSheetsEnvKey) {
+type GoogleSheetsReadableEnvKey =
+  | GoogleSheetsEnvKey
+  | "GOOGLE_SHEETS_CLIENT_EMAIL_V2"
+  | "GOOGLE_SHEETS_SPREADSHEET_ID_V2";
+
+function readGoogleSheetsEnv(key: GoogleSheetsReadableEnvKey) {
   const value = process.env[key]?.trim();
   return value ? value : "";
+}
+
+function readPreferredGoogleSheetsEnv(
+  v2Key: "GOOGLE_SHEETS_CLIENT_EMAIL_V2" | "GOOGLE_SHEETS_SPREADSHEET_ID_V2",
+  legacyKey: "GOOGLE_SHEETS_CLIENT_EMAIL" | "GOOGLE_SHEETS_SPREADSHEET_ID",
+) {
+  const v2Value = readGoogleSheetsEnv(v2Key);
+
+  if (v2Value) {
+    return { value: v2Value, source: "V2" as const };
+  }
+
+  return { value: readGoogleSheetsEnv(legacyKey), source: "legacy" as const };
 }
 
 function stripMatchingOuterQuotes(value: string) {
@@ -207,8 +227,16 @@ export function getGoogleSheetsEnvStatus(): GoogleSheetsEnvStatus {
 
 export function getGoogleSheetsHealthStatus(): GoogleSheetsHealthStatus {
   const variables = getGoogleSheetsEnvStatus();
-  const clientEmail = readGoogleSheetsEnv("GOOGLE_SHEETS_CLIENT_EMAIL");
-  const spreadsheetId = readGoogleSheetsEnv("GOOGLE_SHEETS_SPREADSHEET_ID");
+  const selectedClientEmail = readPreferredGoogleSheetsEnv(
+    "GOOGLE_SHEETS_CLIENT_EMAIL_V2",
+    "GOOGLE_SHEETS_CLIENT_EMAIL",
+  );
+  const selectedSpreadsheetId = readPreferredGoogleSheetsEnv(
+    "GOOGLE_SHEETS_SPREADSHEET_ID_V2",
+    "GOOGLE_SHEETS_SPREADSHEET_ID",
+  );
+  const clientEmail = selectedClientEmail.value;
+  const spreadsheetId = selectedSpreadsheetId.value;
   const rawPrivateKey = readGoogleSheetsEnv("GOOGLE_SHEETS_PRIVATE_KEY");
   const privateKeyInspection = rawPrivateKey
     ? inspectPrivateKey(rawPrivateKey)
@@ -221,20 +249,22 @@ export function getGoogleSheetsHealthStatus(): GoogleSheetsHealthStatus {
 
   return {
     ready: Boolean(
-      variables.GOOGLE_SHEETS_CLIENT_EMAIL &&
+      clientEmail &&
         variables.GOOGLE_SHEETS_PRIVATE_KEY &&
-        variables.GOOGLE_SHEETS_SPREADSHEET_ID &&
+        spreadsheetId &&
         validClientEmailFormat &&
         validSpreadsheetIdFormat &&
         validFormat,
     ),
     variables,
+    usingClientEmailSource: selectedClientEmail.source,
+    usingSpreadsheetIdSource: selectedSpreadsheetId.source,
     clientEmail: {
-      present: variables.GOOGLE_SHEETS_CLIENT_EMAIL,
+      present: Boolean(clientEmail),
       validFormat: validClientEmailFormat,
     },
     spreadsheetId: {
-      present: variables.GOOGLE_SHEETS_SPREADSHEET_ID,
+      present: Boolean(spreadsheetId),
       validFormat: validSpreadsheetIdFormat,
     },
     privateKey: {
@@ -252,9 +282,15 @@ export function getGoogleSheetsHealthStatus(): GoogleSheetsHealthStatus {
 }
 
 function resolveGoogleSheetsConfig(): GoogleSheetsConfig {
-  const clientEmail = readGoogleSheetsEnv("GOOGLE_SHEETS_CLIENT_EMAIL");
+  const clientEmail = readPreferredGoogleSheetsEnv(
+    "GOOGLE_SHEETS_CLIENT_EMAIL_V2",
+    "GOOGLE_SHEETS_CLIENT_EMAIL",
+  ).value;
   const rawPrivateKey = readGoogleSheetsEnv("GOOGLE_SHEETS_PRIVATE_KEY");
-  const spreadsheetId = readGoogleSheetsEnv("GOOGLE_SHEETS_SPREADSHEET_ID");
+  const spreadsheetId = readPreferredGoogleSheetsEnv(
+    "GOOGLE_SHEETS_SPREADSHEET_ID_V2",
+    "GOOGLE_SHEETS_SPREADSHEET_ID",
+  ).value;
   const sheetName = readGoogleSheetsEnv("GOOGLE_SHEETS_SHEET_NAME") || defaultGoogleSheetsSheetName;
 
   if (!clientEmail || !rawPrivateKey || !spreadsheetId) {

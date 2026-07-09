@@ -46,6 +46,8 @@ describe("contact Google Sheets health API", () => {
         present: true,
         validFormat: true,
       },
+      usingClientEmailSource: "V2",
+      usingSpreadsheetIdSource: "V2",
     });
     probeGoogleSheetsWriteMock.mockResolvedValue({
       canConnectGoogle: true,
@@ -93,6 +95,8 @@ describe("contact Google Sheets health API", () => {
         present: true,
         validFormat: true,
       },
+      usingClientEmailSource: "V2",
+      usingSpreadsheetIdSource: "V2",
     });
     expect(probeGoogleSheetsWriteMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -133,6 +137,8 @@ describe("contact Google Sheets health API", () => {
         present: true,
         validFormat: true,
       },
+      usingClientEmailSource: "legacy",
+      usingSpreadsheetIdSource: "legacy",
     });
     probeGoogleSheetsWriteMock.mockResolvedValue({
       canConnectGoogle: true,
