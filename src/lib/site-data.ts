@@ -12,6 +12,7 @@ export const brand = {
 export const navigation = [
   { label: "Home", href: "/" },
   { label: "Collections", href: "/collections" },
+  { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
   { label: "Custom Manufacturing", href: "/collections/custom-jewelry-manufacturing" },
   { label: "Education", href: "/education" },
   { label: "About Us", href: "/about" },

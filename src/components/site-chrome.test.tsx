@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
+import { getI18nContent } from "@/content/i18n";
 
 describe("site chrome brand identity", () => {
   it("uses the Star & Moon brand logo in the header home link", () => {
@@ -38,5 +39,23 @@ describe("site chrome brand identity", () => {
       "href",
       "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
+  });
+
+  it("links the gemstone catalog from English, Arabic, and Spanish navigation", () => {
+    const { unmount } = render(<SiteHeader />);
+
+    expect(
+      screen.getByRole("link", { name: "Lab-Grown Gemstones" }),
+    ).toHaveAttribute("href", "/lab-grown-gemstones");
+    unmount();
+
+    expect(getI18nContent("ar").navigation).toContainEqual({
+      label: "أحجار كريمة مخبرية",
+      href: "/ar/lab-grown-gemstones",
+    });
+    expect(getI18nContent("es").navigation).toContainEqual({
+      label: "Gemas de laboratorio",
+      href: "/es/lab-grown-gemstones",
+    });
   });
 });
