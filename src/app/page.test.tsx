@@ -66,6 +66,18 @@ describe("XINGYUE homepage", () => {
     }
 
     expect(screen.getAllByText(/Wholesale Moissanite Jewelry/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("heading", { name: "Lab-Grown Gemstones by Color" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Explore lab-grown ruby, sapphire, emerald, spinel, moissanite and colored gemstones for wholesale jewelry manufacturing.",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "View Gemstones" })).toHaveAttribute(
+      "href",
+      "/lab-grown-gemstones",
+    );
     expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(
       "href",
       "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",

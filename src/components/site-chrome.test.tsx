@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
@@ -39,6 +40,19 @@ describe("site chrome brand identity", () => {
       "href",
       "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
     );
+  });
+
+  it("includes the gemstone catalog in footer collection links", () => {
+    render(<SiteFooter />);
+
+    const collectionsColumn = screen.getByRole("heading", { name: "Collections" })
+      .parentElement;
+    expect(collectionsColumn).not.toBeNull();
+    expect(
+      within(collectionsColumn as HTMLElement).getByRole("link", {
+        name: "Lab-Grown Gemstones",
+      }),
+    ).toHaveAttribute("href", "/lab-grown-gemstones");
   });
 
   it("links the gemstone catalog from English navigation only for the first preview stage", () => {

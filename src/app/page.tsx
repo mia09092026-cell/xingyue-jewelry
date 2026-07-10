@@ -348,6 +348,41 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="px-5 pb-20 sm:px-8">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-md border border-[#e3dbcb] bg-[#17202a] shadow-[0_22px_70px_rgba(23,32,42,0.12)]">
+          <div className="grid gap-0 lg:grid-cols-[0.72fr_0.28fr]">
+            <div className="p-8 text-white md:p-10">
+              <p className="mb-3 text-sm uppercase tracking-[0.16em] text-[#e6cf96]">
+                Stone Sourcing
+              </p>
+              <h2 className="font-serif text-4xl leading-tight">
+                Lab-Grown Gemstones by Color
+              </h2>
+              <p className="mt-5 max-w-2xl leading-8 text-white/72">
+                Explore lab-grown ruby, sapphire, emerald, spinel, moissanite and colored gemstones for wholesale jewelry manufacturing.
+              </p>
+              <Link
+                href="/lab-grown-gemstones"
+                className="mt-7 inline-flex items-center gap-2 rounded-md bg-[#e6cf96] px-5 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
+              >
+                View Gemstones
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="relative min-h-64 bg-[#0f1720]">
+              <Image
+                src="/images/xingyue-colored-gemstones.jpg"
+                alt="Lab-grown colored gemstones for wholesale jewelry manufacturing"
+                fill
+                sizes="(min-width: 1024px) 28vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#17202a]/55 to-transparent lg:bg-gradient-to-l" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-[#fbfaf7] px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading

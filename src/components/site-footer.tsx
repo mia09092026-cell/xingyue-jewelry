@@ -20,10 +20,13 @@ type SiteFooterProps = {
   };
 };
 
-const defaultCollectionItems = collectionLandingPages.map((page) => ({
-  label: page.eyebrow,
-  href: `/collections/${page.slug}`,
-}));
+const defaultCollectionItems = [
+  { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
+  ...collectionLandingPages.map((page) => ({
+    label: page.eyebrow,
+    href: `/collections/${page.slug}`,
+  })),
+];
 
 export function SiteFooter({
   collectionItems = defaultCollectionItems,

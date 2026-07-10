@@ -27,6 +27,10 @@ describe("SEO foundations", () => {
     expect(urls).toContain("https://xingyuejewelry.com/lab-grown-gemstones");
     expect(urls).not.toContain("https://xingyuejewelry.com/ar/lab-grown-gemstones");
     expect(urls).not.toContain("https://xingyuejewelry.com/es/lab-grown-gemstones");
+    expect(
+      sitemap().find((entry) => entry.url === "https://xingyuejewelry.com/lab-grown-gemstones")
+        ?.alternates,
+    ).toBeUndefined();
     expect(urls).toContain("https://xingyuejewelry.com/faq");
     expect(urls).toContain("https://xingyuejewelry.com/collections");
     for (const path of localizedPublicPages) {
