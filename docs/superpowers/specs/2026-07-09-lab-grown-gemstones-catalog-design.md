@@ -2,7 +2,7 @@
 
 ## Goal
 
-Add a premium B2B lab-grown gemstone catalog to Xingyue Jewelry without turning the site into a retail marketplace. The catalog helps overseas buyers browse by color and stone type, understand reference wholesale ranges, and submit a quote-ready inquiry.
+Add a premium first-stage English B2B lab-grown gemstone catalog to Xingyue Jewelry without turning the site into a retail marketplace. The catalog helps overseas buyers browse by color and stone type, understand reference wholesale ranges, and submit a quote-ready inquiry.
 
 ## Experience
 
@@ -22,21 +22,21 @@ The page sections are:
 ## Architecture
 
 - `src/data/gemstones.ts` owns typed, non-retail catalog data.
-- `src/content/gemstone-catalog.ts` owns English, Arabic, and Spanish interface copy and SEO copy.
+- `src/content/gemstone-catalog.ts` owns the English interface and SEO copy for this first preview stage.
 - `src/components/gemstone-stone-card.tsx` renders one B2B stone card.
-- `src/components/gemstone-catalog-page.tsx` composes the full page for a locale.
-- App Router route files provide localized metadata, canonical URLs, and hreflang.
+- `src/components/gemstone-catalog-page.tsx` composes the full English catalog page.
+- `src/app/lab-grown-gemstones/page.tsx` provides metadata, canonical URL, Open Graph image, and English/x-default alternates.
 - Existing `contactInquiryHref()` pre-fills Product Interest through the `interest` query parameter.
 - Existing WhatsApp and sales email links remain unchanged.
 
 ## Images
 
-Use only project-owned or already supplied local assets. The supplied ruby and sapphire images will be tracked because the new page directly references them. Existing colored stone, loose stone, moissanite, testing, and packaging images cover other sections. Missing dedicated images are documented in `IMAGE_MAP.md`; no external images are downloaded.
+Use only project-owned or already supplied local assets. The supplied ruby and sapphire images are tracked because the new page directly references them. Existing colored stone, loose stone, and moissanite images cover other sections. Missing dedicated images are documented in `IMAGE_MAP.md`; no external images are downloaded.
 
 ## Localization and SEO
 
-English, Arabic, and Spanish routes share the same technical product data. Interface labels, section copy, metadata, CTA text, and price disclaimer are localized. Arabic uses the site's existing RTL mechanism. The page is added to localized route helpers and sitemap entries with `en`, `ar`, `es`, and `x-default` alternates.
+This first stage only publishes `/lab-grown-gemstones` in English. It does not add `/ar/lab-grown-gemstones` or `/es/lab-grown-gemstones`. The sitemap includes the English URL, and page metadata includes `en` plus `x-default` alternates. Existing multilingual site routes remain unchanged.
 
 ## Verification
 
-Tests cover data integrity, CTA prefill links, contact methods, localized rendering, metadata/hreflang, sitemap entries, and image references. Final verification runs `npm run lint`, `npm run build`, and `npm test`, followed by desktop and mobile local preview checks.
+Tests cover data integrity, CTA prefill links, contact methods, English rendering, metadata, sitemap entries, and image references. Final verification runs `npm run lint`, `npm run build`, and `npm test`.

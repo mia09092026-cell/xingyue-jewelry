@@ -73,7 +73,6 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
         homeHref={localizedPath("/", locale)}
         inquiryHref={generalInquiryHref}
         inquiryLabel={copy.cta.sendInquiry}
-        languagePath="/lab-grown-gemstones"
         navigationItems={navigationItems}
       />
 

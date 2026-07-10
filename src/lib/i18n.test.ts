@@ -40,7 +40,6 @@ describe("i18n routing helpers", () => {
     expect(localizedPublicPages).toEqual([
       "/",
       "/products",
-      "/lab-grown-gemstones",
       "/collections/lab-grown-diamond-jewelry",
       "/collections/custom-jewelry-manufacturing",
       "/about",

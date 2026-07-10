@@ -14,7 +14,6 @@ export const localeLabels: Record<SupportedLocale, string> = {
 export const localizedPublicPages = [
   "/",
   "/products",
-  "/lab-grown-gemstones",
   "/collections/lab-grown-diamond-jewelry",
   "/collections/custom-jewelry-manufacturing",
   "/about",

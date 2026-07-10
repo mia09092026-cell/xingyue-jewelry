@@ -41,7 +41,7 @@ describe("site chrome brand identity", () => {
     );
   });
 
-  it("links the gemstone catalog from English, Arabic, and Spanish navigation", () => {
+  it("links the gemstone catalog from English navigation only for the first preview stage", () => {
     const { unmount } = render(<SiteHeader />);
 
     expect(
@@ -49,13 +49,11 @@ describe("site chrome brand identity", () => {
     ).toHaveAttribute("href", "/lab-grown-gemstones");
     unmount();
 
-    expect(getI18nContent("ar").navigation).toContainEqual({
-      label: "أحجار كريمة مخبرية",
-      href: "/ar/lab-grown-gemstones",
-    });
-    expect(getI18nContent("es").navigation).toContainEqual({
-      label: "Gemas de laboratorio",
-      href: "/es/lab-grown-gemstones",
-    });
+    expect(getI18nContent("ar").navigation).not.toEqual(
+      expect.arrayContaining([expect.objectContaining({ href: "/ar/lab-grown-gemstones" })]),
+    );
+    expect(getI18nContent("es").navigation).not.toEqual(
+      expect.arrayContaining([expect.objectContaining({ href: "/es/lab-grown-gemstones" })]),
+    );
   });
 });
