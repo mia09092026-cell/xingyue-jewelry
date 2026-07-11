@@ -565,6 +565,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     navigation: [
       { label: "الرئيسية", href: "/ar" },
       { label: "المنتجات", href: "/ar/products" },
+      { label: "أحجار كريمة مزروعة", href: "/ar/lab-grown-gemstones" },
       { label: "الجملة", href: "/ar/collections/lab-grown-diamond-jewelry" },
       { label: "OEM / ODM", href: "/ar/collections/custom-jewelry-manufacturing" },
       { label: "من نحن", href: "/ar/about" },
@@ -759,6 +760,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     navigation: [
       { label: "Inicio", href: "/es" },
       { label: "Productos", href: "/es/products" },
+      { label: "Gemas de laboratorio", href: "/es/lab-grown-gemstones" },
       { label: "Mayorista", href: "/es/collections/lab-grown-diamond-jewelry" },
       { label: "OEM / ODM", href: "/es/collections/custom-jewelry-manufacturing" },
       { label: "Sobre nosotros", href: "/es/about" },

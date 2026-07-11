@@ -55,4 +55,51 @@ describe("GemstoneCatalogPage", () => {
       "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Lab-Grown%20Gemstone%20Inquiry",
     );
   });
+
+  it("renders Arabic gemstone catalog copy with RTL layout and localized inquiry routing", () => {
+    const { container } = render(<GemstoneCatalogPage locale="ar" />);
+
+    expect(container.querySelector("main")).toHaveAttribute("dir", "rtl");
+    expect(
+      screen.getByRole("heading", {
+        name: "أحجار كريمة مزروعة بالجملة حسب اللون",
+        level: 1,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: "عرض الأحجار" })).toHaveLength(7);
+    expect(
+      screen.getByRole("heading", { name: "خيارات الدفع للطلبات المؤكدة" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("فاتورة PayPal")).toBeInTheDocument();
+    expect(
+      screen
+        .getAllByRole("link", { name: "إرسال استفسار" })
+        .map((link) => link.getAttribute("href")),
+    ).toContain(
+      "/ar/contact?source=%2Far%2Flab-grown-gemstones&interest=Wholesale+lab-grown+gemstones",
+    );
+  });
+
+  it("renders Spanish gemstone catalog copy with localized inquiry routing", () => {
+    render(<GemstoneCatalogPage locale="es" />);
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Gemas de laboratorio al por mayor por color",
+        level: 1,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: "Ver gemas" })).toHaveLength(7);
+    expect(
+      screen.getByRole("heading", { name: "Opciones de pago para pedidos confirmados" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Transferencia bancaria / T/T")).toBeInTheDocument();
+    expect(
+      screen
+        .getAllByRole("link", { name: "Enviar consulta" })
+        .map((link) => link.getAttribute("href")),
+    ).toContain(
+      "/es/contact?source=%2Fes%2Flab-grown-gemstones&interest=Wholesale+lab-grown+gemstones",
+    );
+  });
 });

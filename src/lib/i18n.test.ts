@@ -15,6 +15,8 @@ describe("i18n routing helpers", () => {
     expect(localizedPath("/", "ar")).toBe("/ar");
     expect(localizedPath("/contact", "ar")).toBe("/ar/contact");
     expect(localizedPath("/products", "es")).toBe("/es/products");
+    expect(localizedPath("/lab-grown-gemstones", "ar")).toBe("/ar/lab-grown-gemstones");
+    expect(localizedPath("/lab-grown-gemstones", "es")).toBe("/es/lab-grown-gemstones");
   });
 
   it("detects locale and document direction from public paths", () => {
@@ -42,6 +44,7 @@ describe("i18n routing helpers", () => {
       "/products",
       "/collections/lab-grown-diamond-jewelry",
       "/collections/custom-jewelry-manufacturing",
+      "/lab-grown-gemstones",
       "/about",
       "/faq",
       "/contact",

@@ -25,20 +25,6 @@ function localizedPriority(path: LocalizedPublicPage) {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = ["/collections", "/education"];
-  const gemstoneCatalogUrl = absoluteUrl("/lab-grown-gemstones");
-  const englishOnlyEntries = [
-    {
-      url: gemstoneCatalogUrl,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-      alternates: {
-        languages: {
-          en: gemstoneCatalogUrl,
-          "x-default": gemstoneCatalogUrl,
-        },
-      },
-    },
-  ];
   const localizedEntries = localizedPublicPages.flatMap((path) =>
     supportedLocales.map((locale) => ({
       url: absoluteUrl(localizedPath(path, locale)),
@@ -52,7 +38,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...localizedEntries,
-    ...englishOnlyEntries,
     ...staticPaths.map((path) => ({
       url: absoluteUrl(path),
       changeFrequency: "monthly" as const,

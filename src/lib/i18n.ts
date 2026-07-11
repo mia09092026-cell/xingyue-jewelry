@@ -16,6 +16,7 @@ export const localizedPublicPages = [
   "/products",
   "/collections/lab-grown-diamond-jewelry",
   "/collections/custom-jewelry-manufacturing",
+  "/lab-grown-gemstones",
   "/about",
   "/faq",
   "/contact",
