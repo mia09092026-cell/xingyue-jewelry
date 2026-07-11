@@ -25,8 +25,8 @@ describe("SEO foundations", () => {
     expect(urls).toContain("https://xingyuejewelry.com/");
     expect(urls).toContain("https://xingyuejewelry.com/products");
     expect(urls).toContain("https://xingyuejewelry.com/lab-grown-gemstones");
-    expect(urls).not.toContain("https://xingyuejewelry.com/ar/lab-grown-gemstones");
-    expect(urls).not.toContain("https://xingyuejewelry.com/es/lab-grown-gemstones");
+    expect(urls).toContain("https://xingyuejewelry.com/ar/lab-grown-gemstones");
+    expect(urls).toContain("https://xingyuejewelry.com/es/lab-grown-gemstones");
     expect(urls).toContain("https://xingyuejewelry.com/faq");
     expect(urls).toContain("https://xingyuejewelry.com/collections");
     for (const path of localizedPublicPages) {
@@ -72,6 +72,31 @@ describe("SEO foundations", () => {
       "x-default": "https://xingyuejewelry.com/",
     });
     expect(arabicHome?.alternates?.languages).toEqual(home?.alternates?.languages);
+  });
+
+  it("adds hreflang alternates to the localized lab-grown gemstone sitemap entries", () => {
+    const gemstoneCatalog = sitemap().find(
+      (entry) => entry.url === "https://xingyuejewelry.com/lab-grown-gemstones",
+    );
+    const arabicGemstoneCatalog = sitemap().find(
+      (entry) => entry.url === "https://xingyuejewelry.com/ar/lab-grown-gemstones",
+    );
+    const spanishGemstoneCatalog = sitemap().find(
+      (entry) => entry.url === "https://xingyuejewelry.com/es/lab-grown-gemstones",
+    );
+
+    expect(gemstoneCatalog?.alternates?.languages).toEqual({
+      en: "https://xingyuejewelry.com/lab-grown-gemstones",
+      ar: "https://xingyuejewelry.com/ar/lab-grown-gemstones",
+      es: "https://xingyuejewelry.com/es/lab-grown-gemstones",
+      "x-default": "https://xingyuejewelry.com/lab-grown-gemstones",
+    });
+    expect(arabicGemstoneCatalog?.alternates?.languages).toEqual(
+      gemstoneCatalog?.alternates?.languages,
+    );
+    expect(spanishGemstoneCatalog?.alternates?.languages).toEqual(
+      gemstoneCatalog?.alternates?.languages,
+    );
   });
 
   it("keeps buyer-facing product metadata free of prototype labels", async () => {

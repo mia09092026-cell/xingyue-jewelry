@@ -20,10 +20,10 @@ describe("lab-grown gemstone App Router page", () => {
     );
     expect(metadata.alternates?.languages).toMatchObject({
       en: "https://xingyuejewelry.com/lab-grown-gemstones",
+      ar: "https://xingyuejewelry.com/ar/lab-grown-gemstones",
+      es: "https://xingyuejewelry.com/es/lab-grown-gemstones",
       "x-default": "https://xingyuejewelry.com/lab-grown-gemstones",
     });
-    expect(metadata.alternates?.languages).not.toHaveProperty("ar");
-    expect(metadata.alternates?.languages).not.toHaveProperty("es");
     expect(metadata.openGraph).toMatchObject({
       images: [
         {
