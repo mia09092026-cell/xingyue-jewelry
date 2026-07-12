@@ -10,7 +10,7 @@ import {
 
 describe("lab-grown gemstone catalog data", () => {
   it("defines all required color and gemstone buying paths", () => {
-    expect(gemstoneColorGroups).toHaveLength(7);
+    expect(gemstoneColorGroups).toHaveLength(8);
     expect(gemstoneColorGroups.map((group) => group.slug)).toEqual([
       "red",
       "blue",
@@ -19,6 +19,7 @@ describe("lab-grown gemstone catalog data", () => {
       "purple",
       "yellow-champagne",
       "white-colorless",
+      "black",
     ]);
     expect(gemstoneTypeCategories).toHaveLength(10);
     expect(gemstoneTypeCategories.map((category) => category.slug)).toEqual(

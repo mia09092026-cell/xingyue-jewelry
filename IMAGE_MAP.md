@@ -9,7 +9,7 @@ Only local Xingyue Jewelry project assets are used. No image was downloaded from
 | Red / lab-grown ruby | `public/images/b2b-lab-grown-ruby.jpg` | Supplied local image; added because the catalog uses it |
 | Blue / lab-grown sapphire | `public/images/b2b-lab-grown-sapphire.jpg` | Supplied local image; added because the catalog uses it |
 | Mixed fancy colors | `public/images/xingyue-colored-gemstones.jpg` | Existing tracked image |
-| Calibrated color inventory | `public/images/b2b-color-stone-inventory.jpg` | Existing tracked image |
+| Calibrated color inventory / black color path | `public/images/b2b-color-stone-inventory.jpg` | Existing tracked image; reused until original black-stone photography is available |
 | Colored stone options | `public/images/b2b-color-options.jpg` | Existing tracked image |
 | Colorless moissanite | `public/images/xingyue-loose-moissanite.jpg` | Existing tracked image |
 | Bulk colorless stones | `public/images/b2b-bulk-loose-stones.jpg` | Existing tracked image |
@@ -22,6 +22,7 @@ The page currently reuses suitable local catalog images for these entries. Repla
 - `lab-grown-emerald-green.webp`
 - `pink-sapphire-stones.webp`
 - `colored-moissanite-stones.webp`
+- `black-moissanite-stones.webp`
 - `loose-lab-grown-gemstones.webp`
 - `calibrated-gemstones-wholesale.webp`
 

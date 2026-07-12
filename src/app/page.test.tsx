@@ -55,6 +55,11 @@ describe("XINGYUE homepage", () => {
       expect(screen.getAllByText(matchText(product)).length).toBeGreaterThan(0);
     }
 
+    expect(screen.getByRole("link", { name: "Explore Colored Gemstones" })).toHaveAttribute(
+      "href",
+      "/lab-grown-gemstones",
+    );
+
     for (const capability of [
       "Photo-to-Sample Customization",
       "OEM / ODM Jewelry Production",

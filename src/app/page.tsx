@@ -52,7 +52,7 @@ const coreProducts = [
     copy: "Vivid color options for bracelets, rings, necklaces and custom collections.",
     image: "/images/xingyue-colored-gemstones.jpg",
     alt: "Assorted lab-grown colored gemstones",
-    href: "/collections/lab-grown-colored-gemstones",
+    href: "/lab-grown-gemstones",
     cta: "Explore Colored Gemstones",
   },
   {

@@ -102,6 +102,7 @@ export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy
         purple: "Purple",
         "yellow-champagne": "Yellow / Champagne",
         "white-colorless": "White / Colorless",
+        black: "Black",
       },
     },
     types: {
@@ -225,6 +226,7 @@ export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy
         purple: "بنفسجي",
         "yellow-champagne": "أصفر / شمبانيا",
         "white-colorless": "أبيض / عديم اللون",
+        black: "أسود",
       },
     },
     types: {
@@ -349,6 +351,7 @@ export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy
         purple: "Morado",
         "yellow-champagne": "Amarillo / Champagne",
         "white-colorless": "Blanco / Incoloro",
+        black: "Negro",
       },
     },
     types: {

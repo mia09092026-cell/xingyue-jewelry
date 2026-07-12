@@ -99,6 +99,18 @@ export const gemstoneColorGroups: GemstoneColorGroup[] = [
     alt: "Colorless round moissanite loose stone for wholesale",
     accent: "#78838f",
   },
+  {
+    slug: "black",
+    name: "Black",
+    representativeStones: [
+      "Black Moissanite",
+      "Black Cubic Zirconia",
+      "Project-Based Black Stone Sourcing",
+    ],
+    image: "/images/b2b-color-stone-inventory.jpg",
+    alt: "Calibrated fancy-color gemstone inventory on black trays",
+    accent: "#20262d",
+  },
 ];
 
 export const gemstoneTypeCategories: GemstoneTypeCategory[] = [

@@ -12,7 +12,8 @@ describe("GemstoneCatalogPage", () => {
         level: 1,
       }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "View Stones" })).toHaveLength(7);
+    expect(screen.getAllByRole("link", { name: "View Stones" })).toHaveLength(8);
+    expect(screen.getByRole("heading", { name: "Black", level: 2 })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "Reference wholesale price guidance" }),
     ).toBeInTheDocument();
@@ -66,7 +67,8 @@ describe("GemstoneCatalogPage", () => {
         level: 1,
       }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "عرض الأحجار" })).toHaveLength(7);
+    expect(screen.getAllByRole("link", { name: "عرض الأحجار" })).toHaveLength(8);
+    expect(screen.getByRole("heading", { name: "أسود", level: 2 })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "خيارات الدفع للطلبات المؤكدة" }),
     ).toBeInTheDocument();
@@ -89,7 +91,8 @@ describe("GemstoneCatalogPage", () => {
         level: 1,
       }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "Ver gemas" })).toHaveLength(7);
+    expect(screen.getAllByRole("link", { name: "Ver gemas" })).toHaveLength(8);
+    expect(screen.getByRole("heading", { name: "Negro", level: 2 })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "Opciones de pago para pedidos confirmados" }),
     ).toBeInTheDocument();

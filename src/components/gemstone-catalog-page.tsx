@@ -127,12 +127,10 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
             copy={copy.colors.copy}
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {gemstoneColorGroups.map((group, index) => (
+            {gemstoneColorGroups.map((group) => (
               <article
                 key={group.slug}
-                className={`group relative min-h-[360px] overflow-hidden rounded-md bg-[#17202a] shadow-[0_18px_50px_rgba(23,32,42,0.12)] ${
-                  index === 4 ? "xl:col-start-2" : ""
-                }`}
+                className="group relative min-h-[360px] overflow-hidden rounded-md bg-[#17202a] shadow-[0_18px_50px_rgba(23,32,42,0.12)]"
               >
                 <Image
                   src={group.image}
