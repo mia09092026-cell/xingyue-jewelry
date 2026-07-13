@@ -30,15 +30,14 @@ type CollectionContent = {
 export type ContactFormCopy = {
   introTitle: string;
   introCopy: string;
-  fieldLabels: Partial<Record<ContactInquiryField, string>> & Record<string, string>;
-  placeholders: Partial<Record<ContactInquiryField, string>> & Record<string, string>;
-  projectTypes?: Array<{ value: string; label: string }>;
-  budgetRanges?: Array<{ value: string; label: string }>;
+  fieldLabels: Partial<Record<ContactInquiryField, string>>;
+  placeholders: Partial<Record<ContactInquiryField, string>>;
   submitting: string;
   submit: string;
   email: string;
   successTitle: string;
   successMessage: string;
+  referenceLabel: string;
   errorFallback: string;
   validationPrefix: string;
 };
@@ -52,6 +51,7 @@ type LocaleContent = {
     pages: string;
     collections: string;
     reachUs: string;
+    email: string;
     inquiry: string;
   };
   cta: {
@@ -98,6 +98,7 @@ type LocaleContent = {
     eyebrow: string;
     title: string;
     subtitle: string;
+    profileEyebrow: string;
     profileTitle: string;
     profileCopy: string[];
     facts: Array<{ value: string; label: string }>;
@@ -151,10 +152,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     ],
     footer: {
       intro:
-        "Lab grown diamond jewelry, moissanite, 14K / 18K gold customization and OEM / ODM production for overseas wholesale buyers.",
+        "Jewelry manufacturing and supply chain support for emerging brands, boutique stores, independent designers and entrepreneurs.",
       pages: "Pages",
       collections: "B2B Paths",
       reachUs: "Reach Us",
+      email: "Email",
       inquiry: "OEM / ODM Inquiry",
     },
     cta: {
@@ -166,19 +168,19 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "Lab Grown Diamond Jewelry Manufacturer | Xingyue Jewelry",
+        title: "Jewelry Manufacturing & Supply Chain Partner | Xingyue Jewelry",
         description:
-          "Xingyue Jewelry is a B2B lab grown diamond jewelry manufacturer for wholesale, OEM / ODM customization, 14K / 18K gold jewelry and private label orders.",
+          "Xingyue Jewelry supports emerging brands, boutique stores and independent designers with custom jewelry development, OEM / ODM and supply chain coordination.",
       },
-      eyebrow: "B2B Lab Grown Jewelry Factory",
-      title: "Lab Grown Diamond Jewelry Manufacturer for Wholesale Buyers",
-      subtitle: "Wholesale supplier, OEM / ODM partner and private label jewelry factory.",
+      eyebrow: "Jewelry Manufacturing Partner for Emerging Brands",
+      title: "Jewelry Manufacturing & Supply Chain Partner",
+      subtitle: "Custom development, production support and private-label coordination for growing jewelry businesses.",
       copy:
-        "Xingyue Jewelry supports bulk order programs for lab grown diamond jewelry, moissanite jewelry, 14K / 18K gold settings, IGI / GIA certified diamond options, custom packaging and worldwide shipping.",
+        "Xingyue Jewelry helps startups, boutique jewelry stores, independent designers and entrepreneurs coordinate lab grown jewelry, moissanite, custom settings, packaging and repeat-order planning.",
       stats: [
-        { value: "15+ Years", label: "Gemstone and jewelry production experience" },
+        { value: "Flexible B2B", label: "Support for samples, launches and repeat orders" },
         { value: "14K / 18K", label: "Gold jewelry customization by project" },
-        { value: "Global B2B", label: "Wholesale, private label and OEM / ODM support" },
+        { value: "Coordinated Supply", label: "Sourcing, quality control, packaging and delivery planning" },
       ],
       sections: {
         productsEyebrow: "Products",
@@ -301,12 +303,12 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     collections: {
       "lab-grown-diamond-jewelry": {
         seo: {
-          title: "Wholesale Lab Grown Diamond Jewelry Manufacturer | Xingyue Jewelry",
+          title: "Lab Grown Diamond Jewelry Manufacturing Partner | Xingyue",
           description:
             "Source wholesale lab grown diamond jewelry with OEM / ODM support, 14K / 18K gold customization, IGI / GIA certificate options and private label packaging.",
         },
         eyebrow: "Wholesale Lab Grown Diamond Jewelry",
-        title: "Wholesale Lab Grown Diamond Jewelry Manufacturer",
+        title: "Lab Grown Diamond Jewelry Manufacturing Partner",
         subtitle:
           "A B2B production path for brands that need finished lab grown diamond jewelry, private label support and clear bulk order communication.",
         image: sharedImages.labDiamond,
@@ -358,7 +360,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       },
       "custom-jewelry-manufacturing": {
         seo: {
-          title: "Custom Jewelry OEM ODM Manufacturer | 14K 18K Gold Jewelry",
+          title: "Custom Jewelry OEM ODM Manufacturing Partner | 14K 18K Gold",
           description:
             "Develop custom jewelry with OEM / ODM manufacturing, 14K / 18K gold options, private label packaging, MOQ planning and worldwide shipping.",
         },
@@ -391,7 +393,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
             copy: "The sample route can define material, setting, finish and packaging before bulk production.",
           },
           {
-            title: "Factory communication",
+            title: "Production communication",
             copy: "Buyers can prepare reference images, MOQ, target market and timeline for a clearer quotation.",
           },
         ],
@@ -416,22 +418,23 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     about: {
       seo: {
-        title: "About Xingyue Jewelry | B2B Lab Grown Jewelry Manufacturer",
+        title: "About Xingyue Jewelry | Manufacturing & Supply Chain Partner",
         description:
-          "Learn about Xingyue Jewelry, a B2B lab grown diamond jewelry manufacturer and OEM / ODM supplier for wholesale and private label buyers.",
+          "Learn how Xingyue Jewelry supports emerging brands, boutique stores and independent designers with manufacturing and supply chain coordination.",
       },
-      eyebrow: "About Us",
+      eyebrow: "How We Work With Brands",
       title: "About Xingyue Jewelry",
       subtitle:
-        "A one-stop B2B jewelry factory for lab grown diamonds, moissanite, 14K / 18K gold customization and private label production.",
-      profileTitle: "Built for overseas wholesale and OEM / ODM buyers.",
+        "A jewelry manufacturing and supply chain partner for lab grown jewelry, moissanite, custom gold settings and private-label programs.",
+      profileEyebrow: "Who We Support",
+      profileTitle: "Built for emerging brands, boutique stores and independent designers.",
       profileCopy: [
-        "Xingyue Jewelry supports brands, wholesalers and online sellers that need a practical manufacturing partner rather than a retail shopping cart.",
+        "Xingyue Jewelry supports jewelry startups, boutique stores, independent designers and entrepreneurs that need a practical manufacturing partner rather than a retail shopping cart.",
         "Our work covers loose stone coordination, finished jewelry production, sample development, private label packaging, quality checks and worldwide shipping discussion.",
       ],
       facts: [
-        { value: "15+ Years", label: "Gemstone and jewelry production experience" },
-        { value: "1000+ sqm", label: "Laboratory and production space" },
+        { value: "Emerging Brands", label: "Development support for growing jewelry businesses" },
+        { value: "Boutique Jewelry Stores & Design Studios", label: "Flexible planning for stores and independent designers" },
         { value: "B2B", label: "Wholesale, OEM / ODM and private label support" },
       ],
       capabilityTitle: "What we help buyers confirm.",
@@ -510,14 +513,14 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       eyebrow: "Contact Us",
       title: "Send a Wholesale Jewelry Inquiry",
       subtitle:
-        "Tell us your product type, expected quantity, budget range, delivery city, certificate needs and packaging direction.",
+        "Tell us your product type, expected quantity, country, material, customization and packaging needs.",
       checklistTitle: "Prepare a quote-ready message.",
       checklistCopy:
         "The clearer your inquiry, the faster we can discuss MOQ, sampling, production time and shipping.",
       cards: [
         { title: "WhatsApp / Phone", copy: "Leave your WhatsApp or phone number for faster B2B discussion." },
         { title: "Email", copy: "Send product references, target quantity and packaging needs by email." },
-        { title: "Inquiry Form", copy: "Use the form to structure project type, budget, delivery city and requirements." },
+        { title: "Inquiry Form", copy: "Use the form to share product interest, quantity, country and customization requirements." },
         { title: "Catalog Request", copy: "Ask for suitable catalog direction based on your market and product focus." },
       ],
       form: {
@@ -552,6 +555,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         email: "Email Your Inquiry",
         successTitle: "Inquiry submitted",
         successMessage: "Thank you. We have received your inquiry and will contact you within 24 hours.",
+        referenceLabel: "Reference",
         errorFallback: "Submission failed. Please contact us by WhatsApp or email.",
         validationPrefix: "Please complete",
       },
@@ -574,10 +578,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     ],
     footer: {
       intro:
-        "مصنع B2B لمجوهرات الألماس المزروع والموسانيت مع تخصيص ذهب 14K / 18K وخدمات OEM / ODM للطلبات بالجملة.",
+        "دعم تصنيع وسلسلة توريد المجوهرات للعلامات الناشئة ومتاجر البوتيك والمصممين المستقلين ورواد الأعمال.",
       pages: "الصفحات",
       collections: "مسارات B2B",
       reachUs: "تواصل معنا",
+      email: "البريد الإلكتروني",
       inquiry: "استفسار OEM / ODM",
     },
     cta: {
@@ -589,19 +594,19 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "مصنع مجوهرات الألماس المزروع بالجملة | Xingyue Jewelry",
+        title: "شريك تصنيع وسلسلة توريد المجوهرات | Xingyue Jewelry",
         description:
-          "Xingyue Jewelry مصنع B2B لمجوهرات الألماس المزروع والموسانيت مع تخصيص OEM / ODM وذهب 14K / 18K وتغليف بعلامة خاصة.",
+          "تدعم Xingyue Jewelry العلامات الناشئة ومتاجر البوتيك والمصممين المستقلين عبر تطوير المجوهرات وخدمات OEM / ODM وتنسيق سلسلة التوريد.",
       },
-      eyebrow: "مصنع مجوهرات B2B",
-      title: "مصنع مجوهرات الألماس المزروع والموسانيت لطلبات الجملة",
-      subtitle: "مورد جملة وشريك OEM / ODM للعلامات التجارية العالمية.",
+      eyebrow: "شريك تصنيع المجوهرات للعلامات التجارية الناشئة",
+      title: "شريك تصنيع وسلسلة توريد المجوهرات",
+      subtitle: "تطوير مخصص ودعم إنتاج وتنسيق علامة خاصة للمشاريع والعلامات المتنامية.",
       copy:
-        "ندعم برامج الطلبات الكبيرة لمجوهرات الألماس المزروع، الموسانيت، إعدادات ذهب 14K / 18K، خيارات شهادات IGI / GIA، التغليف الخاص والشحن العالمي.",
+        "نساعد العلامات التجارية الناشئة ومتاجر المجوهرات الراقية والمصممين المستقلين ورواد الأعمال على تنسيق مجوهرات مرصعة بألماس وأحجار كريمة مُنتَجة في المختبر، إلى جانب الموسانيت والترصيعات المخصصة والتغليف والطلبات المتكررة.",
       stats: [
-        { value: "15+ سنة", label: "خبرة في إنتاج الأحجار والمجوهرات" },
+        { value: "دعم B2B مرن", label: "للعينات والإطلاق والطلبات المتكررة" },
         { value: "14K / 18K", label: "تخصيص ذهب حسب المشروع" },
-        { value: "B2B عالمي", label: "جملة، علامة خاصة، OEM / ODM" },
+        { value: "توريد منسق", label: "تنسيق المصادر والجودة والتغليف والتسليم" },
       ],
       sections: {
         productsEyebrow: "المنتجات",
@@ -620,7 +625,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         },
         {
           title: "مجوهرات ذهب 14K / 18K",
-          copy: "إعدادات ذهب مخصصة للمجموعات الفاخرة وإطلاق العلامات الخاصة والطلبات الكبيرة.",
+          copy: "حوامل ذهب مخصّصة للمجموعات الفاخرة وإطلاق العلامات الخاصة والطلبات الكبيرة.",
           image: sharedImages.bracelet,
           alt: "سوار تنس ذهبي مخصص لطلبات الجملة",
         },
@@ -666,7 +671,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       cards: [
         { name: "خواتم ألماس مزروع", category: "خواتم", material: "ذهب 14K / 18K، فضة S925 وخيارات شهادات", copy: "تصاميم سوليتير وهالو ومجموعات مستوحاة من الزفاف.", image: "/images/xingyue-ring-sample.jpg", alt: "خاتم ألماس مزروع لعميل B2B" },
         { name: "قلادات ألماس مزروع", category: "قلادات", material: "خيارات شهادات IGI / GIA حسب المشروع", copy: "برامج قلادات وسلاسل للبوتيكات والعلامات الإلكترونية والهدايا.", image: "/images/xingyue-heart-tennis-chain.jpg", alt: "قلادة وسلسلة ألماس مزروع" },
-        { name: "أقراط موسانيت", category: "أقراط", material: "فضة S925 أو إعدادات ذهب K مخصصة", copy: "تصاميم متكررة الطلب ومناسبة للهدايا ومجموعات الجملة.", image: sharedImages.packaging, alt: "أقراط موسانيت في تغليف عينة" },
+        { name: "أقراط موسانيت", category: "أقراط", material: "فضة S925 أو حوامل ذهب K مخصّصة", copy: "تصاميم متكررة الطلب ومناسبة للهدايا ومجموعات الجملة.", image: sharedImages.packaging, alt: "أقراط موسانيت في تغليف عينة" },
         { name: "أساور تنس مخصصة", category: "أساور", material: "طلب مخصص بذهب 10K / 14K / 18K", copy: "تطوير ترتيب الأحجار والقفل والطول والتغليف حسب سوقك.", image: sharedImages.bracelet, alt: "سوار تنس مخصص لعلامة خاصة" },
       ],
       proofTitle: "ما الذي يؤكده المشترون قبل الطلب؟",
@@ -679,9 +684,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     collections: {
       "lab-grown-diamond-jewelry": {
-        seo: { title: "مصنع مجوهرات الألماس المزروع بالجملة | Xingyue Jewelry", description: "مورد جملة لمجوهرات الألماس المزروع مع OEM / ODM، ذهب 14K / 18K، شهادات IGI / GIA وتغليف خاص." },
+        seo: { title: "شريك تصنيع مجوهرات الألماس المزروع | Xingyue Jewelry", description: "دعم مجوهرات الألماس المزروع بالجملة مع OEM / ODM، ذهب 14K / 18K، خيارات شهادات وتغليف خاص." },
         eyebrow: "مجوهرات ألماس مزروع بالجملة",
-        title: "مصنع مجوهرات الألماس المزروع بالجملة",
+        title: "شريك تصنيع مجوهرات الألماس المزروع بالجملة",
         subtitle: "مسار إنتاج B2B للعلامات التي تحتاج مجوهرات مكتملة ودعم علامة خاصة وتواصل واضح للطلبات الكبيرة.",
         image: sharedImages.labDiamond,
         alt: "دعم شهادات وتغليف لمجوهرات الألماس المزروع بالجملة",
@@ -692,7 +697,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         faqs: [{ question: "هل يمكنكم توريد مجوهرات ألماس مزروع بالجملة؟", answer: "نعم. ندعم برامج المجوهرات المكتملة للعلامات والموزعين وبائعي العلامات الخاصة." }, { question: "هل يمكن تصنيعها بذهب 14K أو 18K؟", answer: "نعم. يتم التسعير حسب التصميم وحجم الحجر ووزن المعدن والكمية." }, { question: "هل تدعمون شهادات IGI / GIA؟", answer: "نعم. يمكن مناقشة الشهادات حسب الحجر ومتطلبات الطلب." }],
       },
       "custom-jewelry-manufacturing": {
-        seo: { title: "مصنع مجوهرات مخصصة OEM ODM | ذهب 14K 18K", description: "طور مجوهرات مخصصة مع تصنيع OEM / ODM وخيارات ذهب 14K / 18K وتغليف خاص وMOQ وشحن عالمي." },
+        seo: { title: "شريك تصنيع مجوهرات مخصصة OEM ODM | ذهب 14K 18K", description: "طور مجوهرات مخصصة مع دعم OEM / ODM وخيارات ذهب 14K / 18K وتغليف خاص وتخطيط MOQ والشحن." },
         eyebrow: "مجوهرات مخصصة / OEM ODM",
         title: "تصنيع مجوهرات مخصصة OEM / ODM",
         subtitle: "أرسل تصميمك أو صورة مرجعية أو فكرة منتج لبناء برنامج مجوهرات جاهز للجملة.",
@@ -701,21 +706,22 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         options: ["أرسل تصميمك لتطوير العينة", "إنتاج OEM / ODM للخواتم والأقراط والقلادات والأساور", "خيارات ذهب 14K / 18K وفضة S925", "تغليف علامة خاصة لإطلاق العلامة والطلبات المتكررة"],
         capabilities: ["من صورة مرجعية إلى عينة", "مناقشة CAD والحجر والمعدن والتشطيب والتغليف", "تخطيط MOQ والطلب الكبير قبل الإنتاج", "جدولة إنتاج سريعة ودعم الشحن العالمي"],
         customization: ["نوع الحجر وحجمه ولونه وترتيبه", "نقاء المعدن ولون الطلاء والتركيب والقفل", "الشعار والعلبة والبطاقة وعرض الكتالوج"],
-        quality: [{ title: "اعتماد العينة", copy: "يمكن تحديد المادة والتركيب والتشطيب والتغليف قبل الإنتاج الكبير." }, { title: "تواصل المصنع", copy: "جهز الصور والMOQ والسوق المستهدف والجدول الزمني للحصول على تسعير أوضح." }],
+        quality: [{ title: "اعتماد العينة", copy: "يمكن تحديد المادة والتركيب والتشطيب والتغليف قبل الإنتاج الكبير." }, { title: "تواصل الإنتاج", copy: "جهز الصور والMOQ والسوق المستهدف والجدول الزمني للحصول على تسعير أوضح." }],
         faqs: [{ question: "هل يمكنني إرسال تصميمي الخاص؟", answer: "نعم. يمكنك إرسال رسم أو صورة مرجعية أو فكرة CAD أو عائلة منتجات." }, { question: "هل تدعمون تغليف علامة خاصة؟", answer: "نعم. يمكن مناقشة الصناديق والبطاقات وتفاصيل العرض للعلامة الخاصة." }, { question: "هل التخصيص مناسب للطلبات الكبيرة؟", answer: "نعم. نراجع MOQ وتكلفة العينة ووقت الإنتاج وخطة الشحن." }],
       },
     },
     about: {
-      seo: { title: "حول Xingyue Jewelry | مصنع مجوهرات B2B", description: "تعرف على Xingyue Jewelry، مصنع B2B لمجوهرات الألماس المزروع وخدمات OEM / ODM للجملة والعلامات الخاصة." },
-      eyebrow: "من نحن",
+      seo: { title: "حول Xingyue Jewelry | شريك تصنيع وسلسلة توريد", description: "تعرف على دعم Xingyue Jewelry للعلامات الناشئة ومتاجر البوتيك والمصممين المستقلين عبر التصنيع وخدمات OEM / ODM." },
+      eyebrow: "كيف نعمل مع العلامات التجارية",
       title: "حول Xingyue Jewelry",
-      subtitle: "مصنع مجوهرات B2B متكامل للألماس المزروع والموسانيت وتخصيص ذهب 14K / 18K والإنتاج بعلامة خاصة.",
-      profileTitle: "مصمم للمشترين العالميين في الجملة و OEM / ODM.",
-      profileCopy: ["تدعم Xingyue Jewelry العلامات التجارية والموزعين والبائعين الإلكترونيين الذين يحتاجون شريك تصنيع عملي وليس متجر تجزئة.", "يغطي عملنا تنسيق الأحجار، إنتاج المجوهرات، تطوير العينات، التغليف الخاص، الفحص ومناقشة الشحن العالمي."],
-      facts: [{ value: "15+ سنة", label: "خبرة في الأحجار والمجوهرات" }, { value: "1000+ م²", label: "مساحة مختبر وإنتاج" }, { value: "B2B", label: "جملة، OEM / ODM، علامة خاصة" }],
+      subtitle: "شريك تصنيع وسلسلة توريد لمجوهرات الألماس المزروع والموسانيت وتخصيص الذهب وبرامج العلامة الخاصة.",
+      profileEyebrow: "من نخدم",
+      profileTitle: "نخدم العلامات التجارية الناشئة ومتاجر المجوهرات الراقية والمصممين المستقلين.",
+      profileCopy: ["تدعم Xingyue Jewelry شركات المجوهرات الناشئة ومتاجر البوتيك والمصممين المستقلين ورواد الأعمال الذين يحتاجون شريك تصنيع عملي وليس متجر تجزئة.", "يغطي عملنا تنسيق الأحجار، إنتاج المجوهرات، تطوير العينات، التغليف الخاص، الفحص ومناقشة الشحن العالمي."],
+      facts: [{ value: "علامات ناشئة", label: "دعم تطوير مشاريع المجوهرات المتنامية" }, { value: "متاجر المجوهرات الراقية واستوديوهات التصميم", label: "تخطيط مرن للمتاجر والمصممين المستقلين" }, { value: "B2B", label: "جملة، OEM / ODM، علامة خاصة" }],
       capabilityTitle: "ما الذي نساعد المشترين على تأكيده.",
       capabilityCopy: "كل مشروع يتم تسعيره حسب التصميم والمادة والحجر والشهادة وMOQ والتغليف وخطة التسليم.",
-      capabilities: [{ title: "مورد جملة", copy: "دعم الإنتاج المتكرر لمجوهرات الألماس المزروع والموسانيت." }, { title: "تخصيص OEM / ODM", copy: "صور مرجعية، أفكار CAD، تغليف خاص وإعدادات ذهب مخصصة." }, { title: "الجودة والشحن", copy: "فحص، خيارات شهادات، تغليف تصدير وخطة شحن عالمي." }],
+      capabilities: [{ title: "مورد جملة", copy: "دعم الإنتاج المتكرر لمجوهرات الألماس المزروع والموسانيت." }, { title: "تخصيص OEM / ODM", copy: "صور مرجعية، أفكار CAD، تغليف خاص وترصيعات ذهب مخصّصة." }, { title: "الجودة والشحن", copy: "فحص، خيارات شهادات، تغليف تصدير وخطة شحن عالمي." }],
     },
     faq: {
       seo: { title: "الأسئلة الشائعة | مجوهرات ألماس مزروع بالجملة و OEM ODM", description: "أسئلة B2B حول مجوهرات الألماس المزروع، OEM / ODM، MOQ، الشهادات، التغليف الخاص والشحن." },
@@ -732,22 +738,21 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       seo: { title: "اتصل بـ Xingyue Jewelry | استفسار مجوهرات بالجملة", description: "تواصل مع Xingyue Jewelry لمجوهرات الألماس المزروع، OEM / ODM، الكتالوج، MOQ، التغليف الخاص والطلبات الكبيرة." },
       eyebrow: "اتصل بنا",
       title: "أرسل استفسار مجوهرات بالجملة",
-      subtitle: "أخبرنا بنوع المنتج والكمية والميزانية ومدينة التسليم والشهادة والتغليف المطلوب.",
+      subtitle: "أخبرنا بنوع المنتج والكمية والدولة والمادة والتخصيص والتغليف المطلوب.",
       checklistTitle: "جهز رسالة مناسبة للتسعير.",
       checklistCopy: "كلما كان الاستفسار أوضح، أسرعنا في مناقشة MOQ والعينة ووقت الإنتاج والشحن.",
-      cards: [{ title: "واتساب / هاتف", copy: "اترك رقم WhatsApp أو الهاتف لتواصل B2B أسرع." }, { title: "البريد الإلكتروني", copy: "أرسل المراجع والكمية والتغليف المطلوب عبر البريد." }, { title: "نموذج الاستفسار", copy: "استخدم النموذج لتحديد نوع المشروع والميزانية والمدينة والمتطلبات." }, { title: "طلب كتالوج", copy: "اطلب اتجاه كتالوج مناسب حسب سوقك وفئة المنتج." }],
+      cards: [{ title: "واتساب / هاتف", copy: "اترك رقم WhatsApp أو الهاتف لتواصل B2B أسرع." }, { title: "البريد الإلكتروني", copy: "أرسل المراجع والكمية والتغليف المطلوب عبر البريد." }, { title: "نموذج الاستفسار", copy: "استخدم النموذج لتحديد المنتج والكمية والدولة ومتطلبات التخصيص." }, { title: "طلب كتالوج", copy: "اطلب اتجاه كتالوج مناسب حسب سوقك وفئة المنتج." }],
       form: {
         introTitle: "نموذج استفسار جاهز للتسعير",
-        introCopy: "أرسل بيانات المشروع الأساسية: التواصل، الكمية، مدينة التسليم، الميزانية ومتطلبات الإنتاج.",
-        fieldLabels: { contactName: "الشخص المسؤول", phone: "الهاتف / واتساب", companyBrand: "الشركة / العلامة التجارية", projectType: "نوع المشروع", estimatedQuantity: "الكمية المتوقعة", deliveryCity: "مدينة التسليم", budgetRange: "نطاق الميزانية", requirements: "وصف المتطلبات" },
-        placeholders: { contactName: "اسمك", phone: "الهاتف أو واتساب", companyBrand: "اسم الشركة أو العلامة", projectType: "اختر نوع المشروع", estimatedQuantity: "عينة، 100 قطعة، 500 قطعة...", deliveryCity: "المدينة والدولة", budgetRange: "اختر نطاق الميزانية", requirements: "التصميم المرجعي، حجم الحجر، المعدن، الشهادة، التغليف والجدول الزمني..." },
-        projectTypes: [{ value: "moissanite-wholesale", label: "موسانيت بالجملة" }, { value: "lab-grown-diamond-jewelry", label: "مجوهرات ألماس مزروع" }, { value: "colored-gemstones", label: "أحجار ملونة مزروعة" }, { value: "chains", label: "سلاسل كوبية / تنس" }, { value: "custom-manufacturing", label: "تصنيع مجوهرات مخصصة" }, { value: "oem-odm", label: "إنتاج OEM / ODM" }],
-        budgetRanges: [{ value: "under-usd-3000", label: "أقل من 3,000 دولار" }, { value: "usd-3000-5000", label: "3,000 - 5,000 دولار" }, { value: "usd-5000-10000", label: "5,000 - 10,000 دولار" }, { value: "usd-10000-30000", label: "10,000 - 30,000 دولار" }, { value: "usd-30000-plus", label: "أكثر من 30,000 دولار" }, { value: "to-be-discussed", label: "يتم النقاش" }],
+        introCopy: "أرسل بيانات المشروع الأساسية: الشركة والتواصل والدولة والمنتج والكمية ومتطلبات التخصيص.",
+        fieldLabels: { name: "الاسم", company: "اسم الشركة", email: "البريد الإلكتروني", phone: "واتساب / الهاتف", country: "الدولة", productInterest: "المنتج المطلوب", quantity: "الكمية", customRequirement: "متطلبات التخصيص", message: "الرسالة" },
+        placeholders: { name: "اسمك", company: "اسم الشركة أو العلامة", email: "name@example.com", phone: "رقم واتساب أو الهاتف", country: "الدولة أو المنطقة", productInterest: "خواتم، أساور تنس، OEM/ODM، أحجار سائبة...", quantity: "عينة، 100 قطعة، 500 قطعة...", customRequirement: "ذهب 14K / 18K، علامة خاصة، تغليف مخصص، شهادات...", message: "النمط المرجعي، حجم الحجر، المعدن، الشهادة، التغليف والجدول الزمني..." },
         submitting: "جارٍ الإرسال...",
         submit: "أرسل استفساراً",
         email: "أرسل عبر البريد",
         successTitle: "تم إرسال الاستفسار",
         successMessage: "تم إرسال الاستفسار.",
+        referenceLabel: "الرقم المرجعي",
         errorFallback: "تعذر إرسال الاستفسار. يرجى مراسلتنا عبر البريد الإلكتروني.",
         validationPrefix: "يرجى إكمال",
       },
@@ -769,10 +774,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     ],
     footer: {
       intro:
-        "Fabricante B2B de joyería con diamantes de laboratorio, moissanita, oro 14K / 18K y producción OEM / ODM para compradores mayoristas.",
+        "Apoyo de fabricación y cadena de suministro para marcas emergentes, joyerías boutique, diseñadores independientes y emprendedores.",
       pages: "Páginas",
       collections: "Rutas B2B",
       reachUs: "Contacto",
+      email: "Correo electrónico",
       inquiry: "Consulta OEM / ODM",
     },
     cta: {
@@ -784,19 +790,19 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "Fabricante de joyería con diamantes de laboratorio | Xingyue Jewelry",
+        title: "Socio de fabricación y cadena de suministro | Xingyue Jewelry",
         description:
-          "Xingyue Jewelry fabrica joyería B2B con diamantes de laboratorio, moissanita, oro 14K / 18K, OEM / ODM y empaque de marca privada.",
+          "Xingyue Jewelry apoya marcas emergentes, joyerías boutique y diseñadores independientes con desarrollo, OEM / ODM y coordinación de suministro.",
       },
-      eyebrow: "Fábrica B2B de joyería lab grown",
-      title: "Fabricante de joyería con diamantes de laboratorio para compradores mayoristas",
-      subtitle: "Proveedor mayorista, socio OEM / ODM y fábrica de marca privada.",
+      eyebrow: "Socio de fabricación de joyería para marcas emergentes",
+      title: "Socio de fabricación y cadena de suministro de joyería",
+      subtitle: "Desarrollo personalizado, apoyo de producción y coordinación de marca privada para negocios de joyería en crecimiento.",
       copy:
-        "Xingyue Jewelry apoya pedidos al por mayor de joyería con diamantes de laboratorio, moissanita, oro 14K / 18K, opciones IGI / GIA, empaque personalizado y envíos internacionales.",
+        "Ayudamos a marcas emergentes, joyerías boutique, diseñadores independientes y emprendedores a coordinar joyería lab grown, moissanita, monturas personalizadas, empaque y pedidos recurrentes.",
       stats: [
-        { value: "15+ años", label: "Experiencia en piedras y joyería" },
+        { value: "B2B flexible", label: "Apoyo para muestras, lanzamientos y pedidos recurrentes" },
         { value: "14K / 18K", label: "Personalización en oro por proyecto" },
-        { value: "B2B global", label: "Mayorista, marca privada y OEM / ODM" },
+        { value: "Suministro coordinado", label: "Compras, calidad, empaque y entrega" },
       ],
       sections: {
         productsEyebrow: "Productos",
@@ -845,9 +851,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     collections: {
       "lab-grown-diamond-jewelry": {
-        seo: { title: "Fabricante mayorista de joyería con diamantes de laboratorio", description: "Proveedor de joyería con diamantes de laboratorio con OEM / ODM, oro 14K / 18K, certificados IGI / GIA y empaque privado." },
+        seo: { title: "Socio de fabricación de joyería con diamantes de laboratorio", description: "Apoyo mayorista para joyería con diamantes de laboratorio, OEM / ODM, oro 14K / 18K, opciones de certificado y empaque privado." },
         eyebrow: "Joyería lab grown al por mayor",
-        title: "Fabricante de joyería con diamantes de laboratorio",
+        title: "Socio de fabricación de joyería con diamantes de laboratorio",
         subtitle: "Ruta B2B para marcas que necesitan joyería terminada, soporte de marca privada y comunicación clara para pedidos a granel.",
         image: sharedImages.labDiamond,
         alt: "Soporte de certificados y empaque para joyería lab grown",
@@ -858,7 +864,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         faqs: [{ question: "¿Pueden suministrar joyería lab grown al por mayor?", answer: "Sí. Apoyamos programas de joyería terminada para marcas, mayoristas y vendedores de marca privada." }, { question: "¿Pueden fabricar en oro 14K o 18K?", answer: "Sí. Se cotiza según diseño, tamaño de piedra, peso de metal y cantidad." }, { question: "¿Trabajan con IGI / GIA?", answer: "Sí. Las opciones IGI / GIA se revisan según piedra y requisitos del pedido." }],
       },
       "custom-jewelry-manufacturing": {
-        seo: { title: "Fabricante OEM ODM de joyería personalizada | Oro 14K 18K", description: "Desarrolla joyería personalizada con OEM / ODM, oro 14K / 18K, empaque privado, planificación de MOQ y envío mundial." },
+        seo: { title: "Socio OEM ODM de joyería personalizada | Oro 14K 18K", description: "Desarrolla joyería personalizada con apoyo OEM / ODM, oro 14K / 18K, empaque privado y planificación de MOQ y envío." },
         eyebrow: "Joyería personalizada / OEM ODM",
         title: "Fabricación de joyería personalizada OEM / ODM",
         subtitle: "Envía tu diseño, foto de referencia o idea de producto para crear un programa mayorista listo para producir.",
@@ -867,18 +873,19 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         options: ["Enviar tu diseño para desarrollo de muestra", "Producción OEM / ODM para anillos, pendientes, collares y pulseras", "Opciones en oro 14K / 18K y plata S925", "Empaque de marca privada para lanzamientos y pedidos recurrentes"],
         capabilities: ["Flujo de foto de referencia a muestra", "Discusión de CAD, piedra, metal, acabado y empaque", "Planificación de MOQ y pedido a granel antes de producir", "Producción rápida y soporte de envío mundial"],
         customization: ["Tipo, tamaño, color y layout de piedras", "Pureza del metal, color de baño, montura y cierre", "Logo, caja, pouch, tarjeta y catálogo"],
-        quality: [{ title: "Aprobación de muestra", copy: "La muestra define material, montura, acabado y empaque antes del pedido a granel." }, { title: "Comunicación de fábrica", copy: "Prepara referencias, MOQ, mercado objetivo y plazo para una cotización clara." }],
+        quality: [{ title: "Aprobación de muestra", copy: "La muestra define material, montura, acabado y empaque antes del pedido a granel." }, { title: "Comunicación de producción", copy: "Prepara referencias, MOQ, mercado objetivo y plazo para una cotización clara." }],
         faqs: [{ question: "¿Puedo enviar mi propio diseño?", answer: "Sí. Puedes enviar boceto, foto, idea CAD o familia de productos." }, { question: "¿Hacen empaque de marca privada?", answer: "Sí. Cajas, tarjetas y presentación se pueden discutir para marca privada." }, { question: "¿La producción personalizada sirve para pedidos a granel?", answer: "Sí. Revisamos MOQ, costo de muestra, tiempo de producción y envío." }],
       },
     },
     about: {
-      seo: { title: "Sobre Xingyue Jewelry | Fabricante B2B de joyería lab grown", description: "Conoce Xingyue Jewelry, fabricante B2B de joyería con diamantes de laboratorio y proveedor OEM / ODM para mayoristas." },
-      eyebrow: "Sobre nosotros",
+      seo: { title: "Sobre Xingyue Jewelry | Socio de fabricación y suministro", description: "Conoce cómo Xingyue Jewelry apoya marcas emergentes, joyerías boutique y diseñadores independientes con fabricación y OEM / ODM." },
+      eyebrow: "Cómo trabajamos con las marcas",
       title: "Sobre Xingyue Jewelry",
-      subtitle: "Fábrica B2B integral para diamantes de laboratorio, moissanita, oro 14K / 18K y producción de marca privada.",
-      profileTitle: "Diseñada para compradores mayoristas y OEM / ODM internacionales.",
-      profileCopy: ["Xingyue Jewelry apoya marcas, mayoristas y vendedores online que necesitan un socio de fabricación, no un carrito minorista.", "Nuestro trabajo cubre selección de piedras, producción, muestras, empaque privado, control de calidad y envío mundial."],
-      facts: [{ value: "15+ años", label: "Experiencia en piedras y joyería" }, { value: "1000+ m²", label: "Laboratorio y producción" }, { value: "B2B", label: "Mayorista, OEM / ODM y marca privada" }],
+      subtitle: "Socio de fabricación y cadena de suministro para joyería lab grown, moissanita, oro personalizado y programas de marca privada.",
+      profileEyebrow: "A quién ayudamos",
+      profileTitle: "Diseñada para marcas emergentes, joyerías boutique y diseñadores independientes.",
+      profileCopy: ["Xingyue Jewelry apoya startups de joyería, tiendas boutique, diseñadores independientes y emprendedores que necesitan un socio de fabricación, no un carrito minorista.", "Nuestro trabajo cubre selección de piedras, producción, muestras, empaque privado, control de calidad y planificación de envío."],
+      facts: [{ value: "Marcas emergentes", label: "Apoyo para negocios de joyería en crecimiento" }, { value: "Joyerías boutique y estudios de diseño", label: "Planificación flexible para tiendas y diseñadores" }, { value: "B2B", label: "Mayorista, OEM / ODM y marca privada" }],
       capabilityTitle: "Lo que ayudamos a confirmar.",
       capabilityCopy: "Cada proyecto se cotiza por diseño, material, piedra, certificado, MOQ, empaque y entrega.",
       capabilities: [{ title: "Proveedor mayorista", copy: "Producción recurrente para joyería lab grown y moissanita." }, { title: "Personalización OEM / ODM", copy: "Fotos de referencia, CAD, empaque privado y monturas en oro." }, { title: "Calidad y envío", copy: "QC, certificados, empaque de exportación y envío mundial." }],
@@ -898,22 +905,21 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       seo: { title: "Contactar Xingyue Jewelry | Consulta de joyería mayorista", description: "Contacta a Xingyue Jewelry para joyería lab grown, OEM / ODM, catálogo, MOQ, empaque privado y pedidos a granel." },
       eyebrow: "Contacto",
       title: "Enviar consulta de joyería mayorista",
-      subtitle: "Cuéntanos tipo de producto, cantidad, presupuesto, ciudad de entrega, certificados y empaque.",
+      subtitle: "Cuéntanos producto, cantidad, país, material, personalización y empaque.",
       checklistTitle: "Prepara un mensaje listo para cotizar.",
       checklistCopy: "Una consulta clara acelera la discusión de MOQ, muestra, producción y envío.",
-      cards: [{ title: "WhatsApp / Teléfono", copy: "Deja tu WhatsApp o teléfono para una conversación B2B rápida." }, { title: "Email", copy: "Envía referencias, cantidad y empaque por correo." }, { title: "Formulario", copy: "Estructura tipo de proyecto, presupuesto, ciudad y requisitos." }, { title: "Catálogo", copy: "Pide un catálogo adecuado para tu mercado y enfoque de producto." }],
+      cards: [{ title: "WhatsApp / Teléfono", copy: "Deja tu WhatsApp o teléfono para una conversación B2B rápida." }, { title: "Correo electrónico", copy: "Envía referencias, cantidad y empaque por correo." }, { title: "Formulario", copy: "Indica producto, cantidad, país y requisitos de personalización." }, { title: "Catálogo", copy: "Pide un catálogo adecuado para tu mercado y enfoque de producto." }],
       form: {
         introTitle: "Formulario listo para cotización",
-        introCopy: "Envía los datos principales antes de discutir muestras: contacto, cantidad, ciudad, presupuesto y requisitos.",
-        fieldLabels: { contactName: "Persona de contacto", phone: "Teléfono / WhatsApp", companyBrand: "Empresa / Marca", projectType: "Tipo de proyecto", estimatedQuantity: "Cantidad estimada", deliveryCity: "Ciudad de entrega", budgetRange: "Rango de presupuesto", requirements: "Descripción de requisitos" },
-        placeholders: { contactName: "Tu nombre", phone: "Teléfono, WhatsApp o WeChat", companyBrand: "Nombre de empresa o marca", projectType: "Selecciona tipo de proyecto", estimatedQuantity: "Muestra, 100 piezas, 500 piezas...", deliveryCity: "Ciudad y país", budgetRange: "Selecciona presupuesto", requirements: "Estilo de referencia, piedra, metal, certificado, empaque y plazo..." },
-        projectTypes: [{ value: "moissanite-wholesale", label: "Moissanita al por mayor" }, { value: "lab-grown-diamond-jewelry", label: "Joyería con diamantes de laboratorio" }, { value: "colored-gemstones", label: "Gemas de laboratorio de color" }, { value: "chains", label: "Cadenas cubanas / tenis" }, { value: "custom-manufacturing", label: "Joyería personalizada" }, { value: "oem-odm", label: "Producción OEM / ODM" }],
-        budgetRanges: [{ value: "under-usd-3000", label: "Menos de USD 3,000" }, { value: "usd-3000-5000", label: "USD 3,000 - 5,000" }, { value: "usd-5000-10000", label: "USD 5,000 - 10,000" }, { value: "usd-10000-30000", label: "USD 10,000 - 30,000" }, { value: "usd-30000-plus", label: "USD 30,000+" }, { value: "to-be-discussed", label: "A discutir" }],
+        introCopy: "Envía los datos principales antes de discutir muestras: empresa, contacto, país, producto, cantidad y personalización.",
+        fieldLabels: { name: "Nombre", company: "Empresa", email: "Correo electrónico", phone: "WhatsApp / Teléfono", country: "País", productInterest: "Producto de interés", quantity: "Cantidad", customRequirement: "Requisitos de personalización", message: "Mensaje" },
+        placeholders: { name: "Tu nombre", company: "Nombre de empresa o marca", email: "name@example.com", phone: "Teléfono, WhatsApp o WeChat", country: "País o región", productInterest: "Anillos, pulseras tenis, OEM/ODM, piedras sueltas...", quantity: "Muestra, 100 piezas, 500 piezas...", customRequirement: "Oro 14K / 18K, marca privada, empaque, certificados...", message: "Estilo de referencia, piedra, metal, certificado, empaque y plazo..." },
         submitting: "Enviando...",
         submit: "Enviar consulta",
         email: "Enviar por email",
         successTitle: "Consulta enviada",
         successMessage: "Consulta enviada.",
+        referenceLabel: "Referencia",
         errorFallback: "No se pudo enviar la consulta. Escríbenos por email.",
         validationPrefix: "Por favor completa",
       },

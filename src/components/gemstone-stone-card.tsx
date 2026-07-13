@@ -67,7 +67,7 @@ export function GemstoneStoneCard({ copy, item, locale }: GemstoneStoneCardProps
             className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
           >
             {copy.cta.getWholesalePrice}
-            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
           </Link>
           <div className="grid gap-2 sm:grid-cols-2">
             <Link

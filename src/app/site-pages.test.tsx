@@ -4,6 +4,7 @@ import LocalizedCollectionPage from "./[locale]/collections/[slug]/page";
 import LocalizedContactPage from "./[locale]/contact/page";
 import LocalizedHomePage from "./[locale]/page";
 import LocalizedProductsPage from "./[locale]/products/page";
+import LocalizedAboutPage from "./[locale]/about/page";
 import AboutPage from "./about/page";
 import CollectionsPage from "./collections/page";
 import ContactPage from "./contact/page";
@@ -23,6 +24,13 @@ describe("XINGYUE independent site pages", () => {
     expect(container.textContent).not.toMatch(
       /Moissanite Diamond Wholesale|first homepage version|can be added later|Sample Products/i,
     );
+    expect(screen.getByRole("link", { name: "Explore Collection" })).toHaveAttribute(
+      "href",
+      "/products",
+    );
+    expect(
+      screen.getByText("Jewelry Manufacturing Partner for Emerging Brands"),
+    ).toBeInTheDocument();
   });
 
   it("renders the Collections page", () => {
@@ -63,6 +71,10 @@ describe("XINGYUE independent site pages", () => {
     ).toHaveAttribute("href", "/collections/moissanite-wholesale");
     const breadcrumb = screen.getByRole("navigation", { name: "Breadcrumb" });
     expect(breadcrumb).toBeInTheDocument();
+    expect(within(breadcrumb).getByRole("link", { name: "Products" })).toHaveAttribute(
+      "href",
+      "/products",
+    );
     expect(within(breadcrumb).getByRole("link", { name: "Wholesale Moissanite Jewelry" })).toHaveAttribute(
       "href",
       "/collections/moissanite-wholesale",
@@ -98,12 +110,39 @@ describe("XINGYUE independent site pages", () => {
     const { container } = render(<AboutPage />);
 
     expect(screen.getByRole("heading", { name: /About XINGYUE/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/overseas/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/15\+ Years/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/1000\+ sqm/i).length).toBeGreaterThan(0);
-    expect(screen.getByAltText(/XINGYUE jewelry factory workshop/i)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /One factory, one accountable workflow/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/emerging brands/i).length).toBeGreaterThan(0);
+    expect(screen.getByAltText(/jewelry production workshop/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /One partner, one coordinated workflow/i })).toBeInTheDocument();
+    expect(screen.getByText("How We Work With Brands")).toBeInTheDocument();
+    expect(screen.getByText("Who We Support")).toBeInTheDocument();
+    expect(
+      screen.getByText("Boutique Jewelry Stores & Design Studios"),
+    ).toBeInTheDocument();
+    expect(container.textContent).not.toMatch(/\bfactory\b|\bmanufacturer\b|1000\+|15\+ Years/i);
     expect(container.textContent).not.toMatch(/[\u4e00-\u9fff]/);
+  });
+
+  it("renders natural Spanish and Arabic brand-partner copy on About pages", async () => {
+    const spanishPage = await LocalizedAboutPage({
+      params: Promise.resolve({ locale: "es" }),
+    });
+    const spanish = render(spanishPage);
+
+    expect(screen.getAllByText("Cómo trabajamos con las marcas").length).toBeGreaterThan(0);
+    expect(screen.getByText("A quién ayudamos")).toBeInTheDocument();
+    expect(screen.getByText("Joyerías boutique y estudios de diseño")).toBeInTheDocument();
+    spanish.unmount();
+
+    const arabicPage = await LocalizedAboutPage({
+      params: Promise.resolve({ locale: "ar" }),
+    });
+    render(arabicPage);
+
+    expect(screen.getAllByText("كيف نعمل مع العلامات التجارية").length).toBeGreaterThan(0);
+    expect(screen.getByText("من نخدم")).toBeInTheDocument();
+    expect(
+      screen.getByText("متاجر المجوهرات الراقية واستوديوهات التصميم"),
+    ).toBeInTheDocument();
   });
 
   it("renders the Contact inquiry page", () => {
@@ -138,32 +177,35 @@ describe("XINGYUE independent site pages", () => {
 
   it("renders Arabic localized B2B pages with RTL buyer language", async () => {
     const home = await LocalizedHomePage({ params: Promise.resolve({ locale: "ar" }) });
-    const { unmount } = render(home);
+    const { container, unmount } = render(home);
 
-    expect(screen.getByRole("heading", { name: /مصنع مجوهرات الألماس المزروع/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /شريك تصنيع وسلسلة توريد المجوهرات/i })).toBeInTheDocument();
     expect(screen.getAllByText(/احصل على سعر الجملة/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/OEM \/ ODM/i).length).toBeGreaterThan(0);
+    expect(container.querySelector("main")).toHaveAttribute("dir", "rtl");
+    expect(container.textContent).not.toMatch(/مصنع/);
     unmount();
 
     const contact = await LocalizedContactPage({ params: Promise.resolve({ locale: "ar" }) });
     render(contact);
     expect(screen.getByLabelText("الاسم")).toBeInTheDocument();
     expect(screen.getByLabelText("اسم الشركة")).toBeInTheDocument();
-    expect(screen.getByLabelText("البريد الإلكتروني")).toBeInTheDocument();
-    expect(screen.getByLabelText("واتساب / الهاتف")).toBeInTheDocument();
+    expect(screen.getByLabelText("البريد الإلكتروني")).toHaveAttribute("dir", "ltr");
+    expect(screen.getByLabelText("واتساب / الهاتف")).toHaveAttribute("dir", "ltr");
     expect(screen.getByLabelText("الدولة")).toBeInTheDocument();
     expect(screen.getByLabelText("المنتج المطلوب")).toBeInTheDocument();
     expect(screen.getByLabelText("الكمية")).toBeInTheDocument();
     expect(screen.getByLabelText("متطلبات التخصيص")).toBeInTheDocument();
     expect(screen.getByLabelText("الرسالة")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /إرسال الاستفسار/i })).toBeInTheDocument();
-    const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
+    expect(screen.getByRole("button", { name: /أرسل استفساراً/i })).toBeInTheDocument();
+    expect(document.querySelector('input[name="website"]')?.parentElement?.parentElement).toHaveClass("sr-only");
+    const salesEmailLinks = screen.getAllByRole("link", { name: "البريد الإلكتروني: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
+      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("استفسار مجوهرات بالجملة من XINGYUE")}`,
     );
     expect(screen.getByRole("link", { name: /أرسل عبر البريد/i })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
+      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("استفسار مجوهرات بالجملة من XINGYUE")}`,
     );
   });
 
@@ -180,7 +222,7 @@ describe("XINGYUE independent site pages", () => {
     });
     const collectionPage = render(collection);
     expect(
-      screen.getByRole("heading", { name: /Fabricante de joyería con diamantes de laboratorio/i }),
+      screen.getByRole("heading", { name: /Socio de fabricación de joyería con diamantes de laboratorio/i }),
     ).toBeInTheDocument();
     expect(screen.getAllByText(/IGI \/ GIA/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /Contactar por WhatsApp/i })).toHaveAttribute(
@@ -201,13 +243,13 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByLabelText("Requisitos de personalización")).toBeInTheDocument();
     expect(screen.getByLabelText("Mensaje")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Enviar consulta/i })).toBeInTheDocument();
-    const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
+    const salesEmailLinks = screen.getAllByRole("link", { name: "Correo electrónico: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
+      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("Consulta de joyería mayorista XINGYUE")}`,
     );
     expect(screen.getByRole("link", { name: /Enviar por email/i })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
+      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("Consulta de joyería mayorista XINGYUE")}`,
     );
   });
 });

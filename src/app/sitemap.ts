@@ -24,7 +24,7 @@ function localizedPriority(path: LocalizedPublicPage) {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = ["/collections", "/education"];
+  const staticPaths = ["/education"];
   const localizedEntries = localizedPublicPages.flatMap((path) =>
     supportedLocales.map((locale) => ({
       url: absoluteUrl(localizedPath(path, locale)),

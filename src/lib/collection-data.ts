@@ -89,12 +89,12 @@ export const collectionLandingPages: readonly CollectionLandingPage[] = [
   {
     slug: "lab-grown-diamond-jewelry",
     title: "Lab-Grown Diamond Jewelry Manufacturing",
-    eyebrow: "Lab-Grown Diamond Jewelry Manufacturer",
+    eyebrow: "Lab-Grown Diamond Jewelry Partner",
     description:
       "Lab-Grown Diamond Jewelry Manufacturing for brands that want clean product planning, elegant finished pieces, and a clear B2B workflow built around modern retail presentation and repeatable development.",
-    metaTitle: "Lab-Grown Diamond Jewelry Manufacturer",
+    metaTitle: "Lab-Grown Diamond Jewelry Manufacturing Partner",
     metaDescription:
-      "Work with a Lab-Grown Diamond Jewelry Manufacturer for finished jewelry programs, private-label styling, and structured B2B production support.",
+      "Work with a lab-grown diamond jewelry manufacturing partner for finished jewelry programs, private-label styling and structured B2B production support.",
     image: "/images/b2b-certificate-packaging.jpg",
     alt: "Lab-grown diamond jewelry manufacturing with certificate-style packaging support",
     options: [
@@ -284,7 +284,7 @@ export const collectionLandingPages: readonly CollectionLandingPage[] = [
     eyebrow: "Tennis Chain Manufacturing",
     description:
       "Tennis Chain Manufacturing for bracelets and necklaces that need polished sparkle, balanced proportions, and B2B flexibility for wholesale assortments, private-label launches, and matching set development.",
-    metaTitle: "Tennis Chain Manufacturer | Bracelets & Necklaces",
+    metaTitle: "Tennis Chain Manufacturing Partner | Bracelets & Necklaces",
     metaDescription:
       "Plan custom tennis chain and bracelet programs with structured wholesale support, style coordination, and B2B jewelry manufacturing guidance.",
     image: "/images/xingyue-tennis-necklace.jpg",

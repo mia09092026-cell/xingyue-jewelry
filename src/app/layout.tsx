@@ -10,9 +10,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   ...createPageMetadata({
-    title: "Moissanite & Lab-Grown Diamond Jewelry Manufacturer | XINGYUE",
+    title: "Jewelry Manufacturing & Supply Chain Partner | XINGYUE",
     description:
-      "XINGYUE supplies wholesale moissanite jewelry, lab-grown diamonds, colored gemstones, S925 silver jewelry and custom K gold production.",
+      "Jewelry manufacturing and supply chain support for emerging brands, boutique stores, independent designers and entrepreneurs.",
     path: "/",
   }),
 };
@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang={htmlAttributes.lang} dir={htmlAttributes.dir}>
       <body>
-        <JsonLd data={organizationSchema()} />
+        <JsonLd data={organizationSchema(htmlAttributes.lang)} />
         {children}
       </body>
     </html>

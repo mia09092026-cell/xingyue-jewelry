@@ -10,8 +10,11 @@ type FooterLink = {
 
 type SiteFooterProps = {
   collectionItems?: FooterLink[];
+  emailHref?: string;
+  emailLabel?: string;
   intro?: string;
   inquiryLabel?: string;
+  logoAlt?: string;
   navigationItems?: FooterLink[];
   sectionLabels?: {
     pages: string;
@@ -27,8 +30,11 @@ const defaultCollectionItems = collectionLandingPages.map((page) => ({
 
 export function SiteFooter({
   collectionItems = defaultCollectionItems,
-  intro = "Moissanite wholesale, lab-grown diamonds, colored gemstones and custom fine jewelry manufacturing for overseas clients.",
+  emailHref = brand.emailHref,
+  emailLabel = "Email",
+  intro = "Jewelry manufacturing and supply chain support for emerging brands, boutique stores and independent designers.",
   inquiryLabel = "OEM / ODM Inquiry",
+  logoAlt = "Star & Moon Jewelry logo",
   navigationItems = navigation.slice(0, 4),
   sectionLabels = {
     pages: "Pages",
@@ -41,7 +47,7 @@ export function SiteFooter({
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
         <div>
           <div className="mb-5 flex items-center gap-3">
-            <BrandLogo variant="footer" />
+            <BrandLogo alt={logoAlt} variant="footer" />
           </div>
           <p className="max-w-sm leading-7 text-white/68">
             {intro}
@@ -79,13 +85,13 @@ export function SiteFooter({
           <ul className="space-y-3 text-sm text-white/68">
             <li>{brand.domain}</li>
             <li>
-              <a href={brand.emailHref} className="transition hover:text-white">
-                Email: {brand.email}
+              <a href={emailHref} className="transition hover:text-white">
+                {emailLabel}: <bdi dir="ltr">{brand.email}</bdi>
               </a>
             </li>
             <li>
               <a href={brand.whatsappHref} className="transition hover:text-white">
-                {brand.whatsapp}
+                <bdi dir="ltr">{brand.whatsapp}</bdi>
               </a>
             </li>
             <li>{inquiryLabel}</li>

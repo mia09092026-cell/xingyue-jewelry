@@ -19,11 +19,13 @@ describe("localized lab-grown gemstone App Router page", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: "أحجار كريمة مزروعة بالجملة حسب اللون",
+        name: "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون",
         level: 1,
       }),
     ).toBeInTheDocument();
-    expect(metadata.title).toBe("أحجار كريمة مزروعة بالجملة حسب اللون | Xingyue Jewelry");
+    expect(metadata.title).toBe(
+      "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون | Xingyue Jewelry",
+    );
     expect(metadata.alternates?.canonical).toBe(
       "https://xingyuejewelry.com/ar/lab-grown-gemstones",
     );

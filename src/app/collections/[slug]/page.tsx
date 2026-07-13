@@ -66,12 +66,18 @@ export default async function CollectionDetailPage({
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Collections", path: "/collections" },
+          { name: "Products", path: "/products" },
           { name: collection.title, path: `/collections/${collection.slug}` },
         ])}
       />
       <JsonLd data={faqPageSchema(collection.faqs)} />
-      <SiteHeader />
+      <SiteHeader
+        languagePath={
+          isLocalizedCollectionSlug(collection.slug)
+            ? `/collections/${collection.slug}`
+            : undefined
+        }
+      />
       <nav aria-label="Breadcrumb" className="border-b border-[#e7ddc8] bg-[#fbfaf7] px-5 py-4 sm:px-8">
         <ol className="mx-auto flex max-w-7xl items-center gap-2 text-sm text-[#596575]">
           <li>
@@ -79,7 +85,7 @@ export default async function CollectionDetailPage({
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <Link href="/collections" className="transition hover:text-[#17202a]">Collections</Link>
+            <Link href="/products" className="transition hover:text-[#17202a]">Products</Link>
           </li>
           <li aria-hidden="true">/</li>
           <li aria-current="page" className="text-[#17202a]">{collection.eyebrow}</li>
@@ -136,7 +142,7 @@ export default async function CollectionDetailPage({
           <SectionHeading
             eyebrow="Capabilities"
             title="What this collection is built to support."
-            copy="The page keeps the focus on practical factory planning, not on speculative promises."
+            copy="The page keeps the focus on practical production planning, not on speculative promises."
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {collection.capabilities.map((capability, index) => {

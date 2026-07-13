@@ -23,7 +23,7 @@ const emailHref = brand.emailInquiryHref;
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
-      <SiteHeader />
+      <SiteHeader languagePath="/contact" />
       <PageHero
         eyebrow="B2B Inquiry"
         title="Request a Quote"

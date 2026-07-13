@@ -5,6 +5,6 @@ export const siteConfig = {
   url: configuredUrl.replace(/\/$/, ""),
   email: "sales@xingyuejewelry.com",
   description:
-    "Moissanite and lab-grown diamond jewelry manufacturing for overseas wholesale buyers.",
+    "Jewelry manufacturing and supply chain support for emerging brands, boutique stores and independent designers.",
   socialImage: "/images/xingyue-hero.webp",
 };

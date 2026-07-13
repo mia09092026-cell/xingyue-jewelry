@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { GemstoneCatalogPage } from "./gemstone-catalog-page";
 
@@ -26,7 +26,12 @@ describe("GemstoneCatalogPage", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("PayPal invoice")).toBeInTheDocument();
     expect(screen.getByText("Bank transfer / T/T")).toBeInTheDocument();
-    expect(screen.queryByLabelText("Language switcher")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Open navigation menu" }));
+    expect(screen.getAllByRole("group", { name: "Language switcher" })).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: "Español" })[0]).toHaveAttribute(
+      "href",
+      "/es/lab-grown-gemstones",
+    );
     expect(container.textContent).not.toMatch(/Buy Now|Add to Cart/i);
   });
 
@@ -62,7 +67,7 @@ describe("GemstoneCatalogPage", () => {
     expect(container.querySelector("main")).toHaveAttribute("dir", "rtl");
     expect(
       screen.getByRole("heading", {
-        name: "أحجار كريمة مزروعة بالجملة حسب اللون",
+        name: "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون",
         level: 1,
       }),
     ).toBeInTheDocument();
@@ -72,16 +77,29 @@ describe("GemstoneCatalogPage", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("فاتورة PayPal")).toBeInTheDocument();
     expect(
+      screen.getAllByRole("heading", { name: "ياقوت أحمر مُنتَج في المختبر" }),
+    ).not.toHaveLength(0);
+    expect(
+      screen.getByText(
+        "أحجار حمراء غنية لتفاصيل تصاميم الزفاف والخواتم البارزة وبرامج الأحجام المتطابقة المتكررة.",
+      ),
+    ).toBeInTheDocument();
+    expect(container.textContent).not.toContain(
+      "Rich red stones for bridal accents, statement rings and repeat calibrated programs.",
+    );
+    expect(
       screen
         .getAllByRole("link", { name: "إرسال استفسار" })
         .map((link) => link.getAttribute("href")),
     ).toContain(
-      "/ar/contact?source=%2Far%2Flab-grown-gemstones&interest=Wholesale+lab-grown+gemstones",
+      `/ar/contact?source=%2Far%2Flab-grown-gemstones&interest=${encodeURIComponent(
+        "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون",
+      ).replace(/%20/g, "+")}`,
     );
   });
 
   it("renders Spanish gemstone catalog copy with localized inquiry routing", () => {
-    render(<GemstoneCatalogPage locale="es" />);
+    const { container } = render(<GemstoneCatalogPage locale="es" />);
 
     expect(
       screen.getByRole("heading", {
@@ -94,12 +112,21 @@ describe("GemstoneCatalogPage", () => {
       screen.getByRole("heading", { name: "Opciones de pago para pedidos confirmados" }),
     ).toBeInTheDocument();
     expect(screen.getByText("Transferencia bancaria / T/T")).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { name: "Rubí de laboratorio" })).not.toHaveLength(0);
+    expect(
+      screen.getByText(
+        "Piedras rojas intensas para detalles nupciales, anillos protagonistas y programas recurrentes de medidas calibradas.",
+      ),
+    ).toBeInTheDocument();
+    expect(container.textContent).not.toContain(
+      "Rich red stones for bridal accents, statement rings and repeat calibrated programs.",
+    );
     expect(
       screen
         .getAllByRole("link", { name: "Enviar consulta" })
         .map((link) => link.getAttribute("href")),
     ).toContain(
-      "/es/contact?source=%2Fes%2Flab-grown-gemstones&interest=Wholesale+lab-grown+gemstones",
+      "/es/contact?source=%2Fes%2Flab-grown-gemstones&interest=Gemas+de+laboratorio+al+por+mayor+por+color",
     );
   });
 });

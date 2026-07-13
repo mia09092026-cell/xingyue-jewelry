@@ -7,8 +7,82 @@ import {
   gemstonePriceDisclaimer,
   gemstoneTypeCategories,
 } from "./gemstones";
+import * as gemstoneData from "./gemstones";
+import type { SupportedLocale } from "@/lib/i18n";
 
 describe("lab-grown gemstone catalog data", () => {
+  it("resolves every buyer-visible catalog field in English, Spanish, and Arabic", () => {
+    const getLocalizedCatalog = Reflect.get(
+      gemstoneData,
+      "getLocalizedGemstoneCatalog",
+    ) as
+      | ((locale: SupportedLocale) => {
+          colorGroups: typeof gemstoneColorGroups;
+          typeCategories: typeof gemstoneTypeCategories;
+          catalogItems: typeof gemstoneCatalogItems;
+        })
+      | undefined;
+
+    expect(getLocalizedCatalog).toBeTypeOf("function");
+    if (!getLocalizedCatalog) return;
+
+    const english = getLocalizedCatalog("en");
+    for (const locale of ["en", "es", "ar"] as const) {
+      const localized = getLocalizedCatalog(locale);
+
+      expect(localized.colorGroups).toHaveLength(english.colorGroups.length);
+      expect(localized.typeCategories).toHaveLength(english.typeCategories.length);
+      expect(localized.catalogItems).toHaveLength(english.catalogItems.length);
+
+      for (const group of localized.colorGroups) {
+        expect(group.name.trim()).not.toBe("");
+        expect(group.alt.trim()).not.toBe("");
+        expect(group.representativeStones.every((stone) => stone.trim())).toBe(true);
+      }
+      for (const category of localized.typeCategories) {
+        for (const field of [
+          category.name,
+          category.description,
+          category.availableColors,
+          category.moq,
+          category.fromPrice,
+          category.alt,
+        ]) {
+          expect(field.trim()).not.toBe("");
+        }
+      }
+      for (const item of localized.catalogItems) {
+        for (const field of [
+          item.name,
+          item.color,
+          item.gemstoneType,
+          item.shape,
+          item.sizeRange,
+          item.quality,
+          item.moq,
+          item.referencePrice,
+          item.availability,
+          item.alt,
+          item.description,
+        ]) {
+          expect(field.trim()).not.toBe("");
+        }
+        expect(item.tags.every((tag) => tag.trim())).toBe(true);
+      }
+    }
+
+    for (const locale of ["es", "ar"] as const) {
+      const localized = getLocalizedCatalog(locale);
+      localized.typeCategories.forEach((category, index) => {
+        expect(category.description).not.toBe(english.typeCategories[index].description);
+      });
+      localized.catalogItems.forEach((item, index) => {
+        expect(item.description).not.toBe(english.catalogItems[index].description);
+        expect(item.tags).not.toEqual(english.catalogItems[index].tags);
+      });
+    }
+  });
+
   it("defines all required color and gemstone buying paths", () => {
     expect(gemstoneColorGroups).toHaveLength(7);
     expect(gemstoneColorGroups.map((group) => group.slug)).toEqual([
