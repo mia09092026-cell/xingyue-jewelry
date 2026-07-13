@@ -15,7 +15,6 @@ import {
 import { SectionHeading } from "@/components/section-heading";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { brand } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { faqPageSchema, websiteSchema } from "@/lib/structured-data";
@@ -23,9 +22,9 @@ import { getLanguageAlternates } from "@/lib/i18n";
 import { contactInquiryHref } from "@/lib/contact-links";
 
 export const metadata = createPageMetadata({
-  title: "Moissanite & Lab-Grown Diamond Jewelry Manufacturer | XINGYUE",
+  title: "Jewelry Manufacturing & Supply Chain Partner | XINGYUE",
   description:
-    "Wholesale moissanite jewelry, lab-grown diamonds, colored gemstones, S925 silver jewelry and custom K gold production for overseas buyers.",
+    "Jewelry manufacturing, custom development and supply chain support for emerging brands, boutique stores and independent designers.",
   path: "/",
   languages: getLanguageAlternates("/"),
 });
@@ -163,21 +162,21 @@ const advantages = [
   },
 ];
 
-const factoryHighlights = [
+const partnerHighlights = [
   {
-    value: "15+ Years",
-    label: "Gemstone Production Experience",
-    copy: "Focused on premium loose stone production and stable repeat supply.",
+    value: "Quality Control Coordination",
+    label: "Stone, setting and finish checks",
+    copy: "Quality checkpoints can be aligned with the approved sample and project brief.",
   },
   {
-    value: "1000+ sqm Laboratory",
-    label: "Testing and Production Space",
-    copy: "A dedicated gemstone environment for selection, testing and quality checks.",
+    value: "Flexible B2B Support",
+    label: "Samples, launch orders and repeat programs",
+    copy: "Project planning supports emerging brands, boutique stores and independent designers.",
   },
   {
-    value: "One-Stop Origin Factory",
-    label: "From Loose Stones to Finished Jewelry",
-    copy: "Integrated sourcing, stone production, setting, packaging and shipment support.",
+    value: "Supply Chain Coordination",
+    label: "From sourcing to shipment planning",
+    copy: "Stone sourcing, jewelry development, packaging and delivery details stay in one workflow.",
   },
 ];
 
@@ -246,7 +245,7 @@ export default function Home() {
     <main className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
       <JsonLd data={websiteSchema()} />
       <JsonLd data={faqPageSchema(faqs)} />
-      <SiteHeader />
+      <SiteHeader languagePath="/" />
 
       <section className="relative min-h-[82svh] overflow-hidden bg-[#f8f6ef] px-5 py-24 sm:px-8 lg:py-28">
         <Image
@@ -262,10 +261,10 @@ export default function Home() {
         <div className="relative z-10 mx-auto flex min-h-[62svh] max-w-7xl items-center">
           <div className="max-w-2xl">
             <p className="mb-5 text-sm uppercase text-[#9a7a36]">
-              {brand.name} One-Stop Jewelry Factory
+              Jewelry Manufacturing Partner for Emerging Brands
             </p>
             <h1 className="text-balance font-serif text-5xl leading-tight text-[#17202a] sm:text-6xl lg:text-7xl">
-              Moissanite & Lab-Grown Diamond Jewelry Manufacturer
+              Jewelry Manufacturing & Supply Chain Partner
             </h1>
             <p className="mt-6 text-2xl font-light text-[#8a734b]">
               Ethical Brilliance, Modern Luxury
@@ -273,11 +272,12 @@ export default function Home() {
             <p className="mt-6 max-w-xl leading-8 text-[#596575]">
               Moissanite, Lab-Grown Diamonds, Lab-Grown Colored Gemstones,
               Zirconia, Cuban Chains, Tennis Chains and custom fine jewelry
-              manufacturing for global buyers.
+              manufacturing support for emerging brands, boutique jewelry
+              stores, independent designers and jewelry entrepreneurs.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/collections"
+                href="/products"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
               >
                 Explore Collection
@@ -295,7 +295,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="mt-9 grid gap-3 sm:grid-cols-3">
-              {factoryHighlights.map((item) => (
+              {partnerHighlights.map((item) => (
                 <div
                   key={item.value}
                   className="rounded-md border border-[#e3dbcb] bg-white/76 p-4 shadow-sm backdrop-blur"
@@ -424,9 +424,9 @@ export default function Home() {
       <section className="bg-[#17202a] px-5 py-20 text-white sm:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
           <div>
-            <p className="mb-3 text-sm uppercase text-[#e6cf96]">Origin Factory</p>
+            <p className="mb-3 text-sm uppercase text-[#e6cf96]">B2B Partnership</p>
             <h2 className="text-balance font-serif text-4xl leading-tight">
-              One-Stop Origin Factory for loose stones and fine jewelry.
+              Coordinated manufacturing support from concept to repeat order.
             </h2>
             <p className="mt-6 leading-8 text-white/76">
               XINGYUE focuses on premium loose stone production and high-end
@@ -434,7 +434,7 @@ export default function Home() {
               development to finished goods.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              {factoryHighlights.map((item) => (
+              {partnerHighlights.map((item) => (
                 <div key={item.value} className="rounded-md border border-white/12 bg-white/7 p-5">
                   <p className="font-serif text-3xl text-[#e6cf96]">{item.value}</p>
                   <p className="mt-3 text-sm leading-6 text-white/72">{item.copy}</p>
@@ -459,7 +459,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Customization"
             title="Photo-based custom work and OEM production."
-            copy="Built for brands and sellers who need dependable factory communication, sample development and repeat production."
+            copy="Built for emerging brands and independent designers who need clear communication, sample development and repeat production support."
           />
           <div className="grid gap-4 lg:grid-cols-3">
             {customCapabilities.map((capability) => (
@@ -522,15 +522,14 @@ export default function Home() {
           </div>
           <div className="space-y-5 leading-8 text-white/76">
             <p>
-              XINGYUE is a one-stop origin factory specializing in moissanite,
-              lab-grown diamonds, lab-grown colored gemstones, zirconia and
-              premium jewelry customization.
+              XINGYUE is a jewelry manufacturing and supply chain partner for
+              emerging brands, boutique jewelry stores, independent designers
+              and entrepreneurs building new jewelry businesses.
             </p>
             <p>
-              With 15+ years of gemstone production experience and a 1000+ sqm
-              laboratory, we support loose stone production, S925 silver jewelry,
-              K gold custom settings, OEM / ODM production and overseas wholesale
-              inquiries.
+              We coordinate loose stone sourcing, S925 silver jewelry, K gold
+              custom settings, OEM / ODM development, quality control and
+              packaging around each approved project brief.
             </p>
           </div>
         </div>

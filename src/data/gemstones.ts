@@ -35,6 +35,38 @@ export type GemstoneCatalogItem = {
   tags: string[];
 };
 
+export type GemstoneColorGroupTranslation = Pick<
+  GemstoneColorGroup,
+  "name" | "representativeStones" | "alt"
+>;
+
+export type GemstoneTypeCategoryTranslation = Pick<
+  GemstoneTypeCategory,
+  "name" | "description" | "availableColors" | "moq" | "fromPrice" | "alt"
+>;
+
+export type GemstoneCatalogItemTranslation = Pick<
+  GemstoneCatalogItem,
+  | "name"
+  | "color"
+  | "gemstoneType"
+  | "shape"
+  | "sizeRange"
+  | "quality"
+  | "moq"
+  | "referencePrice"
+  | "availability"
+  | "alt"
+  | "description"
+  | "tags"
+>;
+
+export type GemstoneCatalogTranslationSet = {
+  colorGroups: Record<string, GemstoneColorGroupTranslation>;
+  typeCategories: Record<string, GemstoneTypeCategoryTranslation>;
+  catalogItems: Record<string, GemstoneCatalogItemTranslation>;
+};
+
 export const gemstonePriceDisclaimer =
   "Prices are reference wholesale ranges only. Final quotation depends on size, color, clarity, cut, certification, quantity and custom requirements.";
 
@@ -318,3 +350,43 @@ export const gemstoneCatalogItems: GemstoneCatalogItem[] = [
     tags: ["colored diamond", "certified", "fancy color", "private label"],
   },
 ];
+
+function applyTranslations<T extends { slug: string }, U extends object>(
+  items: T[],
+  translations: Record<string, U>,
+  locale: Exclude<SupportedLocale, "en">,
+) {
+  return items.map((item) => {
+    const translation = translations[item.slug];
+
+    if (!translation) {
+      throw new Error(`Missing ${locale} gemstone catalog translation for ${item.slug}`);
+    }
+
+    return { ...item, ...translation };
+  });
+}
+
+export function getLocalizedGemstoneCatalog(locale: SupportedLocale) {
+  if (locale === "en") {
+    return {
+      colorGroups: gemstoneColorGroups,
+      typeCategories: gemstoneTypeCategories,
+      catalogItems: gemstoneCatalogItems,
+    };
+  }
+
+  const translations = gemstoneCatalogTranslations[locale];
+
+  return {
+    colorGroups: applyTranslations(gemstoneColorGroups, translations.colorGroups, locale),
+    typeCategories: applyTranslations(
+      gemstoneTypeCategories,
+      translations.typeCategories,
+      locale,
+    ),
+    catalogItems: applyTranslations(gemstoneCatalogItems, translations.catalogItems, locale),
+  };
+}
+import { gemstoneCatalogTranslations } from "./gemstone-translations";
+import type { SupportedLocale } from "@/lib/i18n";

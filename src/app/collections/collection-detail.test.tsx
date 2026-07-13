@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import CollectionsPage from "./page";
 import Home from "../page";
@@ -34,6 +34,11 @@ describe("collection landing pages", () => {
       screen.getByText("Can I order loose moissanite before finished jewelry?"),
     ).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Breadcrumb" })).toBeInTheDocument();
+    expect(
+      within(screen.getByRole("navigation", { name: "Breadcrumb" })).getByRole("link", {
+        name: "Products",
+      }),
+    ).toHaveAttribute("href", "/products");
     expect(screen.getByRole("heading", { name: "Customization Options" })).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "Quality & Project Confirmation" }),

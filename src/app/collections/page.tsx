@@ -15,7 +15,7 @@ import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
 import { contactInquiryHref } from "@/lib/contact-links";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Collections | XINGYUE B2B Jewelry Factory",
+  title: "Collections | XINGYUE Jewelry Supply Chain Partner",
   description:
     "Browse moissanite wholesale, lab-grown diamonds, colored gemstones, Cuban chains, tennis chains and OEM jewelry production options.",
   path: "/collections",
@@ -28,7 +28,7 @@ const serviceHighlights = [
     icon: Sparkles,
   },
   {
-    title: "Factory Production Support",
+    title: "Production Coordination",
     copy: "One-stop workflow from loose stone matching to finished jewelry, QC and shipment.",
     icon: Factory,
   },
@@ -156,8 +156,8 @@ export default function CollectionsPage() {
               </h2>
             </div>
             <p className="max-w-2xl leading-7 text-white/72">
-              These visual selling points help the page feel like a real factory
-              inquiry site, not only a product gallery.
+              These visual details help buyers understand quality checks,
+              development support and packaging beyond the product gallery.
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

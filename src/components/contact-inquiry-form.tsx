@@ -90,6 +90,7 @@ const localizedDefaults: Record<SupportedLocale, ResolvedContactFormCopy> = {
     email: "Email Your Inquiry",
     successTitle: "Inquiry submitted",
     successMessage: "Thank you. We have received your inquiry and will contact you within 24 hours.",
+    referenceLabel: "Reference",
     errorFallback: "Submission failed. Please contact us by WhatsApp or email.",
     validationPrefix: "Please complete",
   },
@@ -124,6 +125,7 @@ const localizedDefaults: Record<SupportedLocale, ResolvedContactFormCopy> = {
     email: "أرسل عبر البريد",
     successTitle: "تم إرسال الاستفسار",
     successMessage: "شكراً لك. لقد استلمنا استفسارك وسنتواصل معك خلال 24 ساعة.",
+    referenceLabel: "الرقم المرجعي",
     errorFallback: "فشل الإرسال. يرجى التواصل معنا عبر واتساب أو البريد الإلكتروني.",
     validationPrefix: "يرجى إكمال",
   },
@@ -158,6 +160,7 @@ const localizedDefaults: Record<SupportedLocale, ResolvedContactFormCopy> = {
     email: "Enviar por email",
     successTitle: "Consulta enviada",
     successMessage: "Gracias. Hemos recibido tu consulta y nos pondremos en contacto contigo dentro de 24 horas.",
+    referenceLabel: "Referencia",
     errorFallback: "No se pudo enviar. Por favor contáctanos por WhatsApp o correo electrónico.",
     validationPrefix: "Por favor completa",
   },
@@ -174,15 +177,16 @@ function resolveContent(content: ContactFormCopy | undefined, locale: SupportedL
     ...defaults,
     introTitle: content?.introTitle ?? defaults.introTitle,
     introCopy: content?.introCopy ?? defaults.introCopy,
-    fieldLabels: defaults.fieldLabels,
-    placeholders: defaults.placeholders,
-    submitting: defaults.submitting,
-    submit: defaults.submit,
-    email: defaults.email,
-    successTitle: defaults.successTitle,
-    successMessage: defaults.successMessage,
-    errorFallback: defaults.errorFallback,
-    validationPrefix: defaults.validationPrefix,
+    fieldLabels: { ...defaults.fieldLabels, ...content?.fieldLabels },
+    placeholders: { ...defaults.placeholders, ...content?.placeholders },
+    submitting: content?.submitting ?? defaults.submitting,
+    submit: content?.submit ?? defaults.submit,
+    email: content?.email ?? defaults.email,
+    successTitle: content?.successTitle ?? defaults.successTitle,
+    successMessage: content?.successMessage ?? defaults.successMessage,
+    referenceLabel: content?.referenceLabel ?? defaults.referenceLabel,
+    errorFallback: content?.errorFallback ?? defaults.errorFallback,
+    validationPrefix: content?.validationPrefix ?? defaults.validationPrefix,
   };
 }
 
@@ -337,7 +341,7 @@ export function ContactInquiryForm({
         {effectiveContent.introCopy}
       </div>
 
-      <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+      <div aria-hidden="true" className="sr-only">
         <label>
           Website
           <input
@@ -379,7 +383,8 @@ export function ContactInquiryForm({
         <label className="block">
           <FieldLabel field="email" labels={effectiveContent.fieldLabels} />
           <input
-            className={inputClassName}
+            className={`${inputClassName} text-left`}
+            dir="ltr"
             name="email"
             placeholder={effectiveContent.placeholders.email}
             type="email"
@@ -391,7 +396,8 @@ export function ContactInquiryForm({
         <label className="block">
           <FieldLabel field="phone" labels={effectiveContent.fieldLabels} />
           <input
-            className={inputClassName}
+            className={`${inputClassName} text-left`}
+            dir="ltr"
             name="phone"
             placeholder={effectiveContent.placeholders.phone}
             type="tel"
@@ -477,7 +483,9 @@ export function ContactInquiryForm({
             </div>
             <p className="mt-1">{submitState.message}</p>
             {submitState.reference ? (
-              <p className="mt-1">Reference: {submitState.reference}</p>
+              <p className="mt-1">
+                {effectiveContent.referenceLabel}: <bdi dir="ltr">{submitState.reference}</bdi>
+              </p>
             ) : null}
           </div>
         ) : null}

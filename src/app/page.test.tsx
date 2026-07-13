@@ -12,7 +12,7 @@ describe("XINGYUE homepage", () => {
     expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
     expect(
       screen.getByRole("heading", {
-        name: /Moissanite & Lab-Grown Diamond Jewelry Manufacturer/i,
+        name: /Jewelry Manufacturing & Supply Chain Partner/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getByText(/Ethical Brilliance, Modern Luxury/i)).toBeInTheDocument();
@@ -58,12 +58,14 @@ describe("XINGYUE homepage", () => {
     for (const capability of [
       "Photo-to-Sample Customization",
       "OEM / ODM Jewelry Production",
-      "15+ Years",
-      "1000+ sqm Laboratory",
-      "One-Stop Origin Factory",
+      "Quality Control Coordination",
+      "Flexible B2B Support",
+      "Supply Chain Coordination",
     ]) {
       expect(screen.getAllByText(matchText(capability)).length).toBeGreaterThan(0);
     }
+
+    expect(container.textContent).not.toMatch(/\bfactory\b|\bmanufacturer\b/i);
 
     expect(screen.getAllByText(/Wholesale Moissanite Jewelry/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(

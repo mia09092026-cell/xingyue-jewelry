@@ -11,9 +11,9 @@ import { getLanguageAlternates } from "@/lib/i18n";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About XINGYUE | Jewelry Manufacturer & Stone Supplier",
+  title: "About XINGYUE | Jewelry Manufacturing & Supply Chain Partner",
   description:
-    "Meet XINGYUE, a one-stop source factory for moissanite, lab-grown stones, S925 silver jewelry and custom K gold production.",
+    "Meet XINGYUE, a jewelry manufacturing and supply chain partner for emerging brands, boutique stores and independent designers.",
   path: "/about",
   languages: getLanguageAlternates("/about"),
 });
@@ -36,26 +36,26 @@ const capabilities = [
   },
 ];
 
-const factoryFacts = [
-  ["15+ Years", "Gemstone production experience"],
-  ["1000+ sqm", "Laboratory and production space"],
-  ["Global B2B", "Wholesale, OEM and private-label support"],
+const partnershipFacts = [
+  ["Emerging Brands", "Development support for growing jewelry businesses"],
+  ["Boutique Jewelry Stores & Design Studios", "Flexible planning for stores and independent designers"],
+  ["Global B2B", "Wholesale, OEM / ODM and private-label coordination"],
 ];
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
-      <SiteHeader />
+      <SiteHeader languagePath="/about" />
       <PageHero
-        eyebrow="Our Factory"
+        eyebrow="How We Work With Brands"
         title="About XINGYUE"
-        subtitle="A one-stop origin factory focused on premium loose stones and refined jewelry manufacturing for overseas brands, wholesalers and online sellers."
+        subtitle="A jewelry manufacturing and supply chain partner for emerging brands, boutique jewelry stores, independent designers and entrepreneurs."
       >
         <Link
           href="/contact"
           className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
         >
-          Start a Factory Inquiry
+          Start a Partnership Inquiry
           <ArrowRight aria-hidden="true" className="h-4 w-4" />
         </Link>
       </PageHero>
@@ -65,7 +65,7 @@ export default function AboutPage() {
           <div className="relative min-h-[480px] overflow-hidden rounded-md bg-[#e9e4d9]">
             <Image
               src="/images/b2b-factory-workshop.jpg"
-              alt="XINGYUE jewelry factory workshop"
+              alt="XINGYUE jewelry production workshop"
               fill
               priority
               sizes="(min-width: 1024px) 52vw, 100vw"
@@ -73,9 +73,9 @@ export default function AboutPage() {
             />
           </div>
           <div>
-            <p className="mb-3 text-sm text-[#8a734b]">Factory Profile</p>
+            <p className="mb-3 text-sm text-[#8a734b]">Who We Support</p>
             <h2 className="text-balance font-serif text-4xl leading-tight">
-              One factory, one accountable workflow.
+              One partner, one coordinated workflow.
             </h2>
             <p className="mt-6 leading-8 text-[#596575]">
               XINGYUE combines loose stone selection, jewelry development,
@@ -89,7 +89,7 @@ export default function AboutPage() {
               necklaces and bracelets.
             </p>
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {factoryFacts.map(([value, label]) => (
+              {partnershipFacts.map(([value, label]) => (
                 <div key={value} className="border-t border-[#cbb06e] pt-4">
                   <p className="font-serif text-2xl text-[#17202a]">{value}</p>
                   <p className="mt-2 text-sm leading-6 text-[#596575]">{label}</p>

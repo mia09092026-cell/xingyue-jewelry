@@ -55,7 +55,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Collections", path: "/collections" },
+          { name: "Products", path: "/products" },
           ...(collection
             ? [
                 {
@@ -76,7 +76,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <Link href="/collections" className="transition hover:text-[#17202a]">Collections</Link>
+            <Link href="/products" className="transition hover:text-[#17202a]">Products</Link>
           </li>
           {collection ? (
             <>
@@ -112,10 +112,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </Link>
           <Link
-            href={collection ? `/collections/${collection.slug}` : "/collections"}
+            href={collection ? `/collections/${collection.slug}` : "/products"}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#d8c28a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
           >
-            {collection ? `Back to ${collection.eyebrow}` : "Back to Collections"}
+            {collection ? `Back to ${collection.eyebrow}` : "Back to Products"}
             <Gem aria-hidden="true" className="h-4 w-4" />
           </Link>
         </div>

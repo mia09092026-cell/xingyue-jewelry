@@ -1,11 +1,18 @@
 import { absoluteUrl } from "./seo";
 import { siteConfig } from "./site-config";
 import { products } from "./site-data";
+import type { SupportedLocale } from "./i18n";
 
 type Product = (typeof products)[number];
 type LinkItem = { name: string; path: string };
 
-export function organizationSchema() {
+const organizationDescriptions: Record<SupportedLocale, string> = {
+  en: siteConfig.description,
+  es: "Socio de fabricación y cadena de suministro de joyería para marcas emergentes, tiendas boutique y diseñadores independientes.",
+  ar: "شريك تصنيع وسلسلة توريد المجوهرات للعلامات الناشئة ومتاجر البوتيك والمصممين المستقلين.",
+};
+
+export function organizationSchema(locale: SupportedLocale = "en") {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -13,7 +20,7 @@ export function organizationSchema() {
     url: siteConfig.url,
     logo: absoluteUrl("/logo-star-moon.png"),
     email: siteConfig.email,
-    description: siteConfig.description,
+    description: organizationDescriptions[locale],
   };
 }
 

@@ -25,7 +25,7 @@ import {
 } from "@/content/i18n";
 import { localizedPath, type SupportedLocale } from "@/lib/i18n";
 import { brand } from "@/lib/site-data";
-import { contactInquiryHref } from "@/lib/contact-links";
+import { contactInquiryHref, emailInquiryHref } from "@/lib/contact-links";
 
 type LocalizedPageProps = {
   locale: SupportedLocale;
@@ -33,6 +33,33 @@ type LocalizedPageProps = {
 
 type LocalizedCollectionProps = LocalizedPageProps & {
   slug: string;
+};
+
+const navigationLabels: Record<SupportedLocale, string> = {
+  en: "Main navigation",
+  es: "Navegación principal",
+  ar: "التنقل الرئيسي",
+};
+
+const logoAlts: Record<SupportedLocale, string> = {
+  en: "XINGYUE Jewelry logo",
+  es: "Logotipo de XINGYUE Jewelry",
+  ar: "شعار XINGYUE للمجوهرات",
+};
+
+const pageImageAlts: Record<SupportedLocale, { workshop: string; contact: string }> = {
+  en: {
+    workshop: "Jewelry production workshop supporting OEM and ODM projects",
+    contact: "Jewelry sample with certificate and packaging",
+  },
+  es: {
+    workshop: "Taller de producción de joyería para proyectos OEM y ODM",
+    contact: "Muestra de joyería con certificado y empaque",
+  },
+  ar: {
+    workshop: "ورشة إنتاج مجوهرات لدعم مشاريع OEM و ODM",
+    contact: "عينة مجوهرات مع شهادة وتغليف",
+  },
 };
 
 function localizedShellProps(locale: SupportedLocale, path: string) {
@@ -44,6 +71,8 @@ function localizedShellProps(locale: SupportedLocale, path: string) {
     inquiryHref: localizedPath("/contact", locale),
     inquiryLabel: content.cta.sendInquiry,
     languagePath: path,
+    logoAlt: logoAlts[locale],
+    navigationLabel: navigationLabels[locale],
     navigationItems: content.navigation,
   };
 }
@@ -58,8 +87,11 @@ function LocalizedFooter({ locale }: LocalizedPageProps) {
   return (
     <SiteFooter
       collectionItems={collectionItems}
+      emailHref={emailInquiryHref(locale)}
+      emailLabel={content.footer.email}
       intro={content.footer.intro}
       inquiryLabel={content.footer.inquiry}
+      logoAlt={logoAlts[locale]}
       navigationItems={content.navigation.slice(0, 4)}
       sectionLabels={{
         pages: content.footer.pages,
@@ -100,7 +132,7 @@ function CtaRow({
         className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
       >
         {content.cta.getWholesalePrice}
-        <ArrowRight aria-hidden="true" className="h-4 w-4" />
+        <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
       </Link>
       <Link
         href={secondaryHref}
@@ -129,7 +161,7 @@ function CollectionCta({ locale, slug }: LocalizedCollectionProps) {
         className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
       >
         {isCustom ? content.cta.sendDesign : content.cta.getWholesalePrice}
-        <ArrowRight aria-hidden="true" className="h-4 w-4" />
+        <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
       </Link>
       <Link
         href={brand.whatsappHref}
@@ -181,7 +213,7 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
                   key={item.value}
                   className="rounded-md border border-[#e3dbcb] bg-white/76 p-4 shadow-sm backdrop-blur"
                 >
-                  <p className="font-serif text-2xl text-[#17202a]">{item.value}</p>
+                  <p className="font-serif text-2xl text-[#17202a]"><bdi dir="auto">{item.value}</bdi></p>
                   <p className="mt-2 text-sm leading-6 text-[#596575]">{item.label}</p>
                 </div>
               ))}
@@ -274,7 +306,7 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
               className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
             >
               {content.cta.sendInquiry}
-              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
             </Link>
           </div>
         </div>
@@ -370,7 +402,7 @@ export function LocalizedProducts({ locale }: LocalizedPageProps) {
               className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
             >
               {content.cta.sendInquiry}
-              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
             </Link>
           </div>
         </div>
@@ -537,7 +569,7 @@ export function LocalizedCollection({ locale, slug }: LocalizedCollectionProps) 
               className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
             >
               {content.cta.sendInquiry}
-              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
             </Link>
           </div>
         </div>
@@ -560,7 +592,7 @@ export function LocalizedAbout({ locale }: LocalizedPageProps) {
           className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
         >
           {content.cta.sendInquiry}
-          <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
         </Link>
       </PageHero>
 
@@ -569,7 +601,7 @@ export function LocalizedAbout({ locale }: LocalizedPageProps) {
           <div className="relative min-h-[480px] overflow-hidden rounded-md bg-[#e9e4d9]">
             <Image
               src="/images/b2b-factory-workshop.jpg"
-              alt="Xingyue Jewelry factory workshop"
+              alt={pageImageAlts[locale].workshop}
               fill
               priority
               sizes="(min-width: 1024px) 52vw, 100vw"
@@ -577,7 +609,7 @@ export function LocalizedAbout({ locale }: LocalizedPageProps) {
             />
           </div>
           <div>
-            <p className="mb-3 text-sm text-[#8a734b]">{content.about.eyebrow}</p>
+            <p className="mb-3 text-sm text-[#8a734b]">{content.about.profileEyebrow}</p>
             <h2 className="text-balance font-serif text-4xl leading-tight">{content.about.profileTitle}</h2>
             <div className="mt-6 space-y-5 leading-8 text-[#596575]">
               {content.about.profileCopy.map((paragraph) => (
@@ -587,7 +619,7 @@ export function LocalizedAbout({ locale }: LocalizedPageProps) {
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {content.about.facts.map((fact) => (
                 <div key={fact.value} className="border-t border-[#cbb06e] pt-4">
-                  <p className="font-serif text-2xl text-[#17202a]">{fact.value}</p>
+                  <p className="font-serif text-2xl text-[#17202a]"><bdi dir="auto">{fact.value}</bdi></p>
                   <p className="mt-2 text-sm leading-6 text-[#596575]">{fact.label}</p>
                 </div>
               ))}
@@ -660,7 +692,7 @@ export function LocalizedFaq({ locale }: LocalizedPageProps) {
 
 export function LocalizedContact({ locale }: LocalizedPageProps) {
   const content = getI18nContent(locale);
-  const emailHref = brand.emailInquiryHref;
+  const emailHref = emailInquiryHref(locale);
 
   return (
     <main dir={content.dir} className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
@@ -682,7 +714,7 @@ export function LocalizedContact({ locale }: LocalizedPageProps) {
             <div className="relative min-h-[360px] overflow-hidden rounded-md bg-[#e9e4d9]">
               <Image
                 src="/images/b2b-certificate-packaging.jpg"
-                alt="Jewelry sample with certificate and packaging"
+                alt={pageImageAlts[locale].contact}
                 fill
                 priority
                 sizes="(min-width: 1024px) 40vw, 100vw"
@@ -716,15 +748,15 @@ export function LocalizedContact({ locale }: LocalizedPageProps) {
                         href={brand.whatsappHref}
                         className="mt-3 inline-flex text-sm font-semibold text-[#e6cf96] transition hover:text-white"
                       >
-                        {brand.whatsapp}
+                        <bdi dir="ltr">{brand.whatsapp}</bdi>
                       </a>
                     ) : null}
                     {index === 1 ? (
                       <a
-                        href={brand.emailHref}
+                        href={emailHref}
                         className="mt-3 inline-flex break-all text-sm font-semibold text-[#17202a] transition hover:text-[#8a734b]"
                       >
-                        Email: {brand.email}
+                        {content.footer.email}: <bdi dir="ltr">{brand.email}</bdi>
                       </a>
                     ) : null}
                   </div>

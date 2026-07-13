@@ -17,12 +17,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getGemstoneCatalogContent } from "@/content/gemstone-catalog";
 import { getI18nContent } from "@/content/i18n";
-import {
-  gemstoneCatalogItems,
-  gemstoneColorGroups,
-  gemstoneTypeCategories,
-} from "@/data/gemstones";
-import { contactInquiryHref } from "@/lib/contact-links";
+import { getLocalizedGemstoneCatalog } from "@/data/gemstones";
+import { contactInquiryHref, emailInquiryHref } from "@/lib/contact-links";
 import { localizedPath, type SupportedLocale } from "@/lib/i18n";
 import { brand } from "@/lib/site-data";
 
@@ -30,8 +26,34 @@ type GemstoneCatalogPageProps = {
   locale: SupportedLocale;
 };
 
-export const gemstoneEmailInquiryHref =
-  "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Lab-Grown%20Gemstone%20Inquiry";
+export const gemstoneEmailInquiryHref = emailInquiryHref(
+  "en",
+  "Wholesale Lab-Grown Gemstone Inquiry",
+);
+
+const navigationLabels: Record<SupportedLocale, string> = {
+  en: "Main navigation",
+  es: "Navegación principal",
+  ar: "التنقل الرئيسي",
+};
+
+const catalogImageCopy: Record<SupportedLocale, { emailSubject: string; heroAlt: string; logoAlt: string }> = {
+  en: {
+    emailSubject: "Wholesale Lab-Grown Gemstone Inquiry",
+    heroAlt: "Fancy color lab-grown gemstones for wholesale sourcing",
+    logoAlt: "XINGYUE Jewelry logo",
+  },
+  es: {
+    emailSubject: "Consulta mayorista de gemas de laboratorio XINGYUE",
+    heroAlt: "Gemas de laboratorio de colores para abastecimiento mayorista",
+    logoAlt: "Logotipo de XINGYUE Jewelry",
+  },
+  ar: {
+    emailSubject: "استفسار أحجار كريمة مُنتَجة في المختبر بالجملة من XINGYUE",
+    heroAlt: "أحجار كريمة مُنتَجة في المختبر بألوان متنوعة للتوريد بالجملة",
+    logoAlt: "شعار XINGYUE للمجوهرات",
+  },
+};
 
 const priceGuideSlugs = [
   "lab-grown-ruby",
@@ -45,12 +67,17 @@ const priceGuideSlugs = [
 export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
   const copy = getGemstoneCatalogContent(locale);
   const siteCopy = getI18nContent(locale);
+  const { catalogItems, colorGroups, typeCategories } = getLocalizedGemstoneCatalog(locale);
   const sourcePath = localizedPath("/lab-grown-gemstones", locale);
   const generalInquiryHref = contactInquiryHref({
     locale,
     sourcePath,
-    interest: "Wholesale lab-grown gemstones",
+    interest: copy.title,
   });
+  const localizedGemstoneEmailHref = emailInquiryHref(
+    locale,
+    catalogImageCopy[locale].emailSubject,
+  );
   const navigationItems = [
     ...siteCopy.navigation.filter((item) => item.href !== sourcePath),
     { label: copy.navLabel, href: sourcePath },
@@ -62,7 +89,7 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
       href: localizedPath(`/collections/${slug}`, locale),
     })),
   ];
-  const priceGuide = gemstoneTypeCategories.filter((category) =>
+  const priceGuide = typeCategories.filter((category) =>
     priceGuideSlugs.includes(category.slug),
   );
 
@@ -73,13 +100,16 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
         homeHref={localizedPath("/", locale)}
         inquiryHref={generalInquiryHref}
         inquiryLabel={copy.cta.sendInquiry}
+        languagePath="/lab-grown-gemstones"
+        logoAlt={catalogImageCopy[locale].logoAlt}
+        navigationLabel={navigationLabels[locale]}
         navigationItems={navigationItems}
       />
 
       <section className="relative isolate min-h-[76svh] overflow-hidden bg-[#111923] px-5 py-24 text-white sm:px-8 lg:py-28">
         <Image
           src="/images/xingyue-colored-gemstones.jpg"
-          alt="Fancy color lab-grown gemstones for wholesale sourcing"
+          alt={catalogImageCopy[locale].heroAlt}
           fill
           priority
           sizes="100vw"
@@ -105,7 +135,7 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-[#e6cf96] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
               >
                 {copy.cta.getWholesalePrice}
-                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
               </Link>
               <a
                 href={brand.whatsappHref}
@@ -127,7 +157,7 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
             copy={copy.colors.copy}
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {gemstoneColorGroups.map((group, index) => (
+            {colorGroups.map((group, index) => (
               <article
                 key={group.slug}
                 className={`group relative min-h-[360px] overflow-hidden rounded-md bg-[#17202a] shadow-[0_18px_50px_rgba(23,32,42,0.12)] ${
@@ -148,7 +178,7 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
                     style={{ backgroundColor: group.accent }}
                   />
                   <h2 className="font-serif text-3xl">
-                    {copy.colors.names[group.slug] ?? group.name}
+                    {group.name}
                   </h2>
                   <p className="mt-3 text-xs uppercase tracking-[0.12em] text-[#e6cf96]">
                     {copy.colors.representative}
@@ -181,7 +211,7 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
             copy={copy.types.copy}
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {gemstoneTypeCategories.map((category, index) => (
+            {typeCategories.map((category, index) => (
               <article
                 key={category.slug}
                 className={`overflow-hidden rounded-md border border-[#ded4c0] bg-white/90 shadow-sm ${
@@ -251,7 +281,7 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
             copy={copy.catalog.copy}
           />
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {gemstoneCatalogItems.map((item) => (
+            {catalogItems.map((item) => (
               <GemstoneStoneCard key={item.slug} copy={copy} item={item} locale={locale} />
             ))}
           </div>
@@ -355,10 +385,10 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-[#e6cf96] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
               >
                 {copy.cta.sendInquiry}
-                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
               </Link>
               <a
-                href={gemstoneEmailInquiryHref}
+                href={localizedGemstoneEmailHref}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/8"
               >
                 {copy.cta.email}
@@ -371,8 +401,11 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
 
       <SiteFooter
         collectionItems={collectionItems}
+        emailHref={emailInquiryHref(locale)}
+        emailLabel={siteCopy.footer.email}
         intro={siteCopy.footer.intro}
         inquiryLabel={siteCopy.footer.inquiry}
+        logoAlt={catalogImageCopy[locale].logoAlt}
         navigationItems={navigationItems.slice(0, 5)}
         sectionLabels={{
           pages: siteCopy.footer.pages,

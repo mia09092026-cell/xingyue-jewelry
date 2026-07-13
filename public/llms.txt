@@ -1,6 +1,6 @@
 # XINGYUE Jewelry
 
-> One-stop jewelry origin factory for overseas wholesale buyers, focused on moissanite, lab-grown diamonds, lab-grown colored gemstones, zirconia, Cuban chains, tennis chains, S925 silver jewelry, K gold custom settings, and OEM / ODM production.
+> Jewelry manufacturing and supply chain partner for emerging brands, boutique jewelry stores, independent designers, and entrepreneurs, focused on moissanite, lab-grown diamonds, colored gemstones, custom jewelry, and OEM / ODM production support.
 
 Canonical site: https://xingyuejewelry.com
 Sitemap: https://xingyuejewelry.com/sitemap.xml
@@ -9,10 +9,10 @@ Contact: https://xingyuejewelry.com/contact
 ## Primary pages
 
 - Home: https://xingyuejewelry.com/
-- Collections: https://xingyuejewelry.com/collections
+- Products: https://xingyuejewelry.com/products
 - Request a quote: https://xingyuejewelry.com/contact
 - Buyer education: https://xingyuejewelry.com/education
-- Factory profile: https://xingyuejewelry.com/about
+- Partnership profile: https://xingyuejewelry.com/about
 
 ## Commercial landing pages
 

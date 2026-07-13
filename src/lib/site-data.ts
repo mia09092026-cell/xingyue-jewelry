@@ -11,7 +11,7 @@ export const brand = {
 
 export const navigation = [
   { label: "Home", href: "/" },
-  { label: "Collections", href: "/collections" },
+  { label: "Products", href: "/products" },
   { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
   { label: "Custom Manufacturing", href: "/collections/custom-jewelry-manufacturing" },
   { label: "Education", href: "/education" },
@@ -79,9 +79,9 @@ export const b2bInquiryProofs = [
   },
   {
     title: "OEM / ODM Production",
-    copy: "Factory workflow supports photo-to-sample development, repeat orders and private-label needs.",
+    copy: "A coordinated workflow supports photo-to-sample development, repeat orders and private-label needs.",
     image: "/images/b2b-factory-workshop.jpg",
-    alt: "Jewelry factory workshop for OEM and ODM production",
+    alt: "Jewelry production workshop for OEM and ODM projects",
   },
   {
     title: "Sample & Packaging Support",
@@ -326,7 +326,7 @@ export const products = [
         title: "OEM / ODM Production",
         copy: "Bracelet length, stone count, metal, clasp and packing can be developed for private-label buyers.",
         image: "/images/b2b-factory-workshop.jpg",
-        alt: "jewelry factory workshop for OEM and ODM production",
+        alt: "jewelry production workshop for OEM and ODM projects",
       },
     ],
     specs: [

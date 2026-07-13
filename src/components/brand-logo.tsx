@@ -1,10 +1,11 @@
 import Image from "next/image";
 
 type BrandLogoProps = {
+  alt?: string;
   variant?: "header" | "footer";
 };
 
-export function BrandLogo({ variant = "header" }: BrandLogoProps) {
+export function BrandLogo({ alt = "Star & Moon Jewelry logo", variant = "header" }: BrandLogoProps) {
   const isFooter = variant === "footer";
 
   return (
@@ -17,7 +18,7 @@ export function BrandLogo({ variant = "header" }: BrandLogoProps) {
     >
       <Image
         src="/logo-star-moon.png"
-        alt="Star & Moon Jewelry logo"
+        alt={alt}
         width={1254}
         height={1254}
         priority={!isFooter}

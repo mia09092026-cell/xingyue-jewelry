@@ -19,6 +19,11 @@ describe("structured data", () => {
     expect(schema).not.toHaveProperty("address");
   });
 
+  it("localizes the organization description for Spanish and Arabic pages", () => {
+    expect(organizationSchema("es").description).toContain("marcas emergentes");
+    expect(organizationSchema("ar").description).toContain("للعلامات الناشئة");
+  });
+
   it("builds absolute breadcrumbs and item-list links", () => {
     const breadcrumbs = breadcrumbSchema([
       { name: "Home", path: "/" },

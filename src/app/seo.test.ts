@@ -6,6 +6,9 @@ import { getLanguageAlternates, localizedPath, localizedPublicPages } from "@/li
 import { collectionCategories, products } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
+import nextConfig from "../../next.config";
+import { metadata as productsMetadata } from "./products/page";
+import { generateMetadata as generateLocalizedProductsMetadata } from "./[locale]/products/page";
 import robots from "./robots";
 import sitemap from "./sitemap";
 
@@ -28,7 +31,9 @@ describe("SEO foundations", () => {
     expect(urls).toContain("https://xingyuejewelry.com/ar/lab-grown-gemstones");
     expect(urls).toContain("https://xingyuejewelry.com/es/lab-grown-gemstones");
     expect(urls).toContain("https://xingyuejewelry.com/faq");
-    expect(urls).toContain("https://xingyuejewelry.com/collections");
+    expect(urls).not.toContain("https://xingyuejewelry.com/collections");
+    expect(urls).not.toContain("https://xingyuejewelry.com/es/collections");
+    expect(urls).not.toContain("https://xingyuejewelry.com/ar/collections");
     for (const path of localizedPublicPages) {
       expect(urls).toContain(`https://xingyuejewelry.com${localizedPath(path, "ar")}`);
       expect(urls).toContain(`https://xingyuejewelry.com${localizedPath(path, "es")}`);
@@ -40,6 +45,45 @@ describe("SEO foundations", () => {
       expect(urls).toContain(`https://xingyuejewelry.com/products/${product.slug}`);
     }
     expect(new Set(urls).size).toBe(urls.length);
+  });
+
+  it("permanently redirects only the legacy top-level collection routes", async () => {
+    const redirects = await nextConfig.redirects?.();
+
+    expect(redirects).toEqual(
+      expect.arrayContaining([
+        { source: "/collections", destination: "/products", permanent: true },
+        { source: "/es/collections", destination: "/es/products", permanent: true },
+        { source: "/ar/collections", destination: "/ar/products", permanent: true },
+      ]),
+    );
+    expect(redirects).not.toEqual(
+      expect.arrayContaining([expect.objectContaining({ source: "/collections/:path*" })]),
+    );
+  });
+
+  it("uses the products route as canonical with complete language alternates", async () => {
+    expect(productsMetadata.alternates).toEqual({
+      canonical: "https://xingyuejewelry.com/products",
+      languages: {
+        en: "https://xingyuejewelry.com/products",
+        es: "https://xingyuejewelry.com/es/products",
+        ar: "https://xingyuejewelry.com/ar/products",
+        "x-default": "https://xingyuejewelry.com/products",
+      },
+    });
+
+    const spanish = await generateLocalizedProductsMetadata({
+      params: Promise.resolve({ locale: "es" }),
+    });
+    const arabic = await generateLocalizedProductsMetadata({
+      params: Promise.resolve({ locale: "ar" }),
+    });
+
+    expect(spanish.alternates?.canonical).toBe("https://xingyuejewelry.com/es/products");
+    expect(arabic.alternates?.canonical).toBe("https://xingyuejewelry.com/ar/products");
+    expect(spanish.alternates?.languages).toEqual(productsMetadata.alternates?.languages);
+    expect(arabic.alternates?.languages).toEqual(productsMetadata.alternates?.languages);
   });
 
   it("builds canonical and social metadata", () => {
@@ -139,6 +183,8 @@ describe("SEO foundations", () => {
     const value = readFileSync(resolve("public/llms.txt"), "utf8");
 
     expect(value).toContain("https://xingyuejewelry.com/sitemap.xml");
+    expect(value).toContain("https://xingyuejewelry.com/products");
+    expect(value).not.toContain("https://xingyuejewelry.com/collections\n");
     expect(value).toContain("/collections/moissanite-wholesale");
     expect(value).toContain("/contact");
   });
