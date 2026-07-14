@@ -46,9 +46,13 @@ describe("lab-grown gemstone catalog data", () => {
           category.availableColors,
           category.moq,
           category.fromPrice,
-          category.alt,
         ]) {
           expect(field.trim()).not.toBe("");
+        }
+        if (category.image) {
+          expect(category.alt?.trim()).not.toBe("");
+        } else {
+          expect(category.alt).toBeNull();
         }
       }
       for (const item of localized.catalogItems) {
@@ -62,10 +66,14 @@ describe("lab-grown gemstone catalog data", () => {
           item.moq,
           item.referencePrice,
           item.availability,
-          item.alt,
           item.description,
         ]) {
           expect(field.trim()).not.toBe("");
+        }
+        if (item.image) {
+          expect(item.alt?.trim()).not.toBe("");
+        } else {
+          expect(item.alt).toBeNull();
         }
         expect(item.tags.every((tag) => tag.trim())).toBe(true);
       }
@@ -122,11 +130,15 @@ describe("lab-grown gemstone catalog data", () => {
         moq: expect.any(String),
         referencePrice: expect.any(String),
         availability: expect.any(String),
-        image: expect.stringMatching(/^\/images\//),
-        alt: expect.any(String),
         description: expect.any(String),
         tags: expect.any(Array),
       });
+      if (item.image) {
+        expect(item.image).toMatch(/^\/images\//);
+        expect(item.alt).toEqual(expect.any(String));
+      } else {
+        expect(item.alt).toBeNull();
+      }
       expect(item.referencePrice).toMatch(/US\$|Quote/i);
     }
   });
@@ -144,9 +156,175 @@ describe("lab-grown gemstone catalog data", () => {
     ];
 
     expect(new Set(slugs).size).toBe(slugs.length);
-    for (const image of imagePaths) {
+    for (const image of imagePaths.filter((path) => path !== null)) {
       expect(image).toMatch(/^\/images\//);
       expect(existsSync(resolve("public", image.replace(/^\//, "")))).toBe(true);
+    }
+  });
+
+  it("uses dedicated color images with tuned focal positions", () => {
+    const expected = {
+      blue: ["/images/gemstone-colors/blue-gemstones.webp", "50% 52%"],
+      green: ["/images/gemstone-colors/green-gemstones.webp", "50% 54%"],
+      pink: ["/images/gemstone-colors/pink-gemstones.webp", "54% 50%"],
+      purple: ["/images/gemstone-colors/purple-gemstones.webp", "50% 46%"],
+      "yellow-champagne": [
+        "/images/gemstone-colors/yellow-champagne-gemstones.webp",
+        "50% 58%",
+      ],
+      "white-colorless": [
+        "/images/gemstone-colors/white-colorless-gemstones.webp",
+        "50% 44%",
+      ],
+    } as const;
+
+    for (const [slug, [image, imagePosition]] of Object.entries(expected)) {
+      expect(gemstoneColorGroups.find((group) => group.slug === slug)).toMatchObject({
+        image,
+        imagePosition,
+      });
+    }
+
+    expect(
+      new Set(
+        gemstoneColorGroups
+          .filter((group) => group.slug !== "red")
+          .map((group) => group.image),
+      ).size,
+    ).toBe(6);
+  });
+
+  it("reuses new imagery only for semantically matching product cards", () => {
+    const typeImages = Object.fromEntries(
+      gemstoneTypeCategories.map((category) => [category.slug, category.image]),
+    );
+    const catalogImages = Object.fromEntries(
+      gemstoneCatalogItems.map((item) => [item.slug, item.image]),
+    );
+
+    expect(typeImages["lab-grown-sapphire"]).toBe(
+      "/images/gemstone-colors/blue-gemstones.webp",
+    );
+    expect(typeImages["lab-grown-emerald"]).toBe(
+      "/images/gemstone-colors/green-gemstones.webp",
+    );
+    expect(catalogImages["sapphire-cushion-calibrated"]).toBe(
+      "/images/gemstone-colors/blue-gemstones.webp",
+    );
+    expect(catalogImages["emerald-green-emerald-cut"]).toBe(
+      "/images/gemstone-colors/green-gemstones.webp",
+    );
+
+    expect(typeImages["lab-grown-spinel"]).toBeNull();
+    expect(typeImages["lab-grown-alexandrite"]).toBeNull();
+    expect(typeImages["colored-moissanite"]).toBeNull();
+    expect(catalogImages["colored-moissanite-mixed-cuts"]).toBeNull();
+
+    for (const locale of ["en", "es", "ar"] as const) {
+      const localized = gemstoneData.getLocalizedGemstoneCatalog(locale);
+      const localizedTypeImages = Object.fromEntries(
+        localized.typeCategories.map((category) => [category.slug, category.image]),
+      );
+      const localizedCatalogImages = Object.fromEntries(
+        localized.catalogItems.map((item) => [item.slug, item.image]),
+      );
+
+      expect(localizedTypeImages["lab-grown-spinel"]).toBeNull();
+      expect(localizedTypeImages["lab-grown-alexandrite"]).toBeNull();
+      expect(localizedTypeImages["colored-moissanite"]).toBeNull();
+      expect(localizedCatalogImages["colored-moissanite-mixed-cuts"]).toBeNull();
+    }
+  });
+
+  it("localizes descriptive alt text for the replaced images", () => {
+    const expectations = {
+      en: {
+        colorGroups: {
+          blue: "Blue lab-grown gemstones in mixed cuts on a white background",
+          green: "Green lab-grown gemstones in mixed shapes on a white background",
+          pink: "Pink lab-grown gemstones in oval and cushion cuts on a white background",
+          purple: "Purple cushion-cut lab-grown gemstone on a white background",
+          "yellow-champagne":
+            "Yellow and champagne lab-grown gemstones in radiant cuts on a white background",
+          "white-colorless":
+            "Colorless lab-grown gemstones in mixed cushion cuts on a white background",
+        },
+        typeCategories: {
+          "lab-grown-sapphire":
+            "Blue lab-grown sapphires in mixed cuts on a white background",
+          "lab-grown-emerald":
+            "Green lab-grown emeralds in mixed cuts on a white background",
+        },
+        catalogItems: {
+          "sapphire-cushion-calibrated":
+            "Blue lab-grown sapphires including a cushion cut on a white background",
+          "emerald-green-emerald-cut":
+            "Green lab-grown emerald selection including emerald cuts on a white background",
+        },
+      },
+      es: {
+        colorGroups: {
+          blue: "Gemas azules de laboratorio en varias tallas sobre fondo blanco",
+          green: "Gemas verdes de laboratorio en formas variadas sobre fondo blanco",
+          pink: "Gemas rosas de laboratorio con tallas oval y cojín sobre fondo blanco",
+          purple: "Gema morada de laboratorio talla cojín sobre fondo blanco",
+          "yellow-champagne":
+            "Gemas amarillas y champán de laboratorio con talla radiante sobre fondo blanco",
+          "white-colorless":
+            "Gemas incoloras de laboratorio con distintas tallas cojín sobre fondo blanco",
+        },
+        typeCategories: {
+          "lab-grown-sapphire":
+            "Zafiros azules de laboratorio en varias tallas sobre fondo blanco",
+          "lab-grown-emerald":
+            "Esmeraldas verdes de laboratorio en varias tallas sobre fondo blanco",
+        },
+        catalogItems: {
+          "sapphire-cushion-calibrated":
+            "Zafiros azules de laboratorio, incluida una talla cojín, sobre fondo blanco",
+          "emerald-green-emerald-cut":
+            "Selección de esmeraldas verdes de laboratorio con tallas esmeralda sobre fondo blanco",
+        },
+      },
+      ar: {
+        colorGroups: {
+          blue: "أحجار كريمة زرقاء مُنتَجة في المختبر بقصّات متعددة على خلفية بيضاء",
+          green: "أحجار كريمة خضراء مُنتَجة في المختبر بأشكال متنوعة على خلفية بيضاء",
+          pink: "أحجار كريمة وردية مُنتَجة في المختبر بقصّات بيضاوية ووسادية على خلفية بيضاء",
+          purple: "حجر كريم بنفسجي مُنتَج في المختبر بقصّة وسادة على خلفية بيضاء",
+          "yellow-champagne":
+            "أحجار كريمة صفراء وشمبانيا مُنتَجة في المختبر بقصّات مشعّة على خلفية بيضاء",
+          "white-colorless":
+            "أحجار كريمة عديمة اللون مُنتَجة في المختبر بقصّات وسادية متنوعة على خلفية بيضاء",
+        },
+        typeCategories: {
+          "lab-grown-sapphire":
+            "أحجار ياقوت أزرق مُنتَجة في المختبر بقصّات متعددة على خلفية بيضاء",
+          "lab-grown-emerald":
+            "أحجار زمرد خضراء مُنتَجة في المختبر بقصّات متعددة على خلفية بيضاء",
+        },
+        catalogItems: {
+          "sapphire-cushion-calibrated":
+            "أحجار ياقوت أزرق مُنتَجة في المختبر، منها حجر بقصّة وسادة، على خلفية بيضاء",
+          "emerald-green-emerald-cut":
+            "تشكيلة زمرد أخضر مُنتَج في المختبر تتضمن قصّات زمردية على خلفية بيضاء",
+        },
+      },
+    } as const;
+
+    for (const locale of ["en", "es", "ar"] as const) {
+      const localized = gemstoneData.getLocalizedGemstoneCatalog(locale);
+      for (const [slug, alt] of Object.entries(expectations[locale].colorGroups)) {
+        expect(localized.colorGroups.find((group) => group.slug === slug)?.alt).toBe(alt);
+      }
+      for (const [slug, alt] of Object.entries(expectations[locale].typeCategories)) {
+        expect(
+          localized.typeCategories.find((category) => category.slug === slug)?.alt,
+        ).toBe(alt);
+      }
+      for (const [slug, alt] of Object.entries(expectations[locale].catalogItems)) {
+        expect(localized.catalogItems.find((item) => item.slug === slug)?.alt).toBe(alt);
+      }
     }
   });
 

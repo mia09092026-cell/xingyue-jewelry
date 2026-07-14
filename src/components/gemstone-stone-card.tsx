@@ -14,6 +14,7 @@ type GemstoneStoneCardProps = {
 };
 
 export function GemstoneStoneCard({ copy, item, locale }: GemstoneStoneCardProps) {
+  const hasImage = Boolean(item.image && item.alt);
   const sourcePath = localizedPath("/lab-grown-gemstones", locale);
   const inquiryHref = contactInquiryHref({
     locale,
@@ -31,24 +32,43 @@ export function GemstoneStoneCard({ copy, item, locale }: GemstoneStoneCardProps
   ];
 
   return (
-    <article className="group overflow-hidden rounded-md border border-[#ded4c0] bg-white/90 shadow-[0_18px_50px_rgba(23,32,42,0.06)]">
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#ede8dc]">
-        <Image
-          src={item.image}
-          alt={item.alt}
-          fill
-          sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-          className="object-cover transition duration-700 group-hover:scale-[1.03]"
-        />
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#101720]/85 to-transparent px-5 pb-5 pt-12 text-white">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#ead7a5]">
-            {item.gemstoneType}
-          </p>
-          <h3 className="mt-2 font-serif text-2xl leading-tight">{item.name}</h3>
+    <article
+      data-image-state={hasImage ? "available" : "none"}
+      className="group overflow-hidden rounded-md border border-[#ded4c0] bg-white/90 shadow-[0_18px_50px_rgba(23,32,42,0.06)]"
+    >
+      {item.image && item.alt ? (
+        <div
+          data-gemstone-media
+          className="relative aspect-[4/3] overflow-hidden bg-[#ede8dc]"
+        >
+          <Image
+            src={item.image}
+            alt={item.alt}
+            fill
+            sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="object-cover transition duration-700 group-hover:scale-[1.03]"
+            style={{ objectPosition: item.imagePosition }}
+          />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#101720]/85 to-transparent px-5 pb-5 pt-12 text-white">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#ead7a5]">
+              {item.gemstoneType}
+            </p>
+            <h3 className="mt-2 font-serif text-2xl leading-tight">{item.name}</h3>
+          </div>
         </div>
-      </div>
+      ) : null}
 
-      <div className="p-5 md:p-6">
+      <div className={`p-5 md:p-6 ${hasImage ? "" : "border-t-4 border-[#a98945]"}`}>
+        {!hasImage ? (
+          <div className="mb-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#8a734b]">
+              {item.gemstoneType}
+            </p>
+            <h3 className="mt-2 font-serif text-2xl leading-tight text-[#17202a]">
+              {item.name}
+            </h3>
+          </div>
+        ) : null}
         <p className="leading-7 text-[#596575]">{item.description}</p>
         <dl className="mt-6 divide-y divide-[#ece5d8] border-y border-[#ece5d8]">
           {fields.map(([label, value]) => (

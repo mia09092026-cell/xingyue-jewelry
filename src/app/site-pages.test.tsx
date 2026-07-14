@@ -94,6 +94,34 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getAllByText(/WhatsApp/i).length).toBeGreaterThan(0);
   });
 
+  it("renders accurate product media and a complete text-only card without a placeholder", () => {
+    render(<ProductsPage />);
+
+    const ringCard = screen
+      .getByRole("heading", { name: "Lab Grown Diamond Rings" })
+      .closest("article");
+    const pendantCard = screen
+      .getByRole("heading", { name: "Lab Grown Diamond Pendants" })
+      .closest("article");
+
+    expect(ringCard).toHaveAttribute("data-image-state", "available");
+    expect(
+      within(ringCard as HTMLElement).getByRole("img").getAttribute("src"),
+    ).toContain(encodeURIComponent("/images/xingyue-ring-sample.jpg"));
+    expect(pendantCard).toHaveAttribute("data-image-state", "none");
+    expect(within(pendantCard as HTMLElement).queryByRole("img")).not.toBeInTheDocument();
+    expect(pendantCard?.querySelector("[data-product-media]")).toBeNull();
+    expect(within(pendantCard as HTMLElement).getByText("Necklaces")).toBeInTheDocument();
+    expect(
+      within(pendantCard as HTMLElement).getByText("IGI / GIA certificate options by project"),
+    ).toBeInTheDocument();
+    expect(
+      within(pendantCard as HTMLElement).getByText(
+        "Pendant and chain programs for boutiques, online brands and gift collections.",
+      ),
+    ).toBeInTheDocument();
+  });
+
   it("renders the Education page", () => {
     const { container } = render(<EducationPage />);
 

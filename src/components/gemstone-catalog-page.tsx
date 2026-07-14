@@ -170,6 +170,7 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
                   fill
                   sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                  style={{ objectPosition: group.imagePosition }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#101720]/96 via-[#101720]/45 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white">
@@ -211,24 +212,40 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
             copy={copy.types.copy}
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {typeCategories.map((category, index) => (
-              <article
-                key={category.slug}
-                className={`overflow-hidden rounded-md border border-[#ded4c0] bg-white/90 shadow-sm ${
-                  index === 9 ? "xl:col-start-2" : ""
-                }`}
-              >
-                <div className="grid sm:grid-cols-[0.4fr_0.6fr]">
-                  <div className="relative min-h-56 bg-[#eee8dc] sm:min-h-full">
-                    <Image
-                      src={category.image}
-                      alt={category.alt}
-                      fill
-                      sizes="(min-width: 1280px) 15vw, (min-width: 768px) 20vw, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-5">
+            {typeCategories.map((category, index) => {
+              const hasImage = Boolean(category.image && category.alt);
+
+              return (
+                <article
+                  key={category.slug}
+                  data-image-state={hasImage ? "available" : "none"}
+                  className={`overflow-hidden rounded-md border border-[#ded4c0] bg-white/90 shadow-sm ${
+                    index === 9 ? "xl:col-start-2" : ""
+                  }`}
+                >
+                  <div className={hasImage ? "grid sm:grid-cols-[0.4fr_0.6fr]" : "h-full"}>
+                    {category.image && category.alt ? (
+                      <div
+                        data-gemstone-media
+                        className="relative min-h-56 bg-[#eee8dc] sm:min-h-full"
+                      >
+                        <Image
+                          src={category.image}
+                          alt={category.alt}
+                          fill
+                          sizes="(min-width: 1280px) 15vw, (min-width: 768px) 20vw, 100vw"
+                          className="object-cover"
+                          style={{ objectPosition: category.imagePosition }}
+                        />
+                      </div>
+                    ) : null}
+                    <div
+                      className={
+                        hasImage
+                          ? "p-5"
+                          : "flex h-full flex-col border-t-4 border-[#a98945] p-5 sm:p-6"
+                      }
+                    >
                     <Gem aria-hidden="true" className="mb-4 h-5 w-5 text-[#a98945]" />
                     <h2 className="font-serif text-2xl leading-tight">{category.name}</h2>
                     <p className="mt-3 text-sm leading-6 text-[#596575]">{category.description}</p>
@@ -260,7 +277,9 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
                         sourcePath,
                         interest: category.name,
                       })}
-                      className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#17202a]"
+                      className={`inline-flex items-center gap-2 text-sm font-semibold text-[#17202a] ${
+                        hasImage ? "mt-5" : "mt-auto pt-5"
+                      }`}
                     >
                       {copy.cta.getWholesalePrice}
                       <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
@@ -268,7 +287,8 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
                   </div>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ContactInquiryForm } from "@/components/contact-inquiry-form";
 import { PageHero } from "@/components/page-hero";
+import { ProductSummaryCard } from "@/components/product-summary-card";
 import { SectionHeading } from "@/components/section-heading";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -344,26 +345,7 @@ export function LocalizedProducts({ locale }: LocalizedPageProps) {
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {content.products.cards.map((product) => (
-              <article
-                key={product.name}
-                className="overflow-hidden rounded-md border border-[#e3dbcb] bg-white/86 shadow-sm"
-              >
-                <div className="relative aspect-[4/3] bg-[#f4efe3]">
-                  <Image
-                    src={product.image}
-                    alt={product.alt}
-                    fill
-                    sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <p className="text-sm text-[#8a734b]">{product.category}</p>
-                  <h2 className="mt-2 font-serif text-2xl text-[#17202a]">{product.name}</h2>
-                  <p className="mt-4 text-sm text-[#344150]">{product.material}</p>
-                  <p className="mt-4 leading-7 text-[#596575]">{product.copy}</p>
-                </div>
-              </article>
+              <ProductSummaryCard key={product.id} product={product} />
             ))}
           </div>
         </div>

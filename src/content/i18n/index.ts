@@ -5,13 +5,21 @@ type NavItem = { label: string; href: string };
 type SeoCopy = { title: string; description: string };
 type Card = { title: string; copy: string; image?: string; alt?: string };
 type FaqItem = { question: string; answer: string };
-type ProductSummary = {
+export type ProductSummaryId =
+  | "lab-grown-diamond-rings"
+  | "lab-grown-diamond-pendants"
+  | "moissanite-earrings"
+  | "custom-tennis-bracelets";
+
+export type ProductSummary = {
+  id: ProductSummaryId;
   name: string;
   category: string;
   material: string;
   copy: string;
-  image: string;
-  alt: string;
+  image: string | null;
+  alt: string | null;
+  imageClassName?: string;
 };
 type CollectionContent = {
   seo: SeoCopy;
@@ -134,6 +142,19 @@ const sharedImages = {
   loose: "/images/b2b-bulk-loose-stones.jpg",
   hero: "/images/xingyue-loose-moissanite.jpg",
   bracelet: "/images/xingyue-tennis-bracelet.jpg",
+};
+
+const productSummaryMedia: Record<
+  ProductSummaryId,
+  Pick<ProductSummary, "image" | "imageClassName">
+> = {
+  "lab-grown-diamond-rings": {
+    image: "/images/xingyue-ring-sample.jpg",
+    imageClassName: "scale-[1.22]",
+  },
+  "lab-grown-diamond-pendants": { image: null },
+  "moissanite-earrings": { image: sharedImages.packaging },
+  "custom-tennis-bracelets": { image: sharedImages.bracelet },
 };
 
 export const i18nContent: Record<SupportedLocale, LocaleContent> = {
@@ -259,35 +280,39 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         "This is not a retail cart. Send your target style, MOQ, material and packaging needs to receive a wholesale discussion.",
       cards: [
         {
+          id: "lab-grown-diamond-rings",
           name: "Lab Grown Diamond Rings",
           category: "Rings",
           material: "14K / 18K gold, S925 silver and certificate options",
           copy: "Solitaire, halo and bridal-inspired styles for wholesale collections.",
-          image: "/images/xingyue-ring-sample.jpg",
+          ...productSummaryMedia["lab-grown-diamond-rings"],
           alt: "Lab grown diamond ring sample for B2B buyers",
         },
         {
+          id: "lab-grown-diamond-pendants",
           name: "Lab Grown Diamond Pendants",
           category: "Necklaces",
           material: "IGI / GIA certificate options by project",
           copy: "Pendant and chain programs for boutiques, online brands and gift collections.",
-          image: "/images/xingyue-heart-tennis-chain.jpg",
-          alt: "Lab grown diamond pendant and chain product sample",
+          ...productSummaryMedia["lab-grown-diamond-pendants"],
+          alt: null,
         },
         {
+          id: "moissanite-earrings",
           name: "Moissanite Earrings",
           category: "Earrings",
           material: "S925 silver or custom K gold settings",
           copy: "Repeat-order stud and gift-ready styles for wholesale assortments.",
-          image: sharedImages.packaging,
+          ...productSummaryMedia["moissanite-earrings"],
           alt: "Moissanite earrings in sample packaging",
         },
         {
+          id: "custom-tennis-bracelets",
           name: "Custom Tennis Bracelets",
           category: "Bracelets",
           material: "10K / 14K / 18K gold custom order",
           copy: "Stone layout, clasp, length and packaging can be developed for your market.",
-          image: sharedImages.bracelet,
+          ...productSummaryMedia["custom-tennis-bracelets"],
           alt: "Custom tennis bracelet for private label jewelry",
         },
       ],
@@ -669,10 +694,10 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sectionTitle: "منتجات جاهزة للتسعير والعينات والإنتاج بالجملة.",
       sectionCopy: "هذا ليس متجر تجزئة. أرسل التصميم والMOQ والمادة والتغليف المطلوب لبدء نقاش الجملة.",
       cards: [
-        { name: "خواتم ألماس مزروع", category: "خواتم", material: "ذهب 14K / 18K، فضة S925 وخيارات شهادات", copy: "تصاميم سوليتير وهالو ومجموعات مستوحاة من الزفاف.", image: "/images/xingyue-ring-sample.jpg", alt: "خاتم ألماس مزروع لعميل B2B" },
-        { name: "قلادات ألماس مزروع", category: "قلادات", material: "خيارات شهادات IGI / GIA حسب المشروع", copy: "برامج قلادات وسلاسل للبوتيكات والعلامات الإلكترونية والهدايا.", image: "/images/xingyue-heart-tennis-chain.jpg", alt: "قلادة وسلسلة ألماس مزروع" },
-        { name: "أقراط موسانيت", category: "أقراط", material: "فضة S925 أو حوامل ذهب K مخصّصة", copy: "تصاميم متكررة الطلب ومناسبة للهدايا ومجموعات الجملة.", image: sharedImages.packaging, alt: "أقراط موسانيت في تغليف عينة" },
-        { name: "أساور تنس مخصصة", category: "أساور", material: "طلب مخصص بذهب 10K / 14K / 18K", copy: "تطوير ترتيب الأحجار والقفل والطول والتغليف حسب سوقك.", image: sharedImages.bracelet, alt: "سوار تنس مخصص لعلامة خاصة" },
+        { id: "lab-grown-diamond-rings", name: "خواتم ألماس مزروع", category: "خواتم", material: "ذهب 14K / 18K، فضة S925 وخيارات شهادات", copy: "تصاميم سوليتير وهالو ومجموعات مستوحاة من الزفاف.", ...productSummaryMedia["lab-grown-diamond-rings"], alt: "خاتم ألماس مزروع لعميل B2B" },
+        { id: "lab-grown-diamond-pendants", name: "قلادات ألماس مزروع", category: "قلادات", material: "خيارات شهادات IGI / GIA حسب المشروع", copy: "برامج قلادات وسلاسل للبوتيكات والعلامات الإلكترونية والهدايا.", ...productSummaryMedia["lab-grown-diamond-pendants"], alt: null },
+        { id: "moissanite-earrings", name: "أقراط موسانيت", category: "أقراط", material: "فضة S925 أو حوامل ذهب K مخصّصة", copy: "تصاميم متكررة الطلب ومناسبة للهدايا ومجموعات الجملة.", ...productSummaryMedia["moissanite-earrings"], alt: "أقراط موسانيت في تغليف عينة" },
+        { id: "custom-tennis-bracelets", name: "أساور تنس مخصصة", category: "أساور", material: "طلب مخصص بذهب 10K / 14K / 18K", copy: "تطوير ترتيب الأحجار والقفل والطول والتغليف حسب سوقك.", ...productSummaryMedia["custom-tennis-bracelets"], alt: "سوار تنس مخصص لعلامة خاصة" },
       ],
       proofTitle: "ما الذي يؤكده المشترون قبل الطلب؟",
       proofCopy: "نؤكد MOQ، الشهادات، مطابقة الأحجار، نقاء المعدن، وقت الإنتاج وخطة الشحن قبل الطلب الكبير.",
@@ -836,10 +861,10 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sectionTitle: "Productos preparados para cotización, muestras y producción a granel.",
       sectionCopy: "No es un carrito minorista. Envíanos estilo, MOQ, material y empaque para iniciar la cotización.",
       cards: [
-        { name: "Anillos con diamantes de laboratorio", category: "Anillos", material: "Oro 14K / 18K, plata S925 y opciones de certificado", copy: "Solitarios, halos y estilos inspirados en bridal para colecciones mayoristas.", image: "/images/xingyue-ring-sample.jpg", alt: "Anillo con diamante de laboratorio para compradores B2B" },
-        { name: "Colgantes con diamantes de laboratorio", category: "Collares", material: "Opciones IGI / GIA según el proyecto", copy: "Programas de colgantes y cadenas para boutiques, marcas online y regalos.", image: "/images/xingyue-heart-tennis-chain.jpg", alt: "Colgante y cadena con diamante de laboratorio" },
-        { name: "Pendientes de moissanita", category: "Pendientes", material: "Plata S925 o monturas de oro K personalizadas", copy: "Estilos de pedido recurrente para surtidos mayoristas y regalos.", image: sharedImages.packaging, alt: "Pendientes de moissanita en empaque de muestra" },
-        { name: "Pulseras de tenis personalizadas", category: "Pulseras", material: "Oro 10K / 14K / 18K bajo pedido", copy: "Diseño de piedras, cierre, largo y empaque según tu mercado.", image: sharedImages.bracelet, alt: "Pulsera de tenis personalizada para marca privada" },
+        { id: "lab-grown-diamond-rings", name: "Anillos con diamantes de laboratorio", category: "Anillos", material: "Oro 14K / 18K, plata S925 y opciones de certificado", copy: "Solitarios, halos y estilos inspirados en bridal para colecciones mayoristas.", ...productSummaryMedia["lab-grown-diamond-rings"], alt: "Anillo con diamante de laboratorio para compradores B2B" },
+        { id: "lab-grown-diamond-pendants", name: "Colgantes con diamantes de laboratorio", category: "Collares", material: "Opciones IGI / GIA según el proyecto", copy: "Programas de colgantes y cadenas para boutiques, marcas online y regalos.", ...productSummaryMedia["lab-grown-diamond-pendants"], alt: null },
+        { id: "moissanite-earrings", name: "Pendientes de moissanita", category: "Pendientes", material: "Plata S925 o monturas de oro K personalizadas", copy: "Estilos de pedido recurrente para surtidos mayoristas y regalos.", ...productSummaryMedia["moissanite-earrings"], alt: "Pendientes de moissanita en empaque de muestra" },
+        { id: "custom-tennis-bracelets", name: "Pulseras de tenis personalizadas", category: "Pulseras", material: "Oro 10K / 14K / 18K bajo pedido", copy: "Diseño de piedras, cierre, largo y empaque según tu mercado.", ...productSummaryMedia["custom-tennis-bracelets"], alt: "Pulsera de tenis personalizada para marca privada" },
       ],
       proofTitle: "Qué suelen confirmar los compradores antes del pedido.",
       proofCopy: "MOQ, certificados, selección de piedras, pureza del metal, tiempo de producción y envío se confirman antes del pedido a granel.",
