@@ -75,4 +75,22 @@ describe("localized B2B positioning", () => {
       "نخدم العلامات التجارية الناشئة ومتاجر المجوهرات الراقية والمصممين المستقلين.",
     );
   });
+
+  it("uses one product image-availability map across English, Spanish and Arabic", () => {
+    const productImages = (["en", "es", "ar"] as const).map((locale) =>
+      getI18nContent(locale).products.cards.map(({ id, image }) => ({ id, image })),
+    );
+
+    expect(productImages[1]).toEqual(productImages[0]);
+    expect(productImages[2]).toEqual(productImages[0]);
+    expect(productImages[0]).toEqual([
+      {
+        id: "lab-grown-diamond-rings",
+        image: "/images/xingyue-ring-sample.jpg",
+      },
+      { id: "lab-grown-diamond-pendants", image: null },
+      { id: "moissanite-earrings", image: "/images/b2b-sample-packaging.jpg" },
+      { id: "custom-tennis-bracelets", image: "/images/xingyue-tennis-bracelet.jpg" },
+    ]);
+  });
 });

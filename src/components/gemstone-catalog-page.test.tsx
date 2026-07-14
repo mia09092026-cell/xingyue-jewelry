@@ -129,4 +129,50 @@ describe("GemstoneCatalogPage", () => {
       "/es/contact?source=%2Fes%2Flab-grown-gemstones&interest=Gemas+de+laboratorio+al+por+mayor+por+color",
     );
   });
+
+  it("renders dedicated color imagery with its configured focal position", () => {
+    render(<GemstoneCatalogPage locale="en" />);
+
+    expect(
+      screen.getByAltText("Blue lab-grown gemstones in mixed cuts on a white background"),
+    ).toHaveStyle({ objectPosition: "50% 52%" });
+    expect(
+      screen.getByAltText("Green lab-grown gemstones in mixed shapes on a white background"),
+    ).toHaveStyle({ objectPosition: "50% 54%" });
+  });
+
+  it("renders special-color gemstones as complete text-only cards without media placeholders", () => {
+    render(<GemstoneCatalogPage locale="en" />);
+
+    for (const headingName of [
+      "Lab-Grown Spinel",
+      "Lab-Grown Alexandrite",
+      "Colored Moissanite",
+    ]) {
+      const heading = screen.getAllByRole("heading", { name: headingName })[0];
+      const card = heading.closest("article");
+
+      expect(card).not.toBeNull();
+      expect(card).toHaveAttribute("data-image-state", "none");
+      expect(within(card as HTMLElement).queryByRole("img")).not.toBeInTheDocument();
+      expect(card?.querySelector("[data-gemstone-media]")).not.toBeInTheDocument();
+      expect(within(card as HTMLElement).getByText(/MOQ/i)).toBeInTheDocument();
+    }
+
+    const catalogHeading = screen.getByRole("heading", {
+      name: "Colored Moissanite Mixed Cuts",
+    });
+    const catalogCard = catalogHeading.closest("article");
+
+    expect(catalogCard).not.toBeNull();
+    expect(catalogCard).toHaveAttribute("data-image-state", "none");
+    expect(within(catalogCard as HTMLElement).queryByRole("img")).not.toBeInTheDocument();
+    expect(catalogCard?.querySelector("[data-gemstone-media]")).not.toBeInTheDocument();
+    expect(
+      within(catalogCard as HTMLElement).getByText("US$3–18 / ct reference range"),
+    ).toBeInTheDocument();
+    expect(
+      within(catalogCard as HTMLElement).getByRole("link", { name: "Get Wholesale Price" }),
+    ).toBeInTheDocument();
+  });
 });

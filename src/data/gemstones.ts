@@ -3,6 +3,7 @@ export type GemstoneColorGroup = {
   name: string;
   representativeStones: string[];
   image: string;
+  imagePosition?: string;
   alt: string;
   accent: string;
 };
@@ -14,8 +15,9 @@ export type GemstoneTypeCategory = {
   availableColors: string;
   moq: string;
   fromPrice: string;
-  image: string;
-  alt: string;
+  image: string | null;
+  imagePosition?: string;
+  alt: string | null;
 };
 
 export type GemstoneCatalogItem = {
@@ -29,8 +31,9 @@ export type GemstoneCatalogItem = {
   moq: string;
   referencePrice: string;
   availability: string;
-  image: string;
-  alt: string;
+  image: string | null;
+  imagePosition?: string;
+  alt: string | null;
   description: string;
   tags: string[];
 };
@@ -83,32 +86,36 @@ export const gemstoneColorGroups: GemstoneColorGroup[] = [
     slug: "blue",
     name: "Blue",
     representativeStones: ["Lab-Grown Sapphire", "Blue Spinel", "Blue Moissanite"],
-    image: "/images/b2b-lab-grown-sapphire.jpg",
-    alt: "Blue cushion cut lab-grown sapphire for wholesale sourcing",
+    image: "/images/gemstone-colors/blue-gemstones.webp",
+    imagePosition: "50% 52%",
+    alt: "Blue lab-grown gemstones in mixed cuts on a white background",
     accent: "#244b86",
   },
   {
     slug: "green",
     name: "Green",
     representativeStones: ["Lab-Grown Emerald", "Green Sapphire", "Green Moissanite"],
-    image: "/images/xingyue-colored-gemstones.jpg",
-    alt: "Green and fancy color lab-grown gemstones for B2B sourcing",
+    image: "/images/gemstone-colors/green-gemstones.webp",
+    imagePosition: "50% 54%",
+    alt: "Green lab-grown gemstones in mixed shapes on a white background",
     accent: "#32634f",
   },
   {
     slug: "pink",
     name: "Pink",
     representativeStones: ["Pink Sapphire", "Pink Spinel", "Pink Lab-Grown Diamond"],
-    image: "/images/b2b-color-stone-inventory.jpg",
-    alt: "Pink calibrated stones in wholesale gemstone inventory",
+    image: "/images/gemstone-colors/pink-gemstones.webp",
+    imagePosition: "54% 50%",
+    alt: "Pink lab-grown gemstones in oval and cushion cuts on a white background",
     accent: "#b85f79",
   },
   {
     slug: "purple",
     name: "Purple",
     representativeStones: ["Alexandrite", "Purple Sapphire", "Amethyst-Style Lab-Grown Stones"],
-    image: "/images/b2b-color-stone-inventory.jpg",
-    alt: "Purple calibrated stones for custom jewelry production",
+    image: "/images/gemstone-colors/purple-gemstones.webp",
+    imagePosition: "50% 46%",
+    alt: "Purple cushion-cut lab-grown gemstone on a white background",
     accent: "#655181",
   },
   {
@@ -119,16 +126,18 @@ export const gemstoneColorGroups: GemstoneColorGroup[] = [
       "Champagne Lab-Grown Diamond",
       "Yellow Moissanite",
     ],
-    image: "/images/xingyue-colored-gemstones.jpg",
-    alt: "Yellow and champagne color lab-grown stones",
+    image: "/images/gemstone-colors/yellow-champagne-gemstones.webp",
+    imagePosition: "50% 58%",
+    alt: "Yellow and champagne lab-grown gemstones in radiant cuts on a white background",
     accent: "#a87a2f",
   },
   {
     slug: "white-colorless",
     name: "White / Colorless",
     representativeStones: ["Lab-Grown Diamond", "Moissanite", "Cubic Zirconia"],
-    image: "/images/xingyue-loose-moissanite.jpg",
-    alt: "Colorless round moissanite loose stone for wholesale",
+    image: "/images/gemstone-colors/white-colorless-gemstones.webp",
+    imagePosition: "50% 44%",
+    alt: "Colorless lab-grown gemstones in mixed cushion cuts on a white background",
     accent: "#78838f",
   },
 ];
@@ -153,8 +162,9 @@ export const gemstoneTypeCategories: GemstoneTypeCategory[] = [
     availableColors: "Royal blue, cornflower style, pink, yellow, green and white",
     moq: "From 20 ct mixed lot or calibrated batch",
     fromPrice: "From US$5–28 / ct depending on size, color and quality",
-    image: "/images/b2b-lab-grown-sapphire.jpg",
-    alt: "Lab-grown blue sapphire cushion cut loose stone",
+    image: "/images/gemstone-colors/blue-gemstones.webp",
+    imagePosition: "50% 50%",
+    alt: "Blue lab-grown sapphires in mixed cuts on a white background",
   },
   {
     slug: "lab-grown-emerald",
@@ -164,8 +174,9 @@ export const gemstoneTypeCategories: GemstoneTypeCategory[] = [
     availableColors: "Medium green, vivid green and deep green",
     moq: "From 10 ct, subject to cut and clarity",
     fromPrice: "From US$10–45 / ct depending on size, clarity and cut",
-    image: "/images/xingyue-colored-gemstones.jpg",
-    alt: "Green lab-grown gemstone assortment for emerald sourcing",
+    image: "/images/gemstone-colors/green-gemstones.webp",
+    imagePosition: "50% 50%",
+    alt: "Green lab-grown emeralds in mixed cuts on a white background",
   },
   {
     slug: "lab-grown-spinel",
@@ -175,8 +186,8 @@ export const gemstoneTypeCategories: GemstoneTypeCategory[] = [
     availableColors: "Red, blue, pink, purple, green and colorless",
     moq: "From 30 ct mixed or single-color lot",
     fromPrice: "Quote by color, size and cut",
-    image: "/images/b2b-color-stone-inventory.jpg",
-    alt: "Colored spinel-style calibrated stone inventory",
+    image: null,
+    alt: null,
   },
   {
     slug: "lab-grown-alexandrite",
@@ -186,8 +197,8 @@ export const gemstoneTypeCategories: GemstoneTypeCategory[] = [
     availableColors: "Blue-green to purple-red color-change range",
     moq: "From 10 ct, subject to size and color-change effect",
     fromPrice: "Quote by color change, size and clarity",
-    image: "/images/xingyue-colored-gemstones.jpg",
-    alt: "Purple and blue fancy color lab-grown gemstones",
+    image: null,
+    alt: null,
   },
   {
     slug: "colored-moissanite",
@@ -197,8 +208,8 @@ export const gemstoneTypeCategories: GemstoneTypeCategory[] = [
     availableColors: "Blue, green, yellow, champagne, pink, grey and black",
     moq: "From 20 ct or matched pair program",
     fromPrice: "From US$3–18 / ct depending on color and size",
-    image: "/images/b2b-color-options.jpg",
-    alt: "Colored moissanite and gemstone options for jewelry production",
+    image: null,
+    alt: null,
   },
   {
     slug: "lab-grown-colored-diamonds",
@@ -275,8 +286,9 @@ export const gemstoneCatalogItems: GemstoneCatalogItem[] = [
     moq: "20 ct or calibrated batch",
     referencePrice: "US$5–28 / ct reference range",
     availability: "Common sizes available; custom calibration by order",
-    image: "/images/b2b-lab-grown-sapphire.jpg",
-    alt: "Royal blue cushion cut lab-grown sapphire",
+    image: "/images/gemstone-colors/blue-gemstones.webp",
+    imagePosition: "50% 58%",
+    alt: "Blue lab-grown sapphires including a cushion cut on a white background",
     description:
       "A classic blue option for repeat ring, pendant and matched earring programs.",
     tags: ["blue", "sapphire", "cushion", "calibrated"],
@@ -292,8 +304,9 @@ export const gemstoneCatalogItems: GemstoneCatalogItem[] = [
     moq: "10 ct or custom project lot",
     referencePrice: "US$10–45 / ct reference range",
     availability: "Cut-to-order and selected stock discussion",
-    image: "/images/xingyue-colored-gemstones.jpg",
-    alt: "Green emerald-cut lab-grown gemstone sourcing option",
+    image: "/images/gemstone-colors/green-gemstones.webp",
+    imagePosition: "50% 58%",
+    alt: "Green lab-grown emerald selection including emerald cuts on a white background",
     description:
       "Green center stones for premium custom rings, pendants and coordinated fine jewelry.",
     tags: ["green", "emerald", "emerald cut", "premium"],
@@ -309,8 +322,8 @@ export const gemstoneCatalogItems: GemstoneCatalogItem[] = [
     moq: "20 ct or matched pair discussion",
     referencePrice: "US$3–18 / ct reference range",
     availability: "Color card and size list on request",
-    image: "/images/b2b-color-options.jpg",
-    alt: "Colored moissanite options for wholesale jewelry",
+    image: null,
+    alt: null,
     description:
       "Flexible fancy-color sourcing for fashion collections and custom stone layouts.",
     tags: ["moissanite", "colored stones", "mixed cuts", "wholesale"],
