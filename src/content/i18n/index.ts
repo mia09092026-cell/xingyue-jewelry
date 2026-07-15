@@ -5,6 +5,9 @@ type NavItem = { label: string; href: string };
 type SeoCopy = { title: string; description: string };
 type Card = { title: string; copy: string; image?: string; alt?: string };
 type FaqItem = { question: string; answer: string };
+type SectionImage = { src: string; alt: string } | null;
+type InquiryFieldStatus = "required" | "conditional" | "optional";
+type InquiryField = { label: string; status: InquiryFieldStatus };
 export type ProductSummaryId =
   | "lab-grown-diamond-rings"
   | "lab-grown-diamond-pendants"
@@ -73,6 +76,9 @@ type LocaleContent = {
     exploreCapabilities: string;
     viewProducts: string;
     finalStartProject: string;
+    discussSamplesMoq: string;
+    discussQualityRequirements: string;
+    sendProjectDetails: string;
   };
   home: {
     seo: SeoCopy;
@@ -97,6 +103,28 @@ type LocaleContent = {
       title: string;
       copy: string;
       steps: Card[];
+    };
+    sampleMoq: {
+      eyebrow: string;
+      title: string;
+      copy: string;
+      items: Card[];
+      image: SectionImage;
+    };
+    qualityControl: {
+      eyebrow: string;
+      title: string;
+      copy: string;
+      items: Card[];
+      image: SectionImage;
+    };
+    inquiryPrep: {
+      eyebrow: string;
+      title: string;
+      copy: string;
+      statusLabels: Record<InquiryFieldStatus, string>;
+      fields: InquiryField[];
+      image: SectionImage;
     };
     finalCta: {
       eyebrow: string;
@@ -218,6 +246,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       exploreCapabilities: "Explore Our Capabilities",
       viewProducts: "View Products",
       finalStartProject: "Start Your Jewelry Project",
+      discussSamplesMoq: "Discuss Samples & MOQ",
+      discussQualityRequirements: "Discuss Your Quality Requirements",
+      sendProjectDetails: "Send Your Project Details",
     },
     home: {
       seo: {
@@ -276,6 +307,51 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           { title: "Production and Quality Control", copy: "Production follows the approved sample or project brief, with coordinated checks for stones, settings and finish." },
           { title: "Packaging and Shipping Coordination", copy: "Packaging and the international shipping plan are aligned with the project and destination before dispatch." },
         ],
+      },
+      sampleMoq: {
+        eyebrow: "Sampling & Order Planning",
+        title: "Samples & Project-Specific MOQ",
+        copy: "Sample requirements, cost, expected timing and MOQ are reviewed for each project. Product type, material, stone, setting complexity and packaging all affect the appropriate route. We confirm the sample scope first, then align the production scope after the sample is approved.",
+        items: [
+          { title: "Project-Specific MOQ", copy: "MOQ is confirmed according to product type, metal or material, stone, process complexity and packaging." },
+          { title: "Sample Quotation & Timing", copy: "Sample cost and expected timing are quoted after the design or reference, specifications and destination are reviewed." },
+          { title: "Approval Before Production", copy: "Material, setting, finish and packaging direction are reviewed with the sample before the production scope is confirmed." },
+          { title: "Availability by Product", copy: "The sample route and quantity options depend on the product; one-piece samples or small production runs are not assumed for every product." },
+        ],
+        image: null,
+      },
+      qualityControl: {
+        eyebrow: "Project Quality Review",
+        title: "Quality Checks Before Shipment",
+        copy: "Quality checks are coordinated against the approved sample or confirmed project specifications. The exact review points depend on the product and agreed scope, with findings addressed before packaging and dispatch.",
+        items: [
+          { title: "Material & Stone Confirmation", copy: "Confirm the stated material and agreed stone type, size and color direction against the approved project details." },
+          { title: "Approved Sample Reference", copy: "Use the approved sample, images or specifications as the production reference." },
+          { title: "Setting & Finish Inspection", copy: "Review stone security, setting alignment, surface finish and clasps where relevant." },
+          { title: "Size & Specification Check", copy: "Compare size, dimensions, length, quantity and logo or engraving details when included in the project." },
+          { title: "Packaging Confirmation", copy: "Review the approved box, pouch, card or label configuration and quantities." },
+          { title: "Pre-Shipment Review", copy: "Review order quantity, presentation, visible defects and packing readiness against the confirmed scope." },
+        ],
+        image: null,
+      },
+      inquiryPrep: {
+        eyebrow: "Before You Contact Us",
+        title: "Prepare Your Inquiry",
+        copy: "A clear first message helps us review the right product route and prepare a more useful discussion. Share what you already know; details that are not yet decided can be marked as open.",
+        statusLabels: { required: "Required", conditional: "Required for custom projects", optional: "Optional" },
+        fields: [
+          { label: "Product type", status: "required" },
+          { label: "Target quantity or range", status: "required" },
+          { label: "Destination country", status: "required" },
+          { label: "Business type", status: "required" },
+          { label: "Reference image or design", status: "conditional" },
+          { label: "Material", status: "optional" },
+          { label: "Stone", status: "optional" },
+          { label: "Target market", status: "optional" },
+          { label: "Packaging requirements", status: "optional" },
+          { label: "Expected timing", status: "optional" },
+        ],
+        image: null,
       },
       finalCta: {
         eyebrow: "Start a Project",
@@ -700,6 +776,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       exploreCapabilities: "استكشف قدراتنا",
       viewProducts: "عرض المنتجات",
       finalStartProject: "ابدأ مشروع مجوهراتك",
+      discussSamplesMoq: "ناقش العينات والحد الأدنى للطلب",
+      discussQualityRequirements: "ناقش متطلبات الجودة",
+      sendProjectDetails: "أرسل تفاصيل مشروعك",
     },
     home: {
       seo: {
@@ -749,6 +828,51 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           { title: "الإنتاج وفحص الجودة", copy: "يتم الإنتاج وفق العينة المعتمدة أو موجز المشروع، مع تنسيق فحوص الأحجار والترصيعات والتشطيب." },
           { title: "تنسيق التغليف والشحن", copy: "يتم تنسيق التغليف وخطة الشحن الدولي وفق المشروع والوجهة قبل الإرسال." },
         ],
+      },
+      sampleMoq: {
+        eyebrow: "العينات وتخطيط الطلب",
+        title: "العينات والحد الأدنى للطلب حسب المشروع",
+        copy: "تُراجع متطلبات العينة وتكلفتها والمدة المتوقعة والحد الأدنى للطلب لكل مشروع على حدة. ويؤثر نوع المنتج والمادة والحجر وتعقيد الترصيع والتغليف في المسار المناسب. نؤكد أولاً نطاق العينة، ثم ننسق نطاق الإنتاج بعد اعتمادها.",
+        items: [
+          { title: "حد أدنى للطلب حسب المشروع", copy: "يُحدَّد الحد الأدنى للطلب وفق نوع المنتج والمعدن أو المادة والحجر وتعقيد التنفيذ ومتطلبات التغليف." },
+          { title: "تسعير العينة ومدتها", copy: "تُحدَّد تكلفة العينة والمدة المتوقعة بعد مراجعة التصميم أو الصورة المرجعية والمواصفات ووجهة الشحن." },
+          { title: "اعتماد العينة قبل الإنتاج", copy: "تُراجع المادة والترصيع والتشطيب واتجاه التغليف في العينة قبل تأكيد نطاق الإنتاج." },
+          { title: "التوفر يعتمد على المنتج", copy: "يعتمد مسار العينة وخيارات الكمية على المنتج؛ ولا يُفترض توفر عينة من قطعة واحدة أو إنتاج بكميات صغيرة لكل المنتجات." },
+        ],
+        image: null,
+      },
+      qualityControl: {
+        eyebrow: "مراجعة جودة المشروع",
+        title: "فحوص الجودة قبل الشحن",
+        copy: "تُنسَّق فحوص الجودة بالرجوع إلى العينة المعتمدة أو مواصفات المشروع المؤكدة. وتختلف نقاط المراجعة حسب المنتج والنطاق المتفق عليه، وتُعالج الملاحظات قبل التغليف والإرسال.",
+        items: [
+          { title: "تأكيد المادة والحجر", copy: "التحقق من المادة المحددة، ومن نوع الحجر وحجمه ولونه المتفق عليه وفق تفاصيل المشروع المعتمدة." },
+          { title: "الرجوع إلى العينة المعتمدة", copy: "استخدام العينة أو الصور أو المواصفات المعتمدة كمرجع للإنتاج." },
+          { title: "فحص الترصيع والتشطيب", copy: "مراجعة ثبات الأحجار ومحاذاة الترصيع والتشطيب السطحي والأقفال عند الحاجة." },
+          { title: "فحص المقاسات والمواصفات", copy: "مقارنة المقاس والأبعاد والطول والكمية وتفاصيل الشعار أو النقش عندما تكون ضمن المشروع." },
+          { title: "تأكيد التغليف", copy: "مراجعة تكوين وكمية العلبة أو الكيس أو البطاقة أو الملصق المعتمد." },
+          { title: "المراجعة قبل الشحن", copy: "مراجعة الكمية والمظهر والعيوب الظاهرة وجاهزية التغليف مقارنة بالنطاق المؤكد." },
+        ],
+        image: null,
+      },
+      inquiryPrep: {
+        eyebrow: "قبل التواصل معنا",
+        title: "جهّز استفسارك",
+        copy: "يساعدنا الاستفسار الأول الواضح على مراجعة مسار المنتج المناسب والاستعداد لمناقشة أكثر فائدة. شارك ما تعرفه حالياً، ويمكن الإشارة إلى التفاصيل غير المحسومة بأنها قيد التحديد.",
+        statusLabels: { required: "مطلوب", conditional: "مطلوب للمشاريع المخصصة", optional: "اختياري" },
+        fields: [
+          { label: "نوع المنتج", status: "required" },
+          { label: "الكمية المستهدفة أو نطاقها", status: "required" },
+          { label: "بلد الوجهة", status: "required" },
+          { label: "نوع النشاط التجاري", status: "required" },
+          { label: "صورة أو تصميم مرجعي", status: "conditional" },
+          { label: "المادة", status: "optional" },
+          { label: "الحجر", status: "optional" },
+          { label: "السوق المستهدف", status: "optional" },
+          { label: "متطلبات التغليف", status: "optional" },
+          { label: "الموعد المتوقع", status: "optional" },
+        ],
+        image: null,
       },
       finalCta: {
         eyebrow: "ابدأ مشروعاً",
@@ -939,6 +1063,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       exploreCapabilities: "Conoce nuestras capacidades",
       viewProducts: "Ver productos",
       finalStartProject: "Inicia tu proyecto de joyería",
+      discussSamplesMoq: "Consultar muestras y MOQ",
+      discussQualityRequirements: "Hablemos de tus requisitos de calidad",
+      sendProjectDetails: "Envía los detalles de tu proyecto",
     },
     home: {
       seo: {
@@ -988,6 +1115,51 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           { title: "Producción y control de calidad", copy: "La producción sigue la muestra aprobada o el brief del proyecto, con controles coordinados de piedras, monturas y acabado." },
           { title: "Coordinación de empaque y envío", copy: "El empaque y el plan de envío internacional se coordinan según el proyecto y el destino antes del despacho." },
         ],
+      },
+      sampleMoq: {
+        eyebrow: "Muestras y planificación del pedido",
+        title: "Muestras y MOQ según el proyecto",
+        copy: "Los requisitos, el costo y el plazo previsto de la muestra, así como el MOQ, se revisan para cada proyecto. El tipo de producto, el material, la piedra, la complejidad de la montura y el empaque determinan la ruta adecuada. Primero confirmamos el alcance de la muestra y, después de aprobarla, coordinamos el alcance de producción.",
+        items: [
+          { title: "MOQ según el proyecto", copy: "Se confirma según el tipo de producto, el metal o material, la piedra, la complejidad del proceso y el empaque." },
+          { title: "Cotización y plazo de la muestra", copy: "El costo y el plazo previsto se cotizan después de revisar el diseño o referencia, las especificaciones y el destino." },
+          { title: "Aprobación antes de producir", copy: "La muestra permite revisar material, montura, acabado y dirección de empaque antes de confirmar el alcance de producción." },
+          { title: "Disponibilidad según el producto", copy: "La ruta de muestra y las opciones de cantidad dependen del producto; no se presupone que todos admitan una muestra de una unidad o producción en lotes pequeños." },
+        ],
+        image: null,
+      },
+      qualityControl: {
+        eyebrow: "Revisión de calidad del proyecto",
+        title: "Controles de calidad antes del envío",
+        copy: "Los controles se coordinan con la muestra aprobada o las especificaciones confirmadas del proyecto. Los puntos de revisión dependen del producto y del alcance acordado, y cualquier observación se atiende antes del empaque y despacho.",
+        items: [
+          { title: "Confirmación de material y piedra", copy: "Comprobar el material declarado y el tipo, tamaño y color de piedra acordados frente a los detalles aprobados." },
+          { title: "Referencia de muestra aprobada", copy: "Usar la muestra, las imágenes o las especificaciones aprobadas como referencia de producción." },
+          { title: "Inspección de montura y acabado", copy: "Revisar la seguridad y alineación de las piedras, el acabado superficial y los cierres cuando corresponda." },
+          { title: "Verificación de medidas y especificaciones", copy: "Comparar talla, dimensiones, longitud, cantidad y detalles de logo o grabado cuando formen parte del proyecto." },
+          { title: "Confirmación de empaque", copy: "Revisar la configuración y cantidad aprobadas de caja, bolsa, tarjeta o etiqueta." },
+          { title: "Revisión previa al envío", copy: "Revisar cantidad, presentación, defectos visibles y preparación del empaque frente al alcance confirmado." },
+        ],
+        image: null,
+      },
+      inquiryPrep: {
+        eyebrow: "Antes de contactarnos",
+        title: "Prepara tu consulta",
+        copy: "Una primera consulta clara nos ayuda a revisar la ruta de producto adecuada y preparar una conversación más útil. Comparte lo que ya sabes; los detalles aún no decididos pueden indicarse como pendientes.",
+        statusLabels: { required: "Obligatorio", conditional: "Obligatorio para proyectos personalizados", optional: "Opcional" },
+        fields: [
+          { label: "Tipo de producto", status: "required" },
+          { label: "Cantidad prevista o rango", status: "required" },
+          { label: "País de destino", status: "required" },
+          { label: "Tipo de negocio", status: "required" },
+          { label: "Imagen o diseño de referencia", status: "conditional" },
+          { label: "Material", status: "optional" },
+          { label: "Piedra", status: "optional" },
+          { label: "Mercado objetivo", status: "optional" },
+          { label: "Requisitos de empaque", status: "optional" },
+          { label: "Plazo deseado", status: "optional" },
+        ],
+        image: null,
       },
       finalCta: {
         eyebrow: "Inicia un proyecto",
