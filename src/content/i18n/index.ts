@@ -68,6 +68,11 @@ type LocaleContent = {
     sendInquiry: string;
     contactWhatsapp: string;
     sendDesign: string;
+    headerStartProject: string;
+    discussCollection: string;
+    exploreCapabilities: string;
+    viewProducts: string;
+    finalStartProject: string;
   };
   home: {
     seo: SeoCopy;
@@ -76,6 +81,28 @@ type LocaleContent = {
     subtitle: string;
     copy: string;
     stats: Array<{ value: string; label: string }>;
+    audience: {
+      eyebrow: string;
+      title: string;
+      items: string[];
+    };
+    coreValues: {
+      eyebrow: string;
+      title: string;
+      copy: string;
+      items: Card[];
+    };
+    workflow: {
+      eyebrow: string;
+      title: string;
+      copy: string;
+      steps: Card[];
+    };
+    finalCta: {
+      eyebrow: string;
+      title: string;
+      copy: string;
+    };
     sections: {
       productsEyebrow: string;
       productsTitle: string;
@@ -186,6 +213,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sendInquiry: "Send Inquiry",
       contactWhatsapp: "Contact Us on WhatsApp",
       sendDesign: "Send Your Design",
+      headerStartProject: "Start Your Project",
+      discussCollection: "Discuss Your Collection",
+      exploreCapabilities: "Explore Our Capabilities",
+      viewProducts: "View Products",
+      finalStartProject: "Start Your Jewelry Project",
     },
     home: {
       seo: {
@@ -193,9 +225,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         description:
           "Xingyue Jewelry supports emerging brands, boutique stores and independent designers with custom jewelry development, OEM / ODM and supply chain coordination.",
       },
-      eyebrow: "Jewelry Manufacturing Partner for Emerging Brands",
-      title: "Jewelry Manufacturing & Supply Chain Partner",
-      subtitle: "Custom development, production support and private-label coordination for growing jewelry businesses.",
+      eyebrow: "For Emerging Jewelry Brands & Boutique Stores",
+      title: "Bring Your Jewelry Collection from Idea to Production",
+      subtitle: "Xingyue coordinates product selection, custom development, sampling, production, quality control, packaging, and international shipping for growing jewelry businesses.",
       copy:
         "Xingyue Jewelry helps startups, boutique jewelry stores, independent designers and entrepreneurs coordinate lab grown jewelry, moissanite, custom settings, packaging and repeat-order planning.",
       stats: [
@@ -203,9 +235,56 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         { value: "14K / 18K", label: "Gold jewelry customization by project" },
         { value: "Coordinated Supply", label: "Sourcing, quality control, packaging and delivery planning" },
       ],
+      audience: {
+        eyebrow: "Built for Growing Jewelry Businesses",
+        title: "Who We Support",
+        items: [
+          "Emerging Jewelry Brands",
+          "Boutique Jewelry Stores",
+          "Independent Designers",
+          "Jewelry Entrepreneurs",
+        ],
+      },
+      coreValues: {
+        eyebrow: "Why Xingyue",
+        title: "Three Ways We Support Your Project",
+        copy: "A coordinated B2B workflow helps keep product decisions, sampling and delivery planning connected.",
+        items: [
+          {
+            title: "Collection Development from Concept to Production",
+            copy: "Coordinate product direction, custom development, sampling and production within one project.",
+          },
+          {
+            title: "Flexible Sampling & MOQ Coordination",
+            copy: "Confirm sample requirements and MOQ according to the product, material and process.",
+          },
+          {
+            title: "Quality Control, Packaging & Shipping Coordination",
+            copy: "Align quality checks, packaging details and international shipping around the approved project.",
+          },
+        ],
+      },
+      workflow: {
+        eyebrow: "A Coordinated Process",
+        title: "How We Work",
+        copy: "Six clear stages connect the first project brief with production and shipping coordination.",
+        steps: [
+          { title: "Share Your Project", copy: "Send your product references or requirements, including material, stone, target quantity, destination market and packaging needs." },
+          { title: "Review the Design or Product Direction", copy: "We review your custom design or existing product options and align the key specifications needed for quotation." },
+          { title: "Confirm the Quote and Project Scope", copy: "Quotation, MOQ, sample route, expected timing and payment terms are discussed and confirmed for the project." },
+          { title: "Develop and Approve the Sample", copy: "The sample follows the confirmed scope so you can review material, setting, finish and packaging direction before production." },
+          { title: "Production and Quality Control", copy: "Production follows the approved sample or project brief, with coordinated checks for stones, settings and finish." },
+          { title: "Packaging and Shipping Coordination", copy: "Packaging and the international shipping plan are aligned with the project and destination before dispatch." },
+        ],
+      },
+      finalCta: {
+        eyebrow: "Start a Project",
+        title: "Ready to Bring Your Jewelry Collection Forward?",
+        copy: "Share your collection direction and project requirements so we can discuss the appropriate next step.",
+      },
       sections: {
-        productsEyebrow: "Products",
-        productsTitle: "B2B product range for repeat wholesale programs.",
+        productsEyebrow: "Product Routes",
+        productsTitle: "Products & Capabilities",
         productsCopy:
           "Use these core categories to prepare a catalog request, sample order or bulk production brief.",
         manufacturingEyebrow: "Manufacturing",
@@ -616,6 +695,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sendInquiry: "أرسل استفساراً",
       contactWhatsapp: "تواصل معنا عبر واتساب",
       sendDesign: "أرسل تصميمك",
+      headerStartProject: "ابدأ مشروعك",
+      discussCollection: "ناقش مجموعتك معنا",
+      exploreCapabilities: "استكشف قدراتنا",
+      viewProducts: "عرض المنتجات",
+      finalStartProject: "ابدأ مشروع مجوهراتك",
     },
     home: {
       seo: {
@@ -623,9 +707,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         description:
           "تدعم Xingyue Jewelry العلامات الناشئة ومتاجر البوتيك والمصممين المستقلين عبر تطوير المجوهرات وخدمات OEM / ODM وتنسيق سلسلة التوريد.",
       },
-      eyebrow: "شريك تصنيع المجوهرات للعلامات التجارية الناشئة",
-      title: "شريك تصنيع وسلسلة توريد المجوهرات",
-      subtitle: "تطوير مخصص ودعم إنتاج وتنسيق علامة خاصة للمشاريع والعلامات المتنامية.",
+      eyebrow: "للعلامات التجارية الناشئة ومتاجر المجوهرات الراقية",
+      title: "حوّل فكرة مجموعتك إلى إنتاج فعلي",
+      subtitle: "تنسّق Xingyue اختيار المنتجات والتطوير المخصص والعينات والإنتاج وفحص الجودة والتغليف والشحن الدولي لمشاريع المجوهرات المتنامية.",
       copy:
         "نساعد العلامات التجارية الناشئة ومتاجر المجوهرات الراقية والمصممين المستقلين ورواد الأعمال على تنسيق مجوهرات مرصعة بألماس وأحجار كريمة مُنتَجة في المختبر، إلى جانب الموسانيت والترصيعات المخصصة والتغليف والطلبات المتكررة.",
       stats: [
@@ -633,9 +717,47 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         { value: "14K / 18K", label: "تخصيص ذهب حسب المشروع" },
         { value: "توريد منسق", label: "تنسيق المصادر والجودة والتغليف والتسليم" },
       ],
+      audience: {
+        eyebrow: "دعم مخصص لمشاريع المجوهرات المتنامية",
+        title: "من ندعم",
+        items: [
+          "علامات المجوهرات التجارية الناشئة",
+          "متاجر المجوهرات الراقية",
+          "مصممو المجوهرات المستقلون",
+          "رواد الأعمال في قطاع المجوهرات",
+        ],
+      },
+      coreValues: {
+        eyebrow: "لماذا Xingyue",
+        title: "ثلاث طرق لدعم مشروعك",
+        copy: "يربط مسار عمل B2B منسق بين قرارات المنتج والعينات وترتيبات التسليم.",
+        items: [
+          { title: "تطوير المجموعة من الفكرة إلى الإنتاج", copy: "تنسيق اتجاه المنتج والتطوير المخصص والعينات والإنتاج ضمن مشروع واحد." },
+          { title: "تنسيق مرن للعينات والحد الأدنى للطلب", copy: "تأكيد متطلبات العينة والحد الأدنى للطلب وفق المنتج والمادة وعملية التنفيذ." },
+          { title: "تنسيق الجودة والتغليف والشحن", copy: "تنسيق فحوص الجودة وتفاصيل التغليف والشحن الدولي وفق المشروع المعتمد." },
+        ],
+      },
+      workflow: {
+        eyebrow: "عملية منسقة",
+        title: "كيف نعمل",
+        copy: "ست مراحل واضحة تربط موجز المشروع الأول بتنسيق الإنتاج والشحن.",
+        steps: [
+          { title: "شارك تفاصيل مشروعك", copy: "أرسل مراجع المنتج أو متطلباته، بما يشمل المادة والحجر والكمية المستهدفة والسوق المقصود واحتياجات التغليف." },
+          { title: "مراجعة التصميم أو اختيار المنتج", copy: "نراجع التصميم المخصص أو خيارات المنتجات المتاحة ونحدد المواصفات الأساسية اللازمة للتسعير." },
+          { title: "تأكيد عرض السعر ونطاق المشروع", copy: "تتم مناقشة وتأكيد عرض السعر والحد الأدنى للطلب ومسار العينة والمدة المتوقعة وشروط الدفع الخاصة بالمشروع." },
+          { title: "تطوير العينة واعتمادها", copy: "تُنفذ العينة وفق النطاق المتفق عليه لمراجعة المادة والترصيع والتشطيب واتجاه التغليف قبل الإنتاج." },
+          { title: "الإنتاج وفحص الجودة", copy: "يتم الإنتاج وفق العينة المعتمدة أو موجز المشروع، مع تنسيق فحوص الأحجار والترصيعات والتشطيب." },
+          { title: "تنسيق التغليف والشحن", copy: "يتم تنسيق التغليف وخطة الشحن الدولي وفق المشروع والوجهة قبل الإرسال." },
+        ],
+      },
+      finalCta: {
+        eyebrow: "ابدأ مشروعاً",
+        title: "هل أنت مستعد للانتقال بمجموعتك إلى المرحلة التالية؟",
+        copy: "شارك اتجاه المجموعة ومتطلبات المشروع لمناقشة الخطوة التالية المناسبة.",
+      },
       sections: {
-        productsEyebrow: "المنتجات",
-        productsTitle: "نطاق منتجات B2B لبرامج الجملة المتكررة.",
+        productsEyebrow: "مسارات المنتجات",
+        productsTitle: "المنتجات والقدرات",
         productsCopy: "استخدم هذه الفئات لتجهيز طلب كتالوج أو عينة أو إنتاج بالجملة.",
         manufacturingEyebrow: "التصنيع",
         manufacturingTitle: "تخصيص OEM / ODM بدون تحويل الموقع إلى متجر تجزئة.",
@@ -812,6 +934,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sendInquiry: "Enviar consulta",
       contactWhatsapp: "Contactar por WhatsApp",
       sendDesign: "Enviar tu diseño",
+      headerStartProject: "Inicia tu proyecto",
+      discussCollection: "Hablemos de tu colección",
+      exploreCapabilities: "Conoce nuestras capacidades",
+      viewProducts: "Ver productos",
+      finalStartProject: "Inicia tu proyecto de joyería",
     },
     home: {
       seo: {
@@ -819,9 +946,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         description:
           "Xingyue Jewelry apoya marcas emergentes, joyerías boutique y diseñadores independientes con desarrollo, OEM / ODM y coordinación de suministro.",
       },
-      eyebrow: "Socio de fabricación de joyería para marcas emergentes",
-      title: "Socio de fabricación y cadena de suministro de joyería",
-      subtitle: "Desarrollo personalizado, apoyo de producción y coordinación de marca privada para negocios de joyería en crecimiento.",
+      eyebrow: "Para marcas de joyería emergentes y joyerías boutique",
+      title: "Lleva tu colección de joyería de la idea a la producción",
+      subtitle: "Xingyue coordina la selección de productos, el desarrollo personalizado, las muestras, la producción, el control de calidad, el empaque y el envío internacional para negocios de joyería en crecimiento.",
       copy:
         "Ayudamos a marcas emergentes, joyerías boutique, diseñadores independientes y emprendedores a coordinar joyería lab grown, moissanita, monturas personalizadas, empaque y pedidos recurrentes.",
       stats: [
@@ -829,9 +956,47 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         { value: "14K / 18K", label: "Personalización en oro por proyecto" },
         { value: "Suministro coordinado", label: "Compras, calidad, empaque y entrega" },
       ],
+      audience: {
+        eyebrow: "Pensado para negocios de joyería en crecimiento",
+        title: "A quién ayudamos",
+        items: [
+          "Marcas de joyería emergentes",
+          "Joyerías boutique",
+          "Diseñadores independientes",
+          "Emprendedores del sector joyero",
+        ],
+      },
+      coreValues: {
+        eyebrow: "Por qué Xingyue",
+        title: "Tres formas de apoyar tu proyecto",
+        copy: "Un flujo B2B coordinado mantiene conectadas las decisiones de producto, las muestras y la planificación de entrega.",
+        items: [
+          { title: "Desarrollo de la colección, del concepto a la producción", copy: "Coordina la dirección del producto, el desarrollo personalizado, las muestras y la producción en un solo proyecto." },
+          { title: "Coordinación flexible de muestras y MOQ", copy: "Confirma los requisitos de muestra y el MOQ según el producto, el material y el proceso." },
+          { title: "Coordinación de calidad, empaque y envío", copy: "Alinea controles de calidad, detalles de empaque y envío internacional con el proyecto aprobado." },
+        ],
+      },
+      workflow: {
+        eyebrow: "Un proceso coordinado",
+        title: "Cómo trabajamos",
+        copy: "Seis etapas claras conectan el brief inicial con la coordinación de producción y envío.",
+        steps: [
+          { title: "Comparte tu proyecto", copy: "Envíanos referencias o requisitos del producto, incluidos material, piedra, cantidad prevista, mercado de destino y necesidades de empaque." },
+          { title: "Revisamos el diseño o la selección de producto", copy: "Revisamos tu diseño personalizado o las opciones existentes y alineamos las especificaciones necesarias para cotizar." },
+          { title: "Confirmamos la cotización y el alcance", copy: "Se revisan y confirman la cotización, el MOQ, la ruta de muestra, el plazo previsto y las condiciones de pago del proyecto." },
+          { title: "Desarrollamos y aprobamos la muestra", copy: "La muestra sigue el alcance confirmado para revisar material, montura, acabado y dirección de empaque antes de producir." },
+          { title: "Producción y control de calidad", copy: "La producción sigue la muestra aprobada o el brief del proyecto, con controles coordinados de piedras, monturas y acabado." },
+          { title: "Coordinación de empaque y envío", copy: "El empaque y el plan de envío internacional se coordinan según el proyecto y el destino antes del despacho." },
+        ],
+      },
+      finalCta: {
+        eyebrow: "Inicia un proyecto",
+        title: "¿Listo para avanzar con tu colección de joyería?",
+        copy: "Comparte la dirección de tu colección y los requisitos del proyecto para conversar sobre el siguiente paso adecuado.",
+      },
       sections: {
-        productsEyebrow: "Productos",
-        productsTitle: "Rango B2B para programas mayoristas recurrentes.",
+        productsEyebrow: "Rutas de producto",
+        productsTitle: "Productos y capacidades",
         productsCopy: "Usa estas categorías para pedir catálogo, muestras o producción a granel.",
         manufacturingEyebrow: "Fabricación",
         manufacturingTitle: "Personalización OEM / ODM sin convertir el sitio en tienda minorista.",

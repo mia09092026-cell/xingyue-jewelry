@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ContactInquiryForm } from "@/components/contact-inquiry-form";
+import { HowWeWork } from "@/components/how-we-work";
 import { PageHero } from "@/components/page-hero";
 import { ProductSummaryCard } from "@/components/product-summary-card";
 import { SectionHeading } from "@/components/section-heading";
@@ -70,7 +71,7 @@ function localizedShellProps(locale: SupportedLocale, path: string) {
     currentLocale: locale,
     homeHref: localizedPath("/", locale),
     inquiryHref: localizedPath("/contact", locale),
-    inquiryLabel: content.cta.sendInquiry,
+    inquiryLabel: content.cta.headerStartProject,
     languagePath: path,
     logoAlt: logoAlts[locale],
     navigationLabel: navigationLabels[locale],
@@ -177,15 +178,25 @@ function CollectionCta({ locale, slug }: LocalizedCollectionProps) {
 
 export function LocalizedHome({ locale }: LocalizedPageProps) {
   const content = getI18nContent(locale);
+  const homePath = localizedPath("/", locale);
+  const inquiryHref = contactInquiryHref({
+    locale,
+    sourcePath: homePath,
+    interest: content.home.title,
+  });
+  const coreValueIcons = [Gem, Sparkles, ShieldCheck] as const;
 
   return (
     <main dir={content.dir} className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
       <SiteHeader {...localizedShellProps(locale, "/")} />
 
-      <section className="relative min-h-[78svh] overflow-hidden bg-[#f8f6ef] px-5 py-24 sm:px-8 lg:py-28">
+      <section
+        data-home-section="hero"
+        className="relative min-h-[calc(100svh-8.75rem)] overflow-hidden bg-[#f8f6ef] px-5 py-12 sm:px-8 sm:py-14 lg:py-16"
+      >
         <Image
           src="/images/xingyue-loose-moissanite.jpg"
-          alt="Luxury lab grown diamond and moissanite jewelry close up"
+          alt=""
           fill
           priority
           sizes="100vw"
@@ -193,37 +204,82 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#fbfaf7]/96 via-[#fbfaf7]/84 to-[#fbfaf7]/20 rtl:bg-gradient-to-l" />
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f8f6ef] to-transparent" />
-        <div className="relative z-10 mx-auto flex min-h-[58svh] max-w-7xl items-center">
-          <div className="max-w-2xl">
-            <p className="mb-5 text-sm uppercase text-[#9a7a36]">{content.home.eyebrow}</p>
-            <h1 className="text-balance font-serif text-5xl leading-tight text-[#17202a] sm:text-6xl lg:text-7xl">
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-15.75rem)] max-w-7xl items-center">
+          <div className="max-w-3xl">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[#9a7a36] sm:text-sm">
+              {content.home.eyebrow}
+            </p>
+            <h1 className="text-balance font-serif text-4xl leading-[1.08] text-[#17202a] sm:text-5xl lg:text-6xl">
               {content.home.title}
             </h1>
-            <p className="mt-6 text-2xl font-light text-[#8a734b]">{content.home.subtitle}</p>
-            <p className="mt-6 max-w-xl leading-8 text-[#596575]">{content.home.copy}</p>
-            <div className="mt-9">
-              <CtaRow
-                locale={locale}
-                sourcePath={localizedPath("/", locale)}
-                interest="Wholesale lab-grown diamond jewelry"
-              />
-            </div>
-            <div className="mt-9 grid gap-3 sm:grid-cols-3">
-              {content.home.stats.map((item) => (
-                <div
-                  key={item.value}
-                  className="rounded-md border border-[#e3dbcb] bg-white/76 p-4 shadow-sm backdrop-blur"
-                >
-                  <p className="font-serif text-2xl text-[#17202a]"><bdi dir="auto">{item.value}</bdi></p>
-                  <p className="mt-2 text-sm leading-6 text-[#596575]">{item.label}</p>
-                </div>
-              ))}
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[#4c5968] sm:text-lg sm:leading-8">
+              {content.home.subtitle}
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href={inquiryHref}
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
+              >
+                {content.cta.discussCollection}
+                <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+              </Link>
+              <Link
+                href="#products-capabilities"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-[#cbb06e] bg-white/78 px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
+              >
+                {content.cta.exploreCapabilities}
+                <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="px-5 py-20 sm:px-8">
+      <section data-home-section="who-we-support" className="px-5 py-14 sm:px-8 lg:py-16">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow={content.home.audience.eyebrow}
+            title={content.home.audience.title}
+          />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {content.home.audience.items.map((item) => (
+              <div key={item} className="flex items-center gap-3 rounded-md border border-[#e3dbcb] bg-white/72 px-5 py-4">
+                <Gem aria-hidden="true" className="h-5 w-5 shrink-0 text-[#a98945]" />
+                <p className="font-semibold leading-6">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section data-home-section="core-values" className="bg-[#fbfaf7] px-5 py-16 sm:px-8 lg:py-20">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow={content.home.coreValues.eyebrow}
+            title={content.home.coreValues.title}
+            copy={content.home.coreValues.copy}
+          />
+          <div className="grid gap-4 md:grid-cols-3">
+            {content.home.coreValues.items.map((card, index) => {
+              const Icon = coreValueIcons[index] ?? Sparkles;
+              return (
+              <article key={card.title} className="rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm">
+                <Icon aria-hidden="true" className="mb-6 h-6 w-6 text-[#a98945]" />
+                <h3 className="font-serif text-2xl leading-snug">{card.title}</h3>
+                <p className="mt-5 leading-7 text-[#596575]">{card.copy}</p>
+              </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="products-capabilities"
+        data-home-section="products-capabilities"
+        data-testid="products-capabilities"
+        className="scroll-mt-36 px-5 py-16 sm:px-8 lg:py-20"
+      >
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow={content.home.sections.productsEyebrow}
@@ -232,81 +288,63 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {content.home.productCards.map((card) => (
-              <article
-                key={card.title}
-                className="overflow-hidden rounded-md border border-[#e3dbcb] bg-white/86 shadow-sm"
-              >
+              <article key={card.title} className="overflow-hidden rounded-md border border-[#e3dbcb] bg-white/86 shadow-sm">
                 {card.image ? (
                   <div className="relative aspect-[4/3] bg-[#f4efe3]">
-                    <Image
-                      src={card.image}
-                      alt={card.alt ?? card.title}
-                      fill
-                      sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
-                    />
+                    <Image src={card.image} alt={card.alt ?? card.title} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
                 ) : null}
                 <div className="p-6">
-                  <h2 className="font-serif text-2xl text-[#17202a]">{card.title}</h2>
+                  <h3 className="font-serif text-2xl text-[#17202a]">{card.title}</h3>
                   <p className="mt-4 leading-7 text-[#596575]">{card.copy}</p>
                 </div>
               </article>
             ))}
           </div>
+          <Link href={localizedPath("/products", locale)} className="mt-8 inline-flex items-center gap-2 rounded-md border border-[#17202a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#17202a] hover:text-white">
+            {content.cta.viewProducts}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+          </Link>
         </div>
       </section>
 
-      <section className="bg-[#fbfaf7] px-5 py-20 sm:px-8">
+      <HowWeWork
+        eyebrow={content.home.workflow.eyebrow}
+        title={content.home.workflow.title}
+        copy={content.home.workflow.copy}
+        steps={content.home.workflow.steps}
+        ctaHref={inquiryHref}
+        ctaLabel={content.cta.discussCollection}
+      />
+
+      <section data-home-section="faq" className="bg-[#fbfaf7] px-5 py-16 sm:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow={content.home.sections.manufacturingEyebrow}
-            title={content.home.sections.manufacturingTitle}
-            copy={content.home.sections.manufacturingCopy}
-          />
-          <div className="grid gap-4 md:grid-cols-3">
-            {content.home.manufacturingCards.map((card) => (
-              <article key={card.title} className="rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm">
-                <Sparkles aria-hidden="true" className="mb-7 h-6 w-6 text-[#a98945]" />
-                <h2 className="font-serif text-2xl">{card.title}</h2>
-                <p className="mt-5 leading-7 text-[#596575]">{card.copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#17202a] px-5 py-20 text-white sm:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div>
-            <p className="mb-3 text-sm uppercase text-[#e6cf96]">{content.faq.eyebrow}</p>
-            <h2 className="text-balance font-serif text-4xl leading-tight">{content.faq.title}</h2>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <SectionHeading eyebrow={content.faq.eyebrow} title={content.faq.title} copy={content.faq.subtitle} />
+          <div className="grid gap-4 lg:grid-cols-3">
             {content.home.faqs.map((faq) => (
-              <article key={faq.question} className="rounded-md border border-white/12 bg-white/7 p-6">
-                <HelpCircle aria-hidden="true" className="mb-5 h-5 w-5 text-[#e6cf96]" />
+              <article key={faq.question} className="rounded-md border border-[#e3dbcb] bg-white/86 p-6">
+                <HelpCircle aria-hidden="true" className="mb-5 h-5 w-5 text-[#a98945]" />
                 <h3 className="font-serif text-2xl">{faq.question}</h3>
-                <p className="mt-4 leading-7 text-white/72">{faq.answer}</p>
+                <p className="mt-4 leading-7 text-[#596575]">{faq.answer}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="px-5 py-20 sm:px-8">
+      <section data-home-section="final-cta" className="px-5 py-16 sm:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl rounded-md bg-[#f4efe3] p-8 md:p-12">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
-              <p className="mb-3 text-sm uppercase text-[#8a734b]">{content.contact.eyebrow}</p>
-              <h2 className="font-serif text-4xl">{content.contact.title}</h2>
-              <p className="mt-5 max-w-2xl leading-8 text-[#596575]">{content.contact.subtitle}</p>
+              <p className="mb-3 text-sm uppercase text-[#8a734b]">{content.home.finalCta.eyebrow}</p>
+              <h2 className="font-serif text-4xl">{content.home.finalCta.title}</h2>
+              <p className="mt-5 max-w-2xl leading-8 text-[#596575]">{content.home.finalCta.copy}</p>
             </div>
             <Link
-              href={localizedPath("/contact", locale)}
+              href={inquiryHref}
               className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
             >
-              {content.cta.sendInquiry}
+              {content.cta.finalStartProject}
               <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
             </Link>
           </div>

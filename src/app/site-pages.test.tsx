@@ -19,17 +19,17 @@ describe("XINGYUE independent site pages", () => {
     const { container } = render(<Home />);
 
     expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Wholesale Moissanite Jewelry/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Lab-grown Diamond Jewelry/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole("heading", { name: /Products & Capabilities/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/Lab Grown Diamond Jewelry/i).length).toBeGreaterThan(0);
     expect(container.textContent).not.toMatch(
       /Moissanite Diamond Wholesale|first homepage version|can be added later|Sample Products/i,
     );
-    expect(screen.getByRole("link", { name: "Explore Collection" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "View Products" })).toHaveAttribute(
       "href",
       "/products",
     );
     expect(
-      screen.getByText("Jewelry Manufacturing Partner for Emerging Brands"),
+      screen.getByText("For Emerging Jewelry Brands & Boutique Stores"),
     ).toBeInTheDocument();
   });
 
@@ -207,9 +207,9 @@ describe("XINGYUE independent site pages", () => {
     const home = await LocalizedHomePage({ params: Promise.resolve({ locale: "ar" }) });
     const { container, unmount } = render(home);
 
-    expect(screen.getByRole("heading", { name: /شريك تصنيع وسلسلة توريد المجوهرات/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/احصل على سعر الجملة/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/OEM \/ ODM/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole("heading", { name: /حوّل فكرة مجموعتك إلى إنتاج فعلي/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/ناقش مجموعتك معنا/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/علامات المجوهرات التجارية الناشئة/i)).toBeInTheDocument();
     expect(container.querySelector("main")).toHaveAttribute("dir", "rtl");
     expect(container.textContent).not.toMatch(/مصنع/);
     unmount();

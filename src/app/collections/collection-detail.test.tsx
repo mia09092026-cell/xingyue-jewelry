@@ -70,14 +70,16 @@ describe("collection landing pages", () => {
     expect(metadata.description).toBe(entry?.metaDescription);
   });
 
-  it("links the homepage to the updated collection landing pages", () => {
-    const { container } = render(<Home />);
+  it("links the homepage to one consolidated products entrance", () => {
+    render(<Home />);
 
-    for (const page of collectionLandingPages) {
-      expect(
-        container.querySelector(`a[href="/collections/${page.slug}"]`),
-      ).toBeInstanceOf(HTMLAnchorElement);
-    }
+    expect(screen.getByRole("link", { name: "View Products" })).toHaveAttribute(
+      "href",
+      "/products",
+    );
+    expect(screen.queryByText("Core Products")).not.toBeInTheDocument();
+    expect(screen.queryByText("Collections")).not.toBeInTheDocument();
+    expect(screen.queryByText("Featured Products")).not.toBeInTheDocument();
   });
 
   it("links the collections index to every collection landing page", () => {

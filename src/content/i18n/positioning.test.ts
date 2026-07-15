@@ -3,9 +3,9 @@ import { getI18nContent } from ".";
 import type { SupportedLocale } from "@/lib/i18n";
 
 const expectedPositioning: Record<SupportedLocale, string> = {
-  en: "Jewelry Manufacturing & Supply Chain Partner",
-  es: "Socio de fabricación y cadena de suministro de joyería",
-  ar: "شريك تصنيع وسلسلة توريد المجوهرات",
+  en: "Bring Your Jewelry Collection from Idea to Production",
+  es: "Lleva tu colección de joyería de la idea a la producción",
+  ar: "حوّل فكرة مجموعتك إلى إنتاج فعلي",
 };
 
 const expectedBrandPartnerCopy: Record<
@@ -20,19 +20,19 @@ const expectedBrandPartnerCopy: Record<
   en: {
     aboutEyebrow: "How We Work With Brands",
     audience: "Boutique Jewelry Stores & Design Studios",
-    homeEyebrow: "Jewelry Manufacturing Partner for Emerging Brands",
+    homeEyebrow: "For Emerging Jewelry Brands & Boutique Stores",
     profileEyebrow: "Who We Support",
   },
   es: {
     aboutEyebrow: "Cómo trabajamos con las marcas",
     audience: "Joyerías boutique y estudios de diseño",
-    homeEyebrow: "Socio de fabricación de joyería para marcas emergentes",
+    homeEyebrow: "Para marcas de joyería emergentes y joyerías boutique",
     profileEyebrow: "A quién ayudamos",
   },
   ar: {
     aboutEyebrow: "كيف نعمل مع العلامات التجارية",
     audience: "متاجر المجوهرات الراقية واستوديوهات التصميم",
-    homeEyebrow: "شريك تصنيع المجوهرات للعلامات التجارية الناشئة",
+    homeEyebrow: "للعلامات التجارية الناشئة ومتاجر المجوهرات الراقية",
     profileEyebrow: "من نخدم",
   },
 };
