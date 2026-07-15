@@ -10,6 +10,9 @@ const expectedSectionOrder = [
   "core-values",
   "products-capabilities",
   "how-we-work",
+  "sample-moq",
+  "quality-control",
+  "prepare-inquiry",
   "faq",
   "final-cta",
 ];

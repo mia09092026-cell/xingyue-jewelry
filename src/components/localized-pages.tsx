@@ -17,7 +17,10 @@ import Link from "next/link";
 import { ContactInquiryForm } from "@/components/contact-inquiry-form";
 import { HowWeWork } from "@/components/how-we-work";
 import { PageHero } from "@/components/page-hero";
+import { PrepareInquirySection } from "@/components/prepare-inquiry-section";
 import { ProductSummaryCard } from "@/components/product-summary-card";
+import { QualityControlSection } from "@/components/quality-control-section";
+import { SampleMoqSection } from "@/components/sample-moq-section";
 import { SectionHeading } from "@/components/section-heading";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -184,6 +187,21 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
     sourcePath: homePath,
     interest: content.home.title,
   });
+  const sampleMoqHref = contactInquiryHref({
+    locale,
+    sourcePath: homePath,
+    interest: content.home.sampleMoq.title,
+  });
+  const qualityControlHref = contactInquiryHref({
+    locale,
+    sourcePath: homePath,
+    interest: content.home.qualityControl.title,
+  });
+  const inquiryPrepHref = contactInquiryHref({
+    locale,
+    sourcePath: homePath,
+    interest: content.home.inquiryPrep.title,
+  });
   const coreValueIcons = [Gem, Sparkles, ShieldCheck] as const;
 
   return (
@@ -315,6 +333,37 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
         steps={content.home.workflow.steps}
         ctaHref={inquiryHref}
         ctaLabel={content.cta.discussCollection}
+      />
+
+      <SampleMoqSection
+        eyebrow={content.home.sampleMoq.eyebrow}
+        title={content.home.sampleMoq.title}
+        copy={content.home.sampleMoq.copy}
+        items={content.home.sampleMoq.items}
+        image={content.home.sampleMoq.image}
+        ctaHref={sampleMoqHref}
+        ctaLabel={content.cta.discussSamplesMoq}
+      />
+
+      <QualityControlSection
+        eyebrow={content.home.qualityControl.eyebrow}
+        title={content.home.qualityControl.title}
+        copy={content.home.qualityControl.copy}
+        items={content.home.qualityControl.items}
+        image={content.home.qualityControl.image}
+        ctaHref={qualityControlHref}
+        ctaLabel={content.cta.discussQualityRequirements}
+      />
+
+      <PrepareInquirySection
+        eyebrow={content.home.inquiryPrep.eyebrow}
+        title={content.home.inquiryPrep.title}
+        copy={content.home.inquiryPrep.copy}
+        statusLabels={content.home.inquiryPrep.statusLabels}
+        fields={content.home.inquiryPrep.fields}
+        image={content.home.inquiryPrep.image}
+        ctaHref={inquiryPrepHref}
+        ctaLabel={content.cta.sendProjectDetails}
       />
 
       <section data-home-section="faq" className="bg-[#fbfaf7] px-5 py-16 sm:px-8 lg:py-20">
