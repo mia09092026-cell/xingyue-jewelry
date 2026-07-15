@@ -6,68 +6,38 @@ const matchText = (value: string) =>
   new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
 
 describe("XINGYUE homepage", () => {
-  it("renders the required luxury jewelry home page sections", () => {
+  it("renders the approved Phase 4A conversion sections", () => {
     const { container } = render(<Home />);
 
     expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
     expect(
       screen.getByRole("heading", {
-        name: /Jewelry Manufacturing & Supply Chain Partner/i,
+        name: /Bring Your Jewelry Collection from Idea to Production/i,
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/Ethical Brilliance, Modern Luxury/i)).toBeInTheDocument();
-
-    for (const category of ["Rings", "Necklaces", "Earrings", "Bracelets"]) {
-      expect(screen.getAllByText(new RegExp(category, "i")).length).toBeGreaterThan(0);
-    }
-
-    for (const categoryImage of [
-      "Rings jewelry category sample",
-      "Necklaces jewelry category sample",
-      "Earrings jewelry category sample",
-      "Bracelets jewelry category sample",
-    ]) {
-      expect(screen.getByAltText(categoryImage)).toBeInTheDocument();
-    }
-
-    for (const advantage of [
-      "Real Diamond",
-      "Ethical Choice",
-      "Better Value",
-      "Certified Quality",
-    ]) {
-      expect(screen.getAllByText(new RegExp(advantage, "i")).length).toBeGreaterThan(0);
-    }
-
-    expect(screen.getByRole("heading", { name: /Featured Products/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /About XINGYUE/i })).toBeInTheDocument();
+    expect(screen.getByText(/For Emerging Jewelry Brands & Boutique Stores/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Who We Support" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Three Ways We Support Your Project" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Products & Capabilities" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "How We Work" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /FAQ/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/Request a Quote/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Discuss Your Collection/i).length).toBeGreaterThan(0);
 
-    for (const product of [
-      "Moissanite",
-      "Lab-Grown Diamonds",
-      "Lab-Grown Colored Gemstones",
-      "Zirconia",
-      "Cuban Chains",
-      "Tennis Chains",
-    ]) {
+    for (const product of ["Lab Grown Diamond Jewelry", "14K / 18K Gold Jewelry", "Private Label Packaging"]) {
       expect(screen.getAllByText(matchText(product)).length).toBeGreaterThan(0);
     }
 
     for (const capability of [
-      "Photo-to-Sample Customization",
-      "OEM / ODM Jewelry Production",
-      "Quality Control Coordination",
-      "Flexible B2B Support",
-      "Supply Chain Coordination",
+      "Collection Development from Concept to Production",
+      "Flexible Sampling & MOQ Coordination",
+      "Quality Control, Packaging & Shipping Coordination",
     ]) {
       expect(screen.getAllByText(matchText(capability)).length).toBeGreaterThan(0);
     }
 
     expect(container.textContent).not.toMatch(/\bfactory\b|\bmanufacturer\b/i);
 
-    expect(screen.getAllByText(/Wholesale Moissanite Jewelry/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Lab Grown Diamond Jewelry/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(
       "href",
       "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
@@ -85,7 +55,9 @@ describe("XINGYUE homepage", () => {
       .map((script) => JSON.parse(script.textContent || "{}"))
       .find((schema) => schema["@type"] === "FAQPage");
 
-    expect(screen.getByText("Can you produce jewelry from reference photos?")).toBeInTheDocument();
+    expect(
+      screen.getByText("Do you support wholesale lab grown diamond jewelry orders?"),
+    ).toBeInTheDocument();
     expect(faqJsonLd?.mainEntity).toHaveLength(3);
   });
 });
