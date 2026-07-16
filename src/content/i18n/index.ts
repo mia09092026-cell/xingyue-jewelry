@@ -1,5 +1,9 @@
 import type { SupportedLocale } from "@/lib/i18n";
-import type { ContactInquiryField } from "@/lib/contact-inquiry";
+import type {
+  ContactInquiryField,
+  ContactInquiryFieldErrorCode,
+  ContactInquiryLegacyField,
+} from "@/lib/contact-inquiry";
 import { startBrandContentByLocale } from "./start-brand";
 
 type NavItem = { label: string; href: string };
@@ -114,8 +118,8 @@ type CollectionContent = {
 export type ContactFormCopy = {
   introTitle: string;
   introCopy: string;
-  fieldLabels: Partial<Record<ContactInquiryField, string>>;
-  placeholders: Partial<Record<ContactInquiryField, string>>;
+  fieldLabels: Partial<Record<ContactInquiryField | ContactInquiryLegacyField, string>>;
+  placeholders: Partial<Record<ContactInquiryField | ContactInquiryLegacyField, string>>;
   submitting: string;
   submit: string;
   email: string;
@@ -124,6 +128,12 @@ export type ContactFormCopy = {
   referenceLabel: string;
   errorFallback: string;
   validationPrefix: string;
+  errorMessages?: Partial<Record<ContactInquiryFieldErrorCode | "consent_required" | "service_unavailable" | "duplicate_submission" | "network_error", string>>;
+  consentLabel?: string;
+  consentRequired?: string;
+  quantityHelper?: string;
+  referenceHelper?: string;
+  privacyNotice?: string;
 };
 
 type LocaleContent = {
@@ -788,7 +798,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           phone: "WhatsApp / Phone",
           country: "Country",
           productInterest: "Product Interest",
-          quantity: "Quantity",
+          quantity: "Target Quantity or Range",
           customRequirement: "Custom Requirement",
           message: "Message",
         },
@@ -799,7 +809,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           phone: "Phone, WhatsApp or WeChat",
           country: "Country or region",
           productInterest: "Rings, tennis bracelets, OEM/ODM, loose stones...",
-          quantity: "Sample, 100 pieces, 500 pieces...",
+          quantity: "Your estimated quantity or range",
           customRequirement: "14K / 18K gold, private label, custom packaging, certificate needs...",
           message:
             "Reference style, stone size, metal, certificate, packaging, timeline and any quality requirements...",
@@ -808,7 +818,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         submit: "Send Inquiry",
         email: "Email Your Inquiry",
         successTitle: "Inquiry submitted",
-        successMessage: "Thank you. We have received your inquiry and will contact you within 24 hours.",
+        successMessage: "Your inquiry has been received. We'll review the project details and respond as soon as possible.",
         referenceLabel: "Reference",
         errorFallback: "Submission failed. Please contact us by WhatsApp or email.",
         validationPrefix: "Please complete",
@@ -1090,13 +1100,13 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       form: {
         introTitle: "نموذج استفسار جاهز للتسعير",
         introCopy: "أرسل بيانات المشروع الأساسية: الشركة والتواصل والدولة والمنتج والكمية ومتطلبات التخصيص.",
-        fieldLabels: { name: "الاسم", company: "اسم الشركة", email: "البريد الإلكتروني", phone: "واتساب / الهاتف", country: "الدولة", productInterest: "المنتج المطلوب", quantity: "الكمية", customRequirement: "متطلبات التخصيص", message: "الرسالة" },
-        placeholders: { name: "اسمك", company: "اسم الشركة أو العلامة", email: "name@example.com", phone: "رقم واتساب أو الهاتف", country: "الدولة أو المنطقة", productInterest: "خواتم، أساور تنس، OEM/ODM، أحجار سائبة...", quantity: "عينة، 100 قطعة، 500 قطعة...", customRequirement: "ذهب 14K / 18K، علامة خاصة، تغليف مخصص، شهادات...", message: "النمط المرجعي، حجم الحجر، المعدن، الشهادة، التغليف والجدول الزمني..." },
+        fieldLabels: { name: "الاسم", company: "اسم الشركة", email: "البريد الإلكتروني", phone: "واتساب / الهاتف", country: "الدولة", productInterest: "المنتج المطلوب", quantity: "الكمية المستهدفة أو نطاقها", customRequirement: "متطلبات التخصيص", message: "الرسالة" },
+        placeholders: { name: "اسمك", company: "اسم الشركة أو العلامة", email: "name@example.com", phone: "رقم واتساب أو الهاتف", country: "الدولة أو المنطقة", productInterest: "خواتم، أساور تنس، OEM/ODM، أحجار سائبة...", quantity: "الكمية أو النطاق التقريبي", customRequirement: "ذهب 14K / 18K، علامة خاصة، تغليف مخصص، شهادات...", message: "النمط المرجعي، حجم الحجر، المعدن، الشهادة، التغليف والجدول الزمني..." },
         submitting: "جارٍ الإرسال...",
         submit: "أرسل استفساراً",
         email: "أرسل عبر البريد",
         successTitle: "تم إرسال الاستفسار",
-        successMessage: "تم إرسال الاستفسار.",
+        successMessage: "تم استلام استفسارك. سنراجع تفاصيل المشروع ونرد في أقرب وقت ممكن.",
         referenceLabel: "الرقم المرجعي",
         errorFallback: "تعذر إرسال الاستفسار. يرجى مراسلتنا عبر البريد الإلكتروني.",
         validationPrefix: "يرجى إكمال",
@@ -1348,13 +1358,13 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       form: {
         introTitle: "Formulario listo para cotización",
         introCopy: "Envía los datos principales antes de discutir muestras: empresa, contacto, país, producto, cantidad y personalización.",
-        fieldLabels: { name: "Nombre", company: "Empresa", email: "Correo electrónico", phone: "WhatsApp / Teléfono", country: "País", productInterest: "Producto de interés", quantity: "Cantidad", customRequirement: "Requisitos de personalización", message: "Mensaje" },
-        placeholders: { name: "Tu nombre", company: "Nombre de empresa o marca", email: "name@example.com", phone: "Teléfono, WhatsApp o WeChat", country: "País o región", productInterest: "Anillos, pulseras tenis, OEM/ODM, piedras sueltas...", quantity: "Muestra, 100 piezas, 500 piezas...", customRequirement: "Oro 14K / 18K, marca privada, empaque, certificados...", message: "Estilo de referencia, piedra, metal, certificado, empaque y plazo..." },
+        fieldLabels: { name: "Nombre", company: "Empresa", email: "Correo electrónico", phone: "WhatsApp / Teléfono", country: "País", productInterest: "Producto de interés", quantity: "Cantidad prevista o rango", customRequirement: "Requisitos de personalización", message: "Mensaje" },
+        placeholders: { name: "Tu nombre", company: "Nombre de empresa o marca", email: "name@example.com", phone: "Teléfono, WhatsApp o WeChat", country: "País o región", productInterest: "Anillos, pulseras tenis, OEM/ODM, piedras sueltas...", quantity: "Tu cantidad o rango estimado", customRequirement: "Oro 14K / 18K, marca privada, empaque, certificados...", message: "Estilo de referencia, piedra, metal, certificado, empaque y plazo..." },
         submitting: "Enviando...",
         submit: "Enviar consulta",
         email: "Enviar por email",
         successTitle: "Consulta enviada",
-        successMessage: "Consulta enviada.",
+        successMessage: "Hemos recibido tu consulta. Revisaremos los detalles del proyecto y responderemos lo antes posible.",
         referenceLabel: "Referencia",
         errorFallback: "No se pudo enviar la consulta. Escríbenos por email.",
         validationPrefix: "Por favor completa",

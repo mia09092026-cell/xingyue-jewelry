@@ -1,28 +1,16 @@
 import {
   createContactInquiryReference,
   createInquirySheetRecord,
-  parseContactInquiry,
+  parseContactInquiryPayload,
 } from "@/lib/contact-inquiry";
-import { getGoogleSheetsEnvStatus, googleSheetsErrorToResponse } from "@/lib/google-sheets";
+import { googleSheetsErrorToResponse } from "@/lib/google-sheets";
 import { MissingGoogleSheetsConfigError, saveInquiryRecord } from "@/lib/inquiry-storage";
 
 export const runtime = "nodejs";
 
-type ContactRequestBody = {
-  locale?: unknown;
-  sourcePage?: unknown;
-  currentUrl?: unknown;
-  browserInfo?: unknown;
-  website?: unknown;
-};
-
 const rateLimitWindowMs = 10 * 60 * 1000;
 const maxSubmissionsPerWindow = 5;
 const rateLimitBuckets = new Map<string, { count: number; resetAt: number }>();
-
-function readString(value: unknown) {
-  return typeof value === "string" ? value.trim() : "";
-}
 
 function getClientKey(request: Request) {
   const forwardedFor = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -31,138 +19,81 @@ function getClientKey(request: Request) {
 
 function isRateLimited(key: string, now = Date.now()) {
   const current = rateLimitBuckets.get(key);
-
   if (!current || current.resetAt <= now) {
-    rateLimitBuckets.set(key, {
-      count: 1,
-      resetAt: now + rateLimitWindowMs,
-    });
+    rateLimitBuckets.set(key, { count: 1, resetAt: now + rateLimitWindowMs });
     return false;
   }
-
-  if (current.count >= maxSubmissionsPerWindow) {
-    return true;
-  }
-
+  if (current.count >= maxSubmissionsPerWindow) return true;
   current.count += 1;
   return false;
 }
 
 function isMissingGoogleSheetsConfigError(error: unknown) {
-  return (
-    error instanceof MissingGoogleSheetsConfigError ||
-    (error instanceof Error && error.name === "MissingGoogleSheetsConfigError")
-  );
+  return error instanceof MissingGoogleSheetsConfigError || (error instanceof Error && error.name === "MissingGoogleSheetsConfigError");
 }
 
-function logContactSubmissionFailure(
-  request: Request,
-  source: ContactRequestBody,
-  failure: ReturnType<typeof googleSheetsErrorToResponse>,
-) {
-  const requestUrl = new URL(request.url);
-
-  console.error("Contact inquiry submission failed", {
-    category: failure.category,
-    operation: failure.operation,
-    status: failure.status,
-    env: getGoogleSheetsEnvStatus(),
-    path: requestUrl.pathname,
-    sourcePage: readString(source.sourcePage),
-    locale: readString(source.locale),
-  });
+export function GET() {
+  return Response.json(
+    { ok: false, code: "METHOD_NOT_ALLOWED", message: "Method not allowed." },
+    { status: 405, headers: { Allow: "POST" } },
+  );
 }
 
 export async function POST(request: Request) {
   let body: unknown;
-
   try {
     body = await request.json();
   } catch {
+    return Response.json({ ok: false, code: "VALIDATION_ERROR", message: "Invalid inquiry payload." }, { status: 400 });
+  }
+
+  const parsed = parseContactInquiryPayload(body);
+  if (!parsed.ok) {
     return Response.json(
       {
         ok: false,
-        code: "VALIDATION_ERROR",
-        category: "form_payload_validation_error",
-        message: "Invalid inquiry payload.",
+        code: parsed.unknownFields?.length ? "UNKNOWN_FIELDS" : "VALIDATION_ERROR",
+        message: parsed.unknownFields?.length ? "The inquiry payload contains unsupported fields." : "Please complete the required inquiry fields.",
+        fieldErrors: parsed.fieldErrors,
+        ...(parsed.unknownFields?.length ? { unknownFields: parsed.unknownFields } : {}),
       },
       { status: 400 },
     );
   }
 
-  const source = body && typeof body === "object" ? (body as ContactRequestBody) : {};
-
-  if (readString(source.website)) {
-    return Response.json({
-      ok: true,
-      reference: createContactInquiryReference(),
-    });
+  const rawBody = body && typeof body === "object" ? (body as Record<string, unknown>) : {};
+  if (typeof rawBody.honeypot === "string" && rawBody.honeypot.trim()) {
+    return Response.json({ ok: true, reference: createContactInquiryReference() });
   }
 
   if (isRateLimited(getClientKey(request))) {
     return Response.json(
-      {
-        ok: false,
-        message: "Too many inquiry submissions. Please try again later.",
-      },
+      { ok: false, code: "RATE_LIMITED", message: "Too many inquiry submissions. Please try again later." },
       { status: 429 },
     );
   }
 
-  const inquiry = parseContactInquiry(body);
-
-  if (!inquiry.ok) {
-    return Response.json(
-      {
-        ok: false,
-        code: "VALIDATION_ERROR",
-        category: "form_payload_validation_error",
-        message: "Please complete the required inquiry fields.",
-        fieldErrors: inquiry.fieldErrors,
-      },
-      { status: 400 },
-    );
-  }
-
-  const browserInfo = readString(source.browserInfo) || request.headers.get("user-agent") || "";
-  const record = createInquirySheetRecord(inquiry.data, {
-    locale: readString(source.locale),
-    sourcePage: readString(source.sourcePage),
-    currentUrl: readString(source.currentUrl),
-    browserInfo,
+  const record = createInquirySheetRecord(parsed.data, {
+    locale: parsed.metadata.locale,
+    source: parsed.metadata.source,
+    consent: true,
   });
 
   try {
     await saveInquiryRecord(record);
   } catch (error) {
     const failure = googleSheetsErrorToResponse(error);
-    logContactSubmissionFailure(request, source, failure);
-
     if (isMissingGoogleSheetsConfigError(error) || failure.category === "missing_environment_variables") {
       return Response.json(
-        {
-          ok: false,
-          code: "CONFIG_MISSING",
-          category: "missing_environment_variables",
-          message: "Inquiry service is being configured. Please contact us by WhatsApp or email.",
-        },
+        { ok: false, code: "CONFIG_MISSING", message: "Inquiry service is being configured. Please contact us by WhatsApp or email." },
         { status: 503 },
       );
     }
-
     return Response.json(
-      {
-        ok: false,
-        code: "SHEETS_WRITE_FAILED",
-        category: failure.category,
-        message: "Submission failed. Please contact us by WhatsApp or email.",
-      },
+      { ok: false, code: "SHEETS_WRITE_FAILED", message: "Submission failed. Please contact us by WhatsApp or email." },
       { status: 500 },
     );
   }
 
-  return Response.json({
-    ok: true,
-    reference: createContactInquiryReference(),
-  });
+  return Response.json({ ok: true, reference: createContactInquiryReference() });
 }

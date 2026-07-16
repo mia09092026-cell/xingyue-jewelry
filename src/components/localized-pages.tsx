@@ -423,7 +423,7 @@ export function LocalizedProducts({ locale }: LocalizedPageProps) {
         <CtaRow
           locale={locale}
           sourcePath={localizedPath("/products", locale)}
-          interest="B2B jewelry products"
+          interest="other"
         />
       </PageHero>
 
