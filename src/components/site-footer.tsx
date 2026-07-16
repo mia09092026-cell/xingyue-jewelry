@@ -16,6 +16,7 @@ type SiteFooterProps = {
   inquiryLabel?: string;
   logoAlt?: string;
   navigationItems?: FooterLink[];
+  startBrandItem?: FooterLink;
   sectionLabels?: {
     pages: string;
     collections: string;
@@ -36,6 +37,7 @@ export function SiteFooter({
   inquiryLabel = "OEM / ODM Inquiry",
   logoAlt = "Star & Moon Jewelry logo",
   navigationItems = navigation.slice(0, 4),
+  startBrandItem,
   sectionLabels = {
     pages: "Pages",
     collections: "Collections",
@@ -63,6 +65,13 @@ export function SiteFooter({
                 </Link>
               </li>
             ))}
+            {startBrandItem ? (
+              <li>
+                <Link href={startBrandItem.href} className="transition hover:text-white">
+                  {startBrandItem.label}
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </div>
         <div>

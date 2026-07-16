@@ -20,6 +20,7 @@ export const localizedPublicPages = [
   "/about",
   "/faq",
   "/contact",
+  "/start-a-jewelry-brand",
 ] as const;
 
 export const localizedCollectionSlugs = [
