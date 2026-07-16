@@ -98,6 +98,10 @@ function LocalizedFooter({ locale }: LocalizedPageProps) {
       inquiryLabel={content.footer.inquiry}
       logoAlt={logoAlts[locale]}
       navigationItems={content.navigation.slice(0, 4)}
+      startBrandItem={{
+        label: content.startBrand?.hero.title ?? "Start Your Jewelry Brand",
+        href: localizedPath("/start-a-jewelry-brand", locale),
+      }}
       sectionLabels={{
         pages: content.footer.pages,
         collections: content.footer.collections,

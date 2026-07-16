@@ -1,5 +1,6 @@
 import type { SupportedLocale } from "@/lib/i18n";
 import type { ContactInquiryField } from "@/lib/contact-inquiry";
+import { startBrandContentByLocale } from "./start-brand";
 
 type NavItem = { label: string; href: string };
 type SeoCopy = { title: string; description: string };
@@ -8,6 +9,78 @@ type FaqItem = { question: string; answer: string };
 type SectionImage = { src: string; alt: string } | null;
 type InquiryFieldStatus = "required" | "conditional" | "optional";
 type InquiryField = { label: string; status: InquiryFieldStatus };
+type StartBrandCard = { title: string; copy: string };
+
+export type StartBrandContent = {
+  seo: SeoCopy;
+  sectionOrder: string[];
+  hero: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
+  audience: { eyebrow: string; title: string; copy: string; items: string[] };
+  preparation: {
+    eyebrow: string;
+    title: string;
+    copy: string;
+    groups: Array<{ title: string; items: string[] }>;
+  };
+  productDirection: {
+    eyebrow: string;
+    title: string;
+    copy: string;
+    items: StartBrandCard[];
+    linkLabel: string;
+  };
+  support: {
+    eyebrow: string;
+    title: string;
+    copy: string;
+    phases: StartBrandCard[];
+    boundary: string;
+  };
+  sampleMoq: {
+    eyebrow: string;
+    title: string;
+    copy: string;
+    items: StartBrandCard[];
+    cta: string;
+  };
+  brandingPackaging: {
+    eyebrow: string;
+    title: string;
+    copy: string;
+    items: string[];
+    boundary: string;
+  };
+  qualityProduction: {
+    eyebrow: string;
+    title: string;
+    copy: string;
+    items: StartBrandCard[];
+    cta: string;
+  };
+  inquiry: {
+    eyebrow: string;
+    title: string;
+    copy: string;
+    statusLabels: Record<InquiryFieldStatus, string>;
+    fields: InquiryField[];
+    cta: string;
+  };
+  faq: { eyebrow: string; title: string; copy: string; items: FaqItem[] };
+  finalCta: { eyebrow: string; title: string; copy: string; cta: string };
+  links: {
+    products: string;
+    about: string;
+    howWeWork: string;
+    sampleMoq: string;
+    quality: string;
+  };
+};
 export type ProductSummaryId =
   | "lab-grown-diamond-rings"
   | "lab-grown-diamond-pendants"
@@ -187,6 +260,7 @@ type LocaleContent = {
     form: ContactFormCopy;
     note: string;
   };
+  startBrand?: StartBrandContent;
 };
 
 const sharedImages = {
@@ -1289,6 +1363,10 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
   },
 };
+
+for (const locale of Object.keys(startBrandContentByLocale) as SupportedLocale[]) {
+  i18nContent[locale].startBrand = startBrandContentByLocale[locale];
+}
 
 export function getI18nContent(locale: SupportedLocale) {
   return i18nContent[locale];

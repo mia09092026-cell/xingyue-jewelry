@@ -48,6 +48,7 @@ describe("i18n routing helpers", () => {
       "/about",
       "/faq",
       "/contact",
+      "/start-a-jewelry-brand",
     ]);
     expect(isSupportedLocale("ar")).toBe(true);
     expect(isSupportedLocale("fr")).toBe(false);
