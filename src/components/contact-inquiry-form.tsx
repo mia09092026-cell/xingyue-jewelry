@@ -9,7 +9,7 @@ import {
   type ContactInquiryFieldErrors,
   type ContactInquiryLegacyField,
 } from "@/lib/contact-inquiry";
-import { productInterestLabel } from "@/lib/contact-links";
+import { buildInquiryEmailUrl, contactSourceFromPath, normalizeInterest, normalizeSource, productInterestLabel } from "@/lib/contact-links";
 import type { ContactFormCopy } from "@/content/i18n";
 import type { SupportedLocale } from "@/lib/i18n";
 
@@ -339,36 +339,30 @@ function resolveContent(content: ContactFormCopy | undefined, locale: SupportedL
   };
 }
 
-const emailLabels: Record<SupportedLocale, Record<ContactInquiryField, string>> = {
-  en: localizedDefaults.en.fieldLabels,
-  es: localizedDefaults.es.fieldLabels,
-  ar: localizedDefaults.ar.fieldLabels,
-};
-
 export function buildInquiryEmailHref({
   emailHref,
   locale,
   inquiry,
+  interest,
+  source,
+  sourcePath,
 }: {
   emailHref: string;
   locale: SupportedLocale;
   inquiry: ContactInquiry;
+  interest?: string;
+  source?: string;
+  sourcePath?: string;
 }) {
-  const subjects: Record<SupportedLocale, string> = {
-    en: "Jewelry Project Inquiry",
-    es: "Consulta de proyecto de joyería",
-    ar: "استفسار عن مشروع مجوهرات",
-  };
-  const labelSet = emailLabels[locale];
-  const lines = (Object.keys(labelSet) as ContactInquiryField[])
-    .filter((field) => inquiry[field])
-    .map((field) => `${labelSet[field]}: ${inquiry[field]}`);
-  const suffix = inquiry.companyOrBrand || inquiry.name;
-  if (lines.length === 0) return emailHref;
-  const existingSubject = new URLSearchParams(emailHref.split("?")[1] ?? "").get("subject");
-  const subject = suffix ? `${subjects[locale]} - ${suffix}` : existingSubject ?? subjects[locale];
-  const base = emailHref.split("?")[0];
-  return `${base}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+  return buildInquiryEmailUrl({
+    context: "contact-form",
+    emailHref,
+    formData: inquiry,
+    includeTracking: Boolean(source || sourcePath),
+    interest: interest ? normalizeInterest(interest) : undefined,
+    locale,
+    source: source ? normalizeSource(source) : contactSourceFromPath(sourcePath),
+  });
 }
 
 function getBrowserSubmissionMetadata(locale: SupportedLocale, sourcePath: string | undefined) {
@@ -410,9 +404,21 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
   const [fieldErrors, setFieldErrors] = useState<ContactInquiryFieldErrors>({});
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle", message: "" });
   const errorSummaryRef = useRef<HTMLDivElement>(null);
+  const [linkContext] = useState<{ interest?: string; source?: string }>(() => {
+    if (typeof window === "undefined") return {};
+    const params = new URL(window.location.href).searchParams;
+    return { interest: params.get("interest") ?? undefined, source: params.get("source") ?? undefined };
+  });
   const emailHrefWithBody = useMemo(
-    () => buildInquiryEmailHref({ emailHref, locale, inquiry: formData }),
-    [emailHref, formData, locale],
+    () => buildInquiryEmailHref({
+      emailHref,
+      interest: linkContext.interest,
+      locale,
+      inquiry: formData,
+      source: linkContext.source,
+      sourcePath,
+    }),
+    [emailHref, formData, linkContext, locale, sourcePath],
   );
 
   const updateField = (field: ContactInquiryField, value: string) => {

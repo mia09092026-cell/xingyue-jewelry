@@ -1,11 +1,15 @@
+import { contactConfig } from "@/lib/contact-config";
+
+const defaultEmailHref = `mailto:${contactConfig.email}?subject=${encodeURIComponent("Wholesale Jewelry Inquiry")}`;
+
 export const brand = {
   name: "XINGYUE",
   domain: "xingyuejewelry.com",
-  email: "sales@xingyuejewelry.com",
-  emailHref: "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
-  emailInquiryHref: "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
-  whatsapp: "+8613324888759",
-  whatsappHref: "https://wa.me/8613324888759",
+  email: contactConfig.email,
+  emailHref: defaultEmailHref,
+  emailInquiryHref: defaultEmailHref,
+  whatsapp: contactConfig.whatsapp,
+  whatsappHref: contactConfig.whatsappHref,
   tagline: "Moissanite Wholesale & Lab-Grown Diamond Jewelry",
 };
 

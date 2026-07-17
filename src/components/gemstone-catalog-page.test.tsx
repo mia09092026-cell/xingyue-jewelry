@@ -45,19 +45,19 @@ describe("GemstoneCatalogPage", () => {
 
     expect(scopedCard.getByRole("link", { name: "Get Wholesale Price" })).toHaveAttribute(
       "href",
-      "/contact?source=%2Flab-grown-gemstones&interest=Lab-Grown+Ruby+Pear+Cut",
+      "/contact?locale=en&source=products&contactMethod=form&interest=loose-stones",
     );
     expect(scopedCard.getByRole("link", { name: "Add to Inquiry" })).toHaveAttribute(
       "href",
-      "/contact?source=%2Flab-grown-gemstones&interest=Lab-Grown+Ruby+Pear+Cut",
+      "/contact?locale=en&source=products&contactMethod=form&interest=loose-stones",
     );
-    expect(scopedCard.getByRole("link", { name: "Contact on WhatsApp" })).toHaveAttribute(
-      "href",
-      "https://wa.me/8613324888759",
-    );
+    expect(scopedCard.getByRole("link", { name: "Contact on WhatsApp" }).getAttribute("href"))
+      .toContain("https://wa.me/8613324888759?");
+    expect(scopedCard.getByRole("link", { name: "Contact on WhatsApp" }).getAttribute("href"))
+      .toContain("source=products");
     expect(screen.getByRole("link", { name: "Email Inquiry" })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Lab-Grown%20Gemstone%20Inquiry",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Lab-Grown%20Gemstone%20Inquiry&locale=en&source=products&interest=loose-stones&contactMethod=email",
     );
   });
 
@@ -92,9 +92,7 @@ describe("GemstoneCatalogPage", () => {
         .getAllByRole("link", { name: "إرسال استفسار" })
         .map((link) => link.getAttribute("href")),
     ).toContain(
-      `/ar/contact?source=%2Far%2Flab-grown-gemstones&interest=${encodeURIComponent(
-        "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون",
-      ).replace(/%20/g, "+")}`,
+      "/ar/contact?locale=ar&source=products&contactMethod=form&interest=loose-stones",
     );
   });
 
@@ -126,7 +124,7 @@ describe("GemstoneCatalogPage", () => {
         .getAllByRole("link", { name: "Enviar consulta" })
         .map((link) => link.getAttribute("href")),
     ).toContain(
-      "/es/contact?source=%2Fes%2Flab-grown-gemstones&interest=Gemas+de+laboratorio+al+por+mayor+por+color",
+      "/es/contact?locale=es&source=products&contactMethod=form&interest=loose-stones",
     );
   });
 

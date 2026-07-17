@@ -162,7 +162,7 @@ describe("Phase 6 safe methods and localized product intent", () => {
 
     expect(screen.getByRole("link", { name: /Solicitar precio mayorista/i })).toHaveAttribute(
       "href",
-      "/es/contact?source=%2Fes%2Fproducts&interest=other",
+      "/es/contact?locale=es&source=products&contactMethod=form&interest=other",
     );
   });
 });

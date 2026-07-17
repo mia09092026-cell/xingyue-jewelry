@@ -14,7 +14,7 @@ import { getLanguageAlternates, isLocalizedCollectionSlug } from "@/lib/i18n";
 import { createPageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, faqPageSchema } from "@/lib/structured-data";
-import { contactInquiryHref } from "@/lib/contact-links";
+import { contactInquiryHref, productInterestFromSlug } from "@/lib/contact-links";
 
 type CollectionDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -94,8 +94,8 @@ export default async function CollectionDetailPage({
       <PageHero eyebrow={collection.eyebrow} title={collection.title} subtitle={collection.description}>
         <Link
           href={contactInquiryHref({
-            sourcePath: `/collections/${collection.slug}`,
-            interest: collection.eyebrow,
+            source: "collection-detail",
+            interest: productInterestFromSlug(collection.slug),
           })}
           className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
         >
@@ -277,8 +277,8 @@ export default async function CollectionDetailPage({
             </div>
             <Link
               href={contactInquiryHref({
-                sourcePath: `/collections/${collection.slug}`,
-                interest: collection.eyebrow,
+                source: "collection-detail",
+                interest: productInterestFromSlug(collection.slug),
               })}
               className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
             >

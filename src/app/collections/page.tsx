@@ -64,8 +64,8 @@ export default function CollectionsPage() {
       >
         <Link
           href={contactInquiryHref({
-            sourcePath: "/collections",
-            interest: "B2B jewelry collections",
+            source: "collection-detail",
+            interest: "other",
           })}
           className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
         >

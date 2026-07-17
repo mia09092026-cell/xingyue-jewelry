@@ -54,7 +54,7 @@ describe("collection landing pages", () => {
     expect(screen.getAllByRole("link", { name: /View Product/i })[0]).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: "Request a Quote" })[0]).toHaveAttribute(
       "href",
-      "/contact?source=%2Fcollections%2Fmoissanite-wholesale&interest=Wholesale+Moissanite+Jewelry",
+      "/contact?locale=en&source=collection-detail&contactMethod=form&interest=moissanite-jewelry",
     );
     expect(faqJsonLd?.mainEntity.length).toBeGreaterThanOrEqual(3);
   });

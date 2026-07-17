@@ -3,9 +3,8 @@ import Link from "next/link";
 import { ArrowRight, MessageSquareText, Plus } from "lucide-react";
 import type { GemstoneCatalogCopy } from "@/content/gemstone-catalog";
 import type { GemstoneCatalogItem } from "@/data/gemstones";
-import { contactInquiryHref } from "@/lib/contact-links";
-import { localizedPath, type SupportedLocale } from "@/lib/i18n";
-import { brand } from "@/lib/site-data";
+import { buildWhatsAppInquiryUrl, contactInquiryHref } from "@/lib/contact-links";
+import type { SupportedLocale } from "@/lib/i18n";
 
 type GemstoneStoneCardProps = {
   copy: GemstoneCatalogCopy;
@@ -15,11 +14,10 @@ type GemstoneStoneCardProps = {
 
 export function GemstoneStoneCard({ copy, item, locale }: GemstoneStoneCardProps) {
   const hasImage = Boolean(item.image && item.alt);
-  const sourcePath = localizedPath("/lab-grown-gemstones", locale);
   const inquiryHref = contactInquiryHref({
     locale,
-    sourcePath,
-    interest: item.name,
+    source: "products",
+    interest: "loose-stones",
   });
   const fields = [
     [copy.fields.color, item.color],
@@ -98,7 +96,13 @@ export function GemstoneStoneCard({ copy, item, locale }: GemstoneStoneCardProps
               {copy.cta.addInquiry}
             </Link>
             <a
-              href={brand.whatsappHref}
+              href={buildWhatsAppInquiryUrl({
+                context: "product",
+                locale,
+                source: "products",
+                interest: "loose-stones",
+                formData: { productInterest: "loose-stones" },
+              })}
               className="inline-flex items-center justify-center gap-2 rounded-md border border-[#d8cfbc] px-3 py-2.5 text-xs font-semibold text-[#17202a] transition hover:bg-[#f4efe3]"
             >
               <MessageSquareText aria-hidden="true" className="h-4 w-4" />
