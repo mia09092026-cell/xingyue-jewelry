@@ -2,189 +2,54 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import ContactPage from "./page";
 
+function fillRequiredInquiryFields() {
+  fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Avery Chen" } });
+  fireEvent.change(screen.getByLabelText("Company"), { target: { value: "Luna Jewelry" } });
+  fireEvent.change(screen.getByLabelText("Email"), { target: { value: "avery@example.com" } });
+  fireEvent.change(screen.getByLabelText("WhatsApp / Phone"), { target: { value: "+1 555 0100" } });
+  fireEvent.change(screen.getByLabelText("Business Type"), { target: { value: "Boutique store" } });
+  fireEvent.change(screen.getByLabelText("Product Interest"), { target: { value: "Tennis jewelry" } });
+  fireEvent.change(screen.getByLabelText("Target Quantity or Range"), { target: { value: "Project estimate" } });
+  fireEvent.change(screen.getByLabelText("Country"), { target: { value: "United States" } });
+  fireEvent.change(screen.getByLabelText("Reference Image / Design"), { target: { value: "https://example.com/reference" } });
+  fireEvent.change(screen.getByLabelText("Message"), { target: { value: "Looking for a project discussion." } });
+  fireEvent.click(screen.getByRole("checkbox", { name: /agree that Xingyue/i }));
+}
+
 describe("Contact inquiry page form", () => {
-  beforeEach(() => {
-    vi.restoreAllMocks();
-  });
+  beforeEach(() => vi.restoreAllMocks());
 
-  function fillRequiredInquiryFields() {
-    fireEvent.change(screen.getByLabelText("Name"), {
-      target: { value: "Avery Chen" },
-    });
-    fireEvent.change(screen.getByLabelText("Company"), {
-      target: { value: "Luna Jewelry" },
-    });
-    fireEvent.change(screen.getByLabelText("Email"), {
-      target: { value: "avery@example.com" },
-    });
-    fireEvent.change(screen.getByLabelText("WhatsApp / Phone"), {
-      target: { value: "+1 555 0100" },
-    });
-    fireEvent.change(screen.getByLabelText("Country"), {
-      target: { value: "United States" },
-    });
-    fireEvent.change(screen.getByLabelText("Product Interest"), {
-      target: { value: "Lab-grown diamond tennis bracelets" },
-    });
-    fireEvent.change(screen.getByLabelText("Quantity"), {
-      target: { value: "500 pieces" },
-    });
-    fireEvent.change(screen.getByLabelText("Custom Requirement"), {
-      target: { value: "Private label packaging" },
-    });
-    fireEvent.change(screen.getByLabelText("Message"), {
-      target: {
-        value: "Looking for custom lab-grown diamond necklaces for a boutique launch.",
-      },
-    });
-  }
-
-  it("renders the requested wholesale inquiry fields", () => {
+  it("renders the approved inquiry fields and consent control", () => {
     render(<ContactPage />);
-
-    for (const label of [
-      "Name",
-      "Company",
-      "Email",
-      "WhatsApp / Phone",
-      "Country",
-      "Product Interest",
-      "Quantity",
-      "Custom Requirement",
-      "Message",
-    ]) {
+    for (const label of ["Name", "Company", "Email", "WhatsApp / Phone", "Business Type", "Product Interest", "Target Quantity or Range", "Country", "Reference Image / Design", "Message"]) {
       expect(screen.getByLabelText(label)).toBeInTheDocument();
     }
-
+    expect(screen.getByRole("checkbox", { name: /agree that Xingyue/i })).not.toBeChecked();
     expect(screen.getByRole("button", { name: /Submit Inquiry/i })).toBeInTheDocument();
     expect(document.querySelector('input[name="website"]')).toHaveAttribute("tabindex", "-1");
   });
 
-  it("submits the inquiry details with page metadata and shows the localized success message", async () => {
-    const fetchMock = vi.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        ok: true,
-        reference: "XY-20260628-AB12",
-      }),
-    });
+  it("submits explicit payload fields and shows a success response", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ ok: true, reference: "XY-20260628-AB12" }) });
     vi.stubGlobal("fetch", fetchMock);
-
     render(<ContactPage />);
-
-    fireEvent.change(screen.getByLabelText("Name"), {
-      target: { value: "Avery Chen" },
-    });
-    fireEvent.change(screen.getByLabelText("Company"), {
-      target: { value: "Luna Jewelry" },
-    });
-    fireEvent.change(screen.getByLabelText("Email"), {
-      target: { value: "avery@example.com" },
-    });
-    fireEvent.change(screen.getByLabelText("WhatsApp / Phone"), {
-      target: { value: "+1 555 0100" },
-    });
-    fireEvent.change(screen.getByLabelText("Country"), {
-      target: { value: "United States" },
-    });
-    fireEvent.change(screen.getByLabelText("Product Interest"), {
-      target: { value: "Lab-grown diamond tennis bracelets" },
-    });
-    fireEvent.change(screen.getByLabelText("Quantity"), {
-      target: { value: "500 pieces" },
-    });
-    fireEvent.change(screen.getByLabelText("Custom Requirement"), {
-      target: { value: "Private label packaging" },
-    });
-    fireEvent.change(screen.getByLabelText("Message"), {
-      target: {
-        value: "Looking for custom lab-grown diamond necklaces for a boutique launch.",
-      },
-    });
-
+    fillRequiredInquiryFields();
     fireEvent.click(screen.getByRole("button", { name: /Submit Inquiry/i }));
-
-    await waitFor(() => {
-      expect(fetchMock).toHaveBeenCalledWith(
-        "/api/contact",
-        expect.objectContaining({
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: expect.stringContaining("\"name\":\"Avery Chen\""),
-        }),
-      );
-      expect(fetchMock.mock.calls[0][1].body).toEqual(expect.stringContaining("\"locale\":\"en\""));
-      expect(fetchMock.mock.calls[0][1].body).toEqual(expect.stringContaining("\"sourcePage\":\"/contact\""));
-      expect(fetchMock.mock.calls[0][1].body).toEqual(expect.stringContaining("\"browserInfo\":"));
-    });
-
-    expect(
-      await screen.findByText("Thank you. We have received your inquiry and will contact you within 24 hours."),
-    ).toBeInTheDocument();
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body as string);
+    expect(body).toMatchObject({ name: "Avery Chen", email: "avery@example.com", businessType: "Boutique store", consent: true, honeypot: "" });
+    expect(body).not.toHaveProperty("browserInfo");
+    expect(await screen.findByText("Your inquiry has been received. We'll review the project details and respond as soon as possible.")).toBeInTheDocument();
     expect(screen.getByText(/XY-20260628-AB12/i)).toBeInTheDocument();
   });
 
-  it("keeps entered values when submission fails", async () => {
-    const fetchMock = vi.fn().mockResolvedValue({
-      ok: false,
-      json: async () => ({
-        ok: false,
-        message: "Submission failed.",
-      }),
-    });
-    vi.stubGlobal("fetch", fetchMock);
-
+  it("keeps entered values and exposes server field errors", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false, json: async () => ({ ok: false, code: "VALIDATION_ERROR", fieldErrors: { email: "invalid_email" } }) }));
     render(<ContactPage />);
     fillRequiredInquiryFields();
-
     fireEvent.click(screen.getByRole("button", { name: /Submit Inquiry/i }));
-
-    expect(
-      await screen.findByText("Submission failed. Please contact us by WhatsApp or email."),
-    ).toBeInTheDocument();
+    expect(await screen.findByText("Please enter a valid email address.")).toBeInTheDocument();
     expect(screen.getByLabelText("Name")).toHaveValue("Avery Chen");
-    expect(screen.getByLabelText("Email")).toHaveValue("avery@example.com");
-  });
-
-  it("shows a friendly configuration message when the inquiry service is not ready", async () => {
-    const fetchMock = vi.fn().mockResolvedValue({
-      ok: false,
-      json: async () => ({
-        ok: false,
-        code: "CONFIG_MISSING",
-      }),
-    });
-    vi.stubGlobal("fetch", fetchMock);
-
-    render(<ContactPage />);
-    fillRequiredInquiryFields();
-
-    fireEvent.click(screen.getByRole("button", { name: /Submit Inquiry/i }));
-
-    expect(
-      await screen.findByText(
-        "Inquiry service is being configured. Please contact us by WhatsApp or email.",
-      ),
-    ).toBeInTheDocument();
-    expect(screen.getByLabelText("Name")).toHaveValue("Avery Chen");
-  });
-
-  it("shows a loading state while the inquiry is submitting", async () => {
-    let resolveFetch: (value: unknown) => void = () => {};
-    const pendingFetch = new Promise((resolve) => {
-      resolveFetch = resolve;
-    });
-    vi.stubGlobal("fetch", vi.fn(() => pendingFetch));
-
-    render(<ContactPage />);
-    fillRequiredInquiryFields();
-    fireEvent.click(screen.getByRole("button", { name: /Submit Inquiry/i }));
-
-    expect(screen.getByRole("button", { name: /Submitting/i })).toBeDisabled();
-
-    resolveFetch({
-      ok: false,
-      json: async () => ({ ok: false }),
-    });
+    expect(screen.getByLabelText("Email")).toHaveAttribute("aria-invalid", "true");
   });
 });

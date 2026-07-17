@@ -183,7 +183,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByLabelText("WhatsApp / Phone")).toBeInTheDocument();
     expect(screen.getByLabelText("Country")).toBeInTheDocument();
     expect(screen.getByLabelText("Product Interest")).toBeInTheDocument();
-    expect(screen.getByLabelText("Quantity")).toBeInTheDocument();
+    expect(screen.getByLabelText("Target Quantity or Range")).toBeInTheDocument();
     expect(screen.getByLabelText("Custom Requirement")).toBeInTheDocument();
     expect(screen.getByLabelText("Message")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Submit Inquiry/i })).toBeInTheDocument();
@@ -222,7 +222,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByLabelText("واتساب / الهاتف")).toHaveAttribute("dir", "ltr");
     expect(screen.getByLabelText("الدولة")).toBeInTheDocument();
     expect(screen.getByLabelText("المنتج المطلوب")).toBeInTheDocument();
-    expect(screen.getByLabelText("الكمية")).toBeInTheDocument();
+    expect(screen.getByLabelText("الكمية المستهدفة أو نطاقها")).toBeInTheDocument();
     expect(screen.getByLabelText("متطلبات التخصيص")).toBeInTheDocument();
     expect(screen.getByLabelText("الرسالة")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /أرسل استفساراً/i })).toBeInTheDocument();
@@ -267,7 +267,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByLabelText("WhatsApp / Teléfono")).toBeInTheDocument();
     expect(screen.getByLabelText("País")).toBeInTheDocument();
     expect(screen.getByLabelText("Producto de interés")).toBeInTheDocument();
-    expect(screen.getByLabelText("Cantidad")).toBeInTheDocument();
+    expect(screen.getByLabelText("Cantidad prevista o rango")).toBeInTheDocument();
     expect(screen.getByLabelText("Requisitos de personalización")).toBeInTheDocument();
     expect(screen.getByLabelText("Mensaje")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Enviar consulta/i })).toBeInTheDocument();

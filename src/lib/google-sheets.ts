@@ -575,7 +575,7 @@ async function ensureHeaderRow(config: GoogleSheetsConfig, accessToken: string) 
     Authorization: `Bearer ${accessToken}`,
     "Content-Type": "application/json",
   };
-  const headerRange = sheetRange(config, "A1:P1");
+  const headerRange = sheetRange(config, "A1:X1");
   const getUrl = `https://sheets.googleapis.com/v4/spreadsheets/${config.spreadsheetId}/values/${headerRange}`;
   const getResponse = await safeFetch(getUrl, { headers }, "read_header_row");
 
@@ -620,7 +620,7 @@ async function appendInquiryWithConfig(
   record: InquirySheetRecord,
 ) {
   await ensureHeaderRow(config, accessToken);
-  const appendRange = sheetRange(config, "A:P");
+  const appendRange = sheetRange(config, "A:X");
   const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${config.spreadsheetId}/values/${appendRange}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
   const response = await safeFetch(
     appendUrl,
