@@ -18,9 +18,8 @@ import { SiteHeader } from "@/components/site-header";
 import { getGemstoneCatalogContent } from "@/content/gemstone-catalog";
 import { getI18nContent } from "@/content/i18n";
 import { getLocalizedGemstoneCatalog } from "@/data/gemstones";
-import { contactInquiryHref, emailInquiryHref } from "@/lib/contact-links";
+import { buildWhatsAppInquiryUrl, contactInquiryHref, emailInquiryHref } from "@/lib/contact-links";
 import { localizedPath, type SupportedLocale } from "@/lib/i18n";
-import { brand } from "@/lib/site-data";
 
 type GemstoneCatalogPageProps = {
   locale: SupportedLocale;
@@ -29,6 +28,7 @@ type GemstoneCatalogPageProps = {
 export const gemstoneEmailInquiryHref = emailInquiryHref(
   "en",
   "Wholesale Lab-Grown Gemstone Inquiry",
+  { source: "products", interest: "loose-stones", context: "product" },
 );
 
 const navigationLabels: Record<SupportedLocale, string> = {
@@ -71,12 +71,13 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
   const sourcePath = localizedPath("/lab-grown-gemstones", locale);
   const generalInquiryHref = contactInquiryHref({
     locale,
-    sourcePath,
-    interest: copy.title,
+    source: "products",
+    interest: "loose-stones",
   });
   const localizedGemstoneEmailHref = emailInquiryHref(
     locale,
     catalogImageCopy[locale].emailSubject,
+    { source: "products", interest: "loose-stones", context: "product" },
   );
   const navigationItems = [
     ...siteCopy.navigation.filter((item) => item.href !== sourcePath),
@@ -138,7 +139,13 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
                 <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
               </Link>
               <a
-                href={brand.whatsappHref}
+                href={buildWhatsAppInquiryUrl({
+                  context: "product",
+                  locale,
+                  source: "products",
+                  interest: "loose-stones",
+                  formData: { productInterest: "loose-stones" },
+                })}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-white/35 bg-white/8 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/14"
               >
                 {copy.cta.whatsapp}
@@ -274,8 +281,8 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
                     <Link
                       href={contactInquiryHref({
                         locale,
-                        sourcePath,
-                        interest: category.name,
+                        source: "products",
+                        interest: "loose-stones",
                       })}
                       className={`inline-flex items-center gap-2 text-sm font-semibold text-[#17202a] ${
                         hasImage ? "mt-5" : "mt-auto pt-5"
@@ -421,7 +428,8 @@ export function GemstoneCatalogPage({ locale }: GemstoneCatalogPageProps) {
 
       <SiteFooter
         collectionItems={collectionItems}
-        emailHref={emailInquiryHref(locale)}
+        locale={locale}
+        emailHref={emailInquiryHref(locale, undefined, { source: "footer" })}
         emailLabel={siteCopy.footer.email}
         intro={siteCopy.footer.intro}
         inquiryLabel={siteCopy.footer.inquiry}

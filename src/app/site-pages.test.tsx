@@ -46,7 +46,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getAllByRole("link", { name: "View Product" }).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: "Request Collection Quote" })).toHaveAttribute(
       "href",
-      "/contact?source=%2Fcollections&interest=B2B+jewelry+collections",
+      "/contact?locale=en&source=collection-detail&contactMethod=form&interest=other",
     );
   });
 
@@ -60,7 +60,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByRole("heading", { name: /Moonlight Moissanite Solitaire Ring/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Request Wholesale Quote/i })).toHaveAttribute(
       "href",
-      "/contact?source=%2Fproducts%2Fmoissanite-solitaire-ring&interest=Moonlight+Moissanite+Solitaire+Ring",
+      "/contact?locale=en&source=products&contactMethod=form&interest=moissanite-jewelry",
     );
     expect(screen.getAllByText(/Bulk Loose Stone Supply/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Quality Testing Before Shipment/i).length).toBeGreaterThan(0);
@@ -189,7 +189,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByRole("button", { name: /Submit Inquiry/i })).toBeInTheDocument();
     const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
+      "mailto:sales@xingyuejewelry.com?subject=Jewelry%20Project%20Inquiry&locale=en&source=contact-page&interest=other&contactMethod=email",
     );
     expect(
       screen.getByText(
@@ -198,7 +198,7 @@ describe("XINGYUE independent site pages", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Email Your Inquiry/i })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
+      "mailto:sales@xingyuejewelry.com?subject=Jewelry%20Project%20Inquiry&locale=en&source=contact-page&interest=other&contactMethod=email",
     );
     expect(container.textContent).not.toMatch(/front-end design only|next version|[\u4e00-\u9fff]/);
   });
@@ -229,11 +229,11 @@ describe("XINGYUE independent site pages", () => {
     expect(document.querySelector('input[name="website"]')?.parentElement?.parentElement).toHaveClass("sr-only");
     const salesEmailLinks = screen.getAllByRole("link", { name: "البريد الإلكتروني: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("استفسار مجوهرات بالجملة من XINGYUE")}`,
+      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("استفسار عن مشروع مجوهرات")}&locale=ar&source=contact-page&interest=other&contactMethod=email`,
     );
     expect(screen.getByRole("link", { name: /أرسل عبر البريد/i })).toHaveAttribute(
       "href",
-      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("استفسار مجوهرات بالجملة من XINGYUE")}`,
+      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("استفسار عن مشروع مجوهرات")}&locale=ar&source=contact-page&interest=other&contactMethod=email`,
     );
   });
 
@@ -255,7 +255,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getAllByText(/IGI \/ GIA/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /Contactar por WhatsApp/i })).toHaveAttribute(
       "href",
-      "https://wa.me/8613324888759",
+      "https://wa.me/8613324888759?text=Hola+Xingyue%2C+me+interesa+analizar+este+producto+para+mi+colecci%C3%B3n.&locale=es&source=collection-detail&interest=lab-grown-diamond-jewelry&contactMethod=whatsapp",
     );
     collectionPage.unmount();
 
@@ -273,11 +273,11 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByRole("button", { name: /Enviar consulta/i })).toBeInTheDocument();
     const salesEmailLinks = screen.getAllByRole("link", { name: "Correo electrónico: sales@xingyuejewelry.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("Consulta de joyería mayorista XINGYUE")}`,
+      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("Consulta de proyecto de joyería")}&locale=es&source=contact-page&interest=other&contactMethod=email`,
     );
     expect(screen.getByRole("link", { name: /Enviar por email/i })).toHaveAttribute(
       "href",
-      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("Consulta de joyería mayorista XINGYUE")}`,
+      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("Consulta de proyecto de joyería")}&locale=es&source=contact-page&interest=other&contactMethod=email`,
     );
   });
 });

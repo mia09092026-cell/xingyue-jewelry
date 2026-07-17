@@ -40,7 +40,7 @@ describe("XINGYUE homepage", () => {
     expect(screen.getAllByText(/Lab Grown Diamond Jewelry/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry",
+      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry&locale=en&source=footer&interest=other&contactMethod=email",
     );
     expect(container.textContent).not.toMatch(
       /Moissanite Diamond Wholesale|first homepage version|can be added later|Sample Products/i,

@@ -29,8 +29,12 @@ import {
   getLocalizedCollectionContent,
 } from "@/content/i18n";
 import { localizedPath, type SupportedLocale } from "@/lib/i18n";
-import { brand } from "@/lib/site-data";
-import { contactInquiryHref, emailInquiryHref } from "@/lib/contact-links";
+import {
+  buildWhatsAppInquiryUrl,
+  contactInquiryHref,
+  emailInquiryHref,
+} from "@/lib/contact-links";
+import { contactConfig } from "@/lib/contact-config";
 
 type LocalizedPageProps = {
   locale: SupportedLocale;
@@ -92,7 +96,8 @@ function LocalizedFooter({ locale }: LocalizedPageProps) {
   return (
     <SiteFooter
       collectionItems={collectionItems}
-      emailHref={emailInquiryHref(locale)}
+      locale={locale}
+      emailHref={emailInquiryHref(locale, undefined, { source: "footer" })}
       emailLabel={content.footer.email}
       intro={content.footer.intro}
       inquiryLabel={content.footer.inquiry}
@@ -156,7 +161,6 @@ function CtaRow({
 
 function CollectionCta({ locale, slug }: LocalizedCollectionProps) {
   const content = getI18nContent(locale);
-  const collection = getLocalizedCollectionContent(locale, slug);
   const isCustom = slug === "custom-jewelry-manufacturing";
 
   return (
@@ -164,8 +168,8 @@ function CollectionCta({ locale, slug }: LocalizedCollectionProps) {
       <Link
         href={contactInquiryHref({
           locale,
-          sourcePath: localizedPath(`/collections/${slug}`, locale),
-          interest: collection?.eyebrow ?? slug,
+          source: "collection-detail",
+          interest: slug === "custom-jewelry-manufacturing" ? "custom-rings" : "lab-grown-diamond-jewelry",
         })}
         className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
       >
@@ -173,7 +177,12 @@ function CollectionCta({ locale, slug }: LocalizedCollectionProps) {
         <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
       </Link>
       <Link
-        href={brand.whatsappHref}
+        href={buildWhatsAppInquiryUrl({
+          context: "product",
+          locale,
+          source: "collection-detail",
+          interest: slug === "custom-jewelry-manufacturing" ? "custom-rings" : "lab-grown-diamond-jewelry",
+        })}
         className="inline-flex items-center justify-center gap-2 rounded-md border border-[#cbb06e] bg-white/70 px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
       >
         {content.cta.contactWhatsapp}
@@ -185,26 +194,35 @@ function CollectionCta({ locale, slug }: LocalizedCollectionProps) {
 
 export function LocalizedHome({ locale }: LocalizedPageProps) {
   const content = getI18nContent(locale);
-  const homePath = localizedPath("/", locale);
   const inquiryHref = contactInquiryHref({
     locale,
-    sourcePath: homePath,
-    interest: content.home.title,
+    source: "homepage-hero",
+    interest: "other",
+  });
+  const howWeWorkHref = contactInquiryHref({
+    locale,
+    source: "homepage-how-we-work",
+    interest: "other",
+  });
+  const finalCtaHref = contactInquiryHref({
+    locale,
+    source: "homepage-final-cta",
+    interest: "other",
   });
   const sampleMoqHref = contactInquiryHref({
     locale,
-    sourcePath: homePath,
-    interest: content.home.sampleMoq.title,
+    source: "homepage-sample-moq",
+    interest: "other",
   });
   const qualityControlHref = contactInquiryHref({
     locale,
-    sourcePath: homePath,
-    interest: content.home.qualityControl.title,
+    source: "homepage-quality-control",
+    interest: "other",
   });
   const inquiryPrepHref = contactInquiryHref({
     locale,
-    sourcePath: homePath,
-    interest: content.home.inquiryPrep.title,
+    source: "homepage-prepare-inquiry",
+    interest: "other",
   });
   const coreValueIcons = [Gem, Sparkles, ShieldCheck] as const;
 
@@ -335,7 +353,7 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
         title={content.home.workflow.title}
         copy={content.home.workflow.copy}
         steps={content.home.workflow.steps}
-        ctaHref={inquiryHref}
+        ctaHref={howWeWorkHref}
         ctaLabel={content.cta.discussCollection}
       />
 
@@ -394,7 +412,7 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
               <p className="mt-5 max-w-2xl leading-8 text-[#596575]">{content.home.finalCta.copy}</p>
             </div>
             <Link
-              href={inquiryHref}
+              href={finalCtaHref}
               className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
             >
               {content.cta.finalStartProject}
@@ -735,7 +753,7 @@ export function LocalizedFaq({ locale }: LocalizedPageProps) {
         <CtaRow
           locale={locale}
           sourcePath={localizedPath("/faq", locale)}
-          interest="Wholesale jewelry inquiry"
+          interest="other"
         />
       </PageHero>
 
@@ -765,7 +783,11 @@ export function LocalizedFaq({ locale }: LocalizedPageProps) {
 
 export function LocalizedContact({ locale }: LocalizedPageProps) {
   const content = getI18nContent(locale);
-  const emailHref = emailInquiryHref(locale);
+  const emailHref = emailInquiryHref(locale, undefined, {
+    context: "contact-form",
+    source: "contact-page",
+    interest: "other",
+  });
 
   return (
     <main dir={content.dir} className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
@@ -818,10 +840,15 @@ export function LocalizedContact({ locale }: LocalizedPageProps) {
                     </p>
                     {index === 0 ? (
                       <a
-                        href={brand.whatsappHref}
+                        href={buildWhatsAppInquiryUrl({
+                          context: "contact-form",
+                          locale,
+                          source: "contact-page",
+                          interest: "other",
+                        })}
                         className="mt-3 inline-flex text-sm font-semibold text-[#e6cf96] transition hover:text-white"
                       >
-                        <bdi dir="ltr">{brand.whatsapp}</bdi>
+                        <bdi dir="ltr">{contactConfig.whatsapp}</bdi>
                       </a>
                     ) : null}
                     {index === 1 ? (
@@ -829,7 +856,7 @@ export function LocalizedContact({ locale }: LocalizedPageProps) {
                         href={emailHref}
                         className="mt-3 inline-flex break-all text-sm font-semibold text-[#17202a] transition hover:text-[#8a734b]"
                       >
-                        {content.footer.email}: <bdi dir="ltr">{brand.email}</bdi>
+                        {content.footer.email}: <bdi dir="ltr">{contactConfig.email}</bdi>
                       </a>
                     ) : null}
                   </div>

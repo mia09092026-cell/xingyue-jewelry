@@ -2,6 +2,8 @@ import Link from "next/link";
 import { BrandLogo } from "@/components/brand-logo";
 import { brand, navigation } from "@/lib/site-data";
 import { collectionLandingPages } from "@/lib/collection-data";
+import { buildWhatsAppInquiryUrl, emailInquiryHref } from "@/lib/contact-links";
+import type { SupportedLocale } from "@/lib/i18n";
 
 type FooterLink = {
   label: string;
@@ -10,6 +12,7 @@ type FooterLink = {
 
 type SiteFooterProps = {
   collectionItems?: FooterLink[];
+  locale?: SupportedLocale;
   emailHref?: string;
   emailLabel?: string;
   intro?: string;
@@ -31,7 +34,8 @@ const defaultCollectionItems = collectionLandingPages.map((page) => ({
 
 export function SiteFooter({
   collectionItems = defaultCollectionItems,
-  emailHref = brand.emailHref,
+  locale = "en",
+  emailHref = emailInquiryHref(locale, undefined, { source: "footer" }),
   emailLabel = "Email",
   intro = "Jewelry manufacturing and supply chain support for emerging brands, boutique stores and independent designers.",
   inquiryLabel = "OEM / ODM Inquiry",
@@ -99,7 +103,10 @@ export function SiteFooter({
               </a>
             </li>
             <li>
-              <a href={brand.whatsappHref} className="transition hover:text-white">
+              <a
+                href={buildWhatsAppInquiryUrl({ locale, source: "footer", context: "general" })}
+                className="transition hover:text-white"
+              >
                 <bdi dir="ltr">{brand.whatsapp}</bdi>
               </a>
             </li>

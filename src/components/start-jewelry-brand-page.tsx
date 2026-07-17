@@ -56,8 +56,8 @@ export function StartJewelryBrandPage({ locale }: StartJewelryBrandPageProps) {
   const pagePath = localizedPath("/start-a-jewelry-brand", locale);
   const contactHref = contactInquiryHref({
     locale,
-    sourcePath: pagePath,
-    interest: page.hero.title,
+    source: "start-jewelry-brand",
+    interest: "private-label-packaging",
   });
   const productHref = localizedPath("/products", locale);
   const aboutHref = localizedPath("/about", locale);
@@ -256,7 +256,11 @@ export function StartJewelryBrandPage({ locale }: StartJewelryBrandPageProps) {
 
         <SiteFooter
           collectionItems={collectionItems}
-          emailHref={emailInquiryHref(locale)}
+          locale={locale}
+          emailHref={emailInquiryHref(locale, undefined, {
+            source: "footer",
+            interest: "private-label-packaging",
+          })}
           emailLabel={content.footer.email}
           intro={content.footer.intro}
           inquiryLabel={content.footer.inquiry}
