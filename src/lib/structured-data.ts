@@ -74,6 +74,35 @@ export function faqPageSchema(items: Array<{ question: string; answer: string }>
   };
 }
 
+export function serviceSchema({
+  audience,
+  description,
+  name,
+  serviceType,
+}: {
+  audience: string;
+  description: string;
+  name: string;
+  serviceType: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    serviceType,
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    audience: {
+      "@type": "Audience",
+      audienceType: audience,
+    },
+  };
+}
+
 export function productSchema(product: Product) {
   return {
     "@context": "https://schema.org",
