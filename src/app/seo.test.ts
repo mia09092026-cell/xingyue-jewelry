@@ -187,5 +187,6 @@ describe("SEO foundations", () => {
     expect(value).not.toContain("https://xingyuejewelry.com/collections\n");
     expect(value).toContain("/collections/moissanite-wholesale");
     expect(value).toContain("/contact");
+    expect(value).toContain("https://xingyuejewelry.com/for-emerging-jewelry-brands");
   });
 });

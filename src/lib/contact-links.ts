@@ -78,6 +78,7 @@ export const contactSourceCodes = [
   "products",
   "collection-detail",
   "start-jewelry-brand",
+  "emerging-brands",
   "contact-page",
 ] as const;
 
@@ -144,6 +145,7 @@ function sourceFromPath(sourcePath?: string) {
   if (path.includes("/products") || path.includes("/lab-grown-gemstones")) return "products";
   if (path.includes("/collections/")) return "collection-detail";
   if (path.includes("/start-a-jewelry-brand")) return "start-jewelry-brand";
+  if (path.includes("/for-emerging-jewelry-brands")) return "emerging-brands";
   if (path.endsWith("/contact")) return "contact-page";
   return "general";
 }
@@ -219,6 +221,7 @@ const contextBySource: Record<ContactSource, ContactMessageContext> = {
   products: "product",
   "collection-detail": "product",
   "start-jewelry-brand": "start-jewelry-brand",
+  "emerging-brands": "general",
   "homepage-sample-moq": "sample-moq",
   "homepage-quality-control": "quality-control",
   "homepage-prepare-inquiry": "contact-form",

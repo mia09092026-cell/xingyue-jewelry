@@ -114,6 +114,12 @@ export function StartJewelryBrandPage({ locale }: StartJewelryBrandPageProps) {
                 </div>
               ))}
             </div>
+            <Link
+              href={localizedPath("/for-emerging-jewelry-brands", locale)}
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
+            >
+              {locale === "en" ? "For Emerging Jewelry Brands" : locale === "es" ? "Para marcas de joyería emergentes" : "للعلامات التجارية الناشئة في المجوهرات"}
+            </Link>
           </div>
         </section>
 

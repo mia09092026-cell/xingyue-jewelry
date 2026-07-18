@@ -49,6 +49,7 @@ describe("i18n routing helpers", () => {
       "/faq",
       "/contact",
       "/start-a-jewelry-brand",
+      "/for-emerging-jewelry-brands",
     ]);
     expect(isSupportedLocale("ar")).toBe(true);
     expect(isSupportedLocale("fr")).toBe(false);

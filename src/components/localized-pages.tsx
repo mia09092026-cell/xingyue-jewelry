@@ -40,6 +40,12 @@ type LocalizedPageProps = {
   locale: SupportedLocale;
 };
 
+const emergingBrandsLinkLabels: Record<SupportedLocale, string> = {
+  en: "Explore support for emerging jewelry brands",
+  es: "Conoce el apoyo para marcas de joyería emergentes",
+  ar: "استكشف دعم العلامات التجارية الناشئة في المجوهرات",
+};
+
 type LocalizedCollectionProps = LocalizedPageProps & {
   slug: string;
 };
@@ -289,6 +295,13 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
               </div>
             ))}
           </div>
+          <Link
+            href={localizedPath("/for-emerging-jewelry-brands", locale)}
+            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
+          >
+            {emergingBrandsLinkLabels[locale]}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+          </Link>
         </div>
       </section>
 
@@ -457,6 +470,13 @@ export function LocalizedProducts({ locale }: LocalizedPageProps) {
               <ProductSummaryCard key={product.id} product={product} />
             ))}
           </div>
+          <Link
+            href={localizedPath("/for-emerging-jewelry-brands", locale)}
+            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
+          >
+            {emergingBrandsLinkLabels[locale]}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+          </Link>
         </div>
       </section>
 
