@@ -20,11 +20,27 @@ type SiteFooterProps = {
   logoAlt?: string;
   navigationItems?: FooterLink[];
   startBrandItem?: FooterLink;
+  targetAudienceItems?: FooterLink[];
   sectionLabels?: {
     pages: string;
     collections: string;
     reachUs: string;
   };
+};
+
+const defaultTargetAudienceLabels: Record<SupportedLocale, { emerging: string; boutique: string }> = {
+  en: {
+    emerging: "For Emerging Jewelry Brands",
+    boutique: "For Boutique Jewelry Stores",
+  },
+  es: {
+    emerging: "Para marcas de joyería emergentes",
+    boutique: "Para tiendas boutique de joyería",
+  },
+  ar: {
+    emerging: "للعلامات التجارية الناشئة في المجوهرات",
+    boutique: "لمتاجر المجوهرات البوتيك",
+  },
 };
 
 const defaultCollectionItems = collectionLandingPages.map((page) => ({
@@ -42,12 +58,24 @@ export function SiteFooter({
   logoAlt = "Star & Moon Jewelry logo",
   navigationItems = navigation.slice(0, 4),
   startBrandItem,
+  targetAudienceItems,
   sectionLabels = {
     pages: "Pages",
     collections: "Collections",
     reachUs: "Reach Us",
   },
 }: SiteFooterProps = {}) {
+  const resolvedTargetAudienceItems = targetAudienceItems ?? [
+    {
+      label: defaultTargetAudienceLabels[locale].emerging,
+      href: locale === "en" ? "/for-emerging-jewelry-brands" : `/${locale}/for-emerging-jewelry-brands`,
+    },
+    {
+      label: defaultTargetAudienceLabels[locale].boutique,
+      href: locale === "en" ? "/for-boutique-jewelry-stores" : `/${locale}/for-boutique-jewelry-stores`,
+    },
+  ];
+
   return (
     <footer className="bg-[#121923] px-5 py-14 text-white sm:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
@@ -76,6 +104,13 @@ export function SiteFooter({
                 </Link>
               </li>
             ) : null}
+            {resolvedTargetAudienceItems.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="transition hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div>
