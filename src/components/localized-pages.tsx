@@ -46,6 +46,12 @@ const emergingBrandsLinkLabels: Record<SupportedLocale, string> = {
   ar: "استكشف دعم العلامات التجارية الناشئة في المجوهرات",
 };
 
+const boutiqueStoresLinkLabels: Record<SupportedLocale, string> = {
+  en: "Explore support for boutique jewelry stores",
+  es: "Conoce el apoyo para tiendas boutique de joyería",
+  ar: "استكشف دعم متاجر المجوهرات البوتيك",
+};
+
 type LocalizedCollectionProps = LocalizedPageProps & {
   slug: string;
 };
@@ -113,6 +119,16 @@ function LocalizedFooter({ locale }: LocalizedPageProps) {
         label: content.startBrand?.hero.title ?? "Start Your Jewelry Brand",
         href: localizedPath("/start-a-jewelry-brand", locale),
       }}
+      targetAudienceItems={[
+        {
+          label: emergingBrandsLinkLabels[locale],
+          href: localizedPath("/for-emerging-jewelry-brands", locale),
+        },
+        {
+          label: boutiqueStoresLinkLabels[locale],
+          href: localizedPath("/for-boutique-jewelry-stores", locale),
+        },
+      ]}
       sectionLabels={{
         pages: content.footer.pages,
         collections: content.footer.collections,
@@ -300,6 +316,13 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
             className="mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
           >
             {emergingBrandsLinkLabels[locale]}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+          </Link>
+          <Link
+            href={localizedPath("/for-boutique-jewelry-stores", locale)}
+            className="ms-6 mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
+          >
+            {boutiqueStoresLinkLabels[locale]}
             <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
           </Link>
         </div>

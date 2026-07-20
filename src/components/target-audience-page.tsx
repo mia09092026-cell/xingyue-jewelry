@@ -13,13 +13,35 @@ import { HowWeWork } from "@/components/how-we-work";
 import { SectionHeading } from "@/components/section-heading";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { emergingBrandsContentByLocale } from "@/content/i18n/target-audience";
+import {
+  targetAudienceContentByKey,
+  targetAudiencePaths,
+  type TargetAudienceKey,
+} from "@/content/i18n/target-audience";
 import { getI18nContent } from "@/content/i18n";
 import { contactInquiryHref, emailInquiryHref } from "@/lib/contact-links";
 import { localizedPath, type SupportedLocale } from "@/lib/i18n";
 import { breadcrumbSchema, faqPageSchema, serviceSchema } from "@/lib/structured-data";
 
-type TargetAudiencePageProps = { locale: SupportedLocale };
+type TargetAudiencePageProps = {
+  locale: SupportedLocale;
+  audience?: TargetAudienceKey;
+};
+
+const audienceLinkLabels: Record<SupportedLocale, Record<TargetAudienceKey, string>> = {
+  en: {
+    "emerging-brands": "For Emerging Jewelry Brands",
+    "boutique-stores": "For Boutique Jewelry Stores",
+  },
+  es: {
+    "emerging-brands": "Para marcas de joyería emergentes",
+    "boutique-stores": "Para tiendas boutique de joyería",
+  },
+  ar: {
+    "emerging-brands": "للعلامات التجارية الناشئة في المجوهرات",
+    "boutique-stores": "للمتاجر المتخصصة في المجوهرات",
+  },
+};
 
 const logoAlts: Record<SupportedLocale, string> = {
   en: "XINGYUE Jewelry logo",
@@ -33,13 +55,17 @@ const navigationLabels: Record<SupportedLocale, string> = {
   ar: "التنقل الرئيسي",
 };
 
-export function TargetAudiencePage({ locale }: TargetAudiencePageProps) {
+export function TargetAudiencePage({ locale, audience = "emerging-brands" }: TargetAudiencePageProps) {
   const content = getI18nContent(locale);
-  const page = emergingBrandsContentByLocale[locale];
-  const pagePath = localizedPath("/for-emerging-jewelry-brands", locale);
+  const page = targetAudienceContentByKey[audience][locale];
+  const pagePath = localizedPath(targetAudiencePaths[audience], locale);
+  const audienceLinks = (Object.keys(targetAudiencePaths) as TargetAudienceKey[]).map((key) => ({
+    label: audienceLinkLabels[locale][key],
+    href: localizedPath(targetAudiencePaths[key], locale),
+  }));
   const contactHref = contactInquiryHref({
     locale,
-    source: "emerging-brands",
+    source: audience,
     interest: "other",
   });
   const productsHref = localizedPath("/products", locale);
@@ -67,7 +93,7 @@ export function TargetAudiencePage({ locale }: TargetAudiencePageProps) {
           homeHref={localizedPath("/", locale)}
           inquiryHref={contactHref}
           inquiryLabel={content.cta.headerStartProject}
-          languagePath="/for-emerging-jewelry-brands"
+          languagePath={targetAudiencePaths[audience]}
           logoAlt={logoAlts[locale]}
           navigationLabel={navigationLabels[locale]}
           navigationItems={content.navigation}
@@ -174,7 +200,7 @@ export function TargetAudiencePage({ locale }: TargetAudiencePageProps) {
                 </article>
               ))}
             </div>
-            <Link href={contactInquiryHref({ locale, source: "emerging-brands", interest: "other" })} className="mt-8 inline-flex items-center gap-2 rounded-md border border-[#17202a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#17202a] hover:text-white">
+            <Link href={contactHref} className="mt-8 inline-flex items-center gap-2 rounded-md border border-[#17202a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#17202a] hover:text-white">
               {page.sampleMoq.cta}<ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
             </Link>
           </div>
@@ -194,7 +220,7 @@ export function TargetAudiencePage({ locale }: TargetAudiencePageProps) {
             </div>
             <div className="mt-7 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <p className="max-w-3xl text-sm leading-7 text-[#596575]">{page.qualityPackaging.packaging}</p>
-              <Link href={contactInquiryHref({ locale, source: "emerging-brands", interest: "other" })} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md border border-[#17202a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#17202a] hover:text-white">
+              <Link href={contactHref} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md border border-[#17202a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#17202a] hover:text-white">
                 {page.qualityPackaging.cta}<ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
               </Link>
             </div>
@@ -257,6 +283,9 @@ export function TargetAudiencePage({ locale }: TargetAudiencePageProps) {
               <Link href={productsHref} className="underline decoration-[#cbb06e] underline-offset-4">{page.links.products}</Link>
               <Link href={startBrandHref} className="underline decoration-[#cbb06e] underline-offset-4">{page.links.startBrand}</Link>
               <Link href={aboutHref} className="underline decoration-[#cbb06e] underline-offset-4">{page.links.about}</Link>
+              {audienceLinks.filter((item) => item.href !== pagePath).map((item) => (
+                <Link key={item.href} href={item.href} className="underline decoration-[#cbb06e] underline-offset-4">{item.label}</Link>
+              ))}
               <a href="#how-we-work" className="underline decoration-[#cbb06e] underline-offset-4">{page.links.howWeWork}</a>
             </div>
           </div>
@@ -272,6 +301,7 @@ export function TargetAudiencePage({ locale }: TargetAudiencePageProps) {
           logoAlt={logoAlts[locale]}
           navigationItems={content.navigation.slice(0, 4)}
           startBrandItem={{ label: page.hero.eyebrow, href: pagePath }}
+          targetAudienceItems={audienceLinks}
           sectionLabels={{ pages: content.footer.pages, collections: content.footer.collections, reachUs: content.footer.reachUs }}
         />
       </main>

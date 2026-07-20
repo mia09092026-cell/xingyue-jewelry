@@ -30,6 +30,12 @@ const logoAlts: Record<SupportedLocale, string> = {
   ar: "شعار XINGYUE Jewelry",
 };
 
+const boutiqueStoresLinkLabels: Record<SupportedLocale, string> = {
+  en: "For Boutique Jewelry Stores",
+  es: "Para tiendas boutique de joyería",
+  ar: "لمتاجر المجوهرات البوتيك",
+};
+
 type StartJewelryBrandPageProps = { locale: SupportedLocale };
 
 function shellProps(locale: SupportedLocale, content: ReturnType<typeof getI18nContent>) {
@@ -119,6 +125,12 @@ export function StartJewelryBrandPage({ locale }: StartJewelryBrandPageProps) {
               className="mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
             >
               {locale === "en" ? "For Emerging Jewelry Brands" : locale === "es" ? "Para marcas de joyería emergentes" : "للعلامات التجارية الناشئة في المجوهرات"}
+            </Link>
+            <Link
+              href={localizedPath("/for-boutique-jewelry-stores", locale)}
+              className="ms-6 mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
+            >
+              {boutiqueStoresLinkLabels[locale]}
             </Link>
           </div>
         </section>
@@ -273,6 +285,16 @@ export function StartJewelryBrandPage({ locale }: StartJewelryBrandPageProps) {
           logoAlt={logoAlts[locale]}
           navigationItems={content.navigation.slice(0, 4)}
           startBrandItem={{ label: page.hero.title, href: pagePath }}
+          targetAudienceItems={[
+            {
+              label: locale === "en" ? "For Emerging Jewelry Brands" : locale === "es" ? "Para marcas de joyería emergentes" : "للعلامات التجارية الناشئة في المجوهرات",
+              href: localizedPath("/for-emerging-jewelry-brands", locale),
+            },
+            {
+              label: boutiqueStoresLinkLabels[locale],
+              href: localizedPath("/for-boutique-jewelry-stores", locale),
+            },
+          ]}
           sectionLabels={{ pages: content.footer.pages, collections: content.footer.collections, reachUs: content.footer.reachUs }}
         />
       </main>

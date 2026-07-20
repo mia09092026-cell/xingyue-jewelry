@@ -22,6 +22,7 @@ export const localizedPublicPages = [
   "/contact",
   "/start-a-jewelry-brand",
   "/for-emerging-jewelry-brands",
+  "/for-boutique-jewelry-stores",
 ] as const;
 
 export const localizedCollectionSlugs = [
