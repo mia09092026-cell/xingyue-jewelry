@@ -55,15 +55,31 @@ describe("contact inquiry API route", () => {
       customerName: "Avery Chen",
       companyName: "Luna Jewelry",
       customerEmail: "avery@example.com",
-      businessType: "Boutique jewelry store",
-      targetMarket: "North America",
-      referenceUrl: "https://example.com/reference",
-      material: "18K gold",
-      stone: "Lab-grown diamond",
-      packagingRequirements: "Private label packaging",
-      expectedTiming: "Planning for a seasonal launch",
-      consentGiven: "true",
+      customRequirement: expect.stringContaining(
+        "Business Type: Boutique jewelry store",
+      ),
+      note: "Consent Given: true",
     }));
+
+    const savedRecord = saveInquiryRecordMock.mock.calls[0]?.[0];
+    expect(savedRecord.customRequirement).toContain(
+      "Target Market: North America",
+    );
+    expect(savedRecord.customRequirement).toContain(
+      "Reference URL: https://example.com/reference",
+    );
+    expect(savedRecord.customRequirement).toContain("Material: 18K gold");
+    expect(savedRecord.customRequirement).toContain(
+      "Stone: Lab-grown diamond",
+    );
+    expect(savedRecord.customRequirement).toContain(
+      "Packaging Requirements: Private label packaging",
+    );
+    expect(savedRecord.customRequirement).toContain(
+      "Expected Timing: Planning for a seasonal launch",
+    );
+    expect(savedRecord).not.toHaveProperty("businessType");
+    expect(savedRecord).not.toHaveProperty("consentGiven");
   });
 
   it("returns field-level errors for consent, URL and unknown fields", async () => {

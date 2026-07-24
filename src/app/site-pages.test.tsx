@@ -19,7 +19,9 @@ describe("XINGYUE independent site pages", () => {
     const { container } = render(<Home />);
 
     expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
-    expect(screen.getByRole("heading", { name: /Products & Capabilities/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Products & Manufacturing Capabilities/i }),
+    ).toBeInTheDocument();
     expect(screen.getAllByText(/Lab Grown Diamond Jewelry/i).length).toBeGreaterThan(0);
     expect(container.textContent).not.toMatch(
       /Moissanite Diamond Wholesale|first homepage version|can be added later|Sample Products/i,
@@ -29,7 +31,7 @@ describe("XINGYUE independent site pages", () => {
       "/products",
     );
     expect(
-      screen.getByText("For Emerging Jewelry Brands & Boutique Stores"),
+      screen.getByText("From Wuzhou to the World"),
     ).toBeInTheDocument();
   });
 
@@ -142,7 +144,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByAltText(/jewelry production workshop/i)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /One partner, one coordinated workflow/i })).toBeInTheDocument();
     expect(screen.getByText("How We Work With Brands")).toBeInTheDocument();
-    expect(screen.getByText("Who We Support")).toBeInTheDocument();
+    expect(screen.getAllByText("Who We Support").length).toBeGreaterThan(0);
     expect(
       screen.getByText("Boutique Jewelry Stores & Design Studios"),
     ).toBeInTheDocument();
@@ -157,7 +159,7 @@ describe("XINGYUE independent site pages", () => {
     const spanish = render(spanishPage);
 
     expect(screen.getAllByText("Cómo trabajamos con las marcas").length).toBeGreaterThan(0);
-    expect(screen.getByText("A quién ayudamos")).toBeInTheDocument();
+    expect(screen.getAllByText("A quién ayudamos").length).toBeGreaterThan(0);
     expect(screen.getByText("Joyerías boutique y estudios de diseño")).toBeInTheDocument();
     spanish.unmount();
 
@@ -207,8 +209,12 @@ describe("XINGYUE independent site pages", () => {
     const home = await LocalizedHomePage({ params: Promise.resolve({ locale: "ar" }) });
     const { container, unmount } = render(home);
 
-    expect(screen.getByRole("heading", { name: /حوّل فكرة مجموعتك إلى إنتاج فعلي/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/ناقش مجموعتك معنا/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("heading", {
+        name: /شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByText(/اطلب عرض سعر للتصنيع/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/علامات المجوهرات التجارية الناشئة/i)).toBeInTheDocument();
     expect(container.querySelector("main")).toHaveAttribute("dir", "rtl");
     expect(container.textContent).not.toMatch(/مصنع/);

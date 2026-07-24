@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { createContactInquiryReference, inquirySheetHeaders, parseContactInquiry, sanitizeSheetCell } from "./contact-inquiry";
+import {
+  createContactInquiryReference,
+  createInquirySheetRecord,
+  inquiryRecordToSheetRow,
+  inquirySheetHeaders,
+  inquirySheetRange,
+  parseContactInquiry,
+  sanitizeSheetCell,
+} from "./contact-inquiry";
 
 const validInquiry = {
   name: "Avery Chen",
@@ -32,10 +40,12 @@ describe("contact inquiry data model", () => {
       fieldErrors: {
         name: "required",
         email: "required",
-        businessType: "required",
+        companyOrBrand: "required",
+        whatsapp: "required",
         productInterest: "required",
         targetQuantity: "required",
         destinationCountry: "required",
+        packagingRequirements: "required",
         message: "required",
       },
     });
@@ -46,14 +56,22 @@ describe("contact inquiry data model", () => {
     expect(result).toEqual({ ok: false, fieldErrors: { email: "invalid_email", referenceUrl: "invalid_reference_url" } });
   });
 
-  it("keeps the original sixteen sheet headers before appended fields", () => {
-    expect(inquirySheetHeaders.slice(0, 16)).toEqual([
+  it("uses the original A:P sheet contract without appended columns", () => {
+    expect(inquirySheetHeaders).toEqual([
       "提交时间", "页面语言", "来源页面", "客户姓名", "公司名称", "客户邮箱", "WhatsApp或电话", "国家或地区",
       "感兴趣产品", "采购数量", "定制需求", "留言内容", "当前页面链接", "浏览器信息", "跟进状态", "备注",
     ]);
-    expect(inquirySheetHeaders.slice(16)).toEqual([
-      "Business Type", "Target Market", "Reference URL", "Material", "Stone", "Packaging Requirements", "Expected Timing", "Consent Given",
-    ]);
+    expect(inquirySheetRange).toBe("A:P");
+
+    const record = createInquirySheetRecord(validInquiry, {
+      locale: "en",
+      source: "contact-page",
+      consent: true,
+    });
+    expect(inquiryRecordToSheetRow(record)).toHaveLength(16);
+    expect(record.customRequirement).toContain("Business Type: Boutique store");
+    expect(record.customRequirement).toContain("Packaging Requirements: Private label packaging");
+    expect(record.note).toBe("Consent Given: true");
   });
 
   it("sanitizes spreadsheet formula prefixes", () => {

@@ -171,4 +171,53 @@ describe("site chrome brand identity", () => {
     expect(toggle).toHaveAttribute("aria-expanded", "false");
     expect(mobileNavigation).toHaveAttribute("hidden");
   });
+
+  it.each([
+    {
+      locale: "en",
+      menu: "Who We Support",
+      links: [
+        ["Start Your Jewelry Brand", "/start-a-jewelry-brand"],
+        ["Emerging Jewelry Brands", "/for-emerging-jewelry-brands"],
+        ["Boutique Jewelry Stores", "/for-boutique-jewelry-stores"],
+      ],
+    },
+    {
+      locale: "es",
+      menu: "A quién ayudamos",
+      links: [
+        ["Inicia tu marca de joyería", "/es/start-a-jewelry-brand"],
+        ["Marcas de joyería emergentes", "/es/for-emerging-jewelry-brands"],
+        ["Joyerías boutique", "/es/for-boutique-jewelry-stores"],
+      ],
+    },
+    {
+      locale: "ar",
+      menu: "من ندعم",
+      links: [
+        ["ابدأ علامتك التجارية للمجوهرات", "/ar/start-a-jewelry-brand"],
+        ["علامات المجوهرات الناشئة", "/ar/for-emerging-jewelry-brands"],
+        ["متاجر المجوهرات البوتيك", "/ar/for-boutique-jewelry-stores"],
+      ],
+    },
+  ] as const)(
+    "makes existing audience pages discoverable in the $locale desktop and mobile navigation",
+    ({ locale, menu, links }) => {
+      const content = getI18nContent(locale);
+      render(
+        <SiteHeader
+          currentLocale={locale}
+          navigationItems={content.navigation}
+          navigationLabel={`${menu} navigation`}
+        />,
+      );
+
+      expect(screen.getAllByText(menu).length).toBeGreaterThanOrEqual(2);
+      for (const [label, href] of links) {
+        const matchingLinks = screen.getAllByRole("link", { name: label, hidden: true });
+        expect(matchingLinks).toHaveLength(2);
+        expect(matchingLinks.every((link) => link.getAttribute("href") === href)).toBe(true);
+      }
+    },
+  );
 });

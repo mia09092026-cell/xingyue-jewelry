@@ -269,7 +269,7 @@ describe("Google Sheets configuration helpers", () => {
     ).toMatchObject({ category: "google_sheets_api_error", status: 403 });
   });
 
-  it("probes Google auth, spreadsheet, tab, and writes through Inquiries!A:X", async () => {
+  it("probes Google auth, spreadsheet, tab, and writes through the original Inquiries!A:P range", async () => {
     configureGoogleSheetsTestEnv();
     const fetchMock = vi.spyOn(globalThis, "fetch");
     fetchMock
@@ -297,7 +297,7 @@ describe("Google Sheets configuration helpers", () => {
       errorCategory: null,
     });
     const appendCall = fetchMock.mock.calls[3];
-    expect(decodeURIComponent(String(appendCall?.[0]))).toContain("/values/Inquiries!A:X:append");
+    expect(decodeURIComponent(String(appendCall?.[0]))).toContain("/values/Inquiries!A:P:append");
     expect(String(appendCall?.[1]?.body)).toContain("Health Check Test");
   });
 

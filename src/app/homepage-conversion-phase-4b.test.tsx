@@ -22,7 +22,9 @@ describe("Phase 4B homepage conversion sections", () => {
     expect(
       Array.from(container.querySelectorAll<HTMLElement>("[data-home-section]"))
         .map((section) => section.dataset.homeSection)
-        .slice(5, 8),
+        .filter((sectionName): sectionName is string =>
+          expectedPhase4BSections.includes(sectionName ?? ""),
+        ),
     ).toEqual(expectedPhase4BSections);
 
     for (const sectionName of expectedPhase4BSections) {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "./site-config";
+import type { SupportedLocale } from "./i18n";
 
 type PageMetadataInput = {
   title: string;
@@ -7,6 +8,13 @@ type PageMetadataInput = {
   path: string;
   image?: string;
   languages?: NonNullable<Metadata["alternates"]>["languages"];
+  locale?: SupportedLocale;
+};
+
+const openGraphLocales: Record<SupportedLocale, string> = {
+  en: "en_US",
+  es: "es_ES",
+  ar: "ar",
 };
 
 export function absoluteUrl(path: string) {
@@ -19,6 +27,7 @@ export function createPageMetadata({
   path,
   image = siteConfig.socialImage,
   languages,
+  locale,
 }: PageMetadataInput): Metadata {
   const url = absoluteUrl(path);
   const socialImage = absoluteUrl(image);
@@ -37,6 +46,14 @@ export function createPageMetadata({
       description,
       url,
       images: [{ url: socialImage }],
+      ...(locale
+        ? {
+            locale: openGraphLocales[locale],
+            alternateLocale: (["en", "es", "ar"] as const)
+              .filter((candidate) => candidate !== locale)
+              .map((candidate) => openGraphLocales[candidate]),
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",

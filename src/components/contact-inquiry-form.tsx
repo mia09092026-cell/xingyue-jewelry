@@ -376,19 +376,13 @@ function getBrowserSubmissionMetadata(locale: SupportedLocale, sourcePath: strin
 
 const formFields: Array<{ field: ContactInquiryField; required?: boolean; dir?: "ltr" }> = [
   { field: "name", required: true },
+  { field: "companyOrBrand", required: true },
   { field: "email", required: true, dir: "ltr" },
-  { field: "companyOrBrand" },
-  { field: "whatsapp", dir: "ltr" },
-  { field: "businessType", required: true },
+  { field: "whatsapp", required: true, dir: "ltr" },
+  { field: "destinationCountry", required: true },
   { field: "productInterest", required: true },
   { field: "targetQuantity", required: true, dir: "ltr" },
-  { field: "destinationCountry", required: true },
-  { field: "targetMarket" },
-  { field: "referenceUrl", dir: "ltr" },
-  { field: "material" },
-  { field: "stone" },
-  { field: "packagingRequirements" },
-  { field: "expectedTiming" },
+  { field: "packagingRequirements", required: true },
 ];
 
 export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePath }: ContactInquiryFormProps) {

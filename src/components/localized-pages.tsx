@@ -15,6 +15,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ContactInquiryForm } from "@/components/contact-inquiry-form";
+import { HomepageGemstoneGallery } from "@/components/homepage-gemstone-gallery";
+import { HomepageManufacturingGallery } from "@/components/homepage-manufacturing-gallery";
 import { HowWeWork } from "@/components/how-we-work";
 import { PageHero } from "@/components/page-hero";
 import { PrepareInquirySection } from "@/components/prepare-inquiry-section";
@@ -254,20 +256,10 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
 
       <section
         data-home-section="hero"
-        className="relative min-h-[calc(100svh-8.75rem)] overflow-hidden bg-[#f8f6ef] px-5 py-12 sm:px-8 sm:py-14 lg:py-16"
+        className="overflow-hidden bg-[#f8f6ef] px-5 py-12 sm:px-8 sm:py-14 lg:py-16"
       >
-        <Image
-          src="/images/xingyue-loose-moissanite.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#fbfaf7]/96 via-[#fbfaf7]/84 to-[#fbfaf7]/20 rtl:bg-gradient-to-l" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f8f6ef] to-transparent" />
-        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-15.75rem)] max-w-7xl items-center">
-          <div className="max-w-3xl">
+        <div className="mx-auto grid max-w-7xl items-center gap-9 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+          <div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[#9a7a36] sm:text-sm">
               {content.home.eyebrow}
             </p>
@@ -286,49 +278,44 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
                 <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
               </Link>
               <Link
-                href="#products-capabilities"
+                href="#manufacturing-support"
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-[#cbb06e] bg-white/78 px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
               >
                 {content.cta.exploreCapabilities}
                 <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
               </Link>
             </div>
+            <div className="mt-8 hidden grid-cols-3 gap-3 lg:grid">
+              {content.home.stats.map((item) => (
+                <div
+                  key={item.value}
+                  className="rounded-md border border-[#e3dbcb] bg-white/76 p-4 shadow-sm backdrop-blur"
+                >
+                  <p className="font-serif text-xl text-[#17202a]">{item.value}</p>
+                  <p className="mt-2 text-sm leading-6 text-[#596575]">{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative min-h-[320px] overflow-hidden rounded-md border border-[#e3dbcb] bg-[#e9e4d8] shadow-[0_24px_70px_rgba(23,32,42,0.15)] sm:min-h-[420px] lg:min-h-[520px]">
+            <Image
+              src={content.home.heroImage.src}
+              alt={content.home.heroImage.alt}
+              fill
+              priority
+              sizes="(min-width: 1024px) 46vw, 100vw"
+              className="object-cover object-center"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#17202a]/18 via-transparent to-transparent" />
           </div>
         </div>
       </section>
 
-      <section data-home-section="who-we-support" className="px-5 py-14 sm:px-8 lg:py-16">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow={content.home.audience.eyebrow}
-            title={content.home.audience.title}
-          />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {content.home.audience.items.map((item) => (
-              <div key={item} className="flex items-center gap-3 rounded-md border border-[#e3dbcb] bg-white/72 px-5 py-4">
-                <Gem aria-hidden="true" className="h-5 w-5 shrink-0 text-[#a98945]" />
-                <p className="font-semibold leading-6">{item}</p>
-              </div>
-            ))}
-          </div>
-          <Link
-            href={localizedPath("/for-emerging-jewelry-brands", locale)}
-            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
-          >
-            {emergingBrandsLinkLabels[locale]}
-            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
-          </Link>
-          <Link
-            href={localizedPath("/for-boutique-jewelry-stores", locale)}
-            className="ms-6 mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
-          >
-            {boutiqueStoresLinkLabels[locale]}
-            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
-          </Link>
-        </div>
-      </section>
-
-      <section data-home-section="core-values" className="bg-[#fbfaf7] px-5 py-16 sm:px-8 lg:py-20">
+      <section
+        id="manufacturing-support"
+        data-home-section="manufacturing-support"
+        className="scroll-mt-36 bg-[#fbfaf7] px-5 py-16 sm:px-8 lg:py-20"
+      >
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow={content.home.coreValues.eyebrow}
@@ -384,6 +371,22 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
         </div>
       </section>
 
+      <HomepageGemstoneGallery
+        eyebrow={content.home.gemstoneColors.eyebrow}
+        title={content.home.gemstoneColors.title}
+        copy={content.home.gemstoneColors.copy}
+        items={content.home.gemstoneColors.items}
+        href={localizedPath("/lab-grown-gemstones", locale)}
+        linkLabel={content.home.gemstoneColors.linkLabel}
+      />
+
+      <HomepageManufacturingGallery
+        eyebrow={content.home.manufacturingVisuals.eyebrow}
+        title={content.home.manufacturingVisuals.title}
+        copy={content.home.manufacturingVisuals.copy}
+        items={content.home.manufacturingVisuals.items}
+      />
+
       <HowWeWork
         eyebrow={content.home.workflow.eyebrow}
         title={content.home.workflow.title}
@@ -412,6 +415,40 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
         ctaHref={qualityControlHref}
         ctaLabel={content.cta.discussQualityRequirements}
       />
+
+      <section data-home-section="who-we-support" className="px-5 py-14 sm:px-8 lg:py-16">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow={content.home.audience.eyebrow}
+            title={content.home.audience.title}
+          />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {content.home.audience.items.map((item) => (
+              <div
+                key={item}
+                className="flex items-center gap-3 rounded-md border border-[#e3dbcb] bg-white/72 px-5 py-4"
+              >
+                <Gem aria-hidden="true" className="h-5 w-5 shrink-0 text-[#a98945]" />
+                <p className="font-semibold leading-6">{item}</p>
+              </div>
+            ))}
+          </div>
+          <Link
+            href={localizedPath("/for-emerging-jewelry-brands", locale)}
+            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
+          >
+            {emergingBrandsLinkLabels[locale]}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+          </Link>
+          <Link
+            href={localizedPath("/for-boutique-jewelry-stores", locale)}
+            className="ms-6 mt-6 inline-flex items-center gap-2 text-sm font-semibold underline decoration-[#cbb06e] underline-offset-4"
+          >
+            {boutiqueStoresLinkLabels[locale]}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+          </Link>
+        </div>
+      </section>
 
       <PrepareInquirySection
         eyebrow={content.home.inquiryPrep.eyebrow}

@@ -156,10 +156,12 @@ describe("SEO foundations", () => {
   it("keeps primary visual assets web sized", () => {
     const workshop = resolve("public/images/b2b-manual-setting-workshop.webp");
     const hero = resolve("public/images/xingyue-hero.webp");
+    const factoryOverview = resolve("public/images/factory-workshop-overview.webp");
 
     expect(statSync(workshop).size).toBeLessThan(500 * 1024);
     expect(statSync(hero).size).toBeLessThan(700 * 1024);
-    expect(siteConfig.socialImage).toBe("/images/xingyue-hero.webp");
+    expect(statSync(factoryOverview).size).toBeLessThan(700 * 1024);
+    expect(siteConfig.socialImage).toBe("/images/factory-workshop-overview.webp");
     expect(
       collectionLandingPages.find((page) => page.slug === "custom-jewelry-manufacturing")
         ?.image,
