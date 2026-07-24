@@ -3,9 +3,9 @@ import { getI18nContent } from ".";
 import type { SupportedLocale } from "@/lib/i18n";
 
 const expectedPositioning: Record<SupportedLocale, string> = {
-  en: "Bring Your Jewelry Collection from Idea to Production",
-  es: "Lleva tu colección de joyería de la idea a la producción",
-  ar: "حوّل فكرة مجموعتك إلى إنتاج فعلي",
+  en: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
+  es: "Socio de fabricación de diamantes de laboratorio y gemas de color",
+  ar: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
 };
 
 const expectedBrandPartnerCopy: Record<
@@ -20,32 +20,32 @@ const expectedBrandPartnerCopy: Record<
   en: {
     aboutEyebrow: "How We Work With Brands",
     audience: "Boutique Jewelry Stores & Design Studios",
-    homeEyebrow: "For Emerging Jewelry Brands & Boutique Stores",
+    homeEyebrow: "From Wuzhou to the World",
     profileEyebrow: "Who We Support",
   },
   es: {
     aboutEyebrow: "Cómo trabajamos con las marcas",
     audience: "Joyerías boutique y estudios de diseño",
-    homeEyebrow: "Para marcas de joyería emergentes y joyerías boutique",
+    homeEyebrow: "De Wuzhou al mundo",
     profileEyebrow: "A quién ayudamos",
   },
   ar: {
     aboutEyebrow: "كيف نعمل مع العلامات التجارية",
     audience: "متاجر المجوهرات الراقية واستوديوهات التصميم",
-    homeEyebrow: "للعلامات التجارية الناشئة ومتاجر المجوهرات الراقية",
+    homeEyebrow: "من ووتشو إلى العالم",
     profileEyebrow: "من نخدم",
   },
 };
 
 const unsupportedOwnershipClaims: Record<SupportedLocale, RegExp> = {
-  en: /\bfactory\b|\bmanufacturer\b/i,
-  es: /\bfábrica\b|\bfabricante\b/i,
-  ar: /مصنع/,
+  en: /\bowned factory\b|\bour factory\b|\bfactory-direct\b|\bin-house factory\b/i,
+  es: /\bfábrica propia\b|\bnuestra fábrica\b|\bfábrica interna\b/i,
+  ar: /مصنعنا|مصنع مملوك/,
 };
 
 describe("localized B2B positioning", () => {
   it.each(["en", "es", "ar"] as const)(
-    "uses partner positioning without ownership claims in %s content",
+    "uses manufacturing-partner positioning without unverified ownership claims in %s content",
     (locale) => {
       const content = getI18nContent(locale);
 

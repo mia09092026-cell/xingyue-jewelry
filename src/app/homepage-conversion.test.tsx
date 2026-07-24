@@ -6,12 +6,14 @@ import Home from "./page";
 
 const expectedSectionOrder = [
   "hero",
-  "who-we-support",
-  "core-values",
+  "manufacturing-support",
   "products-capabilities",
+  "gemstone-colors",
+  "manufacturing-gallery",
   "how-we-work",
   "sample-moq",
   "quality-control",
+  "who-we-support",
   "prepare-inquiry",
   "faq",
   "final-cta",
@@ -21,38 +23,53 @@ const homeCases = [
   {
     locale: "en",
     renderPage: async () => <Home />,
-    h1: "Bring Your Jewelry Collection from Idea to Production",
+    h1: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
+    heroAlt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
     audience: "Emerging Jewelry Brands",
-    primaryCta: "Discuss Your Collection",
-    secondaryCta: "Explore Our Capabilities",
+    manufacturingTitle: "Manufacturing Support from Brief to Shipment",
+    primaryCta: "Request a Manufacturing Quote",
+    secondaryCta: "Explore Manufacturing Support",
     productsCta: "View Products",
   },
   {
     locale: "es",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "es" }) }),
-    h1: "Lleva tu colección de joyería de la idea a la producción",
+    h1: "Socio de fabricación de diamantes de laboratorio y gemas de color",
+    heroAlt: "Artesanos de joyería trabajando en bancos de engaste en un taller de Wuzhou",
     audience: "Marcas de joyería emergentes",
-    primaryCta: "Hablemos de tu colección",
-    secondaryCta: "Conoce nuestras capacidades",
+    manufacturingTitle: "Apoyo de fabricación desde el brief hasta el envío",
+    primaryCta: "Solicitar una cotización de fabricación",
+    secondaryCta: "Explorar apoyo de fabricación",
     productsCta: "Ver productos",
   },
   {
     locale: "ar",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "ar" }) }),
-    h1: "حوّل فكرة مجموعتك إلى إنتاج فعلي",
+    h1: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
+    heroAlt: "حرفيو مجوهرات يعملون على طاولات الترصيع في ورشة في ووتشو",
     audience: "علامات المجوهرات التجارية الناشئة",
-    primaryCta: "ناقش مجموعتك معنا",
-    secondaryCta: "استكشف قدراتنا",
+    manufacturingTitle: "دعم التصنيع من موجز المشروع إلى الشحن",
+    primaryCta: "اطلب عرض سعر للتصنيع",
+    secondaryCta: "استكشف دعم التصنيع",
     productsCta: "عرض المنتجات",
   },
 ] as const;
 
 afterEach(cleanup);
 
-describe("Phase 4A homepage conversion structure", () => {
+describe("factory-positioned multilingual homepage structure", () => {
   it.each(homeCases)(
     "uses the approved shared section order and content in $locale",
-    async ({ renderPage, h1, audience, primaryCta, secondaryCta, productsCta }) => {
+    async ({
+      renderPage,
+      h1,
+      heroAlt,
+      audience,
+      manufacturingTitle,
+      primaryCta,
+      secondaryCta,
+      productsCta,
+    }) => {
       const page = await renderPage();
       const { container } = render(page as ReactElement);
 
@@ -62,16 +79,19 @@ describe("Phase 4A homepage conversion structure", () => {
         ),
       ).toEqual(expectedSectionOrder);
       expect(screen.getByRole("heading", { level: 1, name: h1 })).toBeInTheDocument();
-      expect(screen.getByText(audience)).toBeInTheDocument();
+      expect(screen.getAllByText(audience).length).toBeGreaterThan(0);
+      expect(
+        screen.getByRole("heading", { level: 2, name: manufacturingTitle }),
+      ).toBeInTheDocument();
       const hero = container.querySelector<HTMLElement>('[data-home-section="hero"]');
-      expect(hero?.querySelector("img")).toHaveAttribute("alt", "");
+      expect(hero?.querySelector("img")).toHaveAttribute("alt", heroAlt);
       expect(within(hero as HTMLElement).getByRole("link", { name: primaryCta })).toHaveAttribute(
         "href",
         expect.stringContaining("/contact?"),
       );
       expect(screen.getByRole("link", { name: secondaryCta })).toHaveAttribute(
         "href",
-        "#products-capabilities",
+        "#manufacturing-support",
       );
       expect(screen.getByRole("link", { name: productsCta })).toHaveAttribute(
         "href",
@@ -135,7 +155,7 @@ describe("Phase 4A homepage conversion structure", () => {
 
     const productsSection = screen.getByTestId("products-capabilities");
     expect(within(productsSection).getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Products & Capabilities",
+      "Products & Manufacturing Capabilities",
     );
     expect(screen.queryByText("Core Products")).not.toBeInTheDocument();
     expect(screen.queryByText("Collections")).not.toBeInTheDocument();

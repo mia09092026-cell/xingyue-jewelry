@@ -6,36 +6,42 @@ const matchText = (value: string) =>
   new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
 
 describe("XINGYUE homepage", () => {
-  it("renders the approved Phase 4A conversion sections", () => {
+  it("leads with the Wuzhou lab-grown diamond and colored gemstone manufacturing focus", () => {
     const { container } = render(<Home />);
 
     expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
     expect(
       screen.getByRole("heading", {
-        name: /Bring Your Jewelry Collection from Idea to Production/i,
+        name: /Lab-Grown Diamond & Colored Gemstone Manufacturing Partner/i,
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/For Emerging Jewelry Brands & Boutique Stores/i)).toBeInTheDocument();
+    expect(screen.getByText(/From Wuzhou to the World/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Manufacturing Support from Brief to Shipment" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Who We Support" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Three Ways We Support Your Project" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Products & Capabilities" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Products & Manufacturing Capabilities" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "How We Work" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /FAQ/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/Discuss Your Collection/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Request a Manufacturing Quote/i).length).toBeGreaterThan(0);
 
     for (const product of ["Lab Grown Diamond Jewelry", "14K / 18K Gold Jewelry", "Private Label Packaging"]) {
       expect(screen.getAllByText(matchText(product)).length).toBeGreaterThan(0);
     }
 
     for (const capability of [
-      "Collection Development from Concept to Production",
-      "Flexible Sampling & MOQ Coordination",
-      "Quality Control, Packaging & Shipping Coordination",
+      "Custom Jewelry Development",
+      "Production Coordination",
+      "Quality, Packaging & Shipping",
     ]) {
       expect(screen.getAllByText(matchText(capability)).length).toBeGreaterThan(0);
     }
 
-    expect(container.textContent).not.toMatch(/\bfactory\b|\bmanufacturer\b/i);
+    expect(container.textContent).not.toMatch(
+      /owned factory|our factory|factory-direct|in-house factory/i,
+    );
 
     expect(screen.getAllByText(/Lab Grown Diamond Jewelry/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(

@@ -79,17 +79,9 @@ export type InquirySheetRecord = {
   browserInfo: string;
   followUpStatus: "新询盘";
   note: string;
-  businessType: string;
-  targetMarket: string;
-  referenceUrl: string;
-  material: string;
-  stone: string;
-  packagingRequirements: string;
-  expectedTiming: string;
-  consentGiven: string;
 };
 
-// Keep the original A:P columns in their existing order. New columns are appended only.
+// Keep the original A:P spreadsheet contract used by the live Inquiries sheet.
 export const inquirySheetHeaders = [
   "提交时间",
   "页面语言",
@@ -107,25 +99,19 @@ export const inquirySheetHeaders = [
   "浏览器信息",
   "跟进状态",
   "备注",
-  "Business Type",
-  "Target Market",
-  "Reference URL",
-  "Material",
-  "Stone",
-  "Packaging Requirements",
-  "Expected Timing",
-  "Consent Given",
 ] as const;
 
-export const inquirySheetRange = "A:X";
+export const inquirySheetRange = "A:P";
 
 const requiredFields: ContactInquiryField[] = [
   "name",
   "email",
-  "businessType",
+  "companyOrBrand",
+  "whatsapp",
   "productInterest",
   "targetQuantity",
   "destinationCountry",
+  "packagingRequirements",
   "message",
 ];
 
@@ -264,7 +250,18 @@ function normalizeInquiry(inquiry: ContactInquiry | LegacyContactInquiry): Conta
 
 export function createInquirySheetRecord(inquiry: ContactInquiry | LegacyContactInquiry, metadata: ContactInquiryMetadata = {}, now = new Date()): InquirySheetRecord {
   const normalized = normalizeInquiry(inquiry);
-  const customRequirement = [normalized.material, normalized.stone, normalized.packagingRequirements].filter(Boolean).join(" | ");
+  const customRequirement = [
+    ["Business Type", normalized.businessType],
+    ["Target Market", normalized.targetMarket],
+    ["Reference URL", normalized.referenceUrl],
+    ["Material", normalized.material],
+    ["Stone", normalized.stone],
+    ["Packaging Requirements", normalized.packagingRequirements],
+    ["Expected Timing", normalized.expectedTiming],
+  ]
+    .filter((entry) => entry[1])
+    .map(([label, value]) => `${label}: ${value}`)
+    .join(" | ");
   return {
     submittedAt: now.toLocaleString("zh-CN", { hour12: false, timeZone: "Asia/Shanghai" }),
     pageLanguage: sheetLanguageFromLocale(metadata.locale),
@@ -281,15 +278,7 @@ export function createInquirySheetRecord(inquiry: ContactInquiry | LegacyContact
     currentUrl: sanitizeSheetCell(metadata.currentUrl),
     browserInfo: sanitizeSheetCell(metadata.browserInfo),
     followUpStatus: "新询盘",
-    note: "",
-    businessType: sanitizeSheetCell(normalized.businessType),
-    targetMarket: sanitizeSheetCell(normalized.targetMarket),
-    referenceUrl: sanitizeSheetCell(normalized.referenceUrl),
-    material: sanitizeSheetCell(normalized.material),
-    stone: sanitizeSheetCell(normalized.stone),
-    packagingRequirements: sanitizeSheetCell(normalized.packagingRequirements),
-    expectedTiming: sanitizeSheetCell(normalized.expectedTiming),
-    consentGiven: metadata.consent === true ? "true" : "false",
+    note: metadata.consent === true ? "Consent Given: true" : "",
   };
 }
 
@@ -311,14 +300,6 @@ export function inquiryRecordToSheetRow(record: InquirySheetRecord) {
     record.browserInfo,
     record.followUpStatus,
     record.note,
-    record.businessType,
-    record.targetMarket,
-    record.referenceUrl,
-    record.material,
-    record.stone,
-    record.packagingRequirements,
-    record.expectedTiming,
-    record.consentGiven,
   ];
 }
 

@@ -34,7 +34,7 @@ const completePayload = {
 };
 
 describe("Phase 6 shared inquiry model", () => {
-  it("accepts every approved inquiry field and preserves it in the sheet mapping", () => {
+  it("accepts every approved inquiry field and consolidates it into the original A:P sheet mapping", () => {
     const parsed = parseContactInquiryPayload(completePayload);
 
     expect(parsed).toEqual({
@@ -60,29 +60,16 @@ describe("Phase 6 shared inquiry model", () => {
 
     if (parsed.ok) {
       const record = createInquirySheetRecord(parsed.data, parsed.metadata);
-      expect(record).toMatchObject({
-        businessType: "Emerging jewelry brand",
-        targetMarket: "North America",
-        referenceUrl: "https://example.com/reference-board",
-        material: "S925 silver",
-        stone: "Moissanite",
-        packagingRequirements: "Private label packaging",
-        expectedTiming: "Targeting a seasonal launch",
-        consentGiven: "true",
-      });
-      expect(inquirySheetHeaders.slice(0, 16)).toHaveLength(16);
-      expect(inquirySheetHeaders).toContain("Business Type");
-      expect(inquirySheetHeaders).toContain("Reference URL");
-      expect(inquiryRecordToSheetRow(record).slice(16)).toEqual([
-        "Emerging jewelry brand",
-        "North America",
-        "https://example.com/reference-board",
-        "S925 silver",
-        "Moissanite",
-        "Private label packaging",
-        "Targeting a seasonal launch",
-        "true",
-      ]);
+      expect(inquirySheetHeaders).toHaveLength(16);
+      expect(inquiryRecordToSheetRow(record)).toHaveLength(16);
+      expect(record.customRequirement).toContain("Business Type: Emerging jewelry brand");
+      expect(record.customRequirement).toContain("Target Market: North America");
+      expect(record.customRequirement).toContain("Reference URL: https://example.com/reference-board");
+      expect(record.customRequirement).toContain("Material: S925 silver");
+      expect(record.customRequirement).toContain("Stone: Moissanite");
+      expect(record.customRequirement).toContain("Packaging Requirements: Private label packaging");
+      expect(record.customRequirement).toContain("Expected Timing: Targeting a seasonal launch");
+      expect(record.note).toBe("Consent Given: true");
     }
   });
 
@@ -192,8 +179,8 @@ describe("Phase 6 contact form accessibility", () => {
 
     const consent = screen.getByRole("checkbox", { name: /agree that xingyue/i });
     expect(consent).not.toBeChecked();
-    expect(screen.getByLabelText("Business Type")).toBeRequired();
-    expect(screen.getByLabelText("Reference Image / Design")).toHaveAttribute("dir", "ltr");
+    expect(screen.queryByLabelText("Business Type")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Custom Requirement")).toBeInTheDocument();
 
     fireEvent.submit(screen.getByRole("checkbox").closest("form")!);
 

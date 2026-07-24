@@ -9,6 +9,8 @@ import { startBrandContentByLocale } from "./start-brand";
 type NavItem = { label: string; href: string };
 type SeoCopy = { title: string; description: string };
 type Card = { title: string; copy: string; image?: string; alt?: string };
+type VisualCard = Card & { image: string; alt: string; imageClassName?: string };
+type GemstoneColorCard = { title: string; image: string; alt: string };
 type FaqItem = { question: string; answer: string };
 type SectionImage = { src: string; alt: string } | null;
 type InquiryFieldStatus = "required" | "conditional" | "optional";
@@ -169,6 +171,20 @@ type LocaleContent = {
     title: string;
     subtitle: string;
     copy: string;
+    heroImage: { src: string; alt: string };
+    gemstoneColors: {
+      eyebrow: string;
+      title: string;
+      copy: string;
+      linkLabel: string;
+      items: GemstoneColorCard[];
+    };
+    manufacturingVisuals: {
+      eyebrow: string;
+      title: string;
+      copy: string;
+      items: VisualCard[];
+    };
     stats: Array<{ value: string; label: string }>;
     audience: {
       eyebrow: string;
@@ -326,8 +342,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       contactWhatsapp: "Contact Us on WhatsApp",
       sendDesign: "Send Your Design",
       headerStartProject: "Start Your Project",
-      discussCollection: "Discuss Your Collection",
-      exploreCapabilities: "Explore Our Capabilities",
+      discussCollection: "Request a Manufacturing Quote",
+      exploreCapabilities: "Explore Manufacturing Support",
       viewProducts: "View Products",
       finalStartProject: "Start Your Jewelry Project",
       discussSamplesMoq: "Discuss Samples & MOQ",
@@ -336,15 +352,59 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "Jewelry Manufacturing & Supply Chain Partner | Xingyue Jewelry",
+        title: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner | Xingyue",
         description:
-          "Xingyue Jewelry supports emerging brands, boutique stores and independent designers with custom jewelry development, OEM / ODM and supply chain coordination.",
+          "From Wuzhou to global markets, Xingyue coordinates lab-grown diamond, colored gemstone and custom jewelry manufacturing for B2B projects.",
       },
-      eyebrow: "For Emerging Jewelry Brands & Boutique Stores",
-      title: "Bring Your Jewelry Collection from Idea to Production",
-      subtitle: "Xingyue coordinates product selection, custom development, sampling, production, quality control, packaging, and international shipping for growing jewelry businesses.",
+      eyebrow: "From Wuzhou to the World",
+      title: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
+      subtitle: "Coordinate gemstone selection, jewelry sampling, production, finishing, packaging and shipment preparation through one B2B manufacturing workflow.",
       copy:
-        "Xingyue Jewelry helps startups, boutique jewelry stores, independent designers and entrepreneurs coordinate lab grown jewelry, moissanite, custom settings, packaging and repeat-order planning.",
+        "Xingyue Jewelry supports brands, retailers and designers with lab-grown diamonds, colored gemstones, custom settings and project-specific production planning from Wuzhou.",
+      heroImage: {
+        src: "/images/factory-workshop-overview.webp",
+        alt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
+      },
+      gemstoneColors: {
+        eyebrow: "Lab-Grown Gemstone Colors",
+        title: "Colored gemstone directions for jewelry production.",
+        copy: "Review representative color families, then confirm stone type, cut, size, matching requirements and quantity for your project.",
+        linkLabel: "Explore the Gemstone Catalog",
+        items: [
+          { title: "Blue", image: "/images/lab-grown-blue-gemstones.webp", alt: "Blue lab-grown colored gemstones in mixed cuts on a white background" },
+          { title: "Green", image: "/images/lab-grown-green-gemstones.webp", alt: "Green lab-grown colored gemstones in mixed cuts on a white background" },
+          { title: "Pink", image: "/images/lab-grown-pink-gemstones.webp", alt: "Pink lab-grown colored gemstones in mixed cuts on a white background" },
+          { title: "Purple", image: "/images/lab-grown-purple-gemstones.webp", alt: "Purple lab-grown colored gemstones in mixed cuts on a white background" },
+          { title: "White / Colorless", image: "/images/lab-grown-colorless-gemstones.webp", alt: "White and colorless lab-grown gemstones in mixed cuts on a white background" },
+          { title: "Yellow / Champagne", image: "/images/lab-grown-yellow-gemstones.webp", alt: "Yellow and champagne lab-grown colored gemstones in mixed cuts on a white background" },
+        ],
+      },
+      manufacturingVisuals: {
+        eyebrow: "Inside the Manufacturing Workflow",
+        title: "Workshop coordination and hands-on jewelry craft.",
+        copy: "These authorized workshop images show representative stages used to coordinate jewelry production, from the production floor and wax preparation to manual stone setting.",
+        items: [
+          {
+            title: "Workshop Coordination",
+            copy: "A shared production floor supports coordinated bench work across the confirmed jewelry project.",
+            image: "/images/factory-workshop-overview.webp",
+            alt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
+          },
+          {
+            title: "Wax Model Preparation",
+            copy: "Wax models are prepared and reviewed as one of the steps before metal production for applicable custom pieces.",
+            image: "/images/jewelry-wax-model-preparation.webp",
+            alt: "Hands preparing purple jewelry wax models at a workbench",
+            imageClassName: "object-[center_58%]",
+          },
+          {
+            title: "Manual Stone Setting",
+            copy: "A jeweler works by hand to place and secure stones according to the confirmed design and setting requirements.",
+            image: "/images/manual-gemstone-setting.webp",
+            alt: "Jeweler manually setting a stone under magnification",
+          },
+        ],
+      },
       stats: [
         { value: "Flexible B2B", label: "Support for samples, launches and repeat orders" },
         { value: "14K / 18K", label: "Gold jewelry customization by project" },
@@ -361,21 +421,21 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         ],
       },
       coreValues: {
-        eyebrow: "Why Xingyue",
-        title: "Three Ways We Support Your Project",
-        copy: "A coordinated B2B workflow helps keep product decisions, sampling and delivery planning connected.",
+        eyebrow: "Manufacturing & Supply Chain",
+        title: "Manufacturing Support from Brief to Shipment",
+        copy: "A coordinated workflow connects product specifications, sample approval, production follow-through, quality review, packaging, and shipment planning.",
         items: [
           {
-            title: "Collection Development from Concept to Production",
-            copy: "Coordinate product direction, custom development, sampling and production within one project.",
+            title: "Custom Jewelry Development",
+            copy: "Review product references, material, stones, settings, and branding requirements before the sample scope is confirmed.",
           },
           {
-            title: "Flexible Sampling & MOQ Coordination",
-            copy: "Confirm sample requirements and MOQ according to the product, material and process.",
+            title: "Production Coordination",
+            copy: "Coordinate the approved sample, project specifications, production scope, and project-specific order requirements.",
           },
           {
-            title: "Quality Control, Packaging & Shipping Coordination",
-            copy: "Align quality checks, packaging details and international shipping around the approved project.",
+            title: "Quality, Packaging & Shipping",
+            copy: "Align quality checkpoints, private-label packaging, and shipment preparation with the confirmed project.",
           },
         ],
       },
@@ -444,7 +504,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       },
       sections: {
         productsEyebrow: "Product Routes",
-        productsTitle: "Products & Capabilities",
+        productsTitle: "Products & Manufacturing Capabilities",
         productsCopy:
           "Use these core categories to prepare a catalog request, sample order or bulk production brief.",
         manufacturingEyebrow: "Manufacturing",
@@ -856,8 +916,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       contactWhatsapp: "تواصل معنا عبر واتساب",
       sendDesign: "أرسل تصميمك",
       headerStartProject: "ابدأ مشروعك",
-      discussCollection: "ناقش مجموعتك معنا",
-      exploreCapabilities: "استكشف قدراتنا",
+      discussCollection: "اطلب عرض سعر للتصنيع",
+      exploreCapabilities: "استكشف دعم التصنيع",
       viewProducts: "عرض المنتجات",
       finalStartProject: "ابدأ مشروع مجوهراتك",
       discussSamplesMoq: "ناقش العينات والحد الأدنى للطلب",
@@ -866,15 +926,59 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "شريك تصنيع وسلسلة توريد المجوهرات | Xingyue Jewelry",
+        title: "شريك تصنيع الألماس المزروع والأحجار الكريمة الملونة | Xingyue",
         description:
-          "تدعم Xingyue Jewelry العلامات الناشئة ومتاجر البوتيك والمصممين المستقلين عبر تطوير المجوهرات وخدمات OEM / ODM وتنسيق سلسلة التوريد.",
+          "من ووتشو إلى الأسواق العالمية، تنسق Xingyue تصنيع مجوهرات الألماس المزروع والأحجار الكريمة الملونة والمشاريع المخصصة للمشترين بين الشركات.",
       },
-      eyebrow: "للعلامات التجارية الناشئة ومتاجر المجوهرات الراقية",
-      title: "حوّل فكرة مجموعتك إلى إنتاج فعلي",
-      subtitle: "تنسّق Xingyue اختيار المنتجات والتطوير المخصص والعينات والإنتاج وفحص الجودة والتغليف والشحن الدولي لمشاريع المجوهرات المتنامية.",
+      eyebrow: "من ووتشو إلى العالم",
+      title: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
+      subtitle: "نسّق اختيار الأحجار وتطوير العينات والإنتاج والتشطيب والتغليف والاستعداد للشحن ضمن مسار تصنيع واحد للمشترين بين الشركات.",
       copy:
-        "نساعد العلامات التجارية الناشئة ومتاجر المجوهرات الراقية والمصممين المستقلين ورواد الأعمال على تنسيق مجوهرات مرصعة بألماس وأحجار كريمة مُنتَجة في المختبر، إلى جانب الموسانيت والترصيعات المخصصة والتغليف والطلبات المتكررة.",
+        "تدعم Xingyue Jewelry العلامات التجارية وتجار التجزئة والمصممين عبر الألماس المزروع والأحجار الكريمة الملونة والترصيعات المخصصة وتخطيط الإنتاج حسب المشروع من ووتشو.",
+      heroImage: {
+        src: "/images/factory-workshop-overview.webp",
+        alt: "حرفيو مجوهرات يعملون على طاولات الترصيع في ورشة في ووتشو",
+      },
+      gemstoneColors: {
+        eyebrow: "ألوان الأحجار الكريمة المزروعة",
+        title: "اتجاهات لونية لإنتاج المجوهرات",
+        copy: "استعرض مجموعات لونية تمثيلية، ثم أكد نوع الحجر وقصته وحجمه ومتطلبات المطابقة والكمية المناسبة لمشروعك.",
+        linkLabel: "استكشف كتالوج الأحجار الكريمة",
+        items: [
+          { title: "أزرق", image: "/images/lab-grown-blue-gemstones.webp", alt: "أحجار كريمة مزروعة زرقاء بقصات متنوعة على خلفية بيضاء" },
+          { title: "أخضر", image: "/images/lab-grown-green-gemstones.webp", alt: "أحجار كريمة مزروعة خضراء بقصات متنوعة على خلفية بيضاء" },
+          { title: "وردي", image: "/images/lab-grown-pink-gemstones.webp", alt: "أحجار كريمة مزروعة وردية بقصات متنوعة على خلفية بيضاء" },
+          { title: "بنفسجي", image: "/images/lab-grown-purple-gemstones.webp", alt: "أحجار كريمة مزروعة بنفسجية بقصات متنوعة على خلفية بيضاء" },
+          { title: "أبيض / عديم اللون", image: "/images/lab-grown-colorless-gemstones.webp", alt: "أحجار كريمة مزروعة بيضاء وعديمة اللون بقصات متنوعة على خلفية بيضاء" },
+          { title: "أصفر / شامبانيا", image: "/images/lab-grown-yellow-gemstones.webp", alt: "أحجار كريمة مزروعة صفراء وشامبانيا بقصات متنوعة على خلفية بيضاء" },
+        ],
+      },
+      manufacturingVisuals: {
+        eyebrow: "من داخل مسار التصنيع",
+        title: "تنسيق الورشة وحرفة صناعة المجوهرات يدوياً",
+        copy: "تعرض صور الورشة المصرح باستخدامها مراحل تمثيلية في تنسيق إنتاج المجوهرات، من أرضية العمل وتحضير نماذج الشمع إلى ترصيع الأحجار يدوياً.",
+        items: [
+          {
+            title: "تنسيق العمل داخل الورشة",
+            copy: "تدعم مساحة الإنتاج المشتركة تنسيق أعمال الطاولات وفق نطاق مشروع المجوهرات المؤكد.",
+            image: "/images/factory-workshop-overview.webp",
+            alt: "حرفيو مجوهرات يعملون على طاولات الترصيع في ورشة في ووتشو",
+          },
+          {
+            title: "تحضير نماذج الشمع",
+            copy: "تُحضّر نماذج الشمع وتُراجع كإحدى المراحل السابقة لإنتاج المعدن في القطع المخصصة المناسبة.",
+            image: "/images/jewelry-wax-model-preparation.webp",
+            alt: "يدان تحضران نماذج شمع بنفسجية للمجوهرات على طاولة عمل",
+            imageClassName: "object-[center_58%]",
+          },
+          {
+            title: "ترصيع الأحجار يدوياً",
+            copy: "يعمل الصائغ يدوياً على وضع الأحجار وتثبيتها وفق التصميم ومتطلبات الترصيع المؤكدة.",
+            image: "/images/manual-gemstone-setting.webp",
+            alt: "صائغ يرصع حجراً يدوياً باستخدام أداة تكبير",
+          },
+        ],
+      },
       stats: [
         { value: "دعم B2B مرن", label: "للعينات والإطلاق والطلبات المتكررة" },
         { value: "14K / 18K", label: "تخصيص ذهب حسب المشروع" },
@@ -891,13 +995,13 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         ],
       },
       coreValues: {
-        eyebrow: "لماذا Xingyue",
-        title: "ثلاث طرق لدعم مشروعك",
-        copy: "يربط مسار عمل B2B منسق بين قرارات المنتج والعينات وترتيبات التسليم.",
+        eyebrow: "التصنيع وسلسلة التوريد",
+        title: "دعم التصنيع من موجز المشروع إلى الشحن",
+        copy: "يربط مسار منسق بين مواصفات المنتج واعتماد العينة ومتابعة الإنتاج ومراجعة الجودة والتغليف وتخطيط الشحن.",
         items: [
-          { title: "تطوير المجموعة من الفكرة إلى الإنتاج", copy: "تنسيق اتجاه المنتج والتطوير المخصص والعينات والإنتاج ضمن مشروع واحد." },
-          { title: "تنسيق مرن للعينات والحد الأدنى للطلب", copy: "تأكيد متطلبات العينة والحد الأدنى للطلب وفق المنتج والمادة وعملية التنفيذ." },
-          { title: "تنسيق الجودة والتغليف والشحن", copy: "تنسيق فحوص الجودة وتفاصيل التغليف والشحن الدولي وفق المشروع المعتمد." },
+          { title: "تطوير المجوهرات المخصصة", copy: "مراجعة مراجع المنتج والمواد والأحجار والترصيعات ومتطلبات العلامة قبل تأكيد نطاق العينة." },
+          { title: "تنسيق الإنتاج", copy: "تنسيق العينة المعتمدة ومواصفات المشروع ونطاق الإنتاج ومتطلبات الطلب الخاصة بكل مشروع." },
+          { title: "الجودة والتغليف والشحن", copy: "مواءمة نقاط فحص الجودة والتغليف بعلامة خاصة والاستعداد للشحن مع نطاق المشروع المؤكد." },
         ],
       },
       workflow: {
@@ -965,7 +1069,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       },
       sections: {
         productsEyebrow: "مسارات المنتجات",
-        productsTitle: "المنتجات والقدرات",
+        productsTitle: "المنتجات وقدرات التصنيع",
         productsCopy: "استخدم هذه الفئات لتجهيز طلب كتالوج أو عينة أو إنتاج بالجملة.",
         manufacturingEyebrow: "التصنيع",
         manufacturingTitle: "تخصيص OEM / ODM بدون تحويل الموقع إلى متجر تجزئة.",
@@ -1143,8 +1247,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       contactWhatsapp: "Contactar por WhatsApp",
       sendDesign: "Enviar tu diseño",
       headerStartProject: "Inicia tu proyecto",
-      discussCollection: "Hablemos de tu colección",
-      exploreCapabilities: "Conoce nuestras capacidades",
+      discussCollection: "Solicitar una cotización de fabricación",
+      exploreCapabilities: "Explorar apoyo de fabricación",
       viewProducts: "Ver productos",
       finalStartProject: "Inicia tu proyecto de joyería",
       discussSamplesMoq: "Consultar muestras y MOQ",
@@ -1153,15 +1257,59 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "Socio de fabricación y cadena de suministro | Xingyue Jewelry",
+        title: "Socio de fabricación de diamantes de laboratorio y gemas de color | Xingyue",
         description:
-          "Xingyue Jewelry apoya marcas emergentes, joyerías boutique y diseñadores independientes con desarrollo, OEM / ODM y coordinación de suministro.",
+          "Desde Wuzhou hacia mercados internacionales, Xingyue coordina la fabricación B2B de diamantes de laboratorio, gemas de color y joyería personalizada.",
       },
-      eyebrow: "Para marcas de joyería emergentes y joyerías boutique",
-      title: "Lleva tu colección de joyería de la idea a la producción",
-      subtitle: "Xingyue coordina la selección de productos, el desarrollo personalizado, las muestras, la producción, el control de calidad, el empaque y el envío internacional para negocios de joyería en crecimiento.",
+      eyebrow: "De Wuzhou al mundo",
+      title: "Socio de fabricación de diamantes de laboratorio y gemas de color",
+      subtitle: "Coordina la selección de gemas, el muestreo, la producción, el acabado, el empaque y la preparación del envío mediante un solo flujo de fabricación B2B.",
       copy:
-        "Ayudamos a marcas emergentes, joyerías boutique, diseñadores independientes y emprendedores a coordinar joyería lab grown, moissanita, monturas personalizadas, empaque y pedidos recurrentes.",
+        "Xingyue Jewelry apoya a marcas, minoristas y diseñadores con diamantes de laboratorio, gemas de color, monturas personalizadas y planificación de producción por proyecto desde Wuzhou.",
+      heroImage: {
+        src: "/images/factory-workshop-overview.webp",
+        alt: "Artesanos de joyería trabajando en bancos de engaste en un taller de Wuzhou",
+      },
+      gemstoneColors: {
+        eyebrow: "Colores de gemas de laboratorio",
+        title: "Direcciones de color para la producción de joyería.",
+        copy: "Revisa familias de color representativas y después confirma para tu proyecto el tipo de gema, la talla, el tamaño, los requisitos de uniformidad y la cantidad.",
+        linkLabel: "Explorar el catálogo de gemas",
+        items: [
+          { title: "Azul", image: "/images/lab-grown-blue-gemstones.webp", alt: "Gemas de color azules de laboratorio en tallas variadas sobre fondo blanco" },
+          { title: "Verde", image: "/images/lab-grown-green-gemstones.webp", alt: "Gemas de color verdes de laboratorio en tallas variadas sobre fondo blanco" },
+          { title: "Rosa", image: "/images/lab-grown-pink-gemstones.webp", alt: "Gemas de color rosas de laboratorio en tallas variadas sobre fondo blanco" },
+          { title: "Morado", image: "/images/lab-grown-purple-gemstones.webp", alt: "Gemas de color moradas de laboratorio en tallas variadas sobre fondo blanco" },
+          { title: "Blanco / Incoloro", image: "/images/lab-grown-colorless-gemstones.webp", alt: "Gemas blancas e incoloras de laboratorio en tallas variadas sobre fondo blanco" },
+          { title: "Amarillo / Champán", image: "/images/lab-grown-yellow-gemstones.webp", alt: "Gemas amarillas y color champán de laboratorio en tallas variadas sobre fondo blanco" },
+        ],
+      },
+      manufacturingVisuals: {
+        eyebrow: "Dentro del flujo de fabricación",
+        title: "Coordinación de taller y trabajo artesanal en joyería.",
+        copy: "Estas imágenes autorizadas del taller muestran etapas representativas de la producción coordinada, desde el área de trabajo y la preparación de modelos de cera hasta el engaste manual.",
+        items: [
+          {
+            title: "Coordinación del Taller",
+            copy: "Un área de producción compartida facilita el trabajo coordinado en banco según el alcance confirmado del proyecto.",
+            image: "/images/factory-workshop-overview.webp",
+            alt: "Artesanos de joyería trabajando en bancos de engaste en un taller de Wuzhou",
+          },
+          {
+            title: "Preparación de Modelos de Cera",
+            copy: "Los modelos de cera se preparan y revisan como una etapa previa a la producción en metal cuando corresponde al diseño.",
+            image: "/images/jewelry-wax-model-preparation.webp",
+            alt: "Manos preparando modelos de cera morados para joyería en un banco de trabajo",
+            imageClassName: "object-[center_58%]",
+          },
+          {
+            title: "Engaste Manual de Gemas",
+            copy: "Un artesano coloca y asegura las gemas a mano según el diseño y los requisitos de engaste confirmados.",
+            image: "/images/manual-gemstone-setting.webp",
+            alt: "Artesano engastando una gema manualmente con una herramienta de aumento",
+          },
+        ],
+      },
       stats: [
         { value: "B2B flexible", label: "Apoyo para muestras, lanzamientos y pedidos recurrentes" },
         { value: "14K / 18K", label: "Personalización en oro por proyecto" },
@@ -1178,13 +1326,13 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         ],
       },
       coreValues: {
-        eyebrow: "Por qué Xingyue",
-        title: "Tres formas de apoyar tu proyecto",
-        copy: "Un flujo B2B coordinado mantiene conectadas las decisiones de producto, las muestras y la planificación de entrega.",
+        eyebrow: "Fabricación y cadena de suministro",
+        title: "Apoyo de fabricación desde el brief hasta el envío",
+        copy: "Un flujo coordinado conecta las especificaciones, la aprobación de muestras, el seguimiento de producción, la revisión de calidad, el empaque y la planificación del envío.",
         items: [
-          { title: "Desarrollo de la colección, del concepto a la producción", copy: "Coordina la dirección del producto, el desarrollo personalizado, las muestras y la producción en un solo proyecto." },
-          { title: "Coordinación flexible de muestras y MOQ", copy: "Confirma los requisitos de muestra y el MOQ según el producto, el material y el proceso." },
-          { title: "Coordinación de calidad, empaque y envío", copy: "Alinea controles de calidad, detalles de empaque y envío internacional con el proyecto aprobado." },
+          { title: "Desarrollo de joyería personalizada", copy: "Revisa referencias, materiales, piedras, monturas y requisitos de marca antes de confirmar el alcance de la muestra." },
+          { title: "Coordinación de producción", copy: "Coordina la muestra aprobada, las especificaciones, el alcance de producción y los requisitos del pedido según el proyecto." },
+          { title: "Calidad, empaque y envío", copy: "Alinea puntos de control de calidad, empaque de marca privada y preparación del envío con el proyecto confirmado." },
         ],
       },
       workflow: {
@@ -1252,7 +1400,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       },
       sections: {
         productsEyebrow: "Rutas de producto",
-        productsTitle: "Productos y capacidades",
+        productsTitle: "Productos y capacidades de fabricación",
         productsCopy: "Usa estas categorías para pedir catálogo, muestras o producción a granel.",
         manufacturingEyebrow: "Fabricación",
         manufacturingTitle: "Personalización OEM / ODM sin convertir el sitio en tienda minorista.",

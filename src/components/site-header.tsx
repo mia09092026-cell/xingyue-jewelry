@@ -1,11 +1,11 @@
 "use client";
 
-import { Menu, Send, X } from "lucide-react";
+import { ChevronDown, Menu, Send, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand-logo";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import type { SupportedLocale } from "@/lib/i18n";
+import { localizedPath, type SupportedLocale } from "@/lib/i18n";
 import { navigation } from "@/lib/site-data";
 
 type NavigationItem = {
@@ -33,6 +33,39 @@ const mobileMenuLabels: Record<
   ar: { close: "إغلاق قائمة التنقل", open: "فتح قائمة التنقل" },
 };
 
+const audienceNavigation: Record<
+  SupportedLocale,
+  {
+    label: string;
+    items: Array<{ label: string; path: string }>;
+  }
+> = {
+  en: {
+    label: "Who We Support",
+    items: [
+      { label: "Start Your Jewelry Brand", path: "/start-a-jewelry-brand" },
+      { label: "Emerging Jewelry Brands", path: "/for-emerging-jewelry-brands" },
+      { label: "Boutique Jewelry Stores", path: "/for-boutique-jewelry-stores" },
+    ],
+  },
+  es: {
+    label: "A quién ayudamos",
+    items: [
+      { label: "Inicia tu marca de joyería", path: "/start-a-jewelry-brand" },
+      { label: "Marcas de joyería emergentes", path: "/for-emerging-jewelry-brands" },
+      { label: "Joyerías boutique", path: "/for-boutique-jewelry-stores" },
+    ],
+  },
+  ar: {
+    label: "من ندعم",
+    items: [
+      { label: "ابدأ علامتك التجارية للمجوهرات", path: "/start-a-jewelry-brand" },
+      { label: "علامات المجوهرات الناشئة", path: "/for-emerging-jewelry-brands" },
+      { label: "متاجر المجوهرات البوتيك", path: "/for-boutique-jewelry-stores" },
+    ],
+  },
+};
+
 export function SiteHeader({
   currentLocale = "en",
   homeHref = "/",
@@ -47,6 +80,11 @@ export function SiteHeader({
   const menuLabel = isMenuOpen
     ? mobileMenuLabels[currentLocale].close
     : mobileMenuLabels[currentLocale].open;
+  const audienceMenu = audienceNavigation[currentLocale];
+  const audienceLinks = audienceMenu.items.map((item) => ({
+    label: item.label,
+    href: localizedPath(item.path, currentLocale),
+  }));
 
   useEffect(() => {
     function closeMenu(event: KeyboardEvent) {
@@ -112,6 +150,26 @@ export function SiteHeader({
               {item.label}
             </Link>
           ))}
+          <details className="group relative">
+            <summary className="flex cursor-pointer list-none items-center gap-1 rounded-md px-3 py-2 transition hover:bg-white hover:text-[#17202a] [&::-webkit-details-marker]:hidden">
+              {audienceMenu.label}
+              <ChevronDown
+                aria-hidden="true"
+                className="h-4 w-4 transition group-open:rotate-180"
+              />
+            </summary>
+            <div className="absolute end-0 z-50 mt-1 grid min-w-64 gap-1 rounded-lg border border-[#e3dbcb] bg-white p-2 shadow-lg">
+              {audienceLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-md px-3 py-2.5 text-start transition hover:bg-[#f4efe3] hover:text-[#17202a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#17202a]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </details>
         </nav>
         <div
           id="site-mobile-navigation"
@@ -134,6 +192,23 @@ export function SiteHeader({
                 {item.label}
               </Link>
             ))}
+            <div className="mt-2 border-t border-[#e7ddc8] pt-3">
+              <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#7a6952]">
+                {audienceMenu.label}
+              </p>
+              <div className="grid gap-1">
+                {audienceLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="rounded-md px-3 py-2.5 transition hover:bg-white hover:text-[#17202a]"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </nav>
           {languagePath ? (
             <LanguageSwitcher

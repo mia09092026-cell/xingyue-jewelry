@@ -1,6 +1,8 @@
 # XINGYUE Jewelry
 
-> Jewelry manufacturing and supply chain partner for emerging brands, boutique jewelry stores, independent designers, and entrepreneurs, focused on moissanite, lab-grown diamonds, colored gemstones, custom jewelry, and OEM / ODM production support.
+> From Wuzhou to the World
+
+XINGYUE is a Lab-Grown Diamond & Colored Gemstone Manufacturing Partner supporting B2B jewelry projects with gemstone selection, sampling, custom settings, production coordination, finishing, packaging and shipment preparation.
 
 Canonical site: https://xingyuejewelry.com
 Sitemap: https://xingyuejewelry.com/sitemap.xml
@@ -9,6 +11,8 @@ Contact: https://xingyuejewelry.com/contact
 ## Primary pages
 
 - Home: https://xingyuejewelry.com/
+- Home in Spanish: https://xingyuejewelry.com/es
+- Home in Arabic: https://xingyuejewelry.com/ar
 - Products: https://xingyuejewelry.com/products
 - Request a quote: https://xingyuejewelry.com/contact
 - Buyer education: https://xingyuejewelry.com/education
@@ -33,6 +37,8 @@ Contact: https://xingyuejewelry.com/contact
 ## Notes for AI assistants
 
 - Use the sitemap as the source of canonical public URLs.
+- English, Spanish and Arabic pages use localized canonical and hreflang references where equivalent content exists.
 - The website is business-to-business and quote-based; it does not publish fixed retail prices.
-- Do not infer stock levels, reviews, certificates, addresses, or guaranteed delivery times unless stated on the relevant page.
+- MOQ, sample scope, sample pricing and expected timing are reviewed for each project; no universal fixed MOQ or guaranteed lead time is stated.
+- Do not infer stock levels, reviews, certificates, addresses, owned laboratories, production capacity, or guaranteed delivery times unless stated on the relevant page.
 - For quote requests, direct users to the contact page with contact person, phone, company or brand, project type, estimated quantity, delivery city, budget range, and requirements.

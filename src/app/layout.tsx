@@ -10,10 +10,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   ...createPageMetadata({
-    title: "Jewelry Manufacturing & Supply Chain Partner | XINGYUE",
-    description:
-      "Jewelry manufacturing and supply chain support for emerging brands, boutique stores, independent designers and entrepreneurs.",
+    title: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner | Xingyue",
+    description: siteConfig.description,
     path: "/",
+    image: siteConfig.socialImage,
+    locale: "en",
   }),
   manifest: "/manifest.webmanifest",
   icons: {

@@ -7,9 +7,9 @@ type Product = (typeof products)[number];
 type LinkItem = { name: string; path: string };
 
 const organizationDescriptions: Record<SupportedLocale, string> = {
-  en: siteConfig.description,
-  es: "Socio de fabricación y cadena de suministro de joyería para marcas emergentes, tiendas boutique y diseñadores independientes.",
-  ar: "شريك تصنيع وسلسلة توريد المجوهرات للعلامات الناشئة ومتاجر البوتيك والمصممين المستقلين.",
+  en: "Xingyue provides lab-grown diamond and colored gemstone manufacturing support from Wuzhou for jewelry brands, retailers and designers.",
+  es: "Xingyue ofrece apoyo de fabricación de diamantes de laboratorio y gemas de color desde Wuzhou para marcas, minoristas y diseñadores de joyería.",
+  ar: "تقدم Xingyue من ووتشو دعماً لتصنيع مجوهرات الألماس المزروع والأحجار الكريمة الملونة للعلامات التجارية وتجار التجزئة والمصممين.",
 };
 
 export function organizationSchema(locale: SupportedLocale = "en") {
@@ -21,6 +21,19 @@ export function organizationSchema(locale: SupportedLocale = "en") {
     logo: absoluteUrl("/logo-star-moon.png"),
     email: siteConfig.email,
     description: organizationDescriptions[locale],
+    knowsAbout: [
+      "Lab-grown diamonds",
+      "Colored gemstones",
+      "Custom jewelry manufacturing",
+      "Jewelry sampling",
+      "Private-label packaging",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: siteConfig.email,
+      availableLanguage: ["English", "Spanish", "Arabic"],
+    },
   };
 }
 
@@ -30,6 +43,12 @@ export function websiteSchema() {
     "@type": "WebSite",
     name: siteConfig.name,
     url: siteConfig.url,
+    inLanguage: ["en", "es", "ar"],
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
   };
 }
 

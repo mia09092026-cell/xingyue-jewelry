@@ -20,8 +20,12 @@ describe("structured data", () => {
   });
 
   it("localizes the organization description for Spanish and Arabic pages", () => {
-    expect(organizationSchema("es").description).toContain("marcas emergentes");
-    expect(organizationSchema("ar").description).toContain("للعلامات الناشئة");
+    expect(organizationSchema("es").description).toContain(
+      "diamantes de laboratorio y gemas de color",
+    );
+    expect(organizationSchema("ar").description).toContain(
+      "الألماس المزروع والأحجار الكريمة الملونة",
+    );
   });
 
   it("builds absolute breadcrumbs and item-list links", () => {

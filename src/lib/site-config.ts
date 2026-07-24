@@ -7,6 +7,6 @@ export const siteConfig = {
   url: configuredUrl.replace(/\/$/, ""),
   email: contactConfig.email,
   description:
-    "Jewelry manufacturing and supply chain support for emerging brands, boutique stores and independent designers.",
-  socialImage: "/images/xingyue-hero.webp",
+    "Lab-grown diamond and colored gemstone manufacturing support from Wuzhou for jewelry brands, retailers and designers.",
+  socialImage: "/images/factory-workshop-overview.webp",
 };
