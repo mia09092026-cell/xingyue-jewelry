@@ -6,13 +6,13 @@ const matchText = (value: string) =>
   new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
 
 describe("XINGYUE homepage", () => {
-  it("leads with the Wuzhou lab-grown diamond and colored gemstone manufacturing focus", () => {
+  it("leads with the approved own-factory lab-grown diamond jewelry focus", () => {
     const { container } = render(<Home />);
 
     expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
     expect(
       screen.getByRole("heading", {
-        name: /Lab-Grown Diamond & Colored Gemstone Manufacturing Partner/i,
+        name: /Lab-Grown Diamond Jewelry Manufacturer & OEM\/ODM Factory/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getByText(/From Wuzhou to the World/i)).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe("XINGYUE homepage", () => {
     expect(screen.getByRole("heading", { name: /FAQ/i })).toBeInTheDocument();
     expect(screen.getAllByText(/Request a Manufacturing Quote/i).length).toBeGreaterThan(0);
 
-    for (const product of ["Lab Grown Diamond Jewelry", "14K / 18K Gold Jewelry", "Private Label Packaging"]) {
+    for (const product of ["Lab Grown Diamond Jewelry", "S925 Silver / 14K / 18K Custom Jewelry", "Private Label Packaging"]) {
       expect(screen.getAllByText(matchText(product)).length).toBeGreaterThan(0);
     }
 
@@ -39,8 +39,9 @@ describe("XINGYUE homepage", () => {
       expect(screen.getAllByText(matchText(capability)).length).toBeGreaterThan(0);
     }
 
+    expect(container.textContent).toMatch(/\bour own jewelry factory\b/i);
     expect(container.textContent).not.toMatch(
-      /owned factory|our factory|factory-direct|in-house factory/i,
+      /\d+\s*(employees|workers|square meters|sqm|pieces per month)|guaranteed lead time/i,
     );
 
     expect(screen.getAllByText(/Lab Grown Diamond Jewelry/i).length).toBeGreaterThan(0);

@@ -10,7 +10,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   ...createPageMetadata({
-    title: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner | Xingyue",
+    title: "Lab-Grown Diamond Jewelry Manufacturer & OEM/ODM Factory | Xingyue",
     description: siteConfig.description,
     path: "/",
     image: siteConfig.socialImage,

@@ -1,0 +1,39 @@
+import type { Metadata } from "next";
+import { LegalInformationPage } from "@/components/legal-information-page";
+import { legalPagesContentByLocale } from "@/content/i18n/legal-pages";
+import { getLanguageAlternates, localizedPath } from "@/lib/i18n";
+import {
+  generatePrefixedLocaleParams,
+  readPrefixedLocale,
+  type LocaleParams,
+} from "@/lib/localized-route";
+import { createPageMetadata } from "@/lib/seo";
+
+const path = "/privacy" as const;
+
+type LocalizedPrivacyPageProps = {
+  params: LocaleParams;
+};
+
+export const generateStaticParams = generatePrefixedLocaleParams;
+
+export async function generateMetadata({
+  params,
+}: LocalizedPrivacyPageProps): Promise<Metadata> {
+  const locale = await readPrefixedLocale(params);
+  const content = legalPagesContentByLocale[locale][path];
+
+  return createPageMetadata({
+    ...content.seo,
+    path: localizedPath(path, locale),
+    languages: getLanguageAlternates(path),
+    locale,
+  });
+}
+
+export default async function LocalizedPrivacyPage({
+  params,
+}: LocalizedPrivacyPageProps) {
+  const locale = await readPrefixedLocale(params);
+  return <LegalInformationPage locale={locale} path={path} />;
+}

@@ -278,7 +278,7 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
                 <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
               </Link>
               <Link
-                href="#manufacturing-support"
+                href={localizedPath("/manufacturing-capabilities", locale)}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-[#cbb06e] bg-white/78 px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
               >
                 {content.cta.exploreCapabilities}

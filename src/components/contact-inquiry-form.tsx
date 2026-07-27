@@ -2,6 +2,7 @@
 
 import { FormEvent, useMemo, useRef, useState } from "react";
 import { CheckCircle2, Mail, Send, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 import {
   contactInquiryFieldLabels,
   type ContactInquiry,
@@ -11,7 +12,7 @@ import {
 } from "@/lib/contact-inquiry";
 import { buildInquiryEmailUrl, contactSourceFromPath, normalizeInterest, normalizeSource, productInterestLabel } from "@/lib/contact-links";
 import type { ContactFormCopy } from "@/content/i18n";
-import type { SupportedLocale } from "@/lib/i18n";
+import { localizedPath, type SupportedLocale } from "@/lib/i18n";
 
 type ContactInquiryFormProps = {
   content?: ContactFormCopy;
@@ -30,6 +31,12 @@ const inquiryConfiguringMessages: Record<SupportedLocale, string> = {
   en: "Inquiry service is being configured. Please contact us by WhatsApp or email.",
   es: "El servicio de consultas se está configurando. Contáctanos por WhatsApp o correo electrónico.",
   ar: "يتم إعداد خدمة الاستفسارات. يرجى التواصل معنا عبر واتساب أو البريد الإلكتروني.",
+};
+
+const privacyLinkLabels: Record<SupportedLocale, string> = {
+  en: "Read our Privacy Notice",
+  es: "Consulta nuestro aviso de privacidad",
+  ar: "اقرأ إشعار الخصوصية",
 };
 
 const defaultErrorMessages: Record<SupportedLocale, Record<string, string>> = {
@@ -482,7 +489,15 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
           {effectiveContent.introTitle}
         </div>
         {effectiveContent.introCopy}
-        <p className="mt-2 text-xs">{effectiveContent.privacyNotice}</p>
+        <p className="mt-2 text-xs">
+          {effectiveContent.privacyNotice}{" "}
+          <Link
+            href={localizedPath("/privacy", locale)}
+            className="font-semibold text-[#17202a] underline decoration-[#cbb06e] underline-offset-2 transition hover:text-[#8a734b]"
+          >
+            {privacyLinkLabels[locale]}
+          </Link>
+        </p>
       </div>
 
       <div aria-hidden="true" className="sr-only">

@@ -38,7 +38,7 @@ describe("i18n routing helpers", () => {
     });
   });
 
-  it("limits first-phase localized pages to the approved B2B routes", () => {
+  it("lists all approved equivalent multilingual public routes", () => {
     expect(localizedPublicPages).toEqual([
       "/",
       "/products",
@@ -51,6 +51,11 @@ describe("i18n routing helpers", () => {
       "/start-a-jewelry-brand",
       "/for-emerging-jewelry-brands",
       "/for-boutique-jewelry-stores",
+      "/factory",
+      "/manufacturing-capabilities",
+      "/custom-process",
+      "/privacy",
+      "/terms",
     ]);
     expect(isSupportedLocale("ar")).toBe(true);
     expect(isSupportedLocale("fr")).toBe(false);

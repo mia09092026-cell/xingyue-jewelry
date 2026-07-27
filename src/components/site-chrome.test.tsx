@@ -5,22 +5,22 @@ import { SiteHeader } from "./site-header";
 import { getI18nContent } from "@/content/i18n";
 
 describe("site chrome brand identity", () => {
-  it("uses the Star & Moon brand logo in the header home link", () => {
+  it("uses the approved XINGYUE brand logo in the header home link", () => {
     render(<SiteHeader />);
 
     expect(
-      screen.getByRole("link", { name: /Star & Moon Jewelry logo/i }),
+      screen.getByRole("link", { name: /XINGYUE Jewelry logo/i }),
     ).toHaveAttribute("href", "/");
-    expect(screen.getByRole("img", { name: /Star & Moon Jewelry logo/i })).toHaveAttribute(
+    expect(screen.getByRole("img", { name: /XINGYUE Jewelry logo/i })).toHaveAttribute(
       "src",
-      expect.stringContaining("logo-star-moon.png"),
+      expect.stringContaining("xingyue-jewelry-logo.png"),
     );
   });
 
-  it("uses the Star & Moon brand logo in the footer", () => {
+  it("uses the approved XINGYUE brand logo in the footer", () => {
     render(<SiteFooter />);
 
-    expect(screen.getByRole("img", { name: /Star & Moon Jewelry logo/i })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /XINGYUE Jewelry logo/i })).toBeInTheDocument();
   });
 
   it("shows the direct WhatsApp contact link in the footer", () => {
@@ -39,27 +39,27 @@ describe("site chrome brand identity", () => {
     );
   });
 
-  it("links the gemstone catalog from English, Arabic, and Spanish navigation", () => {
+  it("links the factory authority pages from English, Arabic, and Spanish navigation", () => {
     const { unmount } = render(<SiteHeader />);
 
     expect(
-      screen.getByRole("link", { name: "Lab-Grown Gemstones" }),
-    ).toHaveAttribute("href", "/lab-grown-gemstones");
+      screen.getByRole("link", { name: "Factory" }),
+    ).toHaveAttribute("href", "/factory");
     unmount();
 
     expect(getI18nContent("ar").navigation).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          href: "/ar/lab-grown-gemstones",
-          label: "أحجار كريمة مزروعة",
+          href: "/ar/factory",
+          label: "المصنع",
         }),
       ]),
     );
     expect(getI18nContent("es").navigation).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          href: "/es/lab-grown-gemstones",
-          label: "Gemas de laboratorio",
+          href: "/es/factory",
+          label: "Fábrica",
         }),
       ]),
     );

@@ -3,9 +3,9 @@ import { getI18nContent } from ".";
 import type { SupportedLocale } from "@/lib/i18n";
 
 const expectedPositioning: Record<SupportedLocale, string> = {
-  en: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
-  es: "Socio de fabricación de diamantes de laboratorio y gemas de color",
-  ar: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
+  en: "Lab-Grown Diamond Jewelry Manufacturer & OEM/ODM Factory",
+  es: "Fabricante de joyería con diamantes de laboratorio y fábrica OEM/ODM",
+  ar: "مصنع مجوهرات الألماس المزروع وشريك تصنيع OEM/ODM",
 };
 
 const expectedBrandPartnerCopy: Record<
@@ -37,20 +37,20 @@ const expectedBrandPartnerCopy: Record<
   },
 };
 
-const unsupportedOwnershipClaims: Record<SupportedLocale, RegExp> = {
-  en: /\bowned factory\b|\bour factory\b|\bfactory-direct\b|\bin-house factory\b/i,
-  es: /\bfábrica propia\b|\bnuestra fábrica\b|\bfábrica interna\b/i,
-  ar: /مصنعنا|مصنع مملوك/,
+const unsupportedProofClaims: Record<SupportedLocale, RegExp> = {
+  en: /\d+\s*(employees|workers|square meters|sqm|pieces per month)|guaranteed lead time|certified factory/i,
+  es: /\d+\s*(empleados|trabajadores|metros cuadrados|piezas al mes)|entrega garantizada|fábrica certificada/i,
+  ar: /\d+\s*(موظف|عامل|متر مربع|قطعة شهرياً)|تسليم مضمون|مصنع معتمد/i,
 };
 
 describe("localized B2B positioning", () => {
   it.each(["en", "es", "ar"] as const)(
-    "uses manufacturing-partner positioning without unverified ownership claims in %s content",
+    "uses approved own-factory positioning without fabricated proof claims in %s content",
     (locale) => {
       const content = getI18nContent(locale);
 
       expect(content.home.title).toBe(expectedPositioning[locale]);
-      expect(JSON.stringify(content)).not.toMatch(unsupportedOwnershipClaims[locale]);
+      expect(JSON.stringify(content)).not.toMatch(unsupportedProofClaims[locale]);
     },
   );
 
@@ -88,7 +88,10 @@ describe("localized B2B positioning", () => {
         id: "lab-grown-diamond-rings",
         image: "/images/xingyue-ring-sample.jpg",
       },
-      { id: "lab-grown-diamond-pendants", image: null },
+      {
+        id: "lab-created-colored-gemstone-pendants",
+        image: "/images/lab-created-colored-gemstone-pendant.webp",
+      },
       { id: "moissanite-earrings", image: "/images/b2b-sample-packaging.jpg" },
       { id: "custom-tennis-bracelets", image: "/images/xingyue-tennis-bracelet.jpg" },
     ]);

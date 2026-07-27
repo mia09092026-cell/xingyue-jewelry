@@ -15,24 +15,24 @@ const homeCases = [
     locale: "en",
     canonical: "https://xingyuejewelry.com/",
     ogLocale: "en_US",
-    title: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner | Xingyue",
-    serviceName: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
+    title: "Lab-Grown Diamond Jewelry Manufacturer & OEM/ODM Factory | Xingyue",
+    serviceName: "Lab-Grown Diamond Jewelry Manufacturer & OEM/ODM Factory",
     renderPage: async () => <Home />,
   },
   {
     locale: "es",
     canonical: "https://xingyuejewelry.com/es",
     ogLocale: "es_ES",
-    title: "Socio de fabricación de diamantes de laboratorio y gemas de color | Xingyue",
-    serviceName: "Socio de fabricación de diamantes de laboratorio y gemas de color",
+    title: "Fabricante de joyería con diamantes de laboratorio y fábrica OEM/ODM | Xingyue",
+    serviceName: "Fabricante de joyería con diamantes de laboratorio y fábrica OEM/ODM",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "es" }) }),
   },
   {
     locale: "ar",
     canonical: "https://xingyuejewelry.com/ar",
     ogLocale: "ar",
-    title: "شريك تصنيع الألماس المزروع والأحجار الكريمة الملونة | Xingyue",
-    serviceName: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
+    title: "مصنع مجوهرات الألماس المزروع وشريك تصنيع OEM/ODM | Xingyue",
+    serviceName: "مصنع مجوهرات الألماس المزروع وشريك تصنيع OEM/ODM",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "ar" }) }),
   },
 ] as const;
@@ -104,14 +104,12 @@ describe("multilingual homepage SEO and GEO contracts", () => {
     const organization = organizationSchema("en");
     const website = websiteSchema();
 
-    expect(organization.description).toContain(
-      "lab-grown diamond and colored gemstone manufacturing",
-    );
+    expect(organization.description).toContain("own jewelry factory in Wuzhou");
     expect(organization.knowsAbout).toEqual(
       expect.arrayContaining([
-        "Lab-grown diamonds",
-        "Colored gemstones",
-        "Custom jewelry manufacturing",
+        "Lab-grown diamond jewelry manufacturing",
+        "OEM/ODM jewelry manufacturing",
+        "CAD design and jewelry sampling",
       ]),
     );
     expect(organization.contactPoint).toMatchObject({
@@ -140,7 +138,8 @@ describe("multilingual homepage SEO and GEO contracts", () => {
     expect(homeEntries.every((entry) => entry.alternates?.languages?.["x-default"] ===
       "https://xingyuejewelry.com/")).toBe(true);
     expect(llms).toContain("From Wuzhou to the World");
-    expect(llms).toContain("Lab-Grown Diamond & Colored Gemstone Manufacturing Partner");
+    expect(llms).toContain("operates its own jewelry factory in Wuzhou");
+    expect(llms).toContain("https://xingyuejewelry.com/factory");
     expect(llms).toContain("https://xingyuejewelry.com/es");
     expect(llms).toContain("https://xingyuejewelry.com/ar");
     expect(llms).not.toMatch(

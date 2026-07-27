@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  getAvailableLocalesForPath,
   localeLabels,
   localizedPath,
   type SupportedLocale,
@@ -20,6 +21,8 @@ const switcherLabels: Record<SupportedLocale, string> = {
 };
 
 export function LanguageSwitcher({ className = "", currentLocale, path }: LanguageSwitcherProps) {
+  const availableLocales = getAvailableLocalesForPath(path);
+
   return (
     <div
       aria-label={switcherLabels[currentLocale]}
@@ -27,7 +30,7 @@ export function LanguageSwitcher({ className = "", currentLocale, path }: Langua
       dir="ltr"
       className={`flex items-center gap-1 rounded-md border border-[#e3dbcb] bg-white/72 p-1 text-xs font-semibold text-[#596575] ${className}`}
     >
-      {localeOrder.map((locale) => (
+      {localeOrder.filter((locale) => availableLocales.includes(locale)).map((locale) => (
         <Link
           key={locale}
           href={localizedPath(path, locale)}

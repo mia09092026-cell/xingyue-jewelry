@@ -23,6 +23,11 @@ export const localizedPublicPages = [
   "/start-a-jewelry-brand",
   "/for-emerging-jewelry-brands",
   "/for-boutique-jewelry-stores",
+  "/factory",
+  "/manufacturing-capabilities",
+  "/custom-process",
+  "/privacy",
+  "/terms",
 ] as const;
 
 export const localizedCollectionSlugs = [
@@ -47,6 +52,20 @@ function normalizePath(path: string) {
   }
 
   return path.startsWith("/") ? path.replace(/\/$/, "") || "/" : `/${path.replace(/\/$/, "")}`;
+}
+
+export function isLocalizedPublicPage(
+  path: string,
+): path is LocalizedPublicPage {
+  const normalizedPath = normalizePath(path);
+
+  return localizedPublicPages.includes(
+    normalizedPath as LocalizedPublicPage,
+  );
+}
+
+export function getAvailableLocalesForPath(path: string) {
+  return isLocalizedPublicPage(path) ? supportedLocales : [defaultLocale];
 }
 
 export function localizedPath(path: string, locale: SupportedLocale) {

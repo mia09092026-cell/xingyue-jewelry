@@ -10,16 +10,17 @@ export const brand = {
   emailInquiryHref: defaultEmailHref,
   whatsapp: contactConfig.whatsapp,
   whatsappHref: contactConfig.whatsappHref,
-  tagline: "Moissanite Wholesale & Lab-Grown Diamond Jewelry",
+  tagline: "Lab-Grown Diamond Jewelry Manufacturer & OEM/ODM Factory",
 };
 
 export const navigation = [
   { label: "Home", href: "/" },
   { label: "Products", href: "/products" },
-  { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
-  { label: "Custom Manufacturing", href: "/collections/custom-jewelry-manufacturing" },
-  { label: "Education", href: "/education" },
+  { label: "Factory", href: "/factory" },
+  { label: "Capabilities", href: "/manufacturing-capabilities" },
+  { label: "Custom Process", href: "/custom-process" },
   { label: "About Us", href: "/about" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
 

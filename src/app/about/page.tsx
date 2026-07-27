@@ -11,9 +11,9 @@ import { getLanguageAlternates } from "@/lib/i18n";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About XINGYUE | Jewelry Manufacturing & Supply Chain Partner",
+  title: "About Our Own Jewelry Factory | Xingyue Jewelry",
   description:
-    "Meet XINGYUE, a jewelry manufacturing and supply chain partner for emerging brands, boutique stores and independent designers.",
+    "Meet Xingyue Jewelry's own factory in Wuzhou for lab-grown diamond jewelry, OEM/ODM development, samples, production and quality checks.",
   path: "/about",
   languages: getLanguageAlternates("/about"),
 });
@@ -49,7 +49,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="How We Work With Brands"
         title="About XINGYUE"
-        subtitle="A jewelry manufacturing and supply chain partner for emerging brands, boutique jewelry stores, independent designers and entrepreneurs."
+        subtitle="Our own jewelry factory in Wuzhou supports lab-grown diamond jewelry and OEM/ODM projects for brands, boutique stores, designers and wholesale buyers."
       >
         <Link
           href="/contact"
@@ -78,10 +78,10 @@ export default function AboutPage() {
               One partner, one coordinated workflow.
             </h2>
             <p className="mt-6 leading-8 text-[#596575]">
-              XINGYUE combines loose stone selection, jewelry development,
-              setting, quality control and packaging in one supply workflow.
-              This makes communication clearer for overseas buyers and helps
-              repeat orders stay consistent.
+              Xingyue operates our own jewelry factory in Wuzhou. Buyers work
+              directly with our manufacturing team to review stones and
+              materials, develop CAD and samples, coordinate production,
+              inspect finished jewelry and prepare packaging and shipment.
             </p>
             <p className="mt-5 leading-8 text-[#596575]">
               Our core range covers moissanite, lab-grown diamonds, lab-grown
@@ -96,6 +96,13 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
+            <Link
+              href="/factory"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#17202a] underline decoration-[#cbb06e] underline-offset-4"
+            >
+              Visit Our Factory Page
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
