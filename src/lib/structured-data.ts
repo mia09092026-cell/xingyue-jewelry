@@ -141,3 +141,45 @@ export function productSchema(product: Product) {
     },
   };
 }
+
+export function articleSchema({
+  author,
+  dateModified,
+  datePublished,
+  description,
+  headline,
+  image,
+  path,
+}: {
+  author: string;
+  dateModified: string;
+  datePublished: string;
+  description: string;
+  headline: string;
+  image: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    image: absoluteUrl(image),
+    datePublished,
+    dateModified,
+    mainEntityOfPage: absoluteUrl(path),
+    author: {
+      "@type": "Organization",
+      name: author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/xingyue-jewelry-logo.png"),
+      },
+    },
+  };
+}

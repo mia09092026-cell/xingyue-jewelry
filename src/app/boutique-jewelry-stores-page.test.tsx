@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { TargetAudiencePage } from "@/components/target-audience-page";
 import {
@@ -14,6 +14,7 @@ import {
   localizedPath,
 } from "@/lib/i18n";
 import { faqPageSchema, serviceSchema } from "@/lib/structured-data";
+import { buildLlmsText } from "@/lib/llms";
 import sitemap from "@/app/sitemap";
 import { metadata as englishMetadata } from "@/app/for-boutique-jewelry-stores/page";
 import { generateMetadata as generateLocalizedMetadata } from "@/app/[locale]/for-boutique-jewelry-stores/page";
@@ -86,7 +87,7 @@ describe("boutique jewelry stores audience page", () => {
     const faq = faqPageSchema(boutiqueStoresContentByLocale.en.faq.items);
     expect(faq.mainEntity).toHaveLength(boutiqueStoresContentByLocale.en.faq.items.length);
 
-    const llms = readFileSync("public/llms.txt", "utf8");
+    const llms = buildLlmsText();
     expect(llms).toContain("https://xingyuejewelry.com/for-boutique-jewelry-stores");
     expect(llms).toContain("https://xingyuejewelry.com/es/for-boutique-jewelry-stores");
     expect(llms).toContain("https://xingyuejewelry.com/ar/for-boutique-jewelry-stores");

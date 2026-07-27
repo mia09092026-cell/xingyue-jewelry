@@ -5,6 +5,41 @@ import { SiteHeader } from "./site-header";
 import { getI18nContent } from "@/content/i18n";
 
 describe("site chrome brand identity", () => {
+  it.each([
+    ["en", "Resources", "/resources"],
+    ["es", "Recursos (English)", "/resources"],
+    ["ar", "الموارد (بالإنجليزية)", "/resources"],
+  ] as const)(
+    "links the $locale header and footer to the English Resources index",
+    (locale, label, href) => {
+      const content = getI18nContent(locale);
+      const header = render(
+        <SiteHeader
+          currentLocale={locale}
+          navigationItems={content.navigation}
+        />,
+      );
+
+      expect(
+        within(screen.getByTestId("desktop-navigation")).getByRole("link", {
+          name: label,
+        }),
+      ).toHaveAttribute("href", href);
+      header.unmount();
+
+      render(
+        <SiteFooter
+          locale={locale}
+          navigationItems={content.navigation.slice(0, 4)}
+        />,
+      );
+      expect(screen.getByRole("link", { name: label })).toHaveAttribute(
+        "href",
+        href,
+      );
+    },
+  );
+
   it("uses the XINGYUE Jewelry brand logo in the header home link", () => {
     render(<SiteHeader />);
 

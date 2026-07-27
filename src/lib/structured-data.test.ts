@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  articleSchema,
   breadcrumbSchema,
   faqPageSchema,
   itemListSchema,
@@ -78,5 +79,35 @@ describe("structured data", () => {
     expect(schema.mainEntity[0].acceptedAnswer.text).toContain(
       "photo-to-sample customization",
     );
+  });
+
+  it("builds Article structured data from visible resource metadata without unsupported claims", () => {
+    const schema = articleSchema({
+      author: "Xingyue Jewelry",
+      dateModified: "2026-07-27",
+      datePublished: "2026-07-26",
+      description: "A practical sterling silver sourcing guide.",
+      headline: "How to Choose a 925 Sterling Silver Jewelry Manufacturer",
+      image: "/images/b2b-manual-setting-workshop.webp",
+      path: "/resources/choose-925-sterling-silver-jewelry-manufacturer",
+    });
+
+    expect(schema).toMatchObject({
+      "@type": "Article",
+      headline: "How to Choose a 925 Sterling Silver Jewelry Manufacturer",
+      datePublished: "2026-07-26",
+      dateModified: "2026-07-27",
+      mainEntityOfPage:
+        "https://xingyuejewelry.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
+      image:
+        "https://xingyuejewelry.com/images/b2b-manual-setting-workshop.webp",
+      author: {
+        "@type": "Organization",
+        name: "Xingyue Jewelry",
+      },
+    });
+    expect(schema).not.toHaveProperty("review");
+    expect(schema).not.toHaveProperty("aggregateRating");
+    expect(schema).not.toHaveProperty("offers");
   });
 });

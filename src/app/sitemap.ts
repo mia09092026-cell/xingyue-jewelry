@@ -9,6 +9,7 @@ import {
   type LocalizedPublicPage,
 } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
+import { getPublishedResourceArticles } from "@/lib/resources";
 import { products } from "@/lib/site-data";
 
 function localizedPriority(path: LocalizedPublicPage) {
@@ -25,6 +26,7 @@ function localizedPriority(path: LocalizedPublicPage) {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = ["/education"];
+  const resourceArticles = getPublishedResourceArticles("en");
   const localizedEntries = localizedPublicPages.flatMap((path) =>
     supportedLocales.map((locale) => ({
       url: absoluteUrl(localizedPath(path, locale)),
@@ -42,6 +44,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: absoluteUrl(path),
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    {
+      url: absoluteUrl("/resources"),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    },
+    ...resourceArticles.map((article) => ({
+      url: absoluteUrl(`/resources/${article.slug}`),
+      lastModified: new Date(`${article.updatedAt}T00:00:00.000Z`),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
     })),
     ...collectionLandingPages.filter(({ slug }) => !isLocalizedCollectionSlug(slug)).map(({ slug }) => ({
       url: absoluteUrl(`/collections/${slug}`),

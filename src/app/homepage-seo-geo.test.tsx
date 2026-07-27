@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import { cleanup, render } from "@testing-library/react";
 import type { ReactElement } from "react";
 import { afterEach, describe, expect, it } from "vitest";
@@ -9,6 +8,7 @@ import Home, { metadata as englishHomeMetadata } from "./page";
 import robots from "./robots";
 import sitemap from "./sitemap";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
+import { buildLlmsText } from "@/lib/llms";
 
 const homeCases = [
   {
@@ -144,7 +144,7 @@ describe("multilingual homepage SEO and GEO contracts", () => {
         "https://xingyuejewelry.com/ar",
       ].includes(url),
     );
-    const llms = readFileSync("public/llms.txt", "utf8");
+    const llms = buildLlmsText();
 
     expect(robots().rules).toContainEqual({ userAgent: "OAI-SearchBot", allow: "/" });
     expect(homeEntries).toHaveLength(3);
