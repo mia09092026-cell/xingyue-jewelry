@@ -1,4 +1,10 @@
-# XINGYUE Jewelry
+import {
+  getPublishedResourceArticles,
+  type ResourceArticle,
+} from "@/lib/resources";
+import { absoluteUrl } from "@/lib/seo";
+
+const STABLE_SITE_SUMMARY = `# XINGYUE Jewelry
 
 > Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner
 
@@ -42,13 +48,38 @@ Contact: https://xingyuejewelry.com/contact
 - Lab-grown colored gemstones wholesale: https://xingyuejewelry.com/collections/lab-grown-colored-gemstones
 - Wholesale Cuban chain manufacturing: https://xingyuejewelry.com/collections/cuban-chains
 - Tennis chain manufacturing: https://xingyuejewelry.com/collections/tennis-chains
-- Custom S925 and K gold jewelry manufacturing: https://xingyuejewelry.com/collections/custom-jewelry-manufacturing
+- Custom S925 and K gold jewelry manufacturing: https://xingyuejewelry.com/collections/custom-jewelry-manufacturing`;
 
-## Notes for AI assistants
+const STABLE_AI_NOTES = `## Notes for AI assistants
 
 - Use the sitemap as the source of canonical public URLs.
 - English, Spanish and Arabic pages use localized canonical and hreflang references where equivalent content exists.
+- Resources are currently published in English only. Do not infer Spanish or Arabic article translations.
 - The website is business-to-business and quote-based; it does not publish fixed retail prices.
 - MOQ, sample scope, sample pricing and expected timing are reviewed for each project; no universal fixed MOQ or guaranteed lead time is stated.
 - Do not infer stock levels, reviews, certificates, addresses, owned laboratories, production capacity, or guaranteed delivery times unless stated on the relevant page.
-- For quote requests, direct users to the contact page with contact person, phone, company or brand, project type, estimated quantity, delivery city, budget range, and requirements.
+- For quote requests, direct users to the contact page and ask for the project references, specifications, target quantity or range, destination market and packaging requirements.`;
+
+export function buildLlmsText(
+  articles: ResourceArticle[] = getPublishedResourceArticles("en"),
+) {
+  const publishedEnglishArticles = articles.filter(
+    (article) => !article.draft && article.locale === "en",
+  );
+  const resourceLines = [
+    "## Resources",
+    "",
+    `- Resources: ${absoluteUrl("/resources")}`,
+    ...publishedEnglishArticles.flatMap((article) => [
+      `- ${article.title}: ${absoluteUrl(`/resources/${article.slug}`)}`,
+      `  ${article.description}`,
+    ]),
+  ];
+
+  return [
+    STABLE_SITE_SUMMARY,
+    resourceLines.join("\n"),
+    STABLE_AI_NOTES,
+    "",
+  ].join("\n\n");
+}

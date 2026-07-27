@@ -11,6 +11,17 @@ type PageMetadataInput = {
   locale?: SupportedLocale;
 };
 
+type ArticleMetadataInput = {
+  title: string;
+  description: string;
+  path: string;
+  image: string;
+  publishedAt: string;
+  updatedAt: string;
+  author: string;
+  tags: string[];
+};
+
 const openGraphLocales: Record<SupportedLocale, string> = {
   en: "en_US",
   es: "es_ES",
@@ -54,6 +65,47 @@ export function createPageMetadata({
               .map((candidate) => openGraphLocales[candidate]),
           }
         : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [socialImage],
+    },
+  };
+}
+
+export function createArticleMetadata({
+  title,
+  description,
+  path,
+  image,
+  publishedAt,
+  updatedAt,
+  author,
+  tags,
+}: ArticleMetadataInput): Metadata {
+  const url = absoluteUrl(path);
+  const socialImage = absoluteUrl(image);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      type: "article",
+      siteName: siteConfig.name,
+      title,
+      description,
+      url,
+      images: [{ url: socialImage }],
+      publishedTime: publishedAt,
+      modifiedTime: updatedAt,
+      authors: [author],
+      tags,
+      locale: openGraphLocales.en,
     },
     twitter: {
       card: "summary_large_image",

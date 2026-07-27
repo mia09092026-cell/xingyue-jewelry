@@ -19,6 +19,7 @@ export const navigation = [
   { label: "Gemstones", href: "/lab-grown-gemstones" },
   { label: "Moissanite Wholesale", href: "/collections/moissanite-wholesale" },
   { label: "OEM / ODM", href: "/collections/custom-jewelry-manufacturing" },
+  { label: "Resources", href: "/resources" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

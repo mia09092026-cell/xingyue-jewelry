@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { readFileSync, statSync } from "node:fs";
+import { statSync } from "node:fs";
 import { resolve } from "node:path";
 import { collectionLandingPages } from "@/lib/collection-data";
 import { getLanguageAlternates, localizedPath, localizedPublicPages } from "@/lib/i18n";
 import { collectionCategories, products } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
+import { buildLlmsText } from "@/lib/llms";
 import { siteConfig } from "@/lib/site-config";
 import nextConfig from "../../next.config";
 import { metadata as productsMetadata } from "./products/page";
@@ -31,6 +32,15 @@ describe("SEO foundations", () => {
     expect(urls).toContain("https://xingyuejewelry.com/ar/lab-grown-gemstones");
     expect(urls).toContain("https://xingyuejewelry.com/es/lab-grown-gemstones");
     expect(urls).toContain("https://xingyuejewelry.com/faq");
+    expect(urls).toContain("https://xingyuejewelry.com/resources");
+    expect(urls).toContain(
+      "https://xingyuejewelry.com/resources/moissanite-vs-cubic-zirconia",
+    );
+    expect(urls).toContain(
+      "https://xingyuejewelry.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
+    );
+    expect(urls).not.toContain("https://xingyuejewelry.com/es/resources");
+    expect(urls).not.toContain("https://xingyuejewelry.com/ar/resources");
     expect(urls).not.toContain("https://xingyuejewelry.com/collections");
     expect(urls).not.toContain("https://xingyuejewelry.com/es/collections");
     expect(urls).not.toContain("https://xingyuejewelry.com/ar/collections");
@@ -143,6 +153,20 @@ describe("SEO foundations", () => {
     );
   });
 
+  it("does not add translation alternates to English-only Resources sitemap entries", () => {
+    const resources = sitemap().find(
+      (entry) => entry.url === "https://xingyuejewelry.com/resources",
+    );
+    const article = sitemap().find(
+      (entry) =>
+        entry.url ===
+        "https://xingyuejewelry.com/resources/moissanite-vs-cubic-zirconia",
+    );
+
+    expect(resources?.alternates).toBeUndefined();
+    expect(article?.alternates).toBeUndefined();
+  });
+
   it("keeps buyer-facing product metadata free of prototype labels", async () => {
     const { generateMetadata } = await import("./products/[slug]/page");
     const value = await generateMetadata({
@@ -182,7 +206,7 @@ describe("SEO foundations", () => {
   });
 
   it("publishes an AI-readable site summary for GEO discovery", () => {
-    const value = readFileSync(resolve("public/llms.txt"), "utf8");
+    const value = buildLlmsText();
 
     expect(value).toContain("https://xingyuejewelry.com/sitemap.xml");
     expect(value).toContain("https://xingyuejewelry.com/products");
@@ -190,5 +214,9 @@ describe("SEO foundations", () => {
     expect(value).toContain("/collections/moissanite-wholesale");
     expect(value).toContain("/contact");
     expect(value).toContain("https://xingyuejewelry.com/for-emerging-jewelry-brands");
+    expect(value).toContain("https://xingyuejewelry.com/resources");
+    expect(value).toContain(
+      "https://xingyuejewelry.com/resources/moissanite-vs-cubic-zirconia",
+    );
   });
 });

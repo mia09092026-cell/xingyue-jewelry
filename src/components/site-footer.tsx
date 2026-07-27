@@ -43,6 +43,12 @@ const defaultTargetAudienceLabels: Record<SupportedLocale, { emerging: string; b
   },
 };
 
+const resourceLabels: Record<SupportedLocale, string> = {
+  en: "Resources",
+  es: "Recursos (English)",
+  ar: "الموارد (بالإنجليزية)",
+};
+
 const defaultCollectionItems = collectionLandingPages.map((page) => ({
   label: page.eyebrow,
   href: `/collections/${page.slug}`,
@@ -65,6 +71,14 @@ export function SiteFooter({
     reachUs: "Reach Us",
   },
 }: SiteFooterProps = {}) {
+  const resolvedNavigationItems = navigationItems.some(
+    (item) => item.href === "/resources",
+  )
+    ? navigationItems
+    : [
+        ...navigationItems,
+        { label: resourceLabels[locale], href: "/resources" },
+      ];
   const resolvedTargetAudienceItems = targetAudienceItems ?? [
     {
       label: defaultTargetAudienceLabels[locale].emerging,
@@ -90,7 +104,7 @@ export function SiteFooter({
         <div>
           <h3 className="mb-4 text-sm text-[#e6cf96]">{sectionLabels.pages}</h3>
           <ul className="space-y-3 text-sm text-white/68">
-            {navigationItems.map((item) => (
+            {resolvedNavigationItems.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="transition hover:text-white">
                   {item.label}
