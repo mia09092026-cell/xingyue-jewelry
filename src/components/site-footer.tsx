@@ -55,7 +55,7 @@ export function SiteFooter({
   emailLabel = "Email",
   intro = "Jewelry manufacturing and supply chain support for emerging brands, boutique stores and independent designers.",
   inquiryLabel = "OEM / ODM Inquiry",
-  logoAlt = "Star & Moon Jewelry logo",
+  logoAlt = "XINGYUE Jewelry logo",
   navigationItems = navigation.slice(0, 4),
   startBrandItem,
   targetAudienceItems,

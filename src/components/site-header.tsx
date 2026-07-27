@@ -72,7 +72,7 @@ export function SiteHeader({
   inquiryHref = "/contact",
   inquiryLabel = "Inquiry",
   languagePath,
-  logoAlt = "Star & Moon Jewelry logo",
+  logoAlt = "XINGYUE Jewelry logo",
   navigationLabel = "Main navigation",
   navigationItems = navigation,
 }: SiteHeaderProps = {}) {
@@ -100,11 +100,11 @@ export function SiteHeader({
   return (
     <header className="sticky top-0 z-50 border-b border-[#e7ddc8] bg-[#fbfaf7]/92 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-5 py-4 sm:px-8">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex min-w-0 items-center justify-between gap-4">
           <Link href={homeHref} className="flex items-center text-[#17202a]">
             <BrandLogo alt={logoAlt} />
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             {languagePath ? (
               <LanguageSwitcher
                 currentLocale={currentLocale}
@@ -114,10 +114,10 @@ export function SiteHeader({
             ) : null}
             <Link
               href={inquiryHref}
-              className="inline-flex items-center gap-2 rounded-md bg-[#17202a] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#2a3542] sm:px-4"
+              className="inline-flex min-w-0 max-w-[calc(100vw-9.5rem)] items-center gap-2 rounded-md bg-[#17202a] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[#2a3542] sm:max-w-none sm:px-4"
             >
-              {inquiryLabel}
-              <Send aria-hidden="true" className="h-4 w-4" />
+              <span className="truncate">{inquiryLabel}</span>
+              <Send aria-hidden="true" className="h-4 w-4 shrink-0" />
             </Link>
             <button
               type="button"

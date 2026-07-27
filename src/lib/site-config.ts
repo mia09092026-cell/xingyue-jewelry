@@ -7,6 +7,6 @@ export const siteConfig = {
   url: configuredUrl.replace(/\/$/, ""),
   email: contactConfig.email,
   description:
-    "Lab-grown diamond and colored gemstone manufacturing support from Wuzhou for jewelry brands, retailers and designers.",
+    "Custom 925 sterling silver jewelry manufacturing with lab-created colored gemstones, moissanite, OEM/ODM sampling, quality control and private-label packaging.",
   socialImage: "/images/factory-workshop-overview.webp",
 };

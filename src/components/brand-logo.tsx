@@ -5,7 +5,7 @@ type BrandLogoProps = {
   variant?: "header" | "footer";
 };
 
-export function BrandLogo({ alt = "Star & Moon Jewelry logo", variant = "header" }: BrandLogoProps) {
+export function BrandLogo({ alt = "XINGYUE Jewelry logo", variant = "header" }: BrandLogoProps) {
   const isFooter = variant === "footer";
 
   return (
@@ -17,15 +17,15 @@ export function BrandLogo({ alt = "Star & Moon Jewelry logo", variant = "header"
       }
     >
       <Image
-        src="/logo-star-moon.png"
+        src="/xingyue-jewelry-logo.png"
         alt={alt}
         width={1254}
         height={1254}
         priority={!isFooter}
         className={
           isFooter
-            ? "h-20 w-20 rounded-md object-contain"
-            : "h-12 w-12 rounded-md object-contain sm:h-14 sm:w-14"
+            ? "h-28 w-28 rounded-md object-contain"
+            : "h-16 w-16 rounded-md object-contain sm:h-[4.5rem] sm:w-[4.5rem]"
         }
       />
     </span>

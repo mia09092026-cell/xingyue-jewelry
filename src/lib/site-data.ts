@@ -10,15 +10,15 @@ export const brand = {
   emailInquiryHref: defaultEmailHref,
   whatsapp: contactConfig.whatsapp,
   whatsappHref: contactConfig.whatsappHref,
-  tagline: "Moissanite Wholesale & Lab-Grown Diamond Jewelry",
+  tagline: "Custom 925 Sterling Silver Jewelry & OEM/ODM",
 };
 
 export const navigation = [
   { label: "Home", href: "/" },
   { label: "Products", href: "/products" },
-  { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
-  { label: "Custom Manufacturing", href: "/collections/custom-jewelry-manufacturing" },
-  { label: "Education", href: "/education" },
+  { label: "Gemstones", href: "/lab-grown-gemstones" },
+  { label: "Moissanite Wholesale", href: "/collections/moissanite-wholesale" },
+  { label: "OEM / ODM", href: "/collections/custom-jewelry-manufacturing" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

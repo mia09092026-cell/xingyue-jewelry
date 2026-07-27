@@ -38,22 +38,22 @@ const homeCases = [
   {
     locale: "en",
     renderPage: async () => <Home />,
-    eyebrow: "From Wuzhou to the World",
-    h1: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
+    eyebrow: "Custom Jewelry Manufacturing from Wuzhou",
+    h1: "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
     heroAlt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
   },
   {
     locale: "es",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "es" }) }),
-    eyebrow: "De Wuzhou al mundo",
-    h1: "Socio de fabricación de diamantes de laboratorio y gemas de color",
+    eyebrow: "Fabricación de joyería personalizada desde Wuzhou",
+    h1: "Fabricante de joyería personalizada en plata 925 y socio OEM/ODM",
     heroAlt: "Artesanos de joyería trabajando en bancos de engaste en un taller de Wuzhou",
   },
   {
     locale: "ar",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "ar" }) }),
-    eyebrow: "من ووتشو إلى العالم",
-    h1: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
+    eyebrow: "تصنيع مجوهرات مخصصة من ووتشو",
+    h1: "مصنّع مجوهرات فضة إسترلينية 925 حسب الطلب وشريك OEM/ODM",
     heroAlt: "حرفيو مجوهرات يعملون على طاولات الترصيع في ورشة في ووتشو",
   },
 ] as const;
@@ -75,6 +75,7 @@ describe("factory-positioned homepage visuals", () => {
         "src",
         expect.stringContaining("factory-workshop-overview.webp"),
       );
+      expect(hero?.querySelector("img")).toHaveAttribute("loading", "eager");
       expect(
         Array.from(container.querySelectorAll<HTMLElement>("[data-home-section]")).map(
           (section) => section.dataset.homeSection,
