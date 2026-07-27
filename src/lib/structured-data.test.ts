@@ -14,18 +14,32 @@ describe("structured data", () => {
 
     expect(schema["@type"]).toBe("Organization");
     expect(schema.url).toBe("https://xingyuejewelry.com");
-    expect(schema.logo).toBe("https://xingyuejewelry.com/logo-star-moon.png");
+    expect(schema.logo).toBe("https://xingyuejewelry.com/xingyue-jewelry-logo.png");
     expect(schema).not.toHaveProperty("aggregateRating");
     expect(schema).not.toHaveProperty("address");
   });
 
   it("localizes the organization description for Spanish and Arabic pages", () => {
     expect(organizationSchema("es").description).toContain(
-      "diamantes de laboratorio y gemas de color",
+      "joyería personalizada en plata 925",
     );
     expect(organizationSchema("ar").description).toContain(
-      "الألماس المزروع والأحجار الكريمة الملونة",
+      "مجوهرات فضة 925 حسب الطلب",
     );
+  });
+
+  it("orders the organization expertise around the approved 925-first hierarchy", () => {
+    expect(organizationSchema("en").knowsAbout).toEqual([
+      "Custom 925 sterling silver jewelry",
+      "Lab-created colored gemstone jewelry",
+      "Custom moissanite jewelry",
+      "Lab-grown diamond jewelry",
+      "Custom K-gold jewelry",
+      "OEM/ODM jewelry manufacturing",
+      "CAD and sample development",
+      "Jewelry quality control",
+      "Private-label packaging",
+    ]);
   });
 
   it("builds absolute breadcrumbs and item-list links", () => {

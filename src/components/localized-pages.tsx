@@ -302,6 +302,7 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
               src={content.home.heroImage.src}
               alt={content.home.heroImage.alt}
               fill
+              loading="eager"
               priority
               sizes="(min-width: 1024px) 46vw, 100vw"
               className="object-cover object-center"
@@ -351,17 +352,27 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {content.home.productCards.map((card) => (
-              <article key={card.title} className="overflow-hidden rounded-md border border-[#e3dbcb] bg-white/86 shadow-sm">
-                {card.image ? (
-                  <div className="relative aspect-[4/3] bg-[#f4efe3]">
-                    <Image src={card.image} alt={card.alt ?? card.title} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
+              <Link
+                key={card.title}
+                href={localizedPath(card.href, locale)}
+                className="group rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#17202a]"
+              >
+                <article className="h-full overflow-hidden rounded-md border border-[#e3dbcb] bg-white/86 shadow-sm transition group-hover:-translate-y-1 group-hover:shadow-md">
+                  {card.image ? (
+                    <div className="relative aspect-[4/3] bg-[#f4efe3]">
+                      <Image src={card.image} alt={card.alt ?? card.title} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
+                    </div>
+                  ) : null}
+                  <div className="p-6">
+                    <h3 className="font-serif text-2xl text-[#17202a]">{card.title}</h3>
+                    <p className="mt-4 leading-7 text-[#596575]">{card.copy}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#17202a]">
+                      {content.cta.viewProducts}
+                      <ArrowRight aria-hidden="true" className="h-4 w-4 transition group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+                    </span>
                   </div>
-                ) : null}
-                <div className="p-6">
-                  <h3 className="font-serif text-2xl text-[#17202a]">{card.title}</h3>
-                  <p className="mt-4 leading-7 text-[#596575]">{card.copy}</p>
-                </div>
-              </article>
+                </article>
+              </Link>
             ))}
           </div>
           <Link href={localizedPath("/products", locale)} className="mt-8 inline-flex items-center gap-2 rounded-md border border-[#17202a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#17202a] hover:text-white">

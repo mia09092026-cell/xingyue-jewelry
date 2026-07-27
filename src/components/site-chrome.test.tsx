@@ -5,22 +5,27 @@ import { SiteHeader } from "./site-header";
 import { getI18nContent } from "@/content/i18n";
 
 describe("site chrome brand identity", () => {
-  it("uses the Star & Moon brand logo in the header home link", () => {
+  it("uses the XINGYUE Jewelry brand logo in the header home link", () => {
     render(<SiteHeader />);
 
     expect(
-      screen.getByRole("link", { name: /Star & Moon Jewelry logo/i }),
+      screen.getByRole("link", { name: /XINGYUE Jewelry logo/i }),
     ).toHaveAttribute("href", "/");
-    expect(screen.getByRole("img", { name: /Star & Moon Jewelry logo/i })).toHaveAttribute(
+    const logo = screen.getByRole("img", { name: /XINGYUE Jewelry logo/i });
+    expect(logo).toHaveAttribute(
       "src",
-      expect.stringContaining("logo-star-moon.png"),
+      expect.stringContaining("xingyue-jewelry-logo.png"),
     );
+    expect(logo).toHaveClass("h-16", "w-16", "sm:h-[4.5rem]", "sm:w-[4.5rem]");
   });
 
-  it("uses the Star & Moon brand logo in the footer", () => {
+  it("uses the XINGYUE Jewelry brand logo in the footer", () => {
     render(<SiteFooter />);
 
-    expect(screen.getByRole("img", { name: /Star & Moon Jewelry logo/i })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /XINGYUE Jewelry logo/i })).toHaveClass(
+      "h-28",
+      "w-28",
+    );
   });
 
   it("shows the direct WhatsApp contact link in the footer", () => {
@@ -43,7 +48,7 @@ describe("site chrome brand identity", () => {
     const { unmount } = render(<SiteHeader />);
 
     expect(
-      screen.getByRole("link", { name: "Lab-Grown Gemstones" }),
+      screen.getByRole("link", { name: "Gemstones" }),
     ).toHaveAttribute("href", "/lab-grown-gemstones");
     unmount();
 
@@ -51,7 +56,7 @@ describe("site chrome brand identity", () => {
       expect.arrayContaining([
         expect.objectContaining({
           href: "/ar/lab-grown-gemstones",
-          label: "أحجار كريمة مزروعة",
+          label: "الأحجار الكريمة",
         }),
       ]),
     );
@@ -59,11 +64,51 @@ describe("site chrome brand identity", () => {
       expect.arrayContaining([
         expect.objectContaining({
           href: "/es/lab-grown-gemstones",
-          label: "Gemas de laboratorio",
+          label: "Gemas",
         }),
       ]),
     );
   });
+
+  it.each([
+    {
+      locale: "en",
+      items: [
+        ["Products", "/products"],
+        ["Gemstones", "/lab-grown-gemstones"],
+        ["Moissanite Wholesale", "/collections/moissanite-wholesale"],
+        ["OEM / ODM", "/collections/custom-jewelry-manufacturing"],
+      ],
+    },
+    {
+      locale: "es",
+      items: [
+        ["Productos", "/es/products"],
+        ["Gemas", "/es/lab-grown-gemstones"],
+        ["Moissanita al por mayor", "/es/collections/moissanite-wholesale"],
+        ["OEM / ODM", "/es/collections/custom-jewelry-manufacturing"],
+      ],
+    },
+    {
+      locale: "ar",
+      items: [
+        ["المنتجات", "/ar/products"],
+        ["الأحجار الكريمة", "/ar/lab-grown-gemstones"],
+        ["موسانيت بالجملة", "/ar/collections/moissanite-wholesale"],
+        ["OEM / ODM", "/ar/collections/custom-jewelry-manufacturing"],
+      ],
+    },
+  ] as const)(
+    "uses the approved 925-first product navigation order in $locale",
+    ({ locale, items }) => {
+      expect(
+        getI18nContent(locale).navigation.slice(1, 5).map(({ label, href }) => [
+          label,
+          href,
+        ]),
+      ).toEqual(items);
+    },
+  );
 
   it("uses the localized products landing page in every header and footer", () => {
     const header = render(<SiteHeader />);
@@ -117,6 +162,22 @@ describe("site chrome brand identity", () => {
         "page",
       );
     }
+  });
+
+  it("allows the mobile inquiry action to shrink without widening the viewport", () => {
+    render(
+      <SiteHeader
+        inquiryLabel="Discuss Your Custom Jewelry Project"
+        languagePath="/"
+      />,
+    );
+
+    const inquiryLink = screen.getByRole("link", {
+      name: "Discuss Your Custom Jewelry Project",
+    });
+
+    expect(inquiryLink).toHaveClass("min-w-0");
+    expect(inquiryLink.querySelector("span")).toHaveClass("truncate");
   });
 
   it.each([

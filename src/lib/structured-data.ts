@@ -7,9 +7,9 @@ type Product = (typeof products)[number];
 type LinkItem = { name: string; path: string };
 
 const organizationDescriptions: Record<SupportedLocale, string> = {
-  en: "Xingyue provides lab-grown diamond and colored gemstone manufacturing support from Wuzhou for jewelry brands, retailers and designers.",
-  es: "Xingyue ofrece apoyo de fabricación de diamantes de laboratorio y gemas de color desde Wuzhou para marcas, minoristas y diseñadores de joyería.",
-  ar: "تقدم Xingyue من ووتشو دعماً لتصنيع مجوهرات الألماس المزروع والأحجار الكريمة الملونة للعلامات التجارية وتجار التجزئة والمصممين.",
+  en: "Xingyue provides custom 925 sterling silver jewelry manufacturing and OEM/ODM coordination from Wuzhou for brands, wholesalers, retailers, designers and online sellers, with supporting lab-created colored gemstone, moissanite, lab-grown diamond and K-gold options.",
+  es: "Xingyue ofrece fabricación de joyería personalizada en plata 925 y coordinación OEM/ODM desde Wuzhou para marcas, mayoristas, minoristas, diseñadores y vendedores online, con opciones complementarias de gemas de color creadas en laboratorio, moissanita, diamantes de laboratorio y oro K.",
+  ar: "تقدم Xingyue من ووتشو تصنيع مجوهرات فضة 925 حسب الطلب وتنسيق OEM/ODM للعلامات التجارية وتجار الجملة والتجزئة والمصممين والبائعين عبر الإنترنت، مع خيارات مساندة من الأحجار الملونة المصنّعة مخبرياً والموسانيت والألماس المزروع وذهب K.",
 };
 
 export function organizationSchema(locale: SupportedLocale = "en") {
@@ -18,14 +18,18 @@ export function organizationSchema(locale: SupportedLocale = "en") {
     "@type": "Organization",
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: absoluteUrl("/logo-star-moon.png"),
+    logo: absoluteUrl("/xingyue-jewelry-logo.png"),
     email: siteConfig.email,
     description: organizationDescriptions[locale],
     knowsAbout: [
-      "Lab-grown diamonds",
-      "Colored gemstones",
-      "Custom jewelry manufacturing",
-      "Jewelry sampling",
+      "Custom 925 sterling silver jewelry",
+      "Lab-created colored gemstone jewelry",
+      "Custom moissanite jewelry",
+      "Lab-grown diamond jewelry",
+      "Custom K-gold jewelry",
+      "OEM/ODM jewelry manufacturing",
+      "CAD and sample development",
+      "Jewelry quality control",
       "Private-label packaging",
     ],
     contactPoint: {

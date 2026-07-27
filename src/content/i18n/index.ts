@@ -9,6 +9,7 @@ import { startBrandContentByLocale } from "./start-brand";
 type NavItem = { label: string; href: string };
 type SeoCopy = { title: string; description: string };
 type Card = { title: string; copy: string; image?: string; alt?: string };
+type HomeProductCard = Card & { href: string };
 type VisualCard = Card & { image: string; alt: string; imageClassName?: string };
 type GemstoneColorCard = { title: string; image: string; alt: string };
 type FaqItem = { question: string; answer: string };
@@ -89,7 +90,7 @@ export type StartBrandContent = {
 };
 export type ProductSummaryId =
   | "lab-grown-diamond-rings"
-  | "lab-grown-diamond-pendants"
+  | "lab-created-colored-gemstone-pendants"
   | "moissanite-earrings"
   | "custom-tennis-bracelets";
 
@@ -238,7 +239,7 @@ type LocaleContent = {
       manufacturingTitle: string;
       manufacturingCopy: string;
     };
-    productCards: Card[];
+    productCards: HomeProductCard[];
     manufacturingCards: Card[];
     faqs: FaqItem[];
   };
@@ -307,7 +308,9 @@ const productSummaryMedia: Record<
     image: "/images/xingyue-ring-sample.jpg",
     imageClassName: "scale-[1.22]",
   },
-  "lab-grown-diamond-pendants": { image: null },
+  "lab-created-colored-gemstone-pendants": {
+    image: "/images/lab-created-colored-gemstone-pendant.webp",
+  },
   "moissanite-earrings": { image: sharedImages.packaging },
   "custom-tennis-bracelets": { image: sharedImages.bracelet },
 };
@@ -319,8 +322,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     navigation: [
       { label: "Home", href: "/" },
       { label: "Products", href: "/products" },
-      { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
-      { label: "Wholesale", href: "/collections/lab-grown-diamond-jewelry" },
+      { label: "Gemstones", href: "/lab-grown-gemstones" },
+      { label: "Moissanite Wholesale", href: "/collections/moissanite-wholesale" },
       { label: "OEM / ODM", href: "/collections/custom-jewelry-manufacturing" },
       { label: "About Us", href: "/about" },
       { label: "FAQ", href: "/faq" },
@@ -342,8 +345,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       contactWhatsapp: "Contact Us on WhatsApp",
       sendDesign: "Send Your Design",
       headerStartProject: "Start Your Project",
-      discussCollection: "Request a Manufacturing Quote",
-      exploreCapabilities: "Explore Manufacturing Support",
+      discussCollection: "Discuss Your Custom Jewelry Project",
+      exploreCapabilities: "Explore Materials & Capabilities",
       viewProducts: "View Products",
       finalStartProject: "Start Your Jewelry Project",
       discussSamplesMoq: "Discuss Samples & MOQ",
@@ -352,15 +355,15 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner | Xingyue",
+        title: "Custom 925 Sterling Silver Jewelry Manufacturer | Xingyue",
         description:
-          "From Wuzhou to global markets, Xingyue coordinates lab-grown diamond, colored gemstone and custom jewelry manufacturing for B2B projects.",
+          "Custom 925 sterling silver jewelry manufacturing with lab-created colored gemstones, moissanite, OEM/ODM sampling, quality control and private-label packaging.",
       },
-      eyebrow: "From Wuzhou to the World",
-      title: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
-      subtitle: "Coordinate gemstone selection, jewelry sampling, production, finishing, packaging and shipment preparation through one B2B manufacturing workflow.",
+      eyebrow: "Custom Jewelry Manufacturing from Wuzhou",
+      title: "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
+      subtitle: "Develop custom sterling silver jewelry with lab-created colored gemstones, moissanite, lab-grown diamonds and project-specific K-gold options—from reference images and CAD development to sampling, production, quality control and private-label packaging.",
       copy:
-        "Xingyue Jewelry supports brands, retailers and designers with lab-grown diamonds, colored gemstones, custom settings and project-specific production planning from Wuzhou.",
+        "Xingyue Jewelry supports brands, wholesalers, retailers, designers and online sellers with coordinated custom jewelry development and supply-chain support from Wuzhou.",
       heroImage: {
         src: "/images/factory-workshop-overview.webp",
         alt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
@@ -406,9 +409,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         ],
       },
       stats: [
-        { value: "Flexible B2B", label: "Support for samples, launches and repeat orders" },
-        { value: "14K / 18K", label: "Gold jewelry customization by project" },
-        { value: "Coordinated Supply", label: "Sourcing, quality control, packaging and delivery planning" },
+        { value: "925 Silver / 14K / 18K", label: "Project-specific silver and K-gold options for custom jewelry collections" },
+        { value: "Project-Specific Sampling & MOQ", label: "Sample scope and order quantity reviewed for each product and project" },
+        { value: "OEM/ODM Coordination", label: "Reference review, CAD discussion, production, quality review and packaging" },
       ],
       audience: {
         eyebrow: "Built for Growing Jewelry Businesses",
@@ -506,7 +509,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         productsEyebrow: "Product Routes",
         productsTitle: "Products & Manufacturing Capabilities",
         productsCopy:
-          "Use these core categories to prepare a catalog request, sample order or bulk production brief.",
+          "Start with custom 925 sterling silver jewelry, then align gemstone, moissanite, lab-grown diamond or K-gold options with your collection brief.",
         manufacturingEyebrow: "Manufacturing",
         manufacturingTitle: "OEM / ODM customization without retail cart friction.",
         manufacturingCopy:
@@ -514,22 +517,39 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       },
       productCards: [
         {
-          title: "Lab Grown Diamond Jewelry",
-          copy: "Rings, pendants, earrings and bracelets with IGI / GIA certificate options by order details.",
-          image: sharedImages.labDiamond,
-          alt: "Lab grown diamond jewelry packaging for wholesale buyers",
-        },
-        {
-          title: "14K / 18K Gold Jewelry",
-          copy: "Custom gold settings for premium collections, private label launches and bulk order programs.",
-          image: sharedImages.bracelet,
-          alt: "Custom gold tennis bracelet for wholesale jewelry programs",
-        },
-        {
-          title: "Private Label Packaging",
-          copy: "Packaging, catalog planning and presentation details can be aligned with your brand channel.",
+          title: "Custom 925 Sterling Silver Jewelry",
+          copy: "Develop rings, earrings, pendants, bracelets and chains with project-specific settings, finishes, plating and private-label direction.",
+          href: "/collections/custom-jewelry-manufacturing",
           image: sharedImages.packaging,
-          alt: "Private label jewelry sample packaging",
+          alt: "Sterling silver jewelry samples prepared for custom collection review",
+        },
+        {
+          title: "Lab-Created Colored Gemstone Jewelry",
+          copy: "Review color, shape, cut, size and matching requirements for custom colored gemstone jewelry applications.",
+          href: "/collections/lab-grown-colored-gemstones",
+          image: sharedImages.loose,
+          alt: "Lab-created colored gemstones prepared for jewelry production",
+        },
+        {
+          title: "Custom Moissanite Jewelry",
+          copy: "Discuss loose stones, finished S925 styles, custom settings and repeat wholesale collection requirements.",
+          href: "/collections/moissanite-wholesale",
+          image: sharedImages.hero,
+          alt: "Loose moissanite stones for custom sterling silver jewelry",
+        },
+        {
+          title: "Lab-Grown Diamond Jewelry",
+          copy: "Add lab-grown diamond jewelry as an optional product program with specifications reviewed for the project.",
+          href: "/collections/lab-grown-diamond-jewelry",
+          image: sharedImages.labDiamond,
+          alt: "Lab-grown diamond jewelry packaging for wholesale buyers",
+        },
+        {
+          title: "Custom 925 Sterling Silver & K-Gold Jewelry",
+          copy: "Review project-specific S925 silver or 10K, 14K and 18K gold options for custom jewelry directions.",
+          href: "/collections/custom-jewelry-manufacturing",
+          image: sharedImages.bracelet,
+          alt: "Custom sterling silver and K-gold tennis bracelet options for a jewelry collection",
         },
       ],
       manufacturingCards: [
@@ -548,19 +568,34 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       ],
       faqs: [
         {
-          question: "Do you support wholesale lab grown diamond jewelry orders?",
+          question: "Do you manufacture custom 925 sterling silver jewelry?",
           answer:
-            "Yes. Xingyue Jewelry supports B2B wholesale, sample development and repeat bulk order programs for lab grown diamond jewelry.",
+            "Yes. Xingyue supports custom 925 sterling silver jewelry projects for brands, wholesalers, retailers, designers and online sellers. Product scope, specifications, sampling and production requirements are reviewed for each project.",
         },
         {
-          question: "Can you make OEM / ODM jewelry with private label packaging?",
+          question: "Can buyers send a reference image, sketch, or CAD direction?",
           answer:
-            "Yes. Buyers can discuss reference designs, 14K / 18K gold settings, custom packaging and private label presentation before quotation.",
+            "Yes. You can share reference images, sketches or an existing CAD direction. We review the design, material, stone, size, finish and branding requirements before confirming the sample scope.",
         },
         {
-          question: "Can diamonds be IGI or GIA certified?",
+          question: "Which gemstone directions can be discussed?",
           answer:
-            "Certificate options depend on stone size, quality, budget and order details. IGI / GIA options can be discussed during inquiry.",
+            "Projects can discuss lab-created colored gemstones, moissanite, lab-grown diamonds and other confirmed stone directions, including color, shape, cut, size and matching requirements.",
+        },
+        {
+          question: "How are samples and MOQ confirmed?",
+          answer:
+            "Sample scope, sample pricing, expected timing and MOQ are reviewed for each project according to product type, material, stone, process complexity, packaging and destination.",
+        },
+        {
+          question: "Can finish, plating, packaging, and private-label requirements be reviewed?",
+          answer:
+            "Yes. Finish, plating color, anti-tarnish direction, logo details, boxes, cards, labels and other private-label requirements can be reviewed as part of the project scope.",
+        },
+        {
+          question: "Are lab-grown diamond and K-gold options available?",
+          answer:
+            "Yes. Lab-grown diamond jewelry and project-specific 10K, 14K or 18K options can be discussed as supporting product directions when they fit the collection brief.",
         },
       ],
     },
@@ -588,13 +623,13 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           alt: "Lab grown diamond ring sample for B2B buyers",
         },
         {
-          id: "lab-grown-diamond-pendants",
-          name: "Lab Grown Diamond Pendants",
+          id: "lab-created-colored-gemstone-pendants",
+          name: "Lab-Created Colored Gemstone Pendant",
           category: "Necklaces",
-          material: "IGI / GIA certificate options by project",
-          copy: "Pendant and chain programs for boutiques, online brands and gift collections.",
-          ...productSummaryMedia["lab-grown-diamond-pendants"],
-          alt: null,
+          material: "S925 silver or custom K-gold settings",
+          copy: "Blue lab-created colored gemstone pendant shown with matching earrings for coordinated wholesale collections.",
+          ...productSummaryMedia["lab-created-colored-gemstone-pendants"],
+          alt: "Blue lab-created colored gemstone pendant and matching earrings",
         },
         {
           id: "moissanite-earrings",
@@ -609,7 +644,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           id: "custom-tennis-bracelets",
           name: "Custom Tennis Bracelets",
           category: "Bracelets",
-          material: "10K / 14K / 18K gold custom order",
+          material: "S925 silver / 10K / 14K / 18K gold custom order",
           copy: "Stone layout, clasp, length and packaging can be developed for your market.",
           ...productSummaryMedia["custom-tennis-bracelets"],
           alt: "Custom tennis bracelet for private label jewelry",
@@ -893,8 +928,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     navigation: [
       { label: "الرئيسية", href: "/ar" },
       { label: "المنتجات", href: "/ar/products" },
-      { label: "أحجار كريمة مزروعة", href: "/ar/lab-grown-gemstones" },
-      { label: "الجملة", href: "/ar/collections/lab-grown-diamond-jewelry" },
+      { label: "الأحجار الكريمة", href: "/ar/lab-grown-gemstones" },
+      { label: "موسانيت بالجملة", href: "/ar/collections/moissanite-wholesale" },
       { label: "OEM / ODM", href: "/ar/collections/custom-jewelry-manufacturing" },
       { label: "من نحن", href: "/ar/about" },
       { label: "الأسئلة الشائعة", href: "/ar/faq" },
@@ -916,8 +951,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       contactWhatsapp: "تواصل معنا عبر واتساب",
       sendDesign: "أرسل تصميمك",
       headerStartProject: "ابدأ مشروعك",
-      discussCollection: "اطلب عرض سعر للتصنيع",
-      exploreCapabilities: "استكشف دعم التصنيع",
+      discussCollection: "ناقش مشروع مجوهراتك",
+      exploreCapabilities: "استكشف المواد وقدرات التصنيع",
       viewProducts: "عرض المنتجات",
       finalStartProject: "ابدأ مشروع مجوهراتك",
       discussSamplesMoq: "ناقش العينات والحد الأدنى للطلب",
@@ -926,15 +961,15 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "شريك تصنيع الألماس المزروع والأحجار الكريمة الملونة | Xingyue",
+        title: "مصنّع مجوهرات فضة 925 حسب الطلب | Xingyue",
         description:
-          "من ووتشو إلى الأسواق العالمية، تنسق Xingyue تصنيع مجوهرات الألماس المزروع والأحجار الكريمة الملونة والمشاريع المخصصة للمشترين بين الشركات.",
+          "تصنيع OEM/ODM لمجوهرات فضة 925 حسب الطلب مع أحجار ملونة مصنّعة مخبرياً وموسانيت وعينات وفحص جودة وتغليف بعلامة خاصة.",
       },
-      eyebrow: "من ووتشو إلى العالم",
-      title: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
-      subtitle: "نسّق اختيار الأحجار وتطوير العينات والإنتاج والتشطيب والتغليف والاستعداد للشحن ضمن مسار تصنيع واحد للمشترين بين الشركات.",
+      eyebrow: "تصنيع مجوهرات مخصصة من ووتشو",
+      title: "مصنّع مجوهرات فضة إسترلينية 925 حسب الطلب وشريك OEM/ODM",
+      subtitle: "طوّر مجوهرات مخصصة من فضة 925 مع أحجار ملونة مصنّعة مخبرياً، وموسانيت، وألماس مزروع، وخيارات ذهب K حسب المشروع، بدءاً من الصورة المرجعية وتطوير CAD وصولاً إلى العينة والإنتاج وفحص الجودة والتغليف بعلامة خاصة.",
       copy:
-        "تدعم Xingyue Jewelry العلامات التجارية وتجار التجزئة والمصممين عبر الألماس المزروع والأحجار الكريمة الملونة والترصيعات المخصصة وتخطيط الإنتاج حسب المشروع من ووتشو.",
+        "تدعم Xingyue Jewelry العلامات التجارية وتجار الجملة والتجزئة والمصممين والبائعين عبر الإنترنت من خلال تطوير المجوهرات المخصصة وتنسيق سلسلة التوريد من ووتشو.",
       heroImage: {
         src: "/images/factory-workshop-overview.webp",
         alt: "حرفيو مجوهرات يعملون على طاولات الترصيع في ورشة في ووتشو",
@@ -980,9 +1015,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         ],
       },
       stats: [
-        { value: "دعم B2B مرن", label: "للعينات والإطلاق والطلبات المتكررة" },
-        { value: "14K / 18K", label: "تخصيص ذهب حسب المشروع" },
-        { value: "توريد منسق", label: "تنسيق المصادر والجودة والتغليف والتسليم" },
+        { value: "فضة 925 / ذهب 14K / 18K", label: "خيارات فضة وذهب K حسب المشروع لمجموعات المجوهرات المخصصة" },
+        { value: "العينات والحد الأدنى حسب المشروع", label: "تُراجع العينة والكمية المناسبة لكل منتج ومشروع" },
+        { value: "تنسيق OEM/ODM", label: "مراجعة المراجع وCAD والإنتاج والجودة والتغليف" },
       ],
       audience: {
         eyebrow: "دعم مخصص لمشاريع المجوهرات المتنامية",
@@ -1070,29 +1105,46 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sections: {
         productsEyebrow: "مسارات المنتجات",
         productsTitle: "المنتجات وقدرات التصنيع",
-        productsCopy: "استخدم هذه الفئات لتجهيز طلب كتالوج أو عينة أو إنتاج بالجملة.",
+        productsCopy: "ابدأ بمجوهرات فضة 925 المخصصة، ثم نسّق الأحجار أو الموسانيت أو الألماس المزروع أو خيارات ذهب K مع موجز مجموعتك.",
         manufacturingEyebrow: "التصنيع",
         manufacturingTitle: "تخصيص OEM / ODM بدون تحويل الموقع إلى متجر تجزئة.",
         manufacturingCopy: "العملية مخصصة للمشترين الذين يحتاجون عرض سعر وMOQ وعينات وخطة إنتاج.",
       },
       productCards: [
         {
-          title: "مجوهرات الألماس المزروع",
-          copy: "خواتم، قلادات، أقراط وأساور مع خيارات شهادات IGI / GIA حسب تفاصيل الطلب.",
-          image: sharedImages.labDiamond,
-          alt: "تغليف مجوهرات ألماس مزروع لعملاء الجملة",
-        },
-        {
-          title: "مجوهرات ذهب 14K / 18K",
-          copy: "حوامل ذهب مخصّصة للمجموعات الفاخرة وإطلاق العلامات الخاصة والطلبات الكبيرة.",
-          image: sharedImages.bracelet,
-          alt: "سوار تنس ذهبي مخصص لطلبات الجملة",
-        },
-        {
-          title: "تغليف علامة خاصة",
-          copy: "يمكن تنسيق العلب والبطاقات والكتالوج مع قناة البيع الخاصة بعلامتك.",
+          title: "مجوهرات فضة 925 مخصصة",
+          copy: "طوّر خواتم وأقراطاً وقلادات وأساور وسلاسل مع ترصيعات وتشطيبات وطلاءات وتفاصيل علامة خاصة حسب المشروع.",
+          href: "/collections/custom-jewelry-manufacturing",
           image: sharedImages.packaging,
-          alt: "تغليف عينات مجوهرات بعلامة خاصة",
+          alt: "عينات مجوهرات فضة 925 مجهزة لمراجعة مجموعة مخصصة",
+        },
+        {
+          title: "مجوهرات بأحجار ملونة مصنّعة مخبرياً",
+          copy: "راجع اللون والشكل والقصة والحجم ومتطلبات المطابقة لتطبيقات المجوهرات المخصصة.",
+          href: "/collections/lab-grown-colored-gemstones",
+          image: sharedImages.loose,
+          alt: "أحجار ملونة مصنّعة مخبرياً مجهزة لإنتاج المجوهرات",
+        },
+        {
+          title: "مجوهرات موسانيت مخصصة",
+          copy: "ناقش الأحجار المفردة وتصاميم فضة 925 الجاهزة والترصيعات المخصصة ومتطلبات المجموعات المتكررة.",
+          href: "/collections/moissanite-wholesale",
+          image: sharedImages.hero,
+          alt: "أحجار موسانيت مفردة لمجوهرات فضة 925 مخصصة",
+        },
+        {
+          title: "مجوهرات بألماس مزروع",
+          copy: "أضف مجوهرات الألماس المزروع كاتجاه اختياري مع مراجعة المواصفات حسب المشروع.",
+          href: "/collections/lab-grown-diamond-jewelry",
+          image: sharedImages.labDiamond,
+          alt: "تغليف مجوهرات بألماس مزروع لعملاء الجملة",
+        },
+        {
+          title: "مجوهرات فضة 925 وذهب K مخصصة",
+          copy: "راجع خيارات فضة S925 أو ذهب 10K و14K و18K حسب المشروع لاتجاهات المجوهرات المخصصة.",
+          href: "/collections/custom-jewelry-manufacturing",
+          image: sharedImages.bracelet,
+          alt: "خيارات سوار تنس مخصص من فضة 925 وذهب K لمجموعة مجوهرات",
         },
       ],
       manufacturingCards: [
@@ -1102,16 +1154,28 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       ],
       faqs: [
         {
-          question: "هل تدعمون طلبات مجوهرات الألماس المزروع بالجملة؟",
-          answer: "نعم. ندعم الجملة، تطوير العينات وبرامج الطلبات المتكررة لمجوهرات الألماس المزروع.",
+          question: "هل تصنّعون مجوهرات فضة 925 حسب الطلب؟",
+          answer: "نعم. تدعم Xingyue مشاريع مجوهرات فضة 925 المخصصة للعلامات التجارية وتجار الجملة والتجزئة والمصممين والبائعين عبر الإنترنت. نراجع نطاق المنتج والمواصفات والعينات ومتطلبات الإنتاج لكل مشروع.",
         },
         {
-          question: "هل يمكن تنفيذ OEM / ODM مع تغليف بعلامة خاصة؟",
-          answer: "نعم. يمكن مناقشة التصميمات المرجعية، ذهب 14K / 18K، التغليف والعرض الخاص قبل التسعير.",
+          question: "هل يمكن للمشتري إرسال صورة مرجعية أو رسم أو اتجاه CAD؟",
+          answer: "نعم. يمكنك مشاركة صور مرجعية أو رسومات أو اتجاه CAD قائم. نراجع التصميم والخامة والحجر والمقاس والتشطيب ومتطلبات العلامة قبل تأكيد نطاق العينة.",
         },
         {
-          question: "هل يمكن توفير شهادات IGI أو GIA؟",
-          answer: "تعتمد الشهادات على حجم الحجر والجودة والميزانية وتفاصيل الطلب، ويمكن تأكيدها أثناء الاستفسار.",
+          question: "ما اتجاهات الأحجار التي يمكن مناقشتها؟",
+          answer: "يمكن مناقشة الأحجار الملونة المصنّعة مخبرياً والموسانيت والألماس المزروع وخيارات أخرى مؤكدة، بما في ذلك اللون والشكل والقصة والحجم ومتطلبات المطابقة.",
+        },
+        {
+          question: "كيف تُحدَّد العينات والحد الأدنى للطلب؟",
+          answer: "يُراجع نطاق العينة وسعرها ومدتها المتوقعة والحد الأدنى للطلب حسب المشروع وفق نوع المنتج والخامة والحجر وتعقيد التنفيذ والتغليف والوجهة.",
+        },
+        {
+          question: "هل يمكن مراجعة التشطيب والطلاء والتغليف ومتطلبات العلامة الخاصة؟",
+          answer: "نعم. يمكن مراجعة التشطيب ولون الطلاء ومعالجة مقاومة الأكسدة وتفاصيل الشعار والعلب والبطاقات والملصقات وغيرها ضمن نطاق المشروع.",
+        },
+        {
+          question: "هل تتوفر خيارات الألماس المزروع وذهب K؟",
+          answer: "نعم. يمكن مناقشة مجوهرات الألماس المزروع وخيارات 10K أو 14K أو 18K كاتجاهات مساندة عندما تناسب موجز المجموعة.",
         },
       ],
     },
@@ -1129,9 +1193,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sectionCopy: "هذا ليس متجر تجزئة. أرسل التصميم والMOQ والمادة والتغليف المطلوب لبدء نقاش الجملة.",
       cards: [
         { id: "lab-grown-diamond-rings", name: "خواتم ألماس مزروع", category: "خواتم", material: "ذهب 14K / 18K، فضة S925 وخيارات شهادات", copy: "تصاميم سوليتير وهالو ومجموعات مستوحاة من الزفاف.", ...productSummaryMedia["lab-grown-diamond-rings"], alt: "خاتم ألماس مزروع لعميل B2B" },
-        { id: "lab-grown-diamond-pendants", name: "قلادات ألماس مزروع", category: "قلادات", material: "خيارات شهادات IGI / GIA حسب المشروع", copy: "برامج قلادات وسلاسل للبوتيكات والعلامات الإلكترونية والهدايا.", ...productSummaryMedia["lab-grown-diamond-pendants"], alt: null },
+        { id: "lab-created-colored-gemstone-pendants", name: "قلادة بحجر ملون مصنّع مخبرياً", category: "قلادات", material: "فضة S925 أو حوامل ذهب K مخصصة", copy: "قلادة بحجر أزرق مصنّع مخبرياً مع أقراط متطابقة لمجموعات الجملة المنسّقة.", ...productSummaryMedia["lab-created-colored-gemstone-pendants"], alt: "قلادة وأقراط متطابقة بأحجار زرقاء مصنّعة مخبرياً" },
         { id: "moissanite-earrings", name: "أقراط موسانيت", category: "أقراط", material: "فضة S925 أو حوامل ذهب K مخصّصة", copy: "تصاميم متكررة الطلب ومناسبة للهدايا ومجموعات الجملة.", ...productSummaryMedia["moissanite-earrings"], alt: "أقراط موسانيت في تغليف عينة" },
-        { id: "custom-tennis-bracelets", name: "أساور تنس مخصصة", category: "أساور", material: "طلب مخصص بذهب 10K / 14K / 18K", copy: "تطوير ترتيب الأحجار والقفل والطول والتغليف حسب سوقك.", ...productSummaryMedia["custom-tennis-bracelets"], alt: "سوار تنس مخصص لعلامة خاصة" },
+        { id: "custom-tennis-bracelets", name: "أساور تنس مخصصة", category: "أساور", material: "طلب مخصص بفضة S925 أو ذهب 10K / 14K / 18K", copy: "تطوير ترتيب الأحجار والقفل والطول والتغليف حسب سوقك.", ...productSummaryMedia["custom-tennis-bracelets"], alt: "سوار تنس مخصص لعلامة خاصة" },
       ],
       proofTitle: "ما الذي يؤكده المشترون قبل الطلب؟",
       proofCopy: "نؤكد MOQ، الشهادات، مطابقة الأحجار، نقاء المعدن، وقت الإنتاج وخطة الشحن قبل الطلب الكبير.",
@@ -1224,8 +1288,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     navigation: [
       { label: "Inicio", href: "/es" },
       { label: "Productos", href: "/es/products" },
-      { label: "Gemas de laboratorio", href: "/es/lab-grown-gemstones" },
-      { label: "Mayorista", href: "/es/collections/lab-grown-diamond-jewelry" },
+      { label: "Gemas", href: "/es/lab-grown-gemstones" },
+      { label: "Moissanita al por mayor", href: "/es/collections/moissanite-wholesale" },
       { label: "OEM / ODM", href: "/es/collections/custom-jewelry-manufacturing" },
       { label: "Sobre nosotros", href: "/es/about" },
       { label: "FAQ", href: "/es/faq" },
@@ -1247,8 +1311,8 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       contactWhatsapp: "Contactar por WhatsApp",
       sendDesign: "Enviar tu diseño",
       headerStartProject: "Inicia tu proyecto",
-      discussCollection: "Solicitar una cotización de fabricación",
-      exploreCapabilities: "Explorar apoyo de fabricación",
+      discussCollection: "Habla de tu proyecto de joyería",
+      exploreCapabilities: "Explora materiales y capacidades",
       viewProducts: "Ver productos",
       finalStartProject: "Inicia tu proyecto de joyería",
       discussSamplesMoq: "Consultar muestras y MOQ",
@@ -1257,15 +1321,15 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "Socio de fabricación de diamantes de laboratorio y gemas de color | Xingyue",
+        title: "Fabricante de joyería personalizada en plata 925 | Xingyue",
         description:
-          "Desde Wuzhou hacia mercados internacionales, Xingyue coordina la fabricación B2B de diamantes de laboratorio, gemas de color y joyería personalizada.",
+          "Fabricación OEM/ODM de joyería personalizada en plata 925 con gemas de color creadas en laboratorio, moissanita, muestras, control de calidad y empaque privado.",
       },
-      eyebrow: "De Wuzhou al mundo",
-      title: "Socio de fabricación de diamantes de laboratorio y gemas de color",
-      subtitle: "Coordina la selección de gemas, el muestreo, la producción, el acabado, el empaque y la preparación del envío mediante un solo flujo de fabricación B2B.",
+      eyebrow: "Fabricación de joyería personalizada desde Wuzhou",
+      title: "Fabricante de joyería personalizada en plata 925 y socio OEM/ODM",
+      subtitle: "Desarrolla joyería personalizada en plata 925 con gemas de color creadas en laboratorio, moissanita, diamantes de laboratorio y opciones de oro K según el proyecto, desde la imagen de referencia y el desarrollo CAD hasta la muestra, la producción, el control de calidad y el empaque de marca privada.",
       copy:
-        "Xingyue Jewelry apoya a marcas, minoristas y diseñadores con diamantes de laboratorio, gemas de color, monturas personalizadas y planificación de producción por proyecto desde Wuzhou.",
+        "Xingyue Jewelry apoya a marcas, mayoristas, minoristas, diseñadores y vendedores online con desarrollo coordinado de joyería personalizada y soporte de cadena de suministro desde Wuzhou.",
       heroImage: {
         src: "/images/factory-workshop-overview.webp",
         alt: "Artesanos de joyería trabajando en bancos de engaste en un taller de Wuzhou",
@@ -1311,9 +1375,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         ],
       },
       stats: [
-        { value: "B2B flexible", label: "Apoyo para muestras, lanzamientos y pedidos recurrentes" },
-        { value: "14K / 18K", label: "Personalización en oro por proyecto" },
-        { value: "Suministro coordinado", label: "Compras, calidad, empaque y entrega" },
+        { value: "Plata 925 / oro 14K / 18K", label: "Opciones de plata y oro K según el proyecto para colecciones personalizadas" },
+        { value: "Muestras y MOQ según el proyecto", label: "El alcance de la muestra y la cantidad se revisan para cada producto y proyecto" },
+        { value: "Coordinación OEM/ODM", label: "Revisión de referencias, CAD, producción, calidad y empaque" },
       ],
       audience: {
         eyebrow: "Pensado para negocios de joyería en crecimiento",
@@ -1401,15 +1465,17 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sections: {
         productsEyebrow: "Rutas de producto",
         productsTitle: "Productos y capacidades de fabricación",
-        productsCopy: "Usa estas categorías para pedir catálogo, muestras o producción a granel.",
+        productsCopy: "Empieza con joyería personalizada en plata 925 y alinea las opciones de gemas, moissanita, diamantes de laboratorio u oro K con el brief de tu colección.",
         manufacturingEyebrow: "Fabricación",
         manufacturingTitle: "Personalización OEM / ODM sin convertir el sitio en tienda minorista.",
         manufacturingCopy: "El flujo está pensado para cotización, MOQ, muestras y planificación de producción.",
       },
       productCards: [
-        { title: "Joyería con diamantes de laboratorio", copy: "Anillos, colgantes, pendientes y pulseras con opciones IGI / GIA según el pedido.", image: sharedImages.labDiamond, alt: "Empaque para joyería con diamantes de laboratorio" },
-        { title: "Joyería en oro 14K / 18K", copy: "Monturas de oro personalizadas para colecciones premium, marca privada y pedidos a granel.", image: sharedImages.bracelet, alt: "Pulsera de tenis en oro personalizada" },
-        { title: "Empaque de marca privada", copy: "Cajas, tarjetas y presentación de catálogo alineadas con tu canal de venta.", image: sharedImages.packaging, alt: "Empaque de muestras de joyería de marca privada" },
+        { title: "Joyería personalizada en plata 925", copy: "Desarrolla anillos, pendientes, colgantes, pulseras y cadenas con monturas, acabados, baños y presentación de marca según el proyecto.", href: "/collections/custom-jewelry-manufacturing", image: sharedImages.packaging, alt: "Muestras de joyería en plata 925 preparadas para revisar una colección personalizada" },
+        { title: "Joyería con gemas de color creadas en laboratorio", copy: "Revisa color, forma, talla, tamaño y requisitos de uniformidad para aplicaciones de joyería personalizada.", href: "/collections/lab-grown-colored-gemstones", image: sharedImages.loose, alt: "Gemas de color creadas en laboratorio preparadas para producción de joyería" },
+        { title: "Joyería personalizada con moissanita", copy: "Consulta piedras sueltas, estilos terminados en plata 925, monturas personalizadas y requisitos de colecciones mayoristas recurrentes.", href: "/collections/moissanite-wholesale", image: sharedImages.hero, alt: "Piedras de moissanita sueltas para joyería personalizada en plata 925" },
+        { title: "Joyería con diamantes de laboratorio", copy: "Añade joyería con diamantes de laboratorio como una línea opcional con especificaciones revisadas para el proyecto.", href: "/collections/lab-grown-diamond-jewelry", image: sharedImages.labDiamond, alt: "Empaque de joyería con diamantes de laboratorio para compradores mayoristas" },
+        { title: "Joyería personalizada en plata 925 y oro K", copy: "Revisa opciones de plata S925 u oro 10K, 14K y 18K según el proyecto para líneas de joyería personalizada.", href: "/collections/custom-jewelry-manufacturing", image: sharedImages.bracelet, alt: "Opciones de pulsera tennis personalizada en plata 925 y oro K para una colección de joyería" },
       ],
       manufacturingCards: [
         { title: "MOQ y pedidos a granel", copy: "Comparte cantidad, metal, tamaño de piedra y ciudad de entrega para una cotización realista." },
@@ -1417,9 +1483,12 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         { title: "Envío mundial", copy: "Producción, control de calidad, empaque de exportación y tiempos se revisan antes de confirmar." },
       ],
       faqs: [
-        { question: "¿Trabajan joyería con diamantes de laboratorio al por mayor?", answer: "Sí. Apoyamos desarrollo de muestras y pedidos recurrentes para compradores B2B." },
-        { question: "¿Pueden hacer OEM / ODM con empaque de marca privada?", answer: "Sí. Podemos discutir diseños, oro 14K / 18K, empaque y presentación antes de cotizar." },
-        { question: "¿Los diamantes pueden tener certificado IGI o GIA?", answer: "Las opciones dependen de tamaño, calidad, presupuesto y detalles del pedido." },
+        { question: "¿Fabrican joyería personalizada en plata 925?", answer: "Sí. Xingyue apoya proyectos de joyería personalizada en plata 925 para marcas, mayoristas, minoristas, diseñadores y vendedores online. Revisamos el alcance, las especificaciones, las muestras y los requisitos de producción de cada proyecto." },
+        { question: "¿Pueden los compradores enviar una imagen, un boceto o una dirección CAD?", answer: "Sí. Puedes compartir imágenes de referencia, bocetos o una dirección CAD existente. Revisamos diseño, material, piedra, medidas, acabado y requisitos de marca antes de confirmar la muestra." },
+        { question: "¿Qué opciones de gemas se pueden consultar?", answer: "Se pueden revisar gemas de color creadas en laboratorio, moissanita, diamantes de laboratorio y otras opciones confirmadas, incluidos color, forma, talla, tamaño y uniformidad." },
+        { question: "¿Cómo se confirman las muestras y el MOQ?", answer: "El alcance, el precio y el plazo previsto de la muestra, junto con el MOQ, se revisan para cada proyecto según el producto, material, piedra, proceso, empaque y destino." },
+        { question: "¿Se pueden revisar el acabado, el baño, el empaque y la marca privada?", answer: "Sí. Podemos revisar acabado, color del baño, tratamiento antideslustre, logotipo, cajas, tarjetas, etiquetas y otros requisitos de marca privada dentro del alcance del proyecto." },
+        { question: "¿Hay opciones de diamantes de laboratorio y oro K?", answer: "Sí. La joyería con diamantes de laboratorio y las opciones de 10K, 14K o 18K se pueden considerar como líneas complementarias cuando encajan con el brief de la colección." },
       ],
     },
     products: {
@@ -1431,9 +1500,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       sectionCopy: "No es un carrito minorista. Envíanos estilo, MOQ, material y empaque para iniciar la cotización.",
       cards: [
         { id: "lab-grown-diamond-rings", name: "Anillos con diamantes de laboratorio", category: "Anillos", material: "Oro 14K / 18K, plata S925 y opciones de certificado", copy: "Solitarios, halos y estilos inspirados en bridal para colecciones mayoristas.", ...productSummaryMedia["lab-grown-diamond-rings"], alt: "Anillo con diamante de laboratorio para compradores B2B" },
-        { id: "lab-grown-diamond-pendants", name: "Colgantes con diamantes de laboratorio", category: "Collares", material: "Opciones IGI / GIA según el proyecto", copy: "Programas de colgantes y cadenas para boutiques, marcas online y regalos.", ...productSummaryMedia["lab-grown-diamond-pendants"], alt: null },
+        { id: "lab-created-colored-gemstone-pendants", name: "Colgante con gema de color creada en laboratorio", category: "Collares", material: "Plata S925 o monturas de oro K personalizadas", copy: "Colgante con gema azul creada en laboratorio, mostrado con pendientes a juego para colecciones mayoristas coordinadas.", ...productSummaryMedia["lab-created-colored-gemstone-pendants"], alt: "Colgante y pendientes a juego con gemas azules creadas en laboratorio" },
         { id: "moissanite-earrings", name: "Pendientes de moissanita", category: "Pendientes", material: "Plata S925 o monturas de oro K personalizadas", copy: "Estilos de pedido recurrente para surtidos mayoristas y regalos.", ...productSummaryMedia["moissanite-earrings"], alt: "Pendientes de moissanita en empaque de muestra" },
-        { id: "custom-tennis-bracelets", name: "Pulseras de tenis personalizadas", category: "Pulseras", material: "Oro 10K / 14K / 18K bajo pedido", copy: "Diseño de piedras, cierre, largo y empaque según tu mercado.", ...productSummaryMedia["custom-tennis-bracelets"], alt: "Pulsera de tenis personalizada para marca privada" },
+        { id: "custom-tennis-bracelets", name: "Pulseras de tenis personalizadas", category: "Pulseras", material: "Plata S925 u oro 10K / 14K / 18K bajo pedido", copy: "Diseño de piedras, cierre, largo y empaque según tu mercado.", ...productSummaryMedia["custom-tennis-bracelets"], alt: "Pulsera de tenis personalizada para marca privada" },
       ],
       proofTitle: "Qué suelen confirmar los compradores antes del pedido.",
       proofCopy: "MOQ, certificados, selección de piedras, pureza del metal, tiempo de producción y envío se confirman antes del pedido a granel.",

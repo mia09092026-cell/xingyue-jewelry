@@ -42,7 +42,7 @@ expect(
   screen.getByRole("link", { name: "Discuss Your Custom Jewelry Project" }),
 ).toHaveAttribute(
   "href",
-  "/contact?locale=en&source=homepage-hero&interest=other&contactMethod=form",
+  "/contact?locale=en&source=homepage-hero&contactMethod=form&interest=other",
 );
 ```
 

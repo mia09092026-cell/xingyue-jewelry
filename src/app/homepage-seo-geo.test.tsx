@@ -15,24 +15,30 @@ const homeCases = [
     locale: "en",
     canonical: "https://xingyuejewelry.com/",
     ogLocale: "en_US",
-    title: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner | Xingyue",
-    serviceName: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
+    title: "Custom 925 Sterling Silver Jewelry Manufacturer | Xingyue",
+    description:
+      "Custom 925 sterling silver jewelry manufacturing with lab-created colored gemstones, moissanite, OEM/ODM sampling, quality control and private-label packaging.",
+    serviceName: "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
     renderPage: async () => <Home />,
   },
   {
     locale: "es",
     canonical: "https://xingyuejewelry.com/es",
     ogLocale: "es_ES",
-    title: "Socio de fabricación de diamantes de laboratorio y gemas de color | Xingyue",
-    serviceName: "Socio de fabricación de diamantes de laboratorio y gemas de color",
+    title: "Fabricante de joyería personalizada en plata 925 | Xingyue",
+    description:
+      "Fabricación OEM/ODM de joyería personalizada en plata 925 con gemas de color creadas en laboratorio, moissanita, muestras, control de calidad y empaque privado.",
+    serviceName: "Fabricante de joyería personalizada en plata 925 y socio OEM/ODM",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "es" }) }),
   },
   {
     locale: "ar",
     canonical: "https://xingyuejewelry.com/ar",
     ogLocale: "ar",
-    title: "شريك تصنيع الألماس المزروع والأحجار الكريمة الملونة | Xingyue",
-    serviceName: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
+    title: "مصنّع مجوهرات فضة 925 حسب الطلب | Xingyue",
+    description:
+      "تصنيع OEM/ODM لمجوهرات فضة 925 حسب الطلب مع أحجار ملونة مصنّعة مخبرياً وموسانيت وعينات وفحص جودة وتغليف بعلامة خاصة.",
+    serviceName: "مصنّع مجوهرات فضة إسترلينية 925 حسب الطلب وشريك OEM/ODM",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "ar" }) }),
   },
 ] as const;
@@ -48,7 +54,7 @@ afterEach(cleanup);
 describe("multilingual homepage SEO and GEO contracts", () => {
   it.each(homeCases)(
     "publishes localized canonical, hreflang, social metadata and factory imagery in $locale",
-    async ({ locale, canonical, ogLocale, title }) => {
+    async ({ locale, canonical, description, ogLocale, title }) => {
       const metadata =
         locale === "en"
           ? englishHomeMetadata
@@ -57,6 +63,7 @@ describe("multilingual homepage SEO and GEO contracts", () => {
             });
 
       expect(metadata.title).toBe(title);
+      expect(metadata.description).toBe(description);
       expect(metadata.alternates?.canonical).toBe(canonical);
       expect(metadata.alternates?.languages).toEqual({
         en: "https://xingyuejewelry.com/",
@@ -96,7 +103,7 @@ describe("multilingual homepage SEO and GEO contracts", () => {
         },
       });
       expect(String(service?.description)).not.toHaveLength(0);
-      expect(faq?.mainEntity).toHaveLength(3);
+      expect(faq?.mainEntity).toHaveLength(6);
     },
   );
 
@@ -105,15 +112,19 @@ describe("multilingual homepage SEO and GEO contracts", () => {
     const website = websiteSchema();
 
     expect(organization.description).toContain(
-      "lab-grown diamond and colored gemstone manufacturing",
+      "custom 925 sterling silver jewelry",
     );
-    expect(organization.knowsAbout).toEqual(
-      expect.arrayContaining([
-        "Lab-grown diamonds",
-        "Colored gemstones",
-        "Custom jewelry manufacturing",
-      ]),
-    );
+    expect(organization.knowsAbout).toEqual([
+      "Custom 925 sterling silver jewelry",
+      "Lab-created colored gemstone jewelry",
+      "Custom moissanite jewelry",
+      "Lab-grown diamond jewelry",
+      "Custom K-gold jewelry",
+      "OEM/ODM jewelry manufacturing",
+      "CAD and sample development",
+      "Jewelry quality control",
+      "Private-label packaging",
+    ]);
     expect(organization.contactPoint).toMatchObject({
       contactType: "sales",
       email: "sales@xingyuejewelry.com",
@@ -139,8 +150,14 @@ describe("multilingual homepage SEO and GEO contracts", () => {
     expect(homeEntries).toHaveLength(3);
     expect(homeEntries.every((entry) => entry.alternates?.languages?.["x-default"] ===
       "https://xingyuejewelry.com/")).toBe(true);
-    expect(llms).toContain("From Wuzhou to the World");
-    expect(llms).toContain("Lab-Grown Diamond & Colored Gemstone Manufacturing Partner");
+    expect(llms).toContain(
+      "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
+    );
+    expect(llms).toContain("Lab-Created Colored Gemstone Jewelry");
+    expect(llms).toContain("Custom Moissanite Jewelry");
+    expect(llms.indexOf("Custom 925 Sterling Silver Jewelry")).toBeLessThan(
+      llms.indexOf("Lab-Grown Diamond Jewelry"),
+    );
     expect(llms).toContain("https://xingyuejewelry.com/es");
     expect(llms).toContain("https://xingyuejewelry.com/ar");
     expect(llms).not.toMatch(
