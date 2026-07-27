@@ -23,7 +23,7 @@ const homeCases = [
   {
     locale: "en",
     renderPage: async () => <Home />,
-    h1: "Lab-Grown Diamond & Colored Gemstone Manufacturing Partner",
+    h1: "Lab-Grown Diamond Jewelry Manufacturer & OEM/ODM Factory",
     heroAlt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
     audience: "Emerging Jewelry Brands",
     manufacturingTitle: "Manufacturing Support from Brief to Shipment",
@@ -34,7 +34,7 @@ const homeCases = [
   {
     locale: "es",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "es" }) }),
-    h1: "Socio de fabricación de diamantes de laboratorio y gemas de color",
+    h1: "Fabricante de joyería con diamantes de laboratorio y fábrica OEM/ODM",
     heroAlt: "Artesanos de joyería trabajando en bancos de engaste en un taller de Wuzhou",
     audience: "Marcas de joyería emergentes",
     manufacturingTitle: "Apoyo de fabricación desde el brief hasta el envío",
@@ -45,7 +45,7 @@ const homeCases = [
   {
     locale: "ar",
     renderPage: () => LocalizedHomePage({ params: Promise.resolve({ locale: "ar" }) }),
-    h1: "شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة",
+    h1: "مصنع مجوهرات الألماس المزروع وشريك تصنيع OEM/ODM",
     heroAlt: "حرفيو مجوهرات يعملون على طاولات الترصيع في ورشة في ووتشو",
     audience: "علامات المجوهرات التجارية الناشئة",
     manufacturingTitle: "دعم التصنيع من موجز المشروع إلى الشحن",
@@ -91,7 +91,7 @@ describe("factory-positioned multilingual homepage structure", () => {
       );
       expect(screen.getByRole("link", { name: secondaryCta })).toHaveAttribute(
         "href",
-        "#manufacturing-support",
+        expect.stringMatching(/\/manufacturing-capabilities$/),
       );
       expect(screen.getByRole("link", { name: productsCta })).toHaveAttribute(
         "href",

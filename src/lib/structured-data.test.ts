@@ -14,17 +14,17 @@ describe("structured data", () => {
 
     expect(schema["@type"]).toBe("Organization");
     expect(schema.url).toBe("https://xingyuejewelry.com");
-    expect(schema.logo).toBe("https://xingyuejewelry.com/logo-star-moon.png");
+    expect(schema.logo).toBe("https://xingyuejewelry.com/xingyue-jewelry-logo.png");
     expect(schema).not.toHaveProperty("aggregateRating");
     expect(schema).not.toHaveProperty("address");
   });
 
   it("localizes the organization description for Spanish and Arabic pages", () => {
     expect(organizationSchema("es").description).toContain(
-      "diamantes de laboratorio y gemas de color",
+      "propia fábrica de joyería en Wuzhou",
     );
     expect(organizationSchema("ar").description).toContain(
-      "الألماس المزروع والأحجار الكريمة الملونة",
+      "مصنعها الخاص للمجوهرات في ووتشو",
     );
   });
 

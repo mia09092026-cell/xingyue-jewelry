@@ -44,7 +44,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getAllByText(/Certificate Options/i).length).toBeGreaterThan(0);
     expect(screen.getAllByAltText(/B2B jewelry quality testing/i).length).toBeGreaterThan(0);
     expect(screen.queryByRole("link", { name: "Product Detail" })).not.toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /Custom Manufacturing/i }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("link", { name: /Custom Process/i }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "View Product" }).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: "Request Collection Quote" })).toHaveAttribute(
       "href",
@@ -96,30 +96,31 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getAllByText(/WhatsApp/i).length).toBeGreaterThan(0);
   });
 
-  it("renders accurate product media and a complete text-only card without a placeholder", () => {
+  it("renders the approved colored gemstone pendant media and product copy", () => {
     render(<ProductsPage />);
 
     const ringCard = screen
       .getByRole("heading", { name: "Lab Grown Diamond Rings" })
       .closest("article");
     const pendantCard = screen
-      .getByRole("heading", { name: "Lab Grown Diamond Pendants" })
+      .getByRole("heading", { name: "Lab-Created Colored Gemstone Pendant" })
       .closest("article");
 
     expect(ringCard).toHaveAttribute("data-image-state", "available");
     expect(
       within(ringCard as HTMLElement).getByRole("img").getAttribute("src"),
     ).toContain(encodeURIComponent("/images/xingyue-ring-sample.jpg"));
-    expect(pendantCard).toHaveAttribute("data-image-state", "none");
-    expect(within(pendantCard as HTMLElement).queryByRole("img")).not.toBeInTheDocument();
-    expect(pendantCard?.querySelector("[data-product-media]")).toBeNull();
+    expect(pendantCard).toHaveAttribute("data-image-state", "available");
+    expect(
+      within(pendantCard as HTMLElement).getByRole("img").getAttribute("src"),
+    ).toContain(encodeURIComponent("/images/lab-created-colored-gemstone-pendant.webp"));
     expect(within(pendantCard as HTMLElement).getByText("Necklaces")).toBeInTheDocument();
     expect(
-      within(pendantCard as HTMLElement).getByText("IGI / GIA certificate options by project"),
+      within(pendantCard as HTMLElement).getByText("S925 silver or custom K-gold settings"),
     ).toBeInTheDocument();
     expect(
       within(pendantCard as HTMLElement).getByText(
-        "Pendant and chain programs for boutiques, online brands and gift collections.",
+        "Blue lab-created colored gemstone pendant shown with matching earrings for coordinated B2B collections.",
       ),
     ).toBeInTheDocument();
   });
@@ -148,7 +149,8 @@ describe("XINGYUE independent site pages", () => {
     expect(
       screen.getByText("Boutique Jewelry Stores & Design Studios"),
     ).toBeInTheDocument();
-    expect(container.textContent).not.toMatch(/\bfactory\b|\bmanufacturer\b|1000\+|15\+ Years/i);
+    expect(container.textContent).toMatch(/\bour own jewelry factory\b/i);
+    expect(container.textContent).not.toMatch(/1000\+|15\+ Years|\d+\s*(employees|workers|square meters|sqm)/i);
     expect(container.textContent).not.toMatch(/[\u4e00-\u9fff]/);
   });
 
@@ -211,13 +213,13 @@ describe("XINGYUE independent site pages", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: /شريك لتصنيع الألماس المزروع والأحجار الكريمة الملونة/i,
+        name: /مصنع مجوهرات الألماس المزروع وشريك تصنيع OEM\/ODM/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getAllByText(/اطلب عرض سعر للتصنيع/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/علامات المجوهرات التجارية الناشئة/i)).toBeInTheDocument();
     expect(container.querySelector("main")).toHaveAttribute("dir", "rtl");
-    expect(container.textContent).not.toMatch(/مصنع/);
+    expect(container.textContent).toMatch(/مصنع/);
     unmount();
 
     const contact = await LocalizedContactPage({ params: Promise.resolve({ locale: "ar" }) });

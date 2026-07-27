@@ -7,9 +7,9 @@ type Product = (typeof products)[number];
 type LinkItem = { name: string; path: string };
 
 const organizationDescriptions: Record<SupportedLocale, string> = {
-  en: "Xingyue provides lab-grown diamond and colored gemstone manufacturing support from Wuzhou for jewelry brands, retailers and designers.",
-  es: "Xingyue ofrece apoyo de fabricación de diamantes de laboratorio y gemas de color desde Wuzhou para marcas, minoristas y diseñadores de joyería.",
-  ar: "تقدم Xingyue من ووتشو دعماً لتصنيع مجوهرات الألماس المزروع والأحجار الكريمة الملونة للعلامات التجارية وتجار التجزئة والمصممين.",
+  en: "Xingyue operates its own jewelry factory in Wuzhou, manufacturing lab-grown diamond jewelry and custom OEM/ODM collections for brands, designers, boutiques and wholesale buyers.",
+  es: "Xingyue opera su propia fábrica de joyería en Wuzhou, donde fabrica joyería con diamantes de laboratorio y colecciones OEM/ODM personalizadas para marcas, diseñadores, boutiques y compradores mayoristas.",
+  ar: "تدير Xingyue مصنعها الخاص للمجوهرات في ووتشو لتصنيع مجوهرات الألماس المزروع ومجموعات OEM/ODM المخصصة للعلامات التجارية والمصممين والمتاجر والمشترين بالجملة.",
 };
 
 export function organizationSchema(locale: SupportedLocale = "en") {
@@ -18,14 +18,15 @@ export function organizationSchema(locale: SupportedLocale = "en") {
     "@type": "Organization",
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: absoluteUrl("/logo-star-moon.png"),
+    logo: absoluteUrl("/xingyue-jewelry-logo.png"),
     email: siteConfig.email,
     description: organizationDescriptions[locale],
     knowsAbout: [
-      "Lab-grown diamonds",
-      "Colored gemstones",
-      "Custom jewelry manufacturing",
-      "Jewelry sampling",
+      "Lab-grown diamond jewelry manufacturing",
+      "OEM/ODM jewelry manufacturing",
+      "CAD design and jewelry sampling",
+      "Lab-created colored gemstones",
+      "Moissanite jewelry",
       "Private-label packaging",
     ],
     contactPoint: {

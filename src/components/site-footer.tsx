@@ -3,7 +3,7 @@ import { BrandLogo } from "@/components/brand-logo";
 import { brand, navigation } from "@/lib/site-data";
 import { collectionLandingPages } from "@/lib/collection-data";
 import { buildWhatsAppInquiryUrl, emailInquiryHref } from "@/lib/contact-links";
-import type { SupportedLocale } from "@/lib/i18n";
+import { localizedPath, type SupportedLocale } from "@/lib/i18n";
 
 type FooterLink = {
   label: string;
@@ -43,6 +43,36 @@ const defaultTargetAudienceLabels: Record<SupportedLocale, { emerging: string; b
   },
 };
 
+const defaultAuthorityLabels: Record<
+  SupportedLocale,
+  { factory: string; capabilities: string; process: string }
+> = {
+  en: {
+    factory: "Our Factory",
+    capabilities: "Manufacturing Capabilities",
+    process: "Custom Process",
+  },
+  es: {
+    factory: "Nuestra fábrica",
+    capabilities: "Capacidades de fabricación",
+    process: "Proceso personalizado",
+  },
+  ar: {
+    factory: "مصنعنا",
+    capabilities: "قدرات التصنيع",
+    process: "مسار التخصيص",
+  },
+};
+
+const defaultLegalLabels: Record<
+  SupportedLocale,
+  { privacy: string; terms: string }
+> = {
+  en: { privacy: "Privacy", terms: "Terms" },
+  es: { privacy: "Privacidad", terms: "Términos" },
+  ar: { privacy: "الخصوصية", terms: "الشروط" },
+};
+
 const defaultCollectionItems = collectionLandingPages.map((page) => ({
   label: page.eyebrow,
   href: `/collections/${page.slug}`,
@@ -55,7 +85,7 @@ export function SiteFooter({
   emailLabel = "Email",
   intro = "Jewelry manufacturing and supply chain support for emerging brands, boutique stores and independent designers.",
   inquiryLabel = "OEM / ODM Inquiry",
-  logoAlt = "Star & Moon Jewelry logo",
+  logoAlt = "XINGYUE Jewelry logo",
   navigationItems = navigation.slice(0, 4),
   startBrandItem,
   targetAudienceItems,
@@ -73,6 +103,35 @@ export function SiteFooter({
     {
       label: defaultTargetAudienceLabels[locale].boutique,
       href: locale === "en" ? "/for-boutique-jewelry-stores" : `/${locale}/for-boutique-jewelry-stores`,
+    },
+  ];
+  const authorityItems = [
+    {
+      label: defaultAuthorityLabels[locale].factory,
+      href: localizedPath("/factory", locale),
+    },
+    {
+      label: defaultAuthorityLabels[locale].capabilities,
+      href: localizedPath("/manufacturing-capabilities", locale),
+    },
+    {
+      label: defaultAuthorityLabels[locale].process,
+      href: localizedPath("/custom-process", locale),
+    },
+  ].filter(
+    (authorityItem) =>
+      !navigationItems.some(
+        (navigationItem) => navigationItem.href === authorityItem.href,
+      ),
+  );
+  const legalItems = [
+    {
+      label: defaultLegalLabels[locale].privacy,
+      href: localizedPath("/privacy", locale),
+    },
+    {
+      label: defaultLegalLabels[locale].terms,
+      href: localizedPath("/terms", locale),
     },
   ];
 
@@ -105,6 +164,13 @@ export function SiteFooter({
               </li>
             ) : null}
             {resolvedTargetAudienceItems.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="transition hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            {authorityItems.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="transition hover:text-white">
                   {item.label}
@@ -149,6 +215,17 @@ export function SiteFooter({
             <li>(c) 2026 {brand.name}</li>
           </ul>
         </div>
+      </div>
+      <div className="mx-auto mt-10 flex max-w-7xl flex-wrap gap-x-6 gap-y-3 border-t border-white/12 pt-6 text-sm text-white/60">
+        {legalItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="transition hover:text-white"
+          >
+            {item.label}
+          </Link>
+        ))}
       </div>
     </footer>
   );

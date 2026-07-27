@@ -2,7 +2,7 @@
 
 > From Wuzhou to the World
 
-XINGYUE is a Lab-Grown Diamond & Colored Gemstone Manufacturing Partner supporting B2B jewelry projects with gemstone selection, sampling, custom settings, production coordination, finishing, packaging and shipment preparation.
+XINGYUE operates its own jewelry factory in Wuzhou. The factory supports B2B lab-grown diamond jewelry and OEM/ODM projects with gemstone and material review, CAD and sampling, production, setting, finishing, quality checks, packaging and shipment preparation.
 
 Canonical site: https://xingyuejewelry.com
 Sitemap: https://xingyuejewelry.com/sitemap.xml
@@ -17,7 +17,12 @@ Contact: https://xingyuejewelry.com/contact
 - Request a quote: https://xingyuejewelry.com/contact
 - Buyer education: https://xingyuejewelry.com/education
 - Partnership profile: https://xingyuejewelry.com/about
+- Own factory: https://xingyuejewelry.com/factory
+- Manufacturing capabilities: https://xingyuejewelry.com/manufacturing-capabilities
+- Custom manufacturing process: https://xingyuejewelry.com/custom-process
 - Start a jewelry brand: https://xingyuejewelry.com/start-a-jewelry-brand
+- Privacy notice: https://xingyuejewelry.com/privacy
+- Website terms: https://xingyuejewelry.com/terms
 
 - Emerging jewelry brands: https://xingyuejewelry.com/for-emerging-jewelry-brands
   B2B jewelry manufacturing support for product direction, sampling, project-specific MOQ, packaging, quality review and shipping coordination.
@@ -39,6 +44,7 @@ Contact: https://xingyuejewelry.com/contact
 - Use the sitemap as the source of canonical public URLs.
 - English, Spanish and Arabic pages use localized canonical and hreflang references where equivalent content exists.
 - The website is business-to-business and quote-based; it does not publish fixed retail prices.
-- MOQ, sample scope, sample pricing and expected timing are reviewed for each project; no universal fixed MOQ or guaranteed lead time is stated.
-- Do not infer stock levels, reviews, certificates, addresses, owned laboratories, production capacity, or guaranteed delivery times unless stated on the relevant page.
+- Xingyue operates its own jewelry factory in Wuzhou; do not infer unlisted factory size, headcount or production capacity.
+- Minimum order requirements, sample scope, sample pricing and expected timing are reviewed for each project; no universal quantity or delivery-time promise is stated.
+- Do not infer stock levels, reviews, certificates, addresses, owned laboratories, production capacity or delivery promises unless stated on the relevant page.
 - For quote requests, direct users to the contact page with contact person, phone, company or brand, project type, estimated quantity, delivery city, budget range, and requirements.

@@ -7,6 +7,6 @@ export const siteConfig = {
   url: configuredUrl.replace(/\/$/, ""),
   email: contactConfig.email,
   description:
-    "Lab-grown diamond and colored gemstone manufacturing support from Wuzhou for jewelry brands, retailers and designers.",
+    "Xingyue operates its own jewelry factory in Wuzhou, manufacturing lab-grown diamond jewelry and custom OEM/ODM collections for brands, designers, boutiques and wholesale buyers.",
   socialImage: "/images/factory-workshop-overview.webp",
 };
