@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 import { JsonLd } from "@/components/json-ld";
+import { AnalyticsScripts } from "@/components/analytics-scripts";
 import { organizationSchema } from "@/lib/structured-data";
 import { getHtmlAttributesForPath } from "@/lib/i18n";
 import "./globals.css";
@@ -45,6 +46,13 @@ export default async function RootLayout({
       <body>
         <JsonLd data={organizationSchema(htmlAttributes.lang)} />
         {children}
+        <AnalyticsScripts
+          environment={process.env.VERCEL_ENV ?? process.env.NODE_ENV}
+          hostname={headerStore.get("host") ?? undefined}
+          qaEnabled={process.env.NEXT_PUBLIC_ANALYTICS_QA_ENABLED}
+          gaMeasurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
+          clarityProjectId={process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID}
+        />
       </body>
     </html>
   );
