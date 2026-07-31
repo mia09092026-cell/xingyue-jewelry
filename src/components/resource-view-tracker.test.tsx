@@ -2,14 +2,24 @@ import { StrictMode } from "react";
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ResourceViewTracker } from "./resource-view-tracker";
+import { setGaAnalyticsRuntimeEnabled } from "@/lib/analytics";
+
+const sendGAEventMock = vi.hoisted(() => vi.fn());
+
+vi.mock("@next/third-parties/google", () => ({
+  sendGAEvent: sendGAEventMock,
+}));
 
 describe("ResourceViewTracker", () => {
   beforeEach(() => {
+    sendGAEventMock.mockReset();
+    setGaAnalyticsRuntimeEnabled(true);
     window.dataLayer = [];
     window.history.replaceState(null, "", "/resources/moissanite-vs-cubic-zirconia?private=value");
   });
 
   afterEach(() => {
+    setGaAnalyticsRuntimeEnabled(false);
     vi.useRealTimers();
   });
 
@@ -23,14 +33,17 @@ describe("ResourceViewTracker", () => {
       />,
     );
 
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "resource_view",
       {
-        event: "resource_view",
         article_slug: "moissanite-vs-cubic-zirconia",
         article_title: "Moissanite vs Cubic Zirconia: What Jewelry Buyers Should Know",
         locale: "en",
         page_path: "/resources/moissanite-vs-cubic-zirconia",
       },
+      ],
     ]);
   });
 
@@ -47,9 +60,9 @@ describe("ResourceViewTracker", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("retries a temporarily unavailable dataLayer before recording the view", async () => {
+  it("retries when the GA runtime gate becomes enabled after the first attempt", async () => {
     vi.useFakeTimers();
-    window.dataLayer = undefined;
+    setGaAnalyticsRuntimeEnabled(false);
 
     render(
       <ResourceViewTracker
@@ -60,17 +73,21 @@ describe("ResourceViewTracker", () => {
       />,
     );
 
-    window.dataLayer = [];
+    expect(sendGAEventMock).not.toHaveBeenCalled();
+    setGaAnalyticsRuntimeEnabled(true);
     await vi.advanceTimersByTimeAsync(100);
 
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "resource_view",
       {
-        event: "resource_view",
         article_slug: "moissanite-vs-cubic-zirconia",
         article_title: "Moissanite vs Cubic Zirconia: What Jewelry Buyers Should Know",
         locale: "en",
         page_path: "/resources/moissanite-vs-cubic-zirconia",
       },
+      ],
     ]);
   });
 
@@ -87,14 +104,17 @@ describe("ResourceViewTracker", () => {
       </StrictMode>,
     );
 
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "resource_view",
       {
-        event: "resource_view",
         article_slug: "choose-925-sterling-silver-jewelry-manufacturer",
         article_title: "How to Choose a 925 Sterling Silver Jewelry Manufacturer",
         locale: "en",
         page_path: "/resources/choose-925-sterling-silver-jewelry-manufacturer",
       },
+      ],
     ]);
   });
 
@@ -111,7 +131,7 @@ describe("ResourceViewTracker", () => {
     await Promise.resolve();
     render(<ResourceViewTracker {...view} />);
 
-    expect(window.dataLayer).toHaveLength(2);
+    expect(sendGAEventMock).toHaveBeenCalledTimes(2);
   });
 
   it("keeps an active same-page owner guarded through a stale cleanup and records A-to-B-to-A", async () => {
@@ -142,10 +162,22 @@ describe("ResourceViewTracker", () => {
     await Promise.resolve();
     render(<ResourceViewTracker {...articleA} />);
 
-    expect(window.dataLayer).toEqual([
-      expect.objectContaining({ article_slug: articleA.slug }),
-      expect.objectContaining({ article_slug: articleB.slug }),
-      expect.objectContaining({ article_slug: articleA.slug }),
+    expect(sendGAEventMock.mock.calls).toEqual([
+      expect.arrayContaining([
+        "event",
+        "resource_view",
+        expect.objectContaining({ article_slug: articleA.slug }),
+      ]),
+      expect.arrayContaining([
+        "event",
+        "resource_view",
+        expect.objectContaining({ article_slug: articleB.slug }),
+      ]),
+      expect.arrayContaining([
+        "event",
+        "resource_view",
+        expect.objectContaining({ article_slug: articleA.slug }),
+      ]),
     ]);
   });
 });

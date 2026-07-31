@@ -1,8 +1,16 @@
 import { Children, isValidElement, type ReactNode } from "react";
 import { render } from "@testing-library/react";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AnalyticsLinkTracker } from "./analytics-link-tracker";
 import { AnalyticsScripts } from "./analytics-scripts";
+import { setGaAnalyticsRuntimeEnabled } from "@/lib/analytics";
+
+const sendGAEventMock = vi.hoisted(() => vi.fn());
+
+vi.mock("@next/third-parties/google", () => ({
+  GoogleAnalytics: () => null,
+  sendGAEvent: sendGAEventMock,
+}));
 
 function click(element: Element): boolean {
   const event = new MouseEvent("click", { bubbles: true, cancelable: true });
@@ -34,8 +42,14 @@ function countElementsOfType(node: ReactNode, type: unknown): number {
 
 describe("AnalyticsLinkTracker", () => {
   beforeEach(() => {
+    sendGAEventMock.mockReset();
+    setGaAnalyticsRuntimeEnabled(true);
     window.dataLayer = [];
     window.history.replaceState(null, "", "/es/products?message=private");
+  });
+
+  afterEach(() => {
+    setGaAnalyticsRuntimeEnabled(false);
   });
 
   it("tracks one safe WhatsApp event from a nested click and prefers URL attribution", () => {
@@ -54,14 +68,17 @@ describe("AnalyticsLinkTracker", () => {
     const preventedByTracker = click(container.querySelector("span")!);
 
     expect(preventedByTracker).toBe(false);
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "whatsapp_click",
       {
-        event: "whatsapp_click",
         page_path: "/es/products",
         link_location: "products",
         locale: "es",
         product_or_context: "lab-grown-diamond-jewelry",
       },
+      ],
     ]);
   });
 
@@ -80,18 +97,27 @@ describe("AnalyticsLinkTracker", () => {
 
     click(container.querySelector("a")!);
 
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "whatsapp_click",
       {
-        event: "whatsapp_click",
         page_path: "/es/products",
         link_location: "general",
         locale: "en",
         product_or_context: "other",
       },
+      ],
     ]);
-    expect(JSON.stringify(window.dataLayer)).not.toContain("alice@example.com");
-    expect(JSON.stringify(window.dataLayer)).not.toContain("+8613324888759");
-    expect(JSON.stringify(window.dataLayer)).not.toContain("Private message");
+    expect(JSON.stringify(sendGAEventMock.mock.calls)).not.toContain(
+      "alice@example.com",
+    );
+    expect(JSON.stringify(sendGAEventMock.mock.calls)).not.toContain(
+      "+8613324888759",
+    );
+    expect(JSON.stringify(sendGAEventMock.mock.calls)).not.toContain(
+      "Private message",
+    );
   });
 
   it("tracks email without exposing the address, subject, or body", () => {
@@ -108,12 +134,15 @@ describe("AnalyticsLinkTracker", () => {
 
     click(container.querySelector("a")!);
 
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "email_click",
       {
-        event: "email_click",
         page_path: "/es/products",
         link_location: "homepage-final-cta",
       },
+      ],
     ]);
   });
 
@@ -129,12 +158,15 @@ describe("AnalyticsLinkTracker", () => {
 
     click(container.querySelector("a")!);
 
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "phone_click",
       {
-        event: "phone_click",
         page_path: "/es/products",
         link_location: "mobile-menu",
       },
+      ],
     ]);
   });
 
@@ -148,13 +180,16 @@ describe("AnalyticsLinkTracker", () => {
 
     click(container.querySelector("a")!);
 
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "file_download",
       {
-        event: "file_download",
         file_name: "Xingyue-Lookbook.PDF",
         file_type: "pdf",
         page_path: "/es/products",
       },
+      ],
     ]);
   });
 
@@ -170,14 +205,70 @@ describe("AnalyticsLinkTracker", () => {
 
     click(container.querySelector("a")!);
 
-    expect(window.dataLayer).toEqual([
+    expect(sendGAEventMock.mock.calls).toEqual([
+      [
+        "event",
+        "file_download",
       {
-        event: "file_download",
         file_name: "wholesale-catalog.csv",
         file_type: "csv",
         page_path: "/es/products",
       },
+      ],
     ]);
+  });
+
+  it.each([
+    {
+      label: "an email address",
+      href: "/downloads/buyer%40example.com.pdf",
+    },
+    {
+      label: "a phone number",
+      href: "/downloads/%2B8613324888759.pdf",
+    },
+    {
+      label: "query-like token data",
+      href: "/downloads/catalog.pdf",
+      download: "catalog.pdf?token=private",
+    },
+    {
+      label: "an encoded path separator",
+      href: "/downloads/private%2Fbuyer.pdf",
+    },
+    {
+      label: "an oversized name",
+      href: `/downloads/${"a".repeat(129)}.pdf`,
+    },
+  ])("skips a tracked download whose filename contains $label", ({
+    href,
+    download,
+  }) => {
+    const { container } = render(
+      <>
+        <AnalyticsLinkTracker />
+        <a href={href} download={download}>
+          Unsafe download
+        </a>
+      </>,
+    );
+
+    click(container.querySelector("a")!);
+
+    expect(sendGAEventMock).not.toHaveBeenCalled();
+  });
+
+  it("skips cross-origin file downloads even when the filename is safe", () => {
+    const { container } = render(
+      <>
+        <AnalyticsLinkTracker />
+        <a href="https://files.example.com/Xingyue-Lookbook.pdf">Download</a>
+      </>,
+    );
+
+    click(container.querySelector("a")!);
+
+    expect(sendGAEventMock).not.toHaveBeenCalled();
   });
 
   it("ignores unrelated links", () => {
@@ -190,7 +281,7 @@ describe("AnalyticsLinkTracker", () => {
 
     click(container.querySelector("a")!);
 
-    expect(window.dataLayer).toEqual([]);
+    expect(sendGAEventMock).not.toHaveBeenCalled();
   });
 
   it("is mounted exactly once by enabled root analytics", () => {

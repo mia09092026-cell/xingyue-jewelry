@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ContactInquiryForm, buildInquiryEmailHref } from "@/components/contact-inquiry-form";
 import { LocalizedProducts } from "@/components/localized-pages";
+import { setGaAnalyticsRuntimeEnabled } from "@/lib/analytics";
 import {
   createInquirySheetRecord,
   inquiryRecordToSheetRow,
@@ -10,6 +11,17 @@ import {
 } from "@/lib/contact-inquiry";
 import { GET as getContact } from "@/app/api/contact/route";
 import { GET as getHealth } from "@/app/api/contact/health/route";
+
+const sendGAEventMock = vi.hoisted(() =>
+  vi.fn((command: string, eventName: string, params: Record<string, unknown>) => {
+    if (command !== "event" || !Array.isArray(window.dataLayer)) return;
+    window.dataLayer.push({ event: eventName, ...params });
+  }),
+);
+
+vi.mock("@next/third-parties/google", () => ({
+  sendGAEvent: sendGAEventMock,
+}));
 
 const completePayload = {
   name: "Avery Chen",
@@ -33,8 +45,14 @@ const completePayload = {
   honeypot: "",
 };
 
+beforeEach(() => {
+  sendGAEventMock.mockClear();
+  setGaAnalyticsRuntimeEnabled(true);
+});
+
 afterEach(() => {
   vi.unstubAllGlobals();
+  setGaAnalyticsRuntimeEnabled(false);
   window.dataLayer = undefined;
   window.history.replaceState({}, "", "/");
 });

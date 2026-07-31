@@ -1,3 +1,5 @@
+import { sendGAEvent } from "@next/third-parties/google";
+
 export type AnalyticsFormErrorType = "validation" | "duplicate" | "rate_limited" | "server" | "network" | "unknown";
 
 export interface AnalyticsEventMap {
@@ -49,8 +51,13 @@ type AnalyticsStorageConsent = "granted" | "denied";
 
 declare global {
   interface Window {
-    clarity?: (command: "consent", granted: boolean) => void;
-    dataLayer?: AnalyticsEventPayload[];
+    clarity?: (
+      command: "consentv2",
+      consent: {
+        ad_Storage: AnalyticsStorageConsent;
+        analytics_Storage: AnalyticsStorageConsent;
+      },
+    ) => void;
     gtag?: (
       command: "consent",
       action: "update",
@@ -68,6 +75,12 @@ const validationCodes = new Set([
   "VALIDATION_ERROR",
   "UNKNOWN_FIELDS",
 ]);
+
+let gaAnalyticsRuntimeEnabled = false;
+
+export function setGaAnalyticsRuntimeEnabled(enabled: boolean): void {
+  gaAnalyticsRuntimeEnabled = enabled;
+}
 
 function createAnalyticsEvent(
   name: string,
@@ -161,12 +174,19 @@ export function trackAnalyticsEvent<K extends AnalyticsEventName>(
   name: K,
   params: AnalyticsEventMap[K],
 ): boolean {
-  if (typeof window === "undefined" || !Array.isArray(window.dataLayer)) return false;
+  if (
+    typeof window === "undefined" ||
+    !gaAnalyticsRuntimeEnabled ||
+    !Array.isArray(window.dataLayer)
+  ) {
+    return false;
+  }
 
   try {
     const event = createAnalyticsEvent(name, params);
     if (!event) return false;
-    window.dataLayer.push(event);
+    const { event: eventName, ...safeParams } = event;
+    sendGAEvent("event", eventName, safeParams);
     return true;
   } catch {
     return false;
@@ -185,7 +205,10 @@ export function updateAnalyticsConsent(granted: boolean): void {
   }
 
   try {
-    window.clarity?.("consent", granted);
+    window.clarity?.("consentv2", {
+      ad_Storage: analyticsStorage,
+      analytics_Storage: analyticsStorage,
+    });
   } catch {
     // Consent adapters must not interrupt the caller when a third-party API fails.
   }

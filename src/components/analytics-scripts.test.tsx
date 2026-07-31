@@ -1,13 +1,20 @@
 import { Children, isValidElement, type ReactNode } from "react";
-import { render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AnalyticsScripts } from "./analytics-scripts";
 import RootLayout from "@/app/layout";
+import {
+  setGaAnalyticsRuntimeEnabled,
+  trackAnalyticsEvent,
+} from "@/lib/analytics";
+
+const sendGAEventMock = vi.hoisted(() => vi.fn());
 
 vi.mock("@next/third-parties/google", () => ({
   GoogleAnalytics: ({ gaId }: { gaId: string }) => (
     <div data-testid="google-analytics" data-ga-id={gaId} />
   ),
+  sendGAEvent: sendGAEventMock,
 }));
 
 vi.mock("next/script", () => ({
@@ -52,9 +59,18 @@ function countElementsOfType(node: ReactNode, type: unknown): number {
 describe("AnalyticsScripts", () => {
   beforeEach(() => {
     vi.unstubAllEnvs();
+    sendGAEventMock.mockReset();
+    setGaAnalyticsRuntimeEnabled(false);
+    window.dataLayer = [];
   });
 
-  it("renders no analytics integrations when the runtime gate is disabled", () => {
+  afterEach(() => {
+    cleanup();
+    setGaAnalyticsRuntimeEnabled(false);
+    delete window.dataLayer;
+  });
+
+  it("renders no integrations and cannot send when the runtime gate is disabled", () => {
     render(
       <AnalyticsScripts
         environment="preview"
@@ -67,6 +83,69 @@ describe("AnalyticsScripts", () => {
 
     expect(screen.queryByTestId("google-analytics")).not.toBeInTheDocument();
     expect(screen.queryByTestId("clarity-loader")).not.toBeInTheDocument();
+    expect(
+      trackAnalyticsEvent("email_click", {
+        page_path: "/contact",
+        link_location: "contact_footer",
+      }),
+    ).toBe(false);
+    expect(sendGAEventMock).not.toHaveBeenCalled();
+  });
+
+  it("renders one GA provider, enables sending, and disables sending on cleanup", () => {
+    const { unmount } = render(
+      <AnalyticsScripts
+        environment="production"
+        hostname="xingyuejewelry.com"
+        gaMeasurementId="G-ABC123"
+      />,
+    );
+
+    expect(screen.getAllByTestId("google-analytics")).toHaveLength(1);
+    expect(screen.getByTestId("google-analytics")).toHaveAttribute(
+      "data-ga-id",
+      "G-ABC123",
+    );
+    expect(screen.queryByTestId("clarity-loader")).not.toBeInTheDocument();
+    expect(
+      trackAnalyticsEvent("email_click", {
+        page_path: "/contact",
+        link_location: "contact_footer",
+      }),
+    ).toBe(true);
+    expect(sendGAEventMock).toHaveBeenCalledWith("event", "email_click", {
+      page_path: "/contact",
+      link_location: "contact_footer",
+    });
+
+    unmount();
+
+    expect(
+      trackAnalyticsEvent("email_click", {
+        page_path: "/contact",
+        link_location: "contact_footer",
+      }),
+    ).toBe(false);
+  });
+
+  it("renders Clarity alone without enabling GA event sending", () => {
+    render(
+      <AnalyticsScripts
+        environment="production"
+        hostname="xingyuejewelry.com"
+        clarityProjectId="abc123"
+      />,
+    );
+
+    expect(screen.queryByTestId("google-analytics")).not.toBeInTheDocument();
+    expect(screen.getAllByTestId("clarity-loader")).toHaveLength(1);
+    expect(
+      trackAnalyticsEvent("email_click", {
+        page_path: "/contact",
+        link_location: "contact_footer",
+      }),
+    ).toBe(false);
+    expect(sendGAEventMock).not.toHaveBeenCalled();
   });
 
   it("renders one official GA integration and one afterInteractive Clarity loader", () => {
@@ -90,6 +169,27 @@ describe("AnalyticsScripts", () => {
       "afterInteractive",
     );
     expect(screen.getByTestId("clarity-loader").textContent).toContain("abc123");
+  });
+
+  it("enables both providers in Development only with the explicit QA override", () => {
+    render(
+      <AnalyticsScripts
+        environment="development"
+        hostname="localhost:3000"
+        qaEnabled="true"
+        gaMeasurementId="G-ABC123"
+        clarityProjectId="abc123"
+      />,
+    );
+
+    expect(screen.getAllByTestId("google-analytics")).toHaveLength(1);
+    expect(screen.getAllByTestId("clarity-loader")).toHaveLength(1);
+    expect(
+      trackAnalyticsEvent("email_click", {
+        page_path: "/contact",
+        link_location: "contact_footer",
+      }),
+    ).toBe(true);
   });
 
   it("mounts AnalyticsScripts exactly once from the root layout", async () => {

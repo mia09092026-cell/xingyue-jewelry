@@ -42,6 +42,21 @@ describe("resolveAnalyticsRuntime", () => {
     });
   });
 
+  it("allows an explicit QA override in Development", () => {
+    expect(
+      resolveAnalyticsRuntime({
+        ...validInput,
+        environment: "development",
+        hostname: "localhost:3000",
+        qaEnabled: "true",
+      }),
+    ).toEqual({
+      enabled: true,
+      gaMeasurementId: "G-AB12CD",
+      clarityProjectId: "abc123",
+    });
+  });
+
   it("does not let the QA override bypass the production-domain gate", () => {
     expect(
       resolveAnalyticsRuntime({

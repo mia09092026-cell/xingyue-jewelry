@@ -14,6 +14,9 @@ const contextAttributes = [
   "data-start-section",
 ] as const;
 
+const MAX_TRACKED_FILE_NAME_LENGTH = 128;
+const SAFE_TRACKED_FILE_NAME = /^[A-Za-z0-9._-]+$/;
+
 function pageLocale(pathname: string): string {
   const locale = pathname.split("/")[1];
   return locale === "es" || locale === "ar" ? locale : "en";
@@ -42,14 +45,23 @@ function linkLocation(anchor: HTMLAnchorElement, url: URL): string {
   return normalizeSource();
 }
 
-function fileName(url: URL, download: string): string {
+function fileName(url: URL, download: string): string | undefined {
   const pathnameName = url.pathname.split("/").pop() || "download";
   const name = download || pathnameName;
 
   try {
-    return decodeURIComponent(name);
+    const decodedName = decodeURIComponent(name);
+    if (
+      decodedName.length === 0 ||
+      decodedName.length > MAX_TRACKED_FILE_NAME_LENGTH ||
+      !SAFE_TRACKED_FILE_NAME.test(decodedName)
+    ) {
+      return undefined;
+    }
+
+    return decodedName;
   } catch {
-    return name;
+    return undefined;
   }
 }
 
@@ -110,8 +122,13 @@ export function AnalyticsLinkTracker() {
       }
 
       const pathnameIsPdf = /\.pdf$/i.test(url.pathname);
-      if (pathnameIsPdf || anchor.hasAttribute("download")) {
+      if (
+        url.origin === window.location.origin &&
+        (pathnameIsPdf || anchor.hasAttribute("download"))
+      ) {
         const name = fileName(url, anchor.download);
+        if (!name) return;
+
         trackAnalyticsEvent("file_download", {
           file_name: name,
           file_type: fileType(name),
