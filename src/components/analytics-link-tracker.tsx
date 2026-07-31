@@ -2,6 +2,11 @@
 
 import { useEffect } from "react";
 import { trackAnalyticsEvent } from "@/lib/analytics";
+import {
+  normalizeInterest,
+  normalizeLocale,
+  normalizeSource,
+} from "@/lib/contact-links";
 
 const contextAttributes = [
   "data-home-section",
@@ -16,13 +21,13 @@ function pageLocale(pathname: string): string {
 
 function linkLocation(anchor: HTMLAnchorElement, url: URL): string {
   const source = url.searchParams.get("source");
-  if (source) return source;
+  if (source !== null) return normalizeSource(source);
 
   const attributedElement = anchor.closest<HTMLElement>(
     "[data-analytics-link-location]",
   );
   const attributedLocation = attributedElement?.dataset.analyticsLinkLocation;
-  if (attributedLocation) return attributedLocation;
+  if (attributedLocation) return normalizeSource(attributedLocation);
 
   const contextElement = anchor.closest<HTMLElement>(
     contextAttributes.map((attribute) => `[${attribute}]`).join(","),
@@ -30,11 +35,11 @@ function linkLocation(anchor: HTMLAnchorElement, url: URL): string {
   if (contextElement) {
     for (const attribute of contextAttributes) {
       const context = contextElement.getAttribute(attribute);
-      if (context) return context;
+      if (context) return normalizeSource(context);
     }
   }
 
-  return "unknown";
+  return normalizeSource();
 }
 
 function fileName(url: URL, download: string): string {
@@ -72,14 +77,18 @@ export function AnalyticsLinkTracker() {
       const location = linkLocation(anchor, url);
 
       if (url.protocol === "https:" && /^(?:www\.)?wa\.me$/i.test(url.hostname)) {
-        const locale = url.searchParams.get("locale") || pageLocale(pagePath);
+        const locale = normalizeLocale(
+          url.searchParams.get("locale") ?? pageLocale(pagePath),
+        );
         const interest = url.searchParams.get("interest");
 
         trackAnalyticsEvent("whatsapp_click", {
           page_path: pagePath,
           link_location: location,
           locale,
-          ...(interest ? { product_or_context: interest } : {}),
+          ...(interest !== null
+            ? { product_or_context: normalizeInterest(interest) }
+            : {}),
         });
         return;
       }

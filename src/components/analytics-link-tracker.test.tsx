@@ -43,7 +43,7 @@ describe("AnalyticsLinkTracker", () => {
       <>
         <AnalyticsLinkTracker />
         <a
-          href="https://wa.me/8613324888759?text=Private%20message&locale=es&source=product-card&interest=lab-grown-diamond-jewelry"
+          href="https://wa.me/8613324888759?text=Private%20message&locale=es&source=products&interest=lab-grown-diamond-jewelry"
           data-analytics-link-location="ignored-fallback"
         >
           <span>WhatsApp</span>
@@ -58,18 +58,47 @@ describe("AnalyticsLinkTracker", () => {
       {
         event: "whatsapp_click",
         page_path: "/es/products",
-        link_location: "product-card",
+        link_location: "products",
         locale: "es",
         product_or_context: "lab-grown-diamond-jewelry",
       },
     ]);
   });
 
+  it("normalizes unapproved WhatsApp attribution instead of sending query PII", () => {
+    const { container } = render(
+      <>
+        <AnalyticsLinkTracker />
+        <a
+          href="https://wa.me/8613324888759?text=Private%20message&source=alice%40example.com&locale=private%40example.com&interest=%2B8613324888759"
+          data-analytics-link-location="footer"
+        >
+          WhatsApp
+        </a>
+      </>,
+    );
+
+    click(container.querySelector("a")!);
+
+    expect(window.dataLayer).toEqual([
+      {
+        event: "whatsapp_click",
+        page_path: "/es/products",
+        link_location: "general",
+        locale: "en",
+        product_or_context: "other",
+      },
+    ]);
+    expect(JSON.stringify(window.dataLayer)).not.toContain("alice@example.com");
+    expect(JSON.stringify(window.dataLayer)).not.toContain("+8613324888759");
+    expect(JSON.stringify(window.dataLayer)).not.toContain("Private message");
+  });
+
   it("tracks email without exposing the address, subject, or body", () => {
     const { container } = render(
       <>
         <AnalyticsLinkTracker />
-        <section data-home-section="final-cta">
+        <section data-home-section="homepage-final-cta">
           <a href="mailto:private@example.com?subject=Secret&body=Private%20body">
             Email
           </a>
@@ -83,7 +112,7 @@ describe("AnalyticsLinkTracker", () => {
       {
         event: "email_click",
         page_path: "/es/products",
-        link_location: "final-cta",
+        link_location: "homepage-final-cta",
       },
     ]);
   });
@@ -92,7 +121,7 @@ describe("AnalyticsLinkTracker", () => {
     const { container } = render(
       <>
         <AnalyticsLinkTracker />
-        <a href="tel:+8613324888759" data-analytics-link-location="mobile-header">
+        <a href="tel:+8613324888759" data-analytics-link-location="mobile-menu">
           Call
         </a>
       </>,
@@ -104,7 +133,7 @@ describe("AnalyticsLinkTracker", () => {
       {
         event: "phone_click",
         page_path: "/es/products",
-        link_location: "mobile-header",
+        link_location: "mobile-menu",
       },
     ]);
   });
