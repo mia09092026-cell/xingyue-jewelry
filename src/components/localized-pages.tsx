@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ContactInquiryForm } from "@/components/contact-inquiry-form";
+import { FactoryProcessVideo } from "@/components/factory-process-video";
 import { HomepageGemstoneGallery } from "@/components/homepage-gemstone-gallery";
 import { HomepageManufacturingGallery } from "@/components/homepage-manufacturing-gallery";
 import { HowWeWork } from "@/components/how-we-work";
@@ -396,6 +397,13 @@ export function LocalizedHome({ locale }: LocalizedPageProps) {
         title={content.home.manufacturingVisuals.title}
         copy={content.home.manufacturingVisuals.copy}
         items={content.home.manufacturingVisuals.items}
+      />
+
+      <FactoryProcessVideo
+        title={content.home.factoryVideo.title}
+        copy={content.home.factoryVideo.copy}
+        ctaLabel={content.home.factoryVideo.cta}
+        ctaHref={inquiryPrepHref}
       />
 
       <HowWeWork
