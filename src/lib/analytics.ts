@@ -1,4 +1,4 @@
-export type AnalyticsFormErrorType = "validation" | "duplicate" | "server" | "network" | "unknown";
+export type AnalyticsFormErrorType = "validation" | "duplicate" | "rate_limited" | "server" | "network" | "unknown";
 
 export interface AnalyticsEventMap {
   whatsapp_click: {
@@ -65,7 +65,97 @@ const validationCodes = new Set([
   "invalid_email",
   "invalid_reference_url",
   "too_long",
+  "VALIDATION_ERROR",
+  "UNKNOWN_FIELDS",
 ]);
+
+function createAnalyticsEvent(
+  name: string,
+  params: AnalyticsEventMap[AnalyticsEventName],
+): AnalyticsEventPayload | undefined {
+  switch (name) {
+    case "whatsapp_click": {
+      const safeParams = params as AnalyticsEventMap["whatsapp_click"];
+      return typeof safeParams.product_or_context === "string"
+        ? {
+            event: "whatsapp_click",
+            page_path: safeParams.page_path,
+            link_location: safeParams.link_location,
+            locale: safeParams.locale,
+            product_or_context: safeParams.product_or_context,
+          }
+        : {
+            event: "whatsapp_click",
+            page_path: safeParams.page_path,
+            link_location: safeParams.link_location,
+            locale: safeParams.locale,
+          };
+    }
+    case "generate_lead": {
+      const safeParams = params as AnalyticsEventMap["generate_lead"];
+      return typeof safeParams.inquiry_type === "string"
+        ? {
+            event: "generate_lead",
+            form_name: safeParams.form_name,
+            page_path: safeParams.page_path,
+            locale: safeParams.locale,
+            inquiry_type: safeParams.inquiry_type,
+          }
+        : {
+            event: "generate_lead",
+            form_name: safeParams.form_name,
+            page_path: safeParams.page_path,
+            locale: safeParams.locale,
+          };
+    }
+    case "form_error": {
+      const safeParams = params as AnalyticsEventMap["form_error"];
+      return {
+        event: "form_error",
+        form_name: safeParams.form_name,
+        error_type: safeParams.error_type,
+        page_path: safeParams.page_path,
+      };
+    }
+    case "email_click": {
+      const safeParams = params as AnalyticsEventMap["email_click"];
+      return {
+        event: "email_click",
+        page_path: safeParams.page_path,
+        link_location: safeParams.link_location,
+      };
+    }
+    case "phone_click": {
+      const safeParams = params as AnalyticsEventMap["phone_click"];
+      return {
+        event: "phone_click",
+        page_path: safeParams.page_path,
+        link_location: safeParams.link_location,
+      };
+    }
+    case "file_download": {
+      const safeParams = params as AnalyticsEventMap["file_download"];
+      return {
+        event: "file_download",
+        file_name: safeParams.file_name,
+        file_type: safeParams.file_type,
+        page_path: safeParams.page_path,
+      };
+    }
+    case "resource_view": {
+      const safeParams = params as AnalyticsEventMap["resource_view"];
+      return {
+        event: "resource_view",
+        article_slug: safeParams.article_slug,
+        article_title: safeParams.article_title,
+        locale: safeParams.locale,
+        page_path: safeParams.page_path,
+      };
+    }
+    default:
+      return undefined;
+  }
+}
 
 export function trackAnalyticsEvent<K extends AnalyticsEventName>(
   name: K,
@@ -74,7 +164,9 @@ export function trackAnalyticsEvent<K extends AnalyticsEventName>(
   if (typeof window === "undefined" || !Array.isArray(window.dataLayer)) return false;
 
   try {
-    window.dataLayer.push({ event: name, ...params } as AnalyticsEventPayload);
+    const event = createAnalyticsEvent(name, params);
+    if (!event) return false;
+    window.dataLayer.push(event);
     return true;
   } catch {
     return false;
@@ -102,6 +194,8 @@ export function updateAnalyticsConsent(granted: boolean): void {
 export function classifyFormError(code?: string): AnalyticsFormErrorType {
   if (validationCodes.has(code ?? "")) return "validation";
   if (code === "duplicate_submission") return "duplicate";
+  if (code === "RATE_LIMITED") return "rate_limited";
+  if (code === "CONFIG_MISSING" || code === "SHEETS_WRITE_FAILED") return "server";
   if (code === "service_unavailable") return "server";
   if (code === "network_error") return "network";
   return "unknown";

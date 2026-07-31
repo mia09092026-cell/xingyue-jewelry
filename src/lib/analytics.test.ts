@@ -44,6 +44,35 @@ describe("trackAnalyticsEvent", () => {
       }),
     ).toBe(false);
   });
+
+  it("removes unapproved caller fields before pushing an approved event", () => {
+    window.dataLayer = [];
+    const unsafeParams = {
+      form_name: "contact_inquiry",
+      page_path: "/contact",
+      locale: "en",
+      email: "buyer@example.com",
+      message: "Please quote this design.",
+    };
+
+    expect(trackAnalyticsEvent("generate_lead", unsafeParams)).toBe(true);
+    expect(window.dataLayer).toEqual([
+      {
+        event: "generate_lead",
+        form_name: "contact_inquiry",
+        page_path: "/contact",
+        locale: "en",
+      },
+    ]);
+  });
+
+  it("rejects an unapproved event name without pushing it", () => {
+    window.dataLayer = [];
+    const trackUncheckedEvent = trackAnalyticsEvent as (name: string, params: object) => boolean;
+
+    expect(trackUncheckedEvent("page_view", { page_path: "/contact" })).toBe(false);
+    expect(window.dataLayer).toEqual([]);
+  });
 });
 
 describe("classifyFormError", () => {
@@ -53,6 +82,11 @@ describe("classifyFormError", () => {
     ["duplicate_submission", "duplicate"],
     ["service_unavailable", "server"],
     ["network_error", "network"],
+    ["VALIDATION_ERROR", "validation"],
+    ["UNKNOWN_FIELDS", "validation"],
+    ["RATE_LIMITED", "rate_limited"],
+    ["CONFIG_MISSING", "server"],
+    ["SHEETS_WRITE_FAILED", "server"],
     [undefined, "unknown"],
     ["unrecognized_code", "unknown"],
   ] as const)("converts %s into the coarse %s category", (code, expected) => {
