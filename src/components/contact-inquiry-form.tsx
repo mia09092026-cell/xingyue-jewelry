@@ -437,8 +437,9 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
     setSubmitState({ status: "submitting", message: effectiveContent.submitting });
     setFieldErrors({});
 
+    let response: Response;
     try {
-      const response = await fetch("/api/contact", {
+      response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -448,40 +449,6 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
           honeypot,
         }),
       });
-      const payload = (await response.json()) as {
-        ok?: boolean;
-        code?: string;
-        reference?: string;
-        fieldErrors?: ContactInquiryFieldErrors;
-      };
-
-      if (!response.ok || !payload.ok) {
-        trackAnalyticsEvent("form_error", {
-          form_name: "contact_inquiry",
-          error_type: classifyFormError(payload.code),
-          page_path: window.location.pathname,
-        });
-        setFieldErrors(payload.fieldErrors ?? {});
-        setSubmitState({
-          status: "error",
-          message:
-            effectiveContent.errorMessages[payload.code ?? ""] ??
-            getLocalizedInquiryErrorMessage(locale, payload.code, effectiveContent.errorFallback),
-        });
-        window.setTimeout(() => errorSummaryRef.current?.focus(), 0);
-        return;
-      }
-
-      const inquiryType = productInterestCodes.some((code) => code === linkContext.interest)
-        ? linkContext.interest
-        : undefined;
-      trackAnalyticsEvent("generate_lead", {
-        form_name: "contact_inquiry",
-        page_path: window.location.pathname,
-        locale,
-        ...(inquiryType ? { inquiry_type: inquiryType } : {}),
-      });
-      setSubmitState({ status: "success", message: effectiveContent.successMessage, reference: payload.reference });
     } catch {
       trackAnalyticsEvent("form_error", {
         form_name: "contact_inquiry",
@@ -490,7 +457,68 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
       });
       setSubmitState({ status: "error", message: effectiveContent.errorMessages.network_error });
       window.setTimeout(() => errorSummaryRef.current?.focus(), 0);
+      return;
     }
+
+    let payloadValue: unknown;
+    try {
+      payloadValue = await response.json();
+    } catch {
+      trackAnalyticsEvent("form_error", {
+        form_name: "contact_inquiry",
+        error_type: classifyFormError(),
+        page_path: window.location.pathname,
+      });
+      setSubmitState({ status: "error", message: effectiveContent.errorFallback });
+      window.setTimeout(() => errorSummaryRef.current?.focus(), 0);
+      return;
+    }
+
+    const payload =
+      typeof payloadValue === "object" &&
+      payloadValue !== null &&
+      !Array.isArray(payloadValue)
+        ? payloadValue as Record<string, unknown>
+        : undefined;
+    const code = typeof payload?.code === "string" ? payload.code : undefined;
+    const fieldErrors =
+      typeof payload?.fieldErrors === "object" &&
+      payload.fieldErrors !== null &&
+      !Array.isArray(payload.fieldErrors)
+        ? payload.fieldErrors as ContactInquiryFieldErrors
+        : {};
+
+    if (!response.ok || payload?.ok !== true) {
+      trackAnalyticsEvent("form_error", {
+        form_name: "contact_inquiry",
+        error_type: classifyFormError(code),
+        page_path: window.location.pathname,
+      });
+      setFieldErrors(fieldErrors);
+      setSubmitState({
+        status: "error",
+        message:
+          effectiveContent.errorMessages[code ?? ""] ??
+          getLocalizedInquiryErrorMessage(locale, code, effectiveContent.errorFallback),
+      });
+      window.setTimeout(() => errorSummaryRef.current?.focus(), 0);
+      return;
+    }
+
+    const inquiryType = productInterestCodes.some((interestCode) => interestCode === linkContext.interest)
+      ? linkContext.interest
+      : undefined;
+    trackAnalyticsEvent("generate_lead", {
+      form_name: "contact_inquiry",
+      page_path: window.location.pathname,
+      locale,
+      ...(inquiryType ? { inquiry_type: inquiryType } : {}),
+    });
+    setSubmitState({
+      status: "success",
+      message: effectiveContent.successMessage,
+      reference: typeof payload.reference === "string" ? payload.reference : undefined,
+    });
   }
 
   const errorMessage = (field: ContactInquiryField | "consent") => {

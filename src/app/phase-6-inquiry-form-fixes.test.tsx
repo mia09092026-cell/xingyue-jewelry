@@ -281,6 +281,13 @@ describe("Phase 6 contact form analytics", () => {
       errorType: "server",
     },
     {
+      label: "a missing server configuration",
+      responseOk: false,
+      payloadOk: false,
+      code: "CONFIG_MISSING",
+      errorType: "server",
+    },
+    {
       label: "a rate-limited failure",
       responseOk: false,
       payloadOk: false,
@@ -329,6 +336,102 @@ describe("Phase 6 contact form analytics", () => {
         },
       ]);
     });
+  });
+
+  it.each([
+    { label: "a string", payloadOk: "false" },
+    { label: "a number", payloadOk: 1 },
+  ])("rejects $label payload ok value instead of generating a lead", async ({
+    payloadOk,
+  }) => {
+    window.history.replaceState({}, "", "/contact?source=malformed-success");
+    window.dataLayer = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          ok: payloadOk,
+          message: "Private malformed success detail",
+        }),
+      }),
+    );
+
+    render(
+      <ContactInquiryForm
+        emailHref="mailto:sales@example.com"
+        locale="en"
+        sourcePath="/contact"
+      />,
+    );
+    fireEvent.submit(screen.getByRole("checkbox").closest("form")!);
+
+    await waitFor(() => {
+      expect(window.dataLayer).toEqual([
+        {
+          event: "form_error",
+          form_name: "contact_inquiry",
+          error_type: "unknown",
+          page_path: "/contact",
+        },
+      ]);
+    });
+    expect(screen.getByText(/Submission failed/i)).toBeInTheDocument();
+  });
+
+  it.each([
+    {
+      label: "response JSON rejects",
+      json: () => Promise.reject(new Error("Private response parse detail")),
+    },
+    {
+      label: "response JSON is null",
+      json: async () => null,
+    },
+    {
+      label: "response JSON is an array",
+      json: async () => [{ ok: true, message: "Private array detail" }],
+    },
+    {
+      label: "response JSON omits a boolean ok",
+      json: async () => ({ message: "Private incomplete response detail" }),
+    },
+  ])("classifies $label as an unknown response failure, not network", async ({
+    json,
+  }) => {
+    window.history.replaceState({}, "", "/contact?source=malformed-response");
+    window.dataLayer = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json,
+      }),
+    );
+
+    render(
+      <ContactInquiryForm
+        emailHref="mailto:sales@example.com"
+        locale="en"
+        sourcePath="/contact"
+      />,
+    );
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "private-buyer@example.com" },
+    });
+    fireEvent.submit(screen.getByRole("checkbox").closest("form")!);
+
+    await waitFor(() => {
+      expect(window.dataLayer).toEqual([
+        {
+          event: "form_error",
+          form_name: "contact_inquiry",
+          error_type: "unknown",
+          page_path: "/contact",
+        },
+      ]);
+    });
+    expect(screen.getByText(/Submission failed/i)).toBeInTheDocument();
   });
 
   it("tracks network failures without user fields or thrown error details", async () => {
