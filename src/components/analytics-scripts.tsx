@@ -4,6 +4,7 @@ import {
   resolveAnalyticsRuntime,
   type AnalyticsRuntimeInput,
 } from "@/lib/analytics-config";
+import { AnalyticsLinkTracker } from "@/components/analytics-link-tracker";
 
 export function AnalyticsScripts(input: AnalyticsRuntimeInput) {
   const runtime = resolveAnalyticsRuntime(input);
@@ -14,6 +15,7 @@ export function AnalyticsScripts(input: AnalyticsRuntimeInput) {
 
   return (
     <>
+      <AnalyticsLinkTracker />
       {runtime.gaMeasurementId ? (
         <GoogleAnalytics gaId={runtime.gaMeasurementId} />
       ) : null}
