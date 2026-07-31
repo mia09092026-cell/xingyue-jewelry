@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { ContactInquiryForm, buildInquiryEmailHref } from "@/components/contact-inquiry-form";
 import { LocalizedProducts } from "@/components/localized-pages";
 import {
@@ -32,6 +32,12 @@ const completePayload = {
   consent: true,
   honeypot: "",
 };
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+  window.dataLayer = undefined;
+  window.history.replaceState({}, "", "/");
+});
 
 describe("Phase 6 shared inquiry model", () => {
   it("accepts every approved inquiry field and consolidates it into the original A:P sheet mapping", () => {
@@ -179,6 +185,7 @@ describe("Phase 6 contact form accessibility", () => {
 
     const consent = screen.getByRole("checkbox", { name: /agree that xingyue/i });
     expect(consent).not.toBeChecked();
+    expect(consent.closest("form")).toHaveAttribute("data-clarity-mask", "true");
     expect(screen.queryByLabelText("Business Type")).not.toBeInTheDocument();
     expect(screen.getByLabelText("Custom Requirement")).toBeInTheDocument();
 
@@ -191,5 +198,203 @@ describe("Phase 6 contact form accessibility", () => {
       "id",
       "field-error-email",
     );
+  });
+});
+
+describe("Phase 6 contact form analytics", () => {
+  it("tracks one lead only after confirmed HTTP and API success with a safe URL inquiry type", async () => {
+    window.history.replaceState(
+      {},
+      "",
+      "/es/contact?source=products&interest=moissanite-jewelry#quote",
+    );
+    window.dataLayer = [];
+
+    let resolveFetch!: (value: {
+      ok: boolean;
+      json: () => Promise<{ ok: boolean; reference: string }>;
+    }) => void;
+    const fetchPromise = new Promise<{
+      ok: boolean;
+      json: () => Promise<{ ok: boolean; reference: string }>;
+    }>((resolve) => {
+      resolveFetch = resolve;
+    });
+    vi.stubGlobal("fetch", vi.fn().mockReturnValue(fetchPromise));
+
+    render(
+      <ContactInquiryForm
+        emailHref="mailto:sales@example.com"
+        locale="es"
+        sourcePath="/es/contact"
+      />,
+    );
+
+    fireEvent.submit(screen.getByRole("checkbox").closest("form")!);
+    expect(window.dataLayer).toEqual([]);
+
+    resolveFetch({
+      ok: true,
+      json: async () => ({ ok: true, reference: "INQ-123" }),
+    });
+
+    await waitFor(() => {
+      expect(window.dataLayer).toEqual([
+        {
+          event: "generate_lead",
+          form_name: "contact_inquiry",
+          page_path: "/es/contact",
+          locale: "es",
+          inquiry_type: "moissanite-jewelry",
+        },
+      ]);
+    });
+  });
+
+  it.each([
+    {
+      label: "an HTTP validation failure",
+      responseOk: false,
+      payloadOk: false,
+      code: "VALIDATION_ERROR",
+      errorType: "validation",
+    },
+    {
+      label: "an API validation failure",
+      responseOk: true,
+      payloadOk: false,
+      code: "VALIDATION_ERROR",
+      errorType: "validation",
+    },
+    {
+      label: "an HTTP failure despite an API success payload",
+      responseOk: false,
+      payloadOk: true,
+      code: "SHEETS_WRITE_FAILED",
+      errorType: "server",
+    },
+    {
+      label: "a server failure",
+      responseOk: false,
+      payloadOk: false,
+      code: "SHEETS_WRITE_FAILED",
+      errorType: "server",
+    },
+    {
+      label: "a rate-limited failure",
+      responseOk: false,
+      payloadOk: false,
+      code: "RATE_LIMITED",
+      errorType: "rate_limited",
+    },
+  ])("tracks $label without lead or private response data", async ({
+    responseOk,
+    payloadOk,
+    code,
+    errorType,
+  }) => {
+    window.history.replaceState({}, "", "/contact?source=private-query");
+    window.dataLayer = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: responseOk,
+        json: async () => ({
+          ok: payloadOk,
+          code,
+          message: "Private API diagnostic that must not enter analytics",
+        }),
+      }),
+    );
+
+    render(
+      <ContactInquiryForm
+        emailHref="mailto:sales@example.com"
+        locale="en"
+        sourcePath="/contact"
+      />,
+    );
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "private-buyer@example.com" },
+    });
+    fireEvent.submit(screen.getByRole("checkbox").closest("form")!);
+
+    await waitFor(() => {
+      expect(window.dataLayer).toEqual([
+        {
+          event: "form_error",
+          form_name: "contact_inquiry",
+          error_type: errorType,
+          page_path: "/contact",
+        },
+      ]);
+    });
+  });
+
+  it("tracks network failures without user fields or thrown error details", async () => {
+    window.history.replaceState({}, "", "/contact?source=network-test");
+    window.dataLayer = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockRejectedValue(new Error("Private network diagnostic")),
+    );
+
+    render(
+      <ContactInquiryForm
+        emailHref="mailto:sales@example.com"
+        locale="en"
+        sourcePath="/contact"
+      />,
+    );
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "private-buyer@example.com" },
+    });
+    fireEvent.submit(screen.getByRole("checkbox").closest("form")!);
+
+    await waitFor(() => {
+      expect(window.dataLayer).toEqual([
+        {
+          event: "form_error",
+          form_name: "contact_inquiry",
+          error_type: "network",
+          page_path: "/contact",
+        },
+      ]);
+    });
+  });
+
+  it("does not derive inquiry_type from the free-text product-interest field", async () => {
+    window.history.replaceState({}, "", "/contact");
+    window.dataLayer = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ ok: true, reference: "INQ-456" }),
+      }),
+    );
+
+    render(
+      <ContactInquiryForm
+        emailHref="mailto:sales@example.com"
+        locale="en"
+        sourcePath="/contact"
+      />,
+    );
+    fireEvent.change(screen.getByLabelText("Product Interest"), {
+      target: { value: "Private custom product request" },
+    });
+    fireEvent.submit(screen.getByRole("checkbox").closest("form")!);
+
+    await waitFor(() => {
+      expect(window.dataLayer).toEqual([
+        {
+          event: "generate_lead",
+          form_name: "contact_inquiry",
+          page_path: "/contact",
+          locale: "en",
+        },
+      ]);
+    });
   });
 });
