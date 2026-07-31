@@ -186,6 +186,11 @@ type LocaleContent = {
       copy: string;
       items: VisualCard[];
     };
+    factoryVideo: {
+      title: string;
+      copy: string;
+      cta: string;
+    };
     stats: Array<{ value: string; label: string }>;
     audience: {
       eyebrow: string;
@@ -408,6 +413,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
             alt: "Jeweler manually setting a stone under magnification",
           },
         ],
+      },
+      factoryVideo: {
+        title: "See How Custom Jewelry Is Made",
+        copy: "From CAD design and model preparation to stone setting, polishing, and final inspection, see how we turn custom concepts into production-ready jewelry.",
+        cta: "Start Your OEM/ODM Project",
       },
       stats: [
         { value: "925 Silver / 14K / 18K", label: "Project-specific silver and K-gold options for custom jewelry collections" },
@@ -1016,6 +1026,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           },
         ],
       },
+      factoryVideo: {
+        title: "شاهد كيف نصنع المجوهرات المخصصة",
+        copy: "من تصميم CAD وإعداد النموذج إلى ترصيع الأحجار والتلميع والفحص النهائي، شاهد كيف نحول الأفكار المخصصة إلى مجوهرات جاهزة للإنتاج.",
+        cta: "ابدأ مشروع OEM/ODM الخاص بك",
+      },
       stats: [
         { value: "فضة 925 / ذهب 14K / 18K", label: "خيارات فضة وذهب K حسب المشروع لمجموعات المجوهرات المخصصة" },
         { value: "العينات والحد الأدنى حسب المشروع", label: "تُراجع العينة والكمية المناسبة لكل منتج ومشروع" },
@@ -1376,6 +1391,11 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
             alt: "Artesano engastando una gema manualmente con una herramienta de aumento",
           },
         ],
+      },
+      factoryVideo: {
+        title: "Descubra cómo fabricamos joyería personalizada",
+        copy: "Desde el diseño CAD y la preparación del modelo hasta el engaste, el pulido y la inspección final, vea cómo convertimos conceptos personalizados en joyería lista para producción.",
+        cta: "Inicie su proyecto OEM/ODM",
       },
       stats: [
         { value: "Plata 925 / oro 14K / 18K", label: "Opciones de plata y oro K según el proyecto para colecciones personalizadas" },

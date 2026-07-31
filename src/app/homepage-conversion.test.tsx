@@ -10,6 +10,7 @@ const expectedSectionOrder = [
   "products-capabilities",
   "gemstone-colors",
   "manufacturing-gallery",
+  "factory-video",
   "how-we-work",
   "sample-moq",
   "quality-control",
