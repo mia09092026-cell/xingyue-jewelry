@@ -12,14 +12,22 @@ import {
   resolveSafeResourceLink,
 } from "@/components/resource-markdown";
 
-const { notFoundMock } = vi.hoisted(() => ({
+const { notFoundMock, resourceViewTrackerProps } = vi.hoisted(() => ({
   notFoundMock: vi.fn(() => {
     throw new Error("NEXT_NOT_FOUND");
   }),
+  resourceViewTrackerProps: [] as Array<Record<string, string>>,
 }));
 
 vi.mock("next/navigation", () => ({
   notFound: notFoundMock,
+}));
+
+vi.mock("@/components/resource-view-tracker", () => ({
+  ResourceViewTracker: (props: Record<string, string>) => {
+    resourceViewTrackerProps.push(props);
+    return null;
+  },
 }));
 
 describe("Resources list page", () => {
@@ -142,6 +150,7 @@ describe("Resource article page", () => {
   });
 
   it("renders visible article metadata, body, related article, breadcrumb, and inquiry CTA", async () => {
+    resourceViewTrackerProps.length = 0;
     const result = await ResourceArticlePage({
       params: Promise.resolve({ slug: "moissanite-vs-cubic-zirconia" }),
     });
@@ -194,6 +203,14 @@ describe("Resource article page", () => {
       "href",
       "/contact?locale=en&source=general&contactMethod=form",
     );
+    expect(resourceViewTrackerProps).toEqual([
+      {
+        slug: "moissanite-vs-cubic-zirconia",
+        title: "Moissanite vs Cubic Zirconia: What Jewelry Buyers Should Know",
+        locale: "en",
+        path: "/resources/moissanite-vs-cubic-zirconia",
+      },
+    ]);
 
     const schemas = Array.from(
       container.querySelectorAll('script[type="application/ld+json"]'),
