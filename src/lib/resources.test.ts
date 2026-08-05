@@ -8,6 +8,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
+  getAllResourceArticles,
   getPublishedResourceArticle,
   getPublishedResourceArticles,
   getRelatedResourceArticles,
@@ -244,6 +245,46 @@ Body.
 });
 
 describe("published resource queries", () => {
+  it("publishes the custom 925 silver sourcing guide with validated SEO structure", () => {
+    const slug =
+      "source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry";
+    const article = getAllResourceArticles("en").find(
+      (candidate) => candidate.slug === slug,
+    );
+
+    expect(article).toMatchObject({
+      title:
+        "How to Source Custom 925 Sterling Silver Jewelry with Moissanite or Lab-Grown Diamonds",
+      description:
+        "Learn how to source custom 925 sterling silver jewelry from moissanite and lab-grown diamond jewelry manufacturers, from specifications to quality control.",
+      coverImage: "/images/xingyue-ring-sample.jpg",
+      draft: false,
+    });
+    expect(article?.body).not.toMatch(/^# /m);
+    expect(article?.body).toContain("## Quick answer");
+    expect(article?.body).toContain("## Frequently asked questions");
+    expect(article?.body).toContain(
+      "](/resources/choose-925-sterling-silver-jewelry-manufacturer)",
+    );
+    expect(article?.body).toContain(
+      "](/resources/how-to-develop-custom-moissanite-sterling-silver-jewelry)",
+    );
+    expect(article?.body).toContain(
+      "](/resources/moissanite-vs-cubic-zirconia)",
+    );
+    expect(article?.body).toContain(
+      "![Specification checklist comparing the fields buyers should confirm for moissanite and lab-grown diamonds](/images/moissanite-lab-grown-diamond-specification-checklist.svg)",
+    );
+    expect(article?.body).toContain(
+      "![Dimension confirmation diagram showing ring width, thickness, stone size, setting height, and ring size review fields](/images/jewelry-cad-dimension-confirmation-checklist.svg)",
+    );
+    expect(article?.body).toContain(
+      "[Start Your Custom Jewelry Project](/contact)",
+    );
+    expect(getPublishedResourceArticle(slug, "en")?.slug).toBe(slug);
+    expect(getResourceStaticParams()).toContainEqual({ slug });
+  });
+
   it("excludes drafts and sorts newest first with slug as the tie-breaker", () => {
     const { localeDirectory, options } = createFixture();
     writeArticle(localeDirectory, "older", {

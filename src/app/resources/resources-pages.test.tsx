@@ -50,7 +50,15 @@ describe("Resources list page", () => {
     ).toBeInTheDocument();
 
     const articles = container.querySelectorAll("article");
-    expect(articles).toHaveLength(3);
+    expect(articles).toHaveLength(4);
+    expect(
+      screen.getByRole("link", {
+        name: /How to Source Custom 925 Sterling Silver Jewelry with Moissanite or Lab-Grown Diamonds/,
+      }),
+    ).toHaveAttribute(
+      "href",
+      "/resources/source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
+    );
     expect(
       screen.getByRole("link", {
         name: /How to Develop a Custom Moissanite and 925 Sterling Silver Jewelry Collection/,
@@ -239,6 +247,9 @@ describe("Resource article page", () => {
 
   it("generates static params for published English articles only", () => {
     expect(generateStaticParams()).toEqual([
+      {
+        slug: "source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
+      },
       { slug: "how-to-develop-custom-moissanite-sterling-silver-jewelry" },
       { slug: "moissanite-vs-cubic-zirconia" },
       { slug: "choose-925-sterling-silver-jewelry-manufacturer" },

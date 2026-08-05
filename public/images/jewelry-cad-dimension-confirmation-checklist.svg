@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Jewelry CAD and dimension confirmation checklist</title>
+  <desc id="desc">A schematic ring drawing identifying stone size, setting height, band width, band thickness, and ring size fields for buyer review.</desc>
+  <rect width="1200" height="760" fill="#f8f6ef"/>
+  <rect x="60" y="56" width="1080" height="648" rx="24" fill="#ffffff" stroke="#ded6c6" stroke-width="3"/>
+  <text x="100" y="126" fill="#17202a" font-family="Arial, sans-serif" font-size="38" font-weight="700">CAD and dimension confirmation</text>
+  <text x="100" y="168" fill="#596575" font-family="Arial, sans-serif" font-size="22">Example review fields — not a production CAD drawing.</text>
+  <g fill="none" stroke="#17202a" stroke-width="8">
+    <ellipse cx="430" cy="470" rx="190" ry="164"/>
+    <path d="M315 350 Q430 252 545 350"/>
+    <path d="M362 330 L380 248 L480 248 L498 330"/>
+    <path d="M380 248 L430 206 L480 248 L430 290 Z" fill="#e6cf96" stroke="#8a734b"/>
+  </g>
+  <g stroke="#8a734b" stroke-width="3" fill="none">
+    <path d="M366 206 H494"/><path d="M366 194 V218 M494 194 V218"/>
+    <path d="M535 246 V350"/><path d="M523 246 H547 M523 350 H547"/>
+    <path d="M242 470 H616"/><path d="M242 458 V482 M616 458 V482"/>
+    <path d="M286 606 H574"/><path d="M286 594 V618 M574 594 V618"/>
+  </g>
+  <g fill="#17202a" font-family="Arial, sans-serif">
+    <text x="430" y="190" text-anchor="middle" font-size="21" font-weight="700">Stone length and width (mm)</text>
+    <text x="560" y="304" font-size="21" font-weight="700">Setting height</text>
+    <text x="430" y="452" text-anchor="middle" font-size="21" font-weight="700">Ring size / inner diameter</text>
+    <text x="430" y="646" text-anchor="middle" font-size="21" font-weight="700">Band width and thickness</text>
+  </g>
+  <rect x="710" y="228" width="360" height="372" rx="18" fill="#f4efe3"/>
+  <text x="750" y="282" fill="#17202a" font-family="Arial, sans-serif" font-size="27" font-weight="700">Buyer review checklist</text>
+  <g fill="#596575" font-family="Arial, sans-serif" font-size="23">
+    <text x="750" y="340">✓ Front, side, and back views</text>
+    <text x="750" y="394">✓ Stone dimensions and layout</text>
+    <text x="750" y="448">✓ Prong and setting structure</text>
+    <text x="750" y="502">✓ Metal thickness and comfort</text>
+    <text x="750" y="556">✓ Logo and connection details</text>
+  </g>
+</svg>
