@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Moissanite and lab-grown diamond specification checklist</title>
+  <desc id="desc">A buyer checklist comparing the fields to confirm for moissanite and lab-grown diamond jewelry projects.</desc>
+  <rect width="1200" height="760" fill="#f8f6ef"/>
+  <rect x="60" y="56" width="1080" height="648" rx="24" fill="#ffffff" stroke="#ded6c6" stroke-width="3"/>
+  <text x="100" y="126" fill="#17202a" font-family="Arial, sans-serif" font-size="38" font-weight="700">Stone specification checklist</text>
+  <text x="100" y="168" fill="#596575" font-family="Arial, sans-serif" font-size="22">Confirm physical dimensions and project requirements before CAD or quotation.</text>
+  <rect x="100" y="214" width="480" height="72" rx="12" fill="#17202a"/>
+  <rect x="620" y="214" width="480" height="72" rx="12" fill="#8a734b"/>
+  <text x="340" y="259" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="27" font-weight="700">Moissanite project</text>
+  <text x="860" y="259" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="27" font-weight="700">Lab-grown diamond project</text>
+  <g font-family="Arial, sans-serif" font-size="22" fill="#17202a">
+    <g>
+      <rect x="100" y="310" width="480" height="76" rx="10" fill="#f4efe3"/>
+      <text x="128" y="342" font-weight="700">Material identity</text><text x="128" y="371" fill="#596575">State “moissanite” clearly</text>
+      <rect x="620" y="310" width="480" height="76" rx="10" fill="#f4efe3"/>
+      <text x="648" y="342" font-weight="700">Material identity</text><text x="648" y="371" fill="#596575">State “laboratory-grown diamond” clearly</text>
+    </g>
+    <g>
+      <rect x="100" y="404" width="480" height="76" rx="10" fill="#fbfaf7" stroke="#ded6c6"/>
+      <text x="128" y="436" font-weight="700">Physical size</text><text x="128" y="465" fill="#596575">Shape + length × width × depth (mm)</text>
+      <rect x="620" y="404" width="480" height="76" rx="10" fill="#fbfaf7" stroke="#ded6c6"/>
+      <text x="648" y="436" font-weight="700">Physical size</text><text x="648" y="465" fill="#596575">Shape + length × width × depth (mm)</text>
+    </g>
+    <g>
+      <rect x="100" y="498" width="480" height="76" rx="10" fill="#f4efe3"/>
+      <text x="128" y="530" font-weight="700">Product use</text><text x="128" y="559" fill="#596575">Center, accent, matched pair, or layout</text>
+      <rect x="620" y="498" width="480" height="76" rx="10" fill="#f4efe3"/>
+      <text x="648" y="530" font-weight="700">Product use</text><text x="648" y="559" fill="#596575">Center, accent, matched pair, or layout</text>
+    </g>
+    <g>
+      <rect x="100" y="592" width="480" height="76" rx="10" fill="#fbfaf7" stroke="#ded6c6"/>
+      <text x="128" y="624" font-weight="700">Approval record</text><text x="128" y="653" fill="#596575">Appearance, matching, and agreed documents</text>
+      <rect x="620" y="592" width="480" height="76" rx="10" fill="#fbfaf7" stroke="#ded6c6"/>
+      <text x="648" y="624" font-weight="700">Approval record</text><text x="648" y="653" fill="#596575">Quality brief and project-specific documents</text>
+    </g>
+  </g>
+</svg>

@@ -19,6 +19,10 @@ export function resourceCoverAlt(article: ResourceArticle) {
     return "Jewelry setting work for a sterling silver manufacturer guide";
   }
 
+  if (article.coverImage.includes("xingyue-ring-sample")) {
+    return "925 sterling silver solitaire ring sample with a colorless center stone";
+  }
+
   return `Cover image for ${article.title}`;
 }
 
