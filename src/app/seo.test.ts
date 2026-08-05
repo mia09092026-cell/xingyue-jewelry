@@ -39,6 +39,9 @@ describe("SEO foundations", () => {
     expect(urls).toContain(
       "https://xingyuejewelry.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
     );
+    expect(urls).toContain(
+      "https://xingyuejewelry.com/resources/source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
+    );
     expect(urls).not.toContain("https://xingyuejewelry.com/es/resources");
     expect(urls).not.toContain("https://xingyuejewelry.com/ar/resources");
     expect(urls).not.toContain("https://xingyuejewelry.com/collections");
