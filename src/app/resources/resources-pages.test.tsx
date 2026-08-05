@@ -50,7 +50,15 @@ describe("Resources list page", () => {
     ).toBeInTheDocument();
 
     const articles = container.querySelectorAll("article");
-    expect(articles).toHaveLength(2);
+    expect(articles).toHaveLength(3);
+    expect(
+      screen.getByRole("link", {
+        name: /How to Develop a Custom Moissanite and 925 Sterling Silver Jewelry Collection/,
+      }),
+    ).toHaveAttribute(
+      "href",
+      "/resources/how-to-develop-custom-moissanite-sterling-silver-jewelry",
+    );
     expect(
       screen.getByRole("link", {
         name: /Moissanite vs Cubic Zirconia: What Jewelry Buyers Should Know/,
@@ -68,7 +76,7 @@ describe("Resources list page", () => {
       "/resources/choose-925-sterling-silver-jewelry-manufacturer",
     );
     expect(screen.getByText("July 27, 2026")).toBeInTheDocument();
-    expect(screen.getAllByText("Moissanite")).toHaveLength(2);
+    expect(screen.getAllByText("Moissanite")).toHaveLength(3);
     expect(screen.getAllByText("925 Sterling Silver")).toHaveLength(2);
     expect(screen.getByText("buyer guide")).toBeInTheDocument();
     expect(
@@ -93,7 +101,13 @@ describe("Resources list page", () => {
     });
     const { container } = render(result);
 
-    expect(container.querySelectorAll("article")).toHaveLength(1);
+    expect(container.querySelectorAll("article")).toHaveLength(2);
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "How to Develop a Custom Moissanite and 925 Sterling Silver Jewelry Collection",
+      }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 2,
@@ -225,6 +239,7 @@ describe("Resource article page", () => {
 
   it("generates static params for published English articles only", () => {
     expect(generateStaticParams()).toEqual([
+      { slug: "how-to-develop-custom-moissanite-sterling-silver-jewelry" },
       { slug: "moissanite-vs-cubic-zirconia" },
       { slug: "choose-925-sterling-silver-jewelry-manufacturer" },
     ]);
