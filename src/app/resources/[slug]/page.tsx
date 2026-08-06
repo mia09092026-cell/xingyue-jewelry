@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { ResourceCard, formatResourceDate, resourceCoverAlt } from "@/components/resource-card";
 import { ResourceMarkdown } from "@/components/resource-markdown";
+import { ResourceViewTracker } from "@/components/resource-view-tracker";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { contactInquiryHref } from "@/lib/contact-links";
@@ -73,6 +74,12 @@ export default async function ResourceArticlePage({
 
   return (
     <>
+      <ResourceViewTracker
+        slug={article.slug}
+        title={article.title}
+        locale="en"
+        path={articlePath}
+      />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

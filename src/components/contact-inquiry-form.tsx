@@ -9,7 +9,15 @@ import {
   type ContactInquiryFieldErrors,
   type ContactInquiryLegacyField,
 } from "@/lib/contact-inquiry";
-import { buildInquiryEmailUrl, contactSourceFromPath, normalizeInterest, normalizeSource, productInterestLabel } from "@/lib/contact-links";
+import { classifyFormError, trackAnalyticsEvent } from "@/lib/analytics";
+import {
+  buildInquiryEmailUrl,
+  contactSourceFromPath,
+  normalizeInterest,
+  normalizeSource,
+  productInterestCodes,
+  productInterestLabel,
+} from "@/lib/contact-links";
 import type { ContactFormCopy } from "@/content/i18n";
 import type { SupportedLocale } from "@/lib/i18n";
 
@@ -429,8 +437,9 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
     setSubmitState({ status: "submitting", message: effectiveContent.submitting });
     setFieldErrors({});
 
+    let response: Response;
     try {
-      const response = await fetch("/api/contact", {
+      response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -440,30 +449,76 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
           honeypot,
         }),
       });
-      const payload = (await response.json()) as {
-        ok?: boolean;
-        code?: string;
-        reference?: string;
-        fieldErrors?: ContactInquiryFieldErrors;
-      };
-
-      if (!response.ok || !payload.ok) {
-        setFieldErrors(payload.fieldErrors ?? {});
-        setSubmitState({
-          status: "error",
-          message:
-            effectiveContent.errorMessages[payload.code ?? ""] ??
-            getLocalizedInquiryErrorMessage(locale, payload.code, effectiveContent.errorFallback),
-        });
-        window.setTimeout(() => errorSummaryRef.current?.focus(), 0);
-        return;
-      }
-
-      setSubmitState({ status: "success", message: effectiveContent.successMessage, reference: payload.reference });
     } catch {
+      trackAnalyticsEvent("form_error", {
+        form_name: "contact_inquiry",
+        error_type: classifyFormError("network_error"),
+        page_path: window.location.pathname,
+      });
       setSubmitState({ status: "error", message: effectiveContent.errorMessages.network_error });
       window.setTimeout(() => errorSummaryRef.current?.focus(), 0);
+      return;
     }
+
+    let payloadValue: unknown;
+    try {
+      payloadValue = await response.json();
+    } catch {
+      trackAnalyticsEvent("form_error", {
+        form_name: "contact_inquiry",
+        error_type: classifyFormError(),
+        page_path: window.location.pathname,
+      });
+      setSubmitState({ status: "error", message: effectiveContent.errorFallback });
+      window.setTimeout(() => errorSummaryRef.current?.focus(), 0);
+      return;
+    }
+
+    const payload =
+      typeof payloadValue === "object" &&
+      payloadValue !== null &&
+      !Array.isArray(payloadValue)
+        ? payloadValue as Record<string, unknown>
+        : undefined;
+    const code = typeof payload?.code === "string" ? payload.code : undefined;
+    const fieldErrors =
+      typeof payload?.fieldErrors === "object" &&
+      payload.fieldErrors !== null &&
+      !Array.isArray(payload.fieldErrors)
+        ? payload.fieldErrors as ContactInquiryFieldErrors
+        : {};
+
+    if (!response.ok || payload?.ok !== true) {
+      trackAnalyticsEvent("form_error", {
+        form_name: "contact_inquiry",
+        error_type: classifyFormError(code),
+        page_path: window.location.pathname,
+      });
+      setFieldErrors(fieldErrors);
+      setSubmitState({
+        status: "error",
+        message:
+          effectiveContent.errorMessages[code ?? ""] ??
+          getLocalizedInquiryErrorMessage(locale, code, effectiveContent.errorFallback),
+      });
+      window.setTimeout(() => errorSummaryRef.current?.focus(), 0);
+      return;
+    }
+
+    const inquiryType = productInterestCodes.some((interestCode) => interestCode === linkContext.interest)
+      ? linkContext.interest
+      : undefined;
+    trackAnalyticsEvent("generate_lead", {
+      form_name: "contact_inquiry",
+      page_path: window.location.pathname,
+      locale,
+      ...(inquiryType ? { inquiry_type: inquiryType } : {}),
+    });
+    setSubmitState({
+      status: "success",
+      message: effectiveContent.successMessage,
+      reference: typeof payload.reference === "string" ? payload.reference : undefined,
+    });
   }
 
   const errorMessage = (field: ContactInquiryField | "consent") => {
@@ -475,7 +530,7 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
   const errorFields = Object.keys(fieldErrors) as Array<ContactInquiryField | "consent">;
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm md:p-8">
+    <form data-clarity-mask="true" onSubmit={handleSubmit} noValidate className="rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm md:p-8">
       <div className="mb-6 rounded-md border border-[#eadfca] bg-[#fbfaf7] p-4 text-sm leading-6 text-[#596575]">
         <div className="mb-2 flex items-center gap-2 font-semibold text-[#17202a]">
           <ShieldCheck aria-hidden="true" className="h-4 w-4 text-[#a98945]" />
