@@ -34,6 +34,9 @@ describe("SEO foundations", () => {
     expect(urls).toContain("https://xingyuejewelry.com/faq");
     expect(urls).toContain("https://xingyuejewelry.com/resources");
     expect(urls).toContain(
+      "https://xingyuejewelry.com/resources/first-wholesale-sterling-silver-jewelry-order",
+    );
+    expect(urls).toContain(
       "https://xingyuejewelry.com/resources/moissanite-vs-cubic-zirconia",
     );
     expect(urls).toContain(

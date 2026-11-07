@@ -11,6 +11,10 @@ export function formatResourceDate(value: string) {
 }
 
 export function resourceCoverAlt(article: ResourceArticle) {
+  if (article.coverImage.includes("wholesale-first-order-prong-stud-earrings")) {
+    return "Round prong-set stud earrings displayed on a white jewellery card";
+  }
+
   if (article.coverImage.includes("xingyue-loose-moissanite")) {
     return "Loose moissanite stones for a jewelry buyer comparison guide";
   }
