@@ -50,7 +50,15 @@ describe("Resources list page", () => {
     ).toBeInTheDocument();
 
     const articles = container.querySelectorAll("article");
-    expect(articles).toHaveLength(4);
+    expect(articles).toHaveLength(5);
+    expect(
+      screen.getByRole("link", {
+        name: /Your First Wholesale Sterling Silver Jewellery Order: A Checklist/,
+      }),
+    ).toHaveAttribute(
+      "href",
+      "/resources/first-wholesale-sterling-silver-jewelry-order",
+    );
     expect(
       screen.getByRole("link", {
         name: /How to Source Custom 925 Sterling Silver Jewelry with Moissanite or Lab-Grown Diamonds/,
@@ -203,12 +211,12 @@ describe("Resource article page", () => {
       screen
         .getByRole("heading", {
           level: 2,
-          name: "How to Choose a 925 Sterling Silver Jewelry Manufacturer",
+          name: "Your First Wholesale Sterling Silver Jewellery Order: A Checklist",
         })
         .closest("a"),
     ).toHaveAttribute(
       "href",
-      "/resources/choose-925-sterling-silver-jewelry-manufacturer",
+      "/resources/first-wholesale-sterling-silver-jewelry-order",
     );
     expect(
       screen.getByRole("link", { name: "Discuss Your Jewelry Project" }),
@@ -247,6 +255,7 @@ describe("Resource article page", () => {
 
   it("generates static params for published English articles only", () => {
     expect(generateStaticParams()).toEqual([
+      { slug: "first-wholesale-sterling-silver-jewelry-order" },
       {
         slug: "source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
       },
