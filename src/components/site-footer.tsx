@@ -49,6 +49,12 @@ const resourceLabels: Record<SupportedLocale, string> = {
   ar: "الموارد (بالإنجليزية)",
 };
 
+const privacyLabels: Record<SupportedLocale, string> = {
+  en: "Privacy Policy",
+  es: "Política de privacidad",
+  ar: "سياسة الخصوصية",
+};
+
 const defaultCollectionItems = collectionLandingPages.map((page) => ({
   label: page.eyebrow,
   href: `/collections/${page.slug}`,
@@ -125,6 +131,11 @@ export function SiteFooter({
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/privacy" className="transition hover:text-white">
+                {privacyLabels[locale]}
+              </Link>
+            </li>
           </ul>
         </div>
         <div>
