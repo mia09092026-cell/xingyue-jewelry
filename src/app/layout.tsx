@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
+import Script from "next/script";
 import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 import { JsonLd } from "@/components/json-ld";
+import { HtmlLangSync } from "@/components/html-lang-sync";
 import { organizationSchema } from "@/lib/structured-data";
-import { getHtmlAttributesForPath } from "@/lib/i18n";
+import { defaultLocale, supportedLocales } from "@/lib/i18n";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,20 +31,31 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+// Keep the Hong Kong region close to the primary China/Asia audience for
+// server-rendered API routes. Static pages are served from the CDN edge.
+export const preferredRegion = "hkg1";
+
+const langScript = `(function(){try{var p=window.location.pathname.split("/")[1]||"";var s=${JSON.stringify(
+  supportedLocales,
+)};var l=s.indexOf(p)>-1?p:${JSON.stringify(
+  defaultLocale,
+)};var d=document.documentElement;d.lang=l;d.dir=l==="ar"?"rtl":"ltr";}catch(e){}})();`;
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headerStore = await headers();
-  const htmlAttributes = getHtmlAttributesForPath(
-    headerStore.get("x-xingyue-pathname") ?? "/",
-  );
-
   return (
-    <html lang={htmlAttributes.lang} dir={htmlAttributes.dir}>
+    <html lang={defaultLocale} dir="ltr" suppressHydrationWarning>
       <body>
-        <JsonLd data={organizationSchema(htmlAttributes.lang)} />
+        <Script
+          id="html-lang-sync"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: langScript }}
+        />
+        <HtmlLangSync />
+        <JsonLd data={organizationSchema(defaultLocale)} />
         {children}
       </body>
     </html>
