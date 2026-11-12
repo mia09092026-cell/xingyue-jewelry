@@ -1,6 +1,7 @@
 import Script from "next/script";
 
 const DEFAULT_CLARITY_PROJECT_ID = "xuvn5qafkq";
+const DEFAULT_GA_MEASUREMENT_ID = "G-WXLRBL27DQ";
 
 function isValidGaMeasurementId(value: string | undefined): value is string {
   return Boolean(value && /^G-[A-Z0-9]+$/.test(value));
@@ -27,7 +28,8 @@ export function AnalyticsScripts() {
 
   const clarityProjectId =
     process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || DEFAULT_CLARITY_PROJECT_ID;
-  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const gaMeasurementId =
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || DEFAULT_GA_MEASUREMENT_ID;
 
   return (
     <>
