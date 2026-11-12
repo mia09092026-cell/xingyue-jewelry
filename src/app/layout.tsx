@@ -4,6 +4,7 @@ import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 import { JsonLd } from "@/components/json-ld";
 import { HtmlLangSync } from "@/components/html-lang-sync";
+import { AnalyticsScripts } from "@/components/analytics-scripts";
 import { organizationSchema } from "@/lib/structured-data";
 import { defaultLocale, supportedLocales } from "@/lib/i18n";
 import "./globals.css";
@@ -57,6 +58,7 @@ export default function RootLayout({
         <HtmlLangSync />
         <JsonLd data={organizationSchema(defaultLocale)} />
         {children}
+        <AnalyticsScripts />
       </body>
     </html>
   );

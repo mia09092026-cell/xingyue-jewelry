@@ -475,7 +475,12 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
   const errorFields = Object.keys(fieldErrors) as Array<ContactInquiryField | "consent">;
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm md:p-8">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      data-clarity-mask="true"
+      className="rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm md:p-8"
+    >
       <div className="mb-6 rounded-md border border-[#eadfca] bg-[#fbfaf7] p-4 text-sm leading-6 text-[#596575]">
         <div className="mb-2 flex items-center gap-2 font-semibold text-[#17202a]">
           <ShieldCheck aria-hidden="true" className="h-4 w-4 text-[#a98945]" />
