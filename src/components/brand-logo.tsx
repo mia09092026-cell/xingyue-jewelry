@@ -19,8 +19,10 @@ export function BrandLogo({ alt = "XINGYUE Jewelry logo", variant = "header" }: 
       <Image
         src="/xingyue-jewelry-logo.png"
         alt={alt}
-        width={1254}
-        height={1254}
+        width={72}
+        height={72}
+        quality={90}
+        sizes="(min-width: 640px) 72px, 64px"
         priority={!isFooter}
         className={
           isFooter
