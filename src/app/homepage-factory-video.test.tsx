@@ -13,6 +13,7 @@ let prefersReducedMotion = false;
 class MockIntersectionObserver implements IntersectionObserver {
   readonly root = null;
   readonly rootMargin = "240px 0px";
+  readonly scrollMargin = "0px";
   readonly thresholds = [0.1];
 
   constructor(callback: IntersectionObserverCallback) {
