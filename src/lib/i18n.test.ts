@@ -31,10 +31,10 @@ describe("i18n routing helpers", () => {
 
   it("builds hreflang alternates with x-default pointing to English", () => {
     expect(getLanguageAlternates("/collections/lab-grown-diamond-jewelry")).toEqual({
-      en: "https://xingyuejewelry.com/collections/lab-grown-diamond-jewelry",
-      ar: "https://xingyuejewelry.com/ar/collections/lab-grown-diamond-jewelry",
-      es: "https://xingyuejewelry.com/es/collections/lab-grown-diamond-jewelry",
-      "x-default": "https://xingyuejewelry.com/collections/lab-grown-diamond-jewelry",
+      en: "https://zarivelle.com/collections/lab-grown-diamond-jewelry",
+      ar: "https://zarivelle.com/ar/collections/lab-grown-diamond-jewelry",
+      es: "https://zarivelle.com/es/collections/lab-grown-diamond-jewelry",
+      "x-default": "https://zarivelle.com/collections/lab-grown-diamond-jewelry",
     });
   });
 

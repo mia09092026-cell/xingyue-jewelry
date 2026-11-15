@@ -67,7 +67,7 @@ export function SiteFooter({
   emailLabel = "Email",
   intro = "Jewelry manufacturing and supply chain support for emerging brands, boutique stores and independent designers.",
   inquiryLabel = "OEM / ODM Inquiry",
-  logoAlt = "XINGYUE Jewelry logo",
+  logoAlt = "Zarivelle 织澜珠宝 logo",
   navigationItems = navigation.slice(0, 4),
   startBrandItem,
   targetAudienceItems,

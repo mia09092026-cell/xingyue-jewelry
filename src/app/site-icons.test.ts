@@ -43,7 +43,7 @@ describe("site icons", () => {
     expect(layoutSource).toContain('shortcut: "/favicon.ico"');
 
     expect(manifest()).toMatchObject({
-      name: "XINGYUE",
+      name: "Zarivelle",
       start_url: "/",
       display: "standalone",
       icons: [
@@ -86,12 +86,12 @@ describe("site icons", () => {
 
   it("keeps the existing multilingual product metadata unchanged", () => {
     expect(productsMetadata.alternates).toEqual({
-      canonical: "https://xingyuejewelry.com/products",
+      canonical: "https://zarivelle.com/products",
       languages: {
-        en: "https://xingyuejewelry.com/products",
-        es: "https://xingyuejewelry.com/es/products",
-        ar: "https://xingyuejewelry.com/ar/products",
-        "x-default": "https://xingyuejewelry.com/products",
+        en: "https://zarivelle.com/products",
+        es: "https://zarivelle.com/es/products",
+        ar: "https://zarivelle.com/ar/products",
+        "x-default": "https://zarivelle.com/products",
       },
     });
   });

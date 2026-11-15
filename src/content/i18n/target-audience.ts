@@ -93,18 +93,18 @@ export type TargetAudienceContent = {
 
 const en: TargetAudienceContent = {
   seo: {
-    title: "Jewelry Manufacturing Support for Emerging Brands | Xingyue",
+    title: "Jewelry Manufacturing Support for Emerging Brands | Zarivelle",
     description:
       "B2B jewelry manufacturing and supply-chain support for emerging brands, from product direction and sampling to packaging, quality review and shipping coordination.",
   },
   sectionOrder: emergingBrandsSectionOrder,
   definition:
-    "Xingyue Jewelry is a B2B jewelry manufacturing and supply-chain partner for emerging brands.",
+    "Zarivelle Jewelry is a B2B jewelry manufacturing and supply-chain partner for emerging brands.",
   hero: {
     eyebrow: "For Emerging Jewelry Brands",
     title: "Develop Your Jewelry Collection with a Coordinated Manufacturing Partner",
     subtitle:
-      "Bring a product idea, reference image, or collection direction. Xingyue helps coordinate product selection, custom development, sampling, project-specific MOQ, packaging, quality review, and international shipping discussions.",
+      "Bring a product idea, reference image, or collection direction. Zarivelle helps coordinate product selection, custom development, sampling, project-specific MOQ, packaging, quality review, and international shipping discussions.",
     primaryCta: "Discuss Your Collection",
     secondaryCta: "Explore Product Directions",
   },
@@ -132,7 +132,7 @@ const en: TargetAudienceContent = {
     ],
   },
   support: {
-    eyebrow: "How Xingyue Supports",
+    eyebrow: "How Zarivelle Supports",
     title: "Three points of coordination for an emerging brand",
     copy: "A shared project brief keeps product, sample and delivery decisions connected.",
     values: [
@@ -222,7 +222,7 @@ const en: TargetAudienceContent = {
       { question: "Do I need a finished design?", answer: "No. You can begin with a product idea, reference image or collection direction. We can review the information needed to clarify the next step." },
       { question: "How is minimum order quantity determined?", answer: "Minimum order quantity is reviewed for each project and depends on product type, material, stone, setting complexity, process and packaging." },
       { question: "Can every product be sampled as one piece?", answer: "Not necessarily. Sample routes and quantity options depend on the product and confirmed project scope." },
-      { question: "Can Xingyue coordinate private-label packaging?", answer: "Packaging can be discussed as part of the project, including boxes, pouches, cards, labels and logo placement where applicable." },
+      { question: "Can Zarivelle coordinate private-label packaging?", answer: "Packaging can be discussed as part of the project, including boxes, pouches, cards, labels and logo placement where applicable." },
       { question: "What should I include in my first inquiry?", answer: "Share product type, target quantity or range, destination country and business type. Add a reference, material, stone, packaging needs and expected timing when available." },
       { question: "Can international shipping be discussed?", answer: "Yes. Destination and shipping requirements can be reviewed as part of the confirmed project and packaging discussion." },
       { question: "What quality checks can be discussed?", answer: "Material and stone confirmation, sample reference, setting and finish, size and specification checks, packaging confirmation and a pre-shipment review can be discussed according to the project." },
@@ -234,7 +234,7 @@ const en: TargetAudienceContent = {
     copy: "A clear first inquiry gives the project a practical starting point.",
     cta: "Discuss Your Collection",
   },
-  links: { products: "Explore Products", startBrand: "Start Your Jewelry Brand", emergingBrands: "For Emerging Jewelry Brands", about: "About Xingyue", howWeWork: "Review the six stages" },
+  links: { products: "Explore Products", startBrand: "Start Your Jewelry Brand", emergingBrands: "For Emerging Jewelry Brands", about: "About Zarivelle", howWeWork: "Review the six stages" },
   schema: {
     service: {
       name: "Emerging Jewelry Brand Manufacturing Support",
@@ -247,15 +247,15 @@ const en: TargetAudienceContent = {
 
 const es: TargetAudienceContent = {
   seo: {
-    title: "Fabricación de joyería para marcas emergentes | Xingyue",
+    title: "Fabricación de joyería para marcas emergentes | Zarivelle",
     description: "Apoyo B2B de fabricación y cadena de suministro para marcas emergentes: dirección de producto, muestras, empaque, revisión de calidad y coordinación de envíos.",
   },
   sectionOrder: emergingBrandsSectionOrder,
-  definition: "Xingyue Jewelry es un socio B2B de fabricación y cadena de suministro de joyería para marcas emergentes.",
+  definition: "Zarivelle Jewelry es un socio B2B de fabricación y cadena de suministro de joyería para marcas emergentes.",
   hero: {
     eyebrow: "Para marcas de joyería emergentes",
     title: "Desarrolla tu colección con un socio de fabricación coordinado",
-    subtitle: "Comparte una idea de producto, una imagen de referencia o una dirección de colección. Xingyue ayuda a coordinar la selección, el desarrollo personalizado, las muestras, el MOQ según el proyecto, el empaque, la revisión de calidad y la conversación sobre el envío internacional.",
+    subtitle: "Comparte una idea de producto, una imagen de referencia o una dirección de colección. Zarivelle ayuda a coordinar la selección, el desarrollo personalizado, las muestras, el MOQ según el proyecto, el empaque, la revisión de calidad y la conversación sobre el envío internacional.",
     primaryCta: "Hablemos de tu colección",
     secondaryCta: "Explora las opciones de producto",
   },
@@ -277,7 +277,7 @@ const es: TargetAudienceContent = {
     ],
   },
   support: {
-    eyebrow: "Cómo apoya Xingyue",
+    eyebrow: "Cómo apoya Zarivelle",
     title: "Tres puntos de coordinación para una marca emergente",
     copy: "Un brief compartido conecta las decisiones de producto, muestra y entrega.",
     values: [
@@ -365,7 +365,7 @@ const es: TargetAudienceContent = {
       { question: "¿Necesito un diseño terminado?", answer: "No. Puedes comenzar con una idea, una imagen de referencia o una dirección de colección. Revisaremos la información necesaria para definir el siguiente paso." },
       { question: "¿Cómo se determina el MOQ?", answer: "El MOQ se revisa para cada proyecto y depende del producto, material, piedra, complejidad de la montura, proceso y empaque." },
       { question: "¿Todos los productos se pueden muestrear en una unidad?", answer: "No necesariamente. La ruta de muestra y las opciones de cantidad dependen del producto y del alcance confirmado." },
-      { question: "¿Xingyue puede coordinar empaque de marca privada?", answer: "El empaque se puede conversar dentro del proyecto, incluyendo cajas, bolsas, tarjetas, etiquetas y logo cuando corresponda." },
+      { question: "¿Zarivelle puede coordinar empaque de marca privada?", answer: "El empaque se puede conversar dentro del proyecto, incluyendo cajas, bolsas, tarjetas, etiquetas y logo cuando corresponda." },
       { question: "¿Qué debo incluir en mi primera consulta?", answer: "Comparte tipo de producto, cantidad objetivo o rango, país de destino y tipo de negocio. Añade referencia, material, piedra, empaque y plazo esperado cuando los tengas." },
       { question: "¿Se puede hablar del envío internacional?", answer: "Sí. El destino y los requisitos de envío se pueden revisar dentro del proyecto y la conversación de empaque." },
       { question: "¿Qué controles de calidad se pueden conversar?", answer: "Se pueden hablar de material y piedra, muestra de referencia, montura y acabado, medidas, empaque y revisión previa al envío según el proyecto." },
@@ -377,7 +377,7 @@ const es: TargetAudienceContent = {
     copy: "Una primera consulta clara da al proyecto un punto de partida práctico.",
     cta: "Hablemos de tu colección",
   },
-  links: { products: "Explora productos", startBrand: "Inicia tu marca de joyería", emergingBrands: "Para marcas de joyería emergentes", about: "Sobre Xingyue", howWeWork: "Revisa las seis etapas" },
+  links: { products: "Explora productos", startBrand: "Inicia tu marca de joyería", emergingBrands: "Para marcas de joyería emergentes", about: "Sobre Zarivelle", howWeWork: "Revisa las seis etapas" },
   schema: {
     service: {
       name: "Apoyo de fabricación para marcas de joyería emergentes",
@@ -390,15 +390,15 @@ const es: TargetAudienceContent = {
 
 const ar: TargetAudienceContent = {
   seo: {
-    title: "دعم تصنيع المجوهرات للعلامات التجارية الناشئة | Xingyue",
+    title: "دعم تصنيع المجوهرات للعلامات التجارية الناشئة | Zarivelle",
     description: "دعم B2B للعلامات التجارية الناشئة في اتجاه المنتج والعينات والحد الأدنى للطلب حسب المشروع والتغليف ومراجعة الجودة وتنسيق الشحن.",
   },
   sectionOrder: emergingBrandsSectionOrder,
-  definition: "Xingyue Jewelry شريك B2B لتصنيع المجوهرات وتنسيق سلسلة التوريد للعلامات التجارية الناشئة.",
+  definition: "Zarivelle Jewelry شريك B2B لتصنيع المجوهرات وتنسيق سلسلة التوريد للعلامات التجارية الناشئة.",
   hero: {
     eyebrow: "للعلامات التجارية الناشئة في المجوهرات",
     title: "طوّر مجموعة مجوهراتك مع شريك تصنيع ينسّق مراحل المشروع",
-    subtitle: "شارك فكرة منتج أو صورة مرجعية أو اتجاهًا للمجموعة. تساعد Xingyue في تنسيق اختيار المنتجات والتطوير المخصص والعينات والحد الأدنى للطلب حسب المشروع والتغليف ومراجعة الجودة ومناقشة الشحن الدولي.",
+    subtitle: "شارك فكرة منتج أو صورة مرجعية أو اتجاهًا للمجموعة. تساعد Zarivelle في تنسيق اختيار المنتجات والتطوير المخصص والعينات والحد الأدنى للطلب حسب المشروع والتغليف ومراجعة الجودة ومناقشة الشحن الدولي.",
     primaryCta: "ناقش مجموعتك معنا",
     secondaryCta: "استكشف اتجاهات المنتجات",
   },
@@ -420,7 +420,7 @@ const ar: TargetAudienceContent = {
     ],
   },
   support: {
-    eyebrow: "كيف تدعم Xingyue مشروعك",
+    eyebrow: "كيف تدعم Zarivelle مشروعك",
     title: "ثلاث نقاط تنسيق للعلامة التجارية الناشئة",
     copy: "يساعد موجز المشروع المشترك على ربط قرارات المنتج والعينة والتسليم.",
     values: [
@@ -508,7 +508,7 @@ const ar: TargetAudienceContent = {
       { question: "هل أحتاج إلى تصميم نهائي؟", answer: "لا. يمكنك البدء بفكرة منتج أو صورة مرجعية أو اتجاه للمجموعة. نراجع المعلومات اللازمة لتحديد الخطوة التالية." },
       { question: "كيف يتم تحديد الحد الأدنى للطلب؟", answer: "تتم مراجعة الحد الأدنى للطلب لكل مشروع، ويتأثر بنوع المنتج والمادة والحجر وتعقيد التركيب والعملية والتغليف." },
       { question: "هل يمكن أخذ عينة من قطعة واحدة لكل منتج؟", answer: "ليس بالضرورة. يعتمد مسار العينة وخيارات الكمية على المنتج ونطاق المشروع المؤكد." },
-      { question: "هل يمكن لـ Xingyue تنسيق تغليف العلامة الخاصة؟", answer: "يمكن مناقشة التغليف ضمن المشروع، بما في ذلك الصناديق والأكياس والبطاقات والملصقات وموضع الشعار عند انطباقه." },
+      { question: "هل يمكن لـ Zarivelle تنسيق تغليف العلامة الخاصة؟", answer: "يمكن مناقشة التغليف ضمن المشروع، بما في ذلك الصناديق والأكياس والبطاقات والملصقات وموضع الشعار عند انطباقه." },
       { question: "ما الذي أدرجه في استفساري الأول؟", answer: "اذكر نوع المنتج والكمية المستهدفة أو النطاق وبلد الوجهة ونوع النشاط. أضف المرجع والمادة والحجر والتغليف والتوقيت المتوقع عند توفرها." },
       { question: "هل يمكن مناقشة الشحن الدولي؟", answer: "نعم. يمكن مراجعة الوجهة ومتطلبات الشحن ضمن المشروع ومناقشة التغليف." },
       { question: "ما فحوص الجودة التي يمكن مناقشتها؟", answer: "يمكن مناقشة تأكيد المادة والحجر ومرجع العينة والتركيب والتشطيب وفحص المقاس والمواصفات والتغليف والمراجعة قبل الشحن وفق المشروع." },
@@ -520,7 +520,7 @@ const ar: TargetAudienceContent = {
     copy: "يمنح الاستفسار الأول الواضح المشروع نقطة بداية عملية.",
     cta: "ناقش مجموعتك معنا",
   },
-  links: { products: "استكشف المنتجات", startBrand: "ابدأ علامتك التجارية للمجوهرات", emergingBrands: "للعلامات التجارية الناشئة في المجوهرات", about: "عن Xingyue", howWeWork: "راجع المراحل الست" },
+  links: { products: "استكشف المنتجات", startBrand: "ابدأ علامتك التجارية للمجوهرات", emergingBrands: "للعلامات التجارية الناشئة في المجوهرات", about: "عن Zarivelle", howWeWork: "راجع المراحل الست" },
   schema: {
     service: {
       name: "دعم تصنيع للعلامات التجارية الناشئة في المجوهرات",
@@ -535,13 +535,13 @@ export const emergingBrandsContentByLocale = { en, es, ar } satisfies Record<Sup
 
 const boutiqueEn: TargetAudienceContent = {
   seo: {
-    title: "Jewelry Manufacturing Support for Boutique Stores | Xingyue Jewelry",
+    title: "Jewelry Manufacturing Support for Boutique Stores | Zarivelle Jewelry",
     description:
       "Explore jewelry manufacturing support for boutique stores, including product assortment planning, samples, project-based MOQ discussions, packaging and custom requirements.",
   },
   sectionOrder: boutiqueStoresSectionOrder,
   definition:
-    "Xingyue Jewelry helps boutique stores discuss practical product assortments, samples, packaging and custom jewelry requirements by project.",
+    "Zarivelle Jewelry helps boutique stores discuss practical product assortments, samples, packaging and custom jewelry requirements by project.",
   hero: {
     eyebrow: "For Boutique Jewelry Stores",
     title: "Source Boutique-Ready Jewelry with a Coordinated Manufacturing Partner",
@@ -578,7 +578,7 @@ const boutiqueEn: TargetAudienceContent = {
     ],
   },
   support: {
-    eyebrow: "How Xingyue Supports",
+    eyebrow: "How Zarivelle Supports",
     title: "Coordinate the decisions behind a boutique assortment",
     copy:
       "The project conversation can connect product selection, sampling, packaging and order details without assuming the same route for every store.",
@@ -697,7 +697,7 @@ const boutiqueEn: TargetAudienceContent = {
     startBrand: "Start Your Jewelry Brand",
     emergingBrands: "For Emerging Jewelry Brands",
     boutiqueStores: "For Boutique Jewelry Stores",
-    about: "About Xingyue",
+    about: "About Zarivelle",
     howWeWork: "Review the five stages",
   },
   schema: {
@@ -712,11 +712,11 @@ const boutiqueEn: TargetAudienceContent = {
 
 const boutiqueEs: TargetAudienceContent = {
   seo: {
-    title: "Apoyo de fabricación de joyería para boutiques | Xingyue Jewelry",
+    title: "Apoyo de fabricación de joyería para boutiques | Zarivelle Jewelry",
     description: "Apoyo B2B para boutiques: planificación del surtido, muestras, cantidades según el proyecto, empaque y requisitos de joyería personalizada.",
   },
   sectionOrder: boutiqueStoresSectionOrder,
-  definition: "Xingyue Jewelry ayuda a las boutiques a conversar sobre surtidos, muestras, empaque y requisitos de joyería personalizada según cada proyecto.",
+  definition: "Zarivelle Jewelry ayuda a las boutiques a conversar sobre surtidos, muestras, empaque y requisitos de joyería personalizada según cada proyecto.",
   hero: {
     eyebrow: "Para boutiques de joyería",
     title: "Abastece tu boutique de joyería con un socio de fabricación coordinado",
@@ -744,7 +744,7 @@ const boutiqueEs: TargetAudienceContent = {
     ],
   },
   support: {
-    eyebrow: "Cómo apoya Xingyue",
+    eyebrow: "Cómo apoya Zarivelle",
     title: "Coordina las decisiones detrás de un surtido boutique",
     copy: "La conversación del proyecto conecta selección, muestras, empaque y detalles del pedido sin asumir la misma ruta para todas las tiendas.",
     values: [
@@ -858,7 +858,7 @@ const boutiqueEs: TargetAudienceContent = {
     startBrand: "Inicia tu marca de joyería",
     emergingBrands: "Para marcas de joyería emergentes",
     boutiqueStores: "Para boutiques de joyería",
-    about: "Sobre Xingyue",
+    about: "Sobre Zarivelle",
     howWeWork: "Revisa las cinco etapas",
   },
   schema: {
@@ -873,11 +873,11 @@ const boutiqueEs: TargetAudienceContent = {
 
 const boutiqueAr: TargetAudienceContent = {
   seo: {
-    title: "دعم تصنيع المجوهرات للمتاجر المتخصصة | Xingyue Jewelry",
+    title: "دعم تصنيع المجوهرات للمتاجر المتخصصة | Zarivelle Jewelry",
     description: "دعم B2B للمتاجر المتخصصة في تخطيط تشكيلة المجوهرات والعينات والكميات حسب المشروع والتغليف ومتطلبات القطع المخصصة.",
   },
   sectionOrder: boutiqueStoresSectionOrder,
-  definition: "تساعد Xingyue Jewelry المتاجر المتخصصة على مناقشة تشكيلات المنتجات والعينات والتغليف ومتطلبات المجوهرات المخصصة حسب كل مشروع.",
+  definition: "تساعد Zarivelle Jewelry المتاجر المتخصصة على مناقشة تشكيلات المنتجات والعينات والتغليف ومتطلبات المجوهرات المخصصة حسب كل مشروع.",
   hero: {
     eyebrow: "للمتاجر المتخصصة في المجوهرات",
     title: "وفّر لمتجرك الخاص بالمجوهرات تشكيلة مناسبة للبيع مع شريك تصنيع منسّق",
@@ -905,7 +905,7 @@ const boutiqueAr: TargetAudienceContent = {
     ],
   },
   support: {
-    eyebrow: "كيف تدعم Xingyue مشروعك",
+    eyebrow: "كيف تدعم Zarivelle مشروعك",
     title: "نسّق القرارات التي تقف خلف تشكيلة متجرك",
     copy: "تربط محادثة المشروع بين اختيار المنتجات والعينات والتغليف وتفاصيل الطلب من دون افتراض المسار نفسه لكل متجر.",
     values: [
@@ -1019,7 +1019,7 @@ const boutiqueAr: TargetAudienceContent = {
     startBrand: "ابدأ علامتك التجارية للمجوهرات",
     emergingBrands: "للعلامات التجارية الناشئة في المجوهرات",
     boutiqueStores: "للمتاجر المتخصصة في المجوهرات",
-    about: "عن Xingyue",
+    about: "عن Zarivelle",
     howWeWork: "راجع المراحل الخمس",
   },
   schema: {

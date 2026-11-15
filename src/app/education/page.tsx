@@ -10,7 +10,7 @@ import { educationTopics } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Education | Moissanite & Lab-Grown Diamond Guide | XINGYUE",
+  title: "Education | Moissanite & Lab-Grown Diamond Guide | ZARIVELLE",
   description:
     "A practical buyer guide to moissanite, lab-grown diamonds, certificates, S925 silver and custom K gold settings.",
   path: "/education",
@@ -159,7 +159,7 @@ export default function EducationPage() {
             href="/contact"
             className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-[#f4efe3]"
           >
-            Ask XINGYUE
+            Ask ZARIVELLE
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </Link>
         </div>

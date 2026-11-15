@@ -177,7 +177,7 @@ describe("Phase 6 contact form accessibility", () => {
       />,
     );
 
-    const consent = screen.getByRole("checkbox", { name: /agree that xingyue/i });
+    const consent = screen.getByRole("checkbox", { name: /agree that zarivelle/i });
     expect(consent).not.toBeChecked();
     expect(screen.queryByLabelText("Business Type")).not.toBeInTheDocument();
     expect(screen.getByLabelText("Custom Requirement")).toBeInTheDocument();

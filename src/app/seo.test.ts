@@ -17,7 +17,7 @@ describe("SEO foundations", () => {
   it("publishes crawler rules and a sitemap", () => {
     const value = robots();
 
-    expect(value.sitemap).toBe("https://xingyuejewelry.com/sitemap.xml");
+    expect(value.sitemap).toBe("https://zarivelle.com/sitemap.xml");
     expect(value.rules).toContainEqual({ userAgent: "OAI-SearchBot", allow: "/" });
     expect(value.rules).toContainEqual({ userAgent: "ChatGPT-User", allow: "/" });
     expect(value.rules).toContainEqual({ userAgent: "GPTBot", disallow: "/" });
@@ -26,39 +26,39 @@ describe("SEO foundations", () => {
   it("lists every static, collection, and product URL once", () => {
     const urls = sitemap().map((entry) => entry.url);
 
-    expect(urls).toContain("https://xingyuejewelry.com/");
-    expect(urls).toContain("https://xingyuejewelry.com/products");
-    expect(urls).toContain("https://xingyuejewelry.com/lab-grown-gemstones");
-    expect(urls).toContain("https://xingyuejewelry.com/ar/lab-grown-gemstones");
-    expect(urls).toContain("https://xingyuejewelry.com/es/lab-grown-gemstones");
-    expect(urls).toContain("https://xingyuejewelry.com/faq");
-    expect(urls).toContain("https://xingyuejewelry.com/resources");
+    expect(urls).toContain("https://zarivelle.com/");
+    expect(urls).toContain("https://zarivelle.com/products");
+    expect(urls).toContain("https://zarivelle.com/lab-grown-gemstones");
+    expect(urls).toContain("https://zarivelle.com/ar/lab-grown-gemstones");
+    expect(urls).toContain("https://zarivelle.com/es/lab-grown-gemstones");
+    expect(urls).toContain("https://zarivelle.com/faq");
+    expect(urls).toContain("https://zarivelle.com/resources");
     expect(urls).toContain(
-      "https://xingyuejewelry.com/resources/first-wholesale-sterling-silver-jewelry-order",
+      "https://zarivelle.com/resources/first-wholesale-sterling-silver-jewelry-order",
     );
     expect(urls).toContain(
-      "https://xingyuejewelry.com/resources/moissanite-vs-cubic-zirconia",
+      "https://zarivelle.com/resources/moissanite-vs-cubic-zirconia",
     );
     expect(urls).toContain(
-      "https://xingyuejewelry.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
+      "https://zarivelle.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
     );
     expect(urls).toContain(
-      "https://xingyuejewelry.com/resources/source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
+      "https://zarivelle.com/resources/source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
     );
-    expect(urls).not.toContain("https://xingyuejewelry.com/es/resources");
-    expect(urls).not.toContain("https://xingyuejewelry.com/ar/resources");
-    expect(urls).not.toContain("https://xingyuejewelry.com/collections");
-    expect(urls).not.toContain("https://xingyuejewelry.com/es/collections");
-    expect(urls).not.toContain("https://xingyuejewelry.com/ar/collections");
+    expect(urls).not.toContain("https://zarivelle.com/es/resources");
+    expect(urls).not.toContain("https://zarivelle.com/ar/resources");
+    expect(urls).not.toContain("https://zarivelle.com/collections");
+    expect(urls).not.toContain("https://zarivelle.com/es/collections");
+    expect(urls).not.toContain("https://zarivelle.com/ar/collections");
     for (const path of localizedPublicPages) {
-      expect(urls).toContain(`https://xingyuejewelry.com${localizedPath(path, "ar")}`);
-      expect(urls).toContain(`https://xingyuejewelry.com${localizedPath(path, "es")}`);
+      expect(urls).toContain(`https://zarivelle.com${localizedPath(path, "ar")}`);
+      expect(urls).toContain(`https://zarivelle.com${localizedPath(path, "es")}`);
     }
     for (const page of collectionLandingPages) {
-      expect(urls).toContain(`https://xingyuejewelry.com/collections/${page.slug}`);
+      expect(urls).toContain(`https://zarivelle.com/collections/${page.slug}`);
     }
     for (const product of products) {
-      expect(urls).toContain(`https://xingyuejewelry.com/products/${product.slug}`);
+      expect(urls).toContain(`https://zarivelle.com/products/${product.slug}`);
     }
     expect(new Set(urls).size).toBe(urls.length);
   });
@@ -80,12 +80,12 @@ describe("SEO foundations", () => {
 
   it("uses the products route as canonical with complete language alternates", async () => {
     expect(productsMetadata.alternates).toEqual({
-      canonical: "https://xingyuejewelry.com/products",
+      canonical: "https://zarivelle.com/products",
       languages: {
-        en: "https://xingyuejewelry.com/products",
-        es: "https://xingyuejewelry.com/es/products",
-        ar: "https://xingyuejewelry.com/ar/products",
-        "x-default": "https://xingyuejewelry.com/products",
+        en: "https://zarivelle.com/products",
+        es: "https://zarivelle.com/es/products",
+        ar: "https://zarivelle.com/ar/products",
+        "x-default": "https://zarivelle.com/products",
       },
     });
 
@@ -96,60 +96,60 @@ describe("SEO foundations", () => {
       params: Promise.resolve({ locale: "ar" }),
     });
 
-    expect(spanish.alternates?.canonical).toBe("https://xingyuejewelry.com/es/products");
-    expect(arabic.alternates?.canonical).toBe("https://xingyuejewelry.com/ar/products");
+    expect(spanish.alternates?.canonical).toBe("https://zarivelle.com/es/products");
+    expect(arabic.alternates?.canonical).toBe("https://zarivelle.com/ar/products");
     expect(spanish.alternates?.languages).toEqual(productsMetadata.alternates?.languages);
     expect(arabic.alternates?.languages).toEqual(productsMetadata.alternates?.languages);
   });
 
   it("builds canonical and social metadata", () => {
     const value = createPageMetadata({
-      title: "About XINGYUE",
+      title: "About ZARIVELLE",
       description: "Factory profile",
       path: "/about",
       languages: getLanguageAlternates("/about"),
     });
 
-    expect(value.alternates?.canonical).toBe("https://xingyuejewelry.com/about");
+    expect(value.alternates?.canonical).toBe("https://zarivelle.com/about");
     expect(value.alternates?.languages).toEqual({
-      en: "https://xingyuejewelry.com/about",
-      ar: "https://xingyuejewelry.com/ar/about",
-      es: "https://xingyuejewelry.com/es/about",
-      "x-default": "https://xingyuejewelry.com/about",
+      en: "https://zarivelle.com/about",
+      ar: "https://zarivelle.com/ar/about",
+      es: "https://zarivelle.com/es/about",
+      "x-default": "https://zarivelle.com/about",
     });
-    expect(value.openGraph?.url).toBe("https://xingyuejewelry.com/about");
+    expect(value.openGraph?.url).toBe("https://zarivelle.com/about");
     expect(value.twitter).toMatchObject({ card: "summary_large_image" });
   });
 
   it("adds hreflang alternates to localized sitemap entries", () => {
-    const home = sitemap().find((entry) => entry.url === "https://xingyuejewelry.com/");
-    const arabicHome = sitemap().find((entry) => entry.url === "https://xingyuejewelry.com/ar");
+    const home = sitemap().find((entry) => entry.url === "https://zarivelle.com/");
+    const arabicHome = sitemap().find((entry) => entry.url === "https://zarivelle.com/ar");
 
     expect(home?.alternates?.languages).toEqual({
-      en: "https://xingyuejewelry.com/",
-      ar: "https://xingyuejewelry.com/ar",
-      es: "https://xingyuejewelry.com/es",
-      "x-default": "https://xingyuejewelry.com/",
+      en: "https://zarivelle.com/",
+      ar: "https://zarivelle.com/ar",
+      es: "https://zarivelle.com/es",
+      "x-default": "https://zarivelle.com/",
     });
     expect(arabicHome?.alternates?.languages).toEqual(home?.alternates?.languages);
   });
 
   it("adds hreflang alternates to the localized lab-grown gemstone sitemap entries", () => {
     const gemstoneCatalog = sitemap().find(
-      (entry) => entry.url === "https://xingyuejewelry.com/lab-grown-gemstones",
+      (entry) => entry.url === "https://zarivelle.com/lab-grown-gemstones",
     );
     const arabicGemstoneCatalog = sitemap().find(
-      (entry) => entry.url === "https://xingyuejewelry.com/ar/lab-grown-gemstones",
+      (entry) => entry.url === "https://zarivelle.com/ar/lab-grown-gemstones",
     );
     const spanishGemstoneCatalog = sitemap().find(
-      (entry) => entry.url === "https://xingyuejewelry.com/es/lab-grown-gemstones",
+      (entry) => entry.url === "https://zarivelle.com/es/lab-grown-gemstones",
     );
 
     expect(gemstoneCatalog?.alternates?.languages).toEqual({
-      en: "https://xingyuejewelry.com/lab-grown-gemstones",
-      ar: "https://xingyuejewelry.com/ar/lab-grown-gemstones",
-      es: "https://xingyuejewelry.com/es/lab-grown-gemstones",
-      "x-default": "https://xingyuejewelry.com/lab-grown-gemstones",
+      en: "https://zarivelle.com/lab-grown-gemstones",
+      ar: "https://zarivelle.com/ar/lab-grown-gemstones",
+      es: "https://zarivelle.com/es/lab-grown-gemstones",
+      "x-default": "https://zarivelle.com/lab-grown-gemstones",
     });
     expect(arabicGemstoneCatalog?.alternates?.languages).toEqual(
       gemstoneCatalog?.alternates?.languages,
@@ -161,12 +161,12 @@ describe("SEO foundations", () => {
 
   it("does not add translation alternates to English-only Resources sitemap entries", () => {
     const resources = sitemap().find(
-      (entry) => entry.url === "https://xingyuejewelry.com/resources",
+      (entry) => entry.url === "https://zarivelle.com/resources",
     );
     const article = sitemap().find(
       (entry) =>
         entry.url ===
-        "https://xingyuejewelry.com/resources/moissanite-vs-cubic-zirconia",
+        "https://zarivelle.com/resources/moissanite-vs-cubic-zirconia",
     );
 
     expect(resources?.alternates).toBeUndefined();
@@ -179,7 +179,7 @@ describe("SEO foundations", () => {
       params: Promise.resolve({ slug: "missing-product" }),
     });
 
-    expect(value.title).toBe("Product Not Found | XINGYUE");
+    expect(value.title).toBe("Product Not Found | ZARIVELLE");
     expect(String(value.title)).not.toMatch(/Product Detail/i);
   });
 
@@ -214,15 +214,15 @@ describe("SEO foundations", () => {
   it("publishes an AI-readable site summary for GEO discovery", () => {
     const value = buildLlmsText();
 
-    expect(value).toContain("https://xingyuejewelry.com/sitemap.xml");
-    expect(value).toContain("https://xingyuejewelry.com/products");
-    expect(value).not.toContain("https://xingyuejewelry.com/collections\n");
+    expect(value).toContain("https://zarivelle.com/sitemap.xml");
+    expect(value).toContain("https://zarivelle.com/products");
+    expect(value).not.toContain("https://zarivelle.com/collections\n");
     expect(value).toContain("/collections/moissanite-wholesale");
     expect(value).toContain("/contact");
-    expect(value).toContain("https://xingyuejewelry.com/for-emerging-jewelry-brands");
-    expect(value).toContain("https://xingyuejewelry.com/resources");
+    expect(value).toContain("https://zarivelle.com/for-emerging-jewelry-brands");
+    expect(value).toContain("https://zarivelle.com/resources");
     expect(value).toContain(
-      "https://xingyuejewelry.com/resources/moissanite-vs-cubic-zirconia",
+      "https://zarivelle.com/resources/moissanite-vs-cubic-zirconia",
     );
   });
 });

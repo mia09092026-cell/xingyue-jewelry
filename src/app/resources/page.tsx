@@ -11,7 +11,7 @@ import {
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Jewelry Buyer Resources | Xingyue Jewelry",
+  title: "Jewelry Buyer Resources | Zarivelle Jewelry",
   description:
     "Practical B2B guides for custom jewelry sourcing, 925 sterling silver, moissanite, lab-created gemstones, sampling, and OEM or ODM coordination.",
   path: "/resources",

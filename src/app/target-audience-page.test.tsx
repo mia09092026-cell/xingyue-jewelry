@@ -66,18 +66,18 @@ describe("emerging jewelry brands audience page", () => {
 
   it("publishes complete hreflang, sitemap, and schema contracts", () => {
     expect(getLanguageAlternates("/for-emerging-jewelry-brands")).toEqual({
-      en: "https://xingyuejewelry.com/for-emerging-jewelry-brands",
-      ar: "https://xingyuejewelry.com/ar/for-emerging-jewelry-brands",
-      es: "https://xingyuejewelry.com/es/for-emerging-jewelry-brands",
-      "x-default": "https://xingyuejewelry.com/for-emerging-jewelry-brands",
+      en: "https://zarivelle.com/for-emerging-jewelry-brands",
+      ar: "https://zarivelle.com/ar/for-emerging-jewelry-brands",
+      es: "https://zarivelle.com/es/for-emerging-jewelry-brands",
+      "x-default": "https://zarivelle.com/for-emerging-jewelry-brands",
     });
 
     const urls = sitemap().map((entry) => entry.url);
     expect(urls).toEqual(
       expect.arrayContaining([
-        "https://xingyuejewelry.com/for-emerging-jewelry-brands",
-        "https://xingyuejewelry.com/es/for-emerging-jewelry-brands",
-        "https://xingyuejewelry.com/ar/for-emerging-jewelry-brands",
+        "https://zarivelle.com/for-emerging-jewelry-brands",
+        "https://zarivelle.com/es/for-emerging-jewelry-brands",
+        "https://zarivelle.com/ar/for-emerging-jewelry-brands",
       ]),
     );
 
@@ -93,7 +93,7 @@ describe("emerging jewelry brands audience page", () => {
 
   it("uses the current locale as canonical while sharing all language alternates", async () => {
     expect(englishMetadata.alternates).toEqual({
-      canonical: "https://xingyuejewelry.com/for-emerging-jewelry-brands",
+      canonical: "https://zarivelle.com/for-emerging-jewelry-brands",
       languages: getLanguageAlternates("/for-emerging-jewelry-brands"),
     });
 
@@ -102,7 +102,7 @@ describe("emerging jewelry brands audience page", () => {
         params: Promise.resolve({ locale }),
       });
       expect(metadata.alternates?.canonical).toBe(
-        `https://xingyuejewelry.com/${locale}/for-emerging-jewelry-brands`,
+        `https://zarivelle.com/${locale}/for-emerging-jewelry-brands`,
       );
       expect(metadata.alternates?.languages).toEqual(englishMetadata.alternates?.languages);
     }

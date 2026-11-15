@@ -20,14 +20,14 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
     seo: {
       title: "Start a Jewelry Brand | Product Development & Manufacturing Partner",
       description:
-        "Plan a jewelry brand with product direction, private label jewelry, samples and project-specific MOQ support from Xingyue.",
+        "Plan a jewelry brand with product direction, private label jewelry, samples and project-specific MOQ support from Zarivelle.",
     },
     sectionOrder: sharedSectionOrder,
     hero: {
       eyebrow: "For Emerging Jewelry Entrepreneurs",
       title: "Start and Develop Your Jewelry Brand with a Clearer Product Path",
       subtitle:
-        "Define your product direction, prepare references, discuss materials and stones, and coordinate sampling, project-specific MOQ, production, quality review, packaging and international shipping with Xingyue.",
+        "Define your product direction, prepare references, discuss materials and stones, and coordinate sampling, project-specific MOQ, production, quality review, packaging and international shipping with Zarivelle.",
       primaryCta: "Discuss Your Jewelry Project",
       secondaryCta: "Explore Product Directions",
     },
@@ -56,7 +56,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
           items: ["Target customer", "Target market", "Product category", "Price positioning", "Destination country"],
         },
         {
-          title: "Discuss with Xingyue",
+          title: "Discuss with Zarivelle",
           items: ["Material", "Stone", "Product direction", "Initial quantity range", "Sampling route", "Packaging direction"],
         },
         {
@@ -84,7 +84,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
       ],
     },
     support: {
-      eyebrow: "How Xingyue Supports Your Project",
+      eyebrow: "How Zarivelle Supports Your Project",
       title: "A project conversation from first reference to shipping coordination.",
       copy:
         "The right next step depends on your product direction. We coordinate the manufacturing questions that need to be clear before production.",
@@ -167,7 +167,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
         { question: "Do I need a finished design?", answer: "No. A reference image, sketch, product family or clear direction can be enough to begin a development conversation." },
         { question: "How is MOQ determined?", answer: "MOQ is reviewed per project based on product, material, stone, construction process and packaging requirements." },
         { question: "Can I order a sample?", answer: "Sample availability, scope, cost and expected timing are discussed for the specific product and development route." },
-        { question: "Can Xingyue help with materials and stones?", answer: "Yes. Material and stone options can be discussed alongside the product direction and target market." },
+        { question: "Can Zarivelle help with materials and stones?", answer: "Yes. Material and stone options can be discussed alongside the product direction and target market." },
         { question: "Can I add a logo or packaging?", answer: "Logo placement, engraving, boxes, pouches, cards and labels can be reviewed as part of the project." },
         { question: "How is quality reviewed?", answer: "The review can cover the approved sample, material and stone details, setting and finish, size, packaging and a pre-shipment check." },
         { question: "Do you ship internationally?", answer: "International shipping arrangements and destination requirements can be discussed before dispatch coordination." },
@@ -180,20 +180,20 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
       copy: "Share what you know today. The next questions can be confirmed together.",
       cta: "Discuss Your Jewelry Project",
     },
-    links: { products: "Products & capabilities", about: "About Xingyue", howWeWork: "See how we work", sampleMoq: "Sample & MOQ", quality: "Quality & production" },
+    links: { products: "Products & capabilities", about: "About Zarivelle", howWeWork: "See how we work", sampleMoq: "Sample & MOQ", quality: "Quality & production" },
   },
   es: {
     seo: {
       title: "Inicia tu marca de joyería | Desarrollo y fabricación B2B",
       description:
-        "Planifica tu marca de joyería con dirección de producto, joyería de marca privada, muestras y MOQ por proyecto con Xingyue.",
+        "Planifica tu marca de joyería con dirección de producto, joyería de marca privada, muestras y MOQ por proyecto con Zarivelle.",
     },
     sectionOrder: sharedSectionOrder,
     hero: {
       eyebrow: "Para emprendedores de joyería en crecimiento",
       title: "Inicia y desarrolla tu marca de joyería con una ruta de producto más clara",
       subtitle:
-        "Define la dirección de tu producto, prepara referencias, conversa sobre materiales y piedras, y coordina muestras, MOQ por proyecto, producción, revisión de calidad, empaque y envíos internacionales con Xingyue.",
+        "Define la dirección de tu producto, prepara referencias, conversa sobre materiales y piedras, y coordina muestras, MOQ por proyecto, producción, revisión de calidad, empaque y envíos internacionales con Zarivelle.",
       primaryCta: "Habla sobre tu proyecto de joyería",
       secondaryCta: "Explora las direcciones de producto",
     },
@@ -209,7 +209,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
       copy: "No necesitas una colección terminada para comenzar. Empieza con la información que hará más útil la conversación de producto.",
       groups: [
         { title: "Conviene decidir primero", items: ["Cliente objetivo", "Mercado objetivo", "Categoría de producto", "Posicionamiento de precio", "País de destino"] },
-        { title: "Para conversar con Xingyue", items: ["Material", "Piedra", "Dirección de producto", "Rango de cantidad inicial", "Ruta de muestra", "Dirección del empaque"] },
+        { title: "Para conversar con Zarivelle", items: ["Material", "Piedra", "Dirección de producto", "Rango de cantidad inicial", "Ruta de muestra", "Dirección del empaque"] },
         { title: "Se puede confirmar después", items: ["Ubicación final del logo", "Detalles del empaque", "Momento de lanzamiento", "Cantidad final de producción"] },
       ],
     },
@@ -231,7 +231,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
       ],
     },
     support: {
-      eyebrow: "Cómo apoya Xingyue tu proyecto",
+      eyebrow: "Cómo apoya Zarivelle tu proyecto",
       title: "Una conversación de proyecto desde la primera referencia hasta el envío.",
       copy: "El siguiente paso depende de tu dirección de producto. Coordinamos las preguntas de fabricación que deben quedar claras antes de producir.",
       phases: [
@@ -307,7 +307,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
         { question: "¿Necesito un diseño terminado?", answer: "No. Una imagen de referencia, boceto, familia de producto o dirección clara puede bastar para comenzar." },
         { question: "¿Cómo se determina el MOQ?", answer: "Se revisa por proyecto según producto, material, piedra, proceso de construcción y empaque." },
         { question: "¿Puedo pedir una muestra?", answer: "La disponibilidad, alcance, coste y tiempo previsto de la muestra se conversan para cada producto y ruta de desarrollo." },
-        { question: "¿Xingyue puede ayudar con materiales y piedras?", answer: "Sí. Las opciones de material y piedra se pueden conversar junto con la dirección del producto y el mercado." },
+        { question: "¿Zarivelle puede ayudar con materiales y piedras?", answer: "Sí. Las opciones de material y piedra se pueden conversar junto con la dirección del producto y el mercado." },
         { question: "¿Puedo añadir logo o empaque?", answer: "La ubicación del logo, el grabado, las cajas, bolsas, tarjetas y etiquetas se pueden revisar en el proyecto." },
         { question: "¿Cómo se revisa la calidad?", answer: "La revisión puede cubrir muestra aprobada, material y piedra, montura y acabado, medidas, empaque y control previo al envío." },
         { question: "¿Realizan envíos internacionales?", answer: "La organización del envío internacional y los requisitos del destino se pueden conversar antes de coordinar la salida." },
@@ -320,18 +320,18 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
       copy: "Comparte lo que ya sabes. Las siguientes preguntas se pueden confirmar juntos.",
       cta: "Habla sobre tu proyecto de joyería",
     },
-    links: { products: "Productos y capacidades", about: "Sobre Xingyue", howWeWork: "Cómo trabajamos", sampleMoq: "Muestras y MOQ", quality: "Calidad y producción" },
+    links: { products: "Productos y capacidades", about: "Sobre Zarivelle", howWeWork: "Cómo trabajamos", sampleMoq: "Muestras y MOQ", quality: "Calidad y producción" },
   },
   ar: {
     seo: {
       title: "ابدأ علامتك التجارية للمجوهرات | تطوير وتصنيع B2B",
-      description: "خطط لعلامتك التجارية للمجوهرات مع تحديد المنتج، ومجوهرات العلامة الخاصة، والعينات وMOQ لكل مشروع مع Xingyue.",
+      description: "خطط لعلامتك التجارية للمجوهرات مع تحديد المنتج، ومجوهرات العلامة الخاصة، والعينات وMOQ لكل مشروع مع Zarivelle.",
     },
     sectionOrder: sharedSectionOrder,
     hero: {
       eyebrow: "لرواد أعمال المجوهرات والعلامات الناشئة",
       title: "ابدأ وطوّر علامتك التجارية للمجوهرات عبر مسار أوضح للمنتج",
-      subtitle: "حدّد اتجاه المنتج، وجهّز المراجع، وناقش المعادن والأحجار، ونسّق العينات وMOQ الخاص بالمشروع والإنتاج ومراجعة الجودة والتغليف والشحن الدولي مع Xingyue.",
+      subtitle: "حدّد اتجاه المنتج، وجهّز المراجع، وناقش المعادن والأحجار، ونسّق العينات وMOQ الخاص بالمشروع والإنتاج ومراجعة الجودة والتغليف والشحن الدولي مع Zarivelle.",
       primaryCta: "ناقش مشروع المجوهرات الخاص بك",
       secondaryCta: "استكشف اتجاهات المنتجات",
     },
@@ -347,7 +347,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
       copy: "لا تحتاج إلى مجموعة مكتملة للبدء. ابدأ بالمعلومات التي تجعل نقاش المنتج مفيدًا.",
       groups: [
         { title: "من الأفضل تحديده أولًا", items: ["العميل المستهدف", "السوق المستهدف", "فئة المنتج", "تموضع السعر", "بلد الوجهة"] },
-        { title: "ناقشه مع Xingyue", items: ["المعدن", "الحجر", "اتجاه المنتج", "نطاق الكمية الأولية", "مسار العينة", "اتجاه التغليف"] },
+        { title: "ناقشه مع Zarivelle", items: ["المعدن", "الحجر", "اتجاه المنتج", "نطاق الكمية الأولية", "مسار العينة", "اتجاه التغليف"] },
         { title: "يمكن تأكيده لاحقًا", items: ["الموضع النهائي للشعار", "تفاصيل التغليف", "توقيت الإطلاق", "كمية الإنتاج النهائية"] },
       ],
     },
@@ -369,7 +369,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
       ],
     },
     support: {
-      eyebrow: "كيف تدعم Xingyue مشروعك",
+      eyebrow: "كيف تدعم Zarivelle مشروعك",
       title: "نقاش للمشروع من أول مرجع حتى تنسيق الشحن.",
       copy: "تعتمد الخطوة التالية على اتجاه منتجك. ننسّق أسئلة التصنيع التي يجب توضيحها قبل الإنتاج.",
       phases: [
@@ -445,7 +445,7 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
         { question: "هل أحتاج إلى تصميم نهائي؟", answer: "لا. قد تكفي صورة مرجعية أو رسم أو عائلة منتجات أو اتجاه واضح لبدء نقاش التطوير." },
         { question: "كيف يتم تحديد MOQ؟", answer: "تتم مراجعته لكل مشروع وفق المنتج والمعدن والحجر وعملية التصنيع ومتطلبات التغليف." },
         { question: "هل يمكنني طلب عينة؟", answer: "تُناقش إمكانية العينة ونطاقها وتكلفتها ومدتها المتوقعة وفق المنتج ومسار التطوير المحدد." },
-        { question: "هل تساعد Xingyue في المعادن والأحجار؟", answer: "نعم. يمكن مناقشة خيارات المعادن والأحجار مع اتجاه المنتج والسوق المستهدف." },
+        { question: "هل تساعد Zarivelle في المعادن والأحجار؟", answer: "نعم. يمكن مناقشة خيارات المعادن والأحجار مع اتجاه المنتج والسوق المستهدف." },
         { question: "هل يمكنني إضافة شعار أو تغليف؟", answer: "يمكن مراجعة موضع الشعار والنقش والعلب والأكياس والبطاقات والملصقات ضمن المشروع." },
         { question: "كيف تتم مراجعة الجودة؟", answer: "قد تشمل المراجعة العينة المعتمدة وتفاصيل المعدن والحجر والتركيب والتشطيب والمقاس والتغليف والفحص قبل الشحن." },
         { question: "هل يتم الشحن دوليًا؟", answer: "يمكن مناقشة ترتيبات الشحن الدولي ومتطلبات الوجهة قبل تنسيق الإرسال." },
@@ -458,6 +458,6 @@ export const startBrandContentByLocale: Record<SupportedLocale, StartBrandConten
       copy: "شارك ما تعرفه اليوم، ويمكن تأكيد الأسئلة التالية معًا.",
       cta: "ناقش مشروع المجوهرات الخاص بك",
     },
-    links: { products: "المنتجات والقدرات", about: "عن Xingyue", howWeWork: "كيف نعمل", sampleMoq: "العينات وMOQ", quality: "الجودة والإنتاج" },
+    links: { products: "المنتجات والقدرات", about: "عن Zarivelle", howWeWork: "كيف نعمل", sampleMoq: "العينات وMOQ", quality: "الجودة والإنتاج" },
   },
 };

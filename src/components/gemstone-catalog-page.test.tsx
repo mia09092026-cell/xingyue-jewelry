@@ -57,7 +57,7 @@ describe("GemstoneCatalogPage", () => {
       .toContain("source=products");
     expect(screen.getByRole("link", { name: "Email Inquiry" })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Lab-Grown%20Gemstone%20Inquiry&locale=en&source=products&interest=loose-stones&contactMethod=email",
+      "mailto:sales@zarivelle.com?subject=Wholesale%20Lab-Grown%20Gemstone%20Inquiry&locale=en&source=products&interest=loose-stones&contactMethod=email",
     );
   });
 

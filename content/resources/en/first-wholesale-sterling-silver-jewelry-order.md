@@ -10,7 +10,7 @@ tags:
   - "jewellery sourcing"
 publishedAt: "2026-11-07"
 updatedAt: "2026-11-07"
-author: "Xingyue Jewelry"
+author: "Zarivelle Jewelry"
 coverImage: "/images/wholesale-first-order-prong-stud-earrings.jpg"
 locale: "en"
 draft: false
@@ -84,7 +84,7 @@ If your selection depends on choosing between moissanite and cubic zirconia, rea
 
 ## Step 4: Confirm the available versions and ordering terms
 
-### Xingyue Jewelry's mixed-design ordering terms
+### Zarivelle Jewelry's mixed-design ordering terms
 
 Existing designs can be combined in a mixed-design order. The minimum merchandise order value is US$800, excluding shipping and taxes. Normally, the minimum is three pieces per design. Products are supplied in simple packaging.
 
@@ -170,7 +170,7 @@ Start with product codes or photographs, the required variants, quantities and d
 
 ## Request the relevant catalogue and prepare your shortlist
 
-If you run a jewellery shop, online store or independent brand in Australia or the UK, [contact Xingyue Jewelry to request the relevant design catalogue](/contact).
+If you run a jewellery shop, online store or independent brand in Australia or the UK, [contact Zarivelle Jewelry to request the relevant design catalogue](/contact).
 
 If you have already selected products, send the catalogue selection references, product codes, quantity per design, required specifications, and destination country and postcode. These details help establish availability, the merchandise quote and transport charges. You can also share a target arrival date for the arrangements to be assessed.
 

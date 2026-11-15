@@ -12,7 +12,7 @@ describe("wholesale first-order article publication", () => {
   it("publishes the approved English article through public routes and discovery without inventing translations", () => {
     const slug = "first-wholesale-sterling-silver-jewelry-order";
     const url =
-      "https://xingyuejewelry.com/resources/first-wholesale-sterling-silver-jewelry-order";
+      "https://zarivelle.com/resources/first-wholesale-sterling-silver-jewelry-order";
     const article = getAllResourceArticles("en").find(
       (candidate) => candidate.slug === slug,
     );

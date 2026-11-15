@@ -39,8 +39,8 @@ const homeCases = [
   {
     locale: "en",
     renderPage: async () => <Home />,
-    eyebrow: "Custom Jewelry Manufacturing from Wuzhou",
-    h1: "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
+    eyebrow: "Wholesale Finished Jewelry from Wuzhou",
+    h1: "Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
     heroAlt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
   },
   {

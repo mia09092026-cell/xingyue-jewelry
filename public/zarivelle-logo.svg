@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="112" viewBox="0 0 440 112" role="img" aria-label="Zarivelle 织澜珠宝">
+  <rect x="0" y="8" width="96" height="96" rx="10" fill="#101A2B"/>
+  <path d="M24 34 H72 L24 78 H72" fill="none" stroke="#C8A96A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="78" cy="26" r="5" fill="#C8A96A"/>
+  <text x="118" y="61" font-family="Georgia, 'Times New Roman', serif" font-size="38" letter-spacing="5" fill="#101A2B">ZARIVELLE</text>
+  <text x="120" y="87" font-family="Arial, Helvetica, sans-serif" font-size="14" letter-spacing="6" fill="#8A734B">织澜珠宝</text>
+</svg>

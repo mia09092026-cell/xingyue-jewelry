@@ -5,10 +5,10 @@ describe("localized contact links", () => {
   it("builds language-specific email subjects", () => {
     expect(emailInquiryHref("en")).toContain("subject=Wholesale%20Jewelry%20Inquiry");
     expect(emailInquiryHref("es")).toContain(
-      `subject=${encodeURIComponent("Consulta de joyería mayorista XINGYUE")}`,
+      `subject=${encodeURIComponent("Consulta de joyería mayorista ZARIVELLE")}`,
     );
     expect(emailInquiryHref("ar")).toContain(
-      `subject=${encodeURIComponent("استفسار مجوهرات بالجملة من XINGYUE")}`,
+      `subject=${encodeURIComponent("استفسار مجوهرات بالجملة من ZARIVELLE")}`,
     );
   });
 });

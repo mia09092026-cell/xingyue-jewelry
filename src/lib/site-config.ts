@@ -1,12 +1,12 @@
 import { contactConfig } from "@/lib/contact-config";
 
-const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://xingyuejewelry.com";
+const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zarivelle.com";
 
 export const siteConfig = {
-  name: "XINGYUE",
+  name: "Zarivelle",
   url: configuredUrl.replace(/\/$/, ""),
   email: contactConfig.email,
   description:
-    "Custom 925 sterling silver jewelry manufacturing with lab-created colored gemstones, moissanite, OEM/ODM sampling, quality control and private-label packaging.",
+    "Wholesale finished 925 silver, moissanite, colored lab-grown gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. Low MOQ, OEM/ODM support and fast dispatch.",
   socialImage: "/images/factory-workshop-overview.webp",
 };

@@ -1,5 +1,5 @@
 ---
-title: "How to Source Custom 925 Sterling Silver Jewelry with Moissanite or Lab-Grown Diamonds"
+title: "How to Source 925 Silver Finished Jewelry with Moissanite or Lab-Grown Diamonds"
 slug: "source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry"
 description: "Learn how to source custom 925 sterling silver jewelry from moissanite and lab-grown diamond jewelry manufacturers, from specifications to quality control."
 category: "OEM & ODM"
@@ -12,7 +12,7 @@ tags:
   - "private label jewelry"
 publishedAt: "2026-08-05"
 updatedAt: "2026-08-05"
-author: "Xingyue Jewelry"
+author: "Zarivelle Jewelry"
 coverImage: "/images/xingyue-ring-sample.jpg"
 locale: "en"
 draft: false

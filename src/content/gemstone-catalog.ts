@@ -76,7 +76,7 @@ export type GemstoneCatalogCopy = {
 export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy> = {
   en: {
     seo: {
-      title: "Lab-Grown Gemstones Wholesale by Color | Xingyue Jewelry",
+      title: "Lab-Grown Gemstones Wholesale by Color | Zarivelle Jewelry",
       description:
         "Wholesale lab-grown ruby, sapphire, emerald, spinel, moissanite and colored gemstones by color, size and shape. OEM/ODM jewelry manufacturing and custom stone sourcing.",
     },
@@ -148,7 +148,7 @@ export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy
       eyebrow: "Wholesale & Custom Support",
       title: "From loose stones to finished jewelry production.",
       copy:
-        "Xingyue supports the technical details overseas buyers need before approving samples and bulk production.",
+        "Zarivelle supports the technical details overseas buyers need before approving samples and bulk production.",
       items: [
         {
           title: "Calibrated & Matched Supply",
@@ -200,7 +200,7 @@ export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy
   },
   ar: {
     seo: {
-      title: "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون | Xingyue Jewelry",
+      title: "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون | Zarivelle Jewelry",
       description:
         "توريد الياقوت والزمرد والموسانيت والأحجار الملوّنة المُنتَجة في المختبر بالجملة حسب اللون والحجم والقصة مع دعم مجوهرات OEM / ODM.",
     },
@@ -271,7 +271,7 @@ export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy
       eyebrow: "دعم الجملة والتخصيص",
       title: "من الأحجار السائبة إلى إنتاج المجوهرات النهائية.",
       copy:
-        "تدعم Xingyue التفاصيل الفنية التي يحتاجها المشترون الدوليون قبل اعتماد العينات والإنتاج بالجملة.",
+        "تدعم Zarivelle التفاصيل الفنية التي يحتاجها المشترون الدوليون قبل اعتماد العينات والإنتاج بالجملة.",
       items: [
         {
           title: "توريد معاير ومتطابق",
@@ -323,7 +323,7 @@ export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy
   },
   es: {
     seo: {
-      title: "Gemas de laboratorio al por mayor por color | Xingyue Jewelry",
+      title: "Gemas de laboratorio al por mayor por color | Zarivelle Jewelry",
       description:
         "Compra al por mayor rubí, zafiro, esmeralda, espinela, moissanita y gemas de laboratorio por color, tamaño y forma con fabricación de joyería OEM / ODM.",
     },
@@ -395,7 +395,7 @@ export const gemstoneCatalogContent: Record<SupportedLocale, GemstoneCatalogCopy
       eyebrow: "Soporte mayorista y personalizado",
       title: "De piedras sueltas a producción de joyería terminada.",
       copy:
-        "Xingyue apoya los detalles técnicos que compradores internacionales necesitan antes de aprobar muestras y producción a granel.",
+        "Zarivelle apoya los detalles técnicos que compradores internacionales necesitan antes de aprobar muestras y producción a granel.",
       items: [
         {
           title: "Suministro calibrado y matching",

@@ -5,7 +5,10 @@ type BrandLogoProps = {
   variant?: "header" | "footer";
 };
 
-export function BrandLogo({ alt = "XINGYUE Jewelry logo", variant = "header" }: BrandLogoProps) {
+export function BrandLogo({
+  alt = "Zarivelle 织澜珠宝 logo",
+  variant = "header",
+}: BrandLogoProps) {
   const isFooter = variant === "footer";
 
   return (
@@ -17,18 +20,13 @@ export function BrandLogo({ alt = "XINGYUE Jewelry logo", variant = "header" }: 
       }
     >
       <Image
-        src="/xingyue-jewelry-logo.png"
+        src="/zarivelle-logo.svg"
         alt={alt}
-        width={72}
-        height={72}
-        quality={90}
-        sizes="(min-width: 640px) 72px, 64px"
+        width={440}
+        height={112}
         priority={!isFooter}
-        className={
-          isFooter
-            ? "h-28 w-28 rounded-md object-contain"
-            : "h-16 w-16 rounded-md object-contain sm:h-[4.5rem] sm:w-[4.5rem]"
-        }
+        sizes={isFooter ? "240px" : "(min-width: 640px) 176px, 128px"}
+        className={isFooter ? "h-16 w-auto" : "h-8 w-auto sm:h-11"}
       />
     </span>
   );

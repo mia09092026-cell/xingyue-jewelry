@@ -12,7 +12,7 @@ import { getLanguageAlternates } from "@/lib/i18n";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Request a Quote | Jewelry Wholesale Inquiry | XINGYUE",
+  title: "Request a Quote | Jewelry Wholesale Inquiry | ZARIVELLE",
   description:
     "Request a wholesale quote for moissanite, lab-grown diamonds, S925 silver jewelry, custom K gold settings and OEM production.",
   path: "/contact",

@@ -12,7 +12,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   ...createPageMetadata({
-    title: "Custom 925 Sterling Silver Jewelry Manufacturer | Xingyue",
+    title: "Zarivelle 织澜 | Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
     description: siteConfig.description,
     path: "/",
     image: siteConfig.socialImage,

@@ -41,17 +41,17 @@ const catalogImageCopy: Record<SupportedLocale, { emailSubject: string; heroAlt:
   en: {
     emailSubject: "Wholesale Lab-Grown Gemstone Inquiry",
     heroAlt: "Fancy color lab-grown gemstones for wholesale sourcing",
-    logoAlt: "XINGYUE Jewelry logo",
+    logoAlt: "ZARIVELLE Jewelry logo",
   },
   es: {
-    emailSubject: "Consulta mayorista de gemas de laboratorio XINGYUE",
+    emailSubject: "Consulta mayorista de gemas de laboratorio ZARIVELLE",
     heroAlt: "Gemas de laboratorio de colores para abastecimiento mayorista",
-    logoAlt: "Logotipo de XINGYUE Jewelry",
+    logoAlt: "Logotipo de ZARIVELLE Jewelry",
   },
   ar: {
-    emailSubject: "استفسار أحجار كريمة مُنتَجة في المختبر بالجملة من XINGYUE",
+    emailSubject: "استفسار أحجار كريمة مُنتَجة في المختبر بالجملة من ZARIVELLE",
     heroAlt: "أحجار كريمة مُنتَجة في المختبر بألوان متنوعة للتوريد بالجملة",
-    logoAlt: "شعار XINGYUE للمجوهرات",
+    logoAlt: "شعار ZARIVELLE للمجوهرات",
   },
 };
 

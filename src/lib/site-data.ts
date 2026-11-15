@@ -3,24 +3,24 @@ import { contactConfig } from "@/lib/contact-config";
 const defaultEmailHref = `mailto:${contactConfig.email}?subject=${encodeURIComponent("Wholesale Jewelry Inquiry")}`;
 
 export const brand = {
-  name: "XINGYUE",
-  domain: "xingyuejewelry.com",
+  name: "Zarivelle",
+  domain: "zarivelle.com",
   email: contactConfig.email,
   emailHref: defaultEmailHref,
   emailInquiryHref: defaultEmailHref,
   whatsapp: contactConfig.whatsapp,
   whatsappHref: contactConfig.whatsappHref,
-  tagline: "Custom 925 Sterling Silver Jewelry & OEM/ODM",
+  tagline: "Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
 };
 
 export const navigation = [
-  { label: "Home", href: "/" },
-  { label: "Products", href: "/products" },
-  { label: "Gemstones", href: "/lab-grown-gemstones" },
-  { label: "Moissanite Wholesale", href: "/collections/moissanite-wholesale" },
+  { label: "Shop", href: "/products" },
+  { label: "Moissanite", href: "/collections/moissanite-wholesale" },
+  { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
+  { label: "Wholesale", href: "/wholesale" },
   { label: "OEM / ODM", href: "/collections/custom-jewelry-manufacturing" },
   { label: "Resources", href: "/resources" },
-  { label: "About Us", href: "/about" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 

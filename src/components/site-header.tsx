@@ -72,7 +72,7 @@ export function SiteHeader({
   inquiryHref = "/contact",
   inquiryLabel = "Inquiry",
   languagePath,
-  logoAlt = "XINGYUE Jewelry logo",
+  logoAlt = "Zarivelle 织澜珠宝 logo",
   navigationLabel = "Main navigation",
   navigationItems = navigation,
 }: SiteHeaderProps = {}) {

@@ -10,24 +10,24 @@ describe("GET /llms.txt", () => {
     expect(response.headers.get("content-type")).toBe(
       "text/plain; charset=utf-8",
     );
-    expect(text).toContain("https://xingyuejewelry.com/resources");
+    expect(text).toContain("https://zarivelle.com/resources");
     expect(text).toContain(
       "Your First Wholesale Sterling Silver Jewellery Order: A Checklist",
     );
     expect(text).toContain(
-      "https://xingyuejewelry.com/resources/first-wholesale-sterling-silver-jewelry-order",
+      "https://zarivelle.com/resources/first-wholesale-sterling-silver-jewelry-order",
     );
     expect(text).toContain(
-      "https://xingyuejewelry.com/resources/moissanite-vs-cubic-zirconia",
+      "https://zarivelle.com/resources/moissanite-vs-cubic-zirconia",
     );
     expect(text).toContain(
-      "https://xingyuejewelry.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
+      "https://zarivelle.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
     );
     expect(text).toContain(
-      "How to Source Custom 925 Sterling Silver Jewelry with Moissanite or Lab-Grown Diamonds",
+      "How to Source 925 Silver Finished Jewelry with Moissanite or Lab-Grown Diamonds",
     );
     expect(text).toContain(
-      "https://xingyuejewelry.com/resources/source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
+      "https://zarivelle.com/resources/source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
     );
     expect(text).not.toContain("/es/resources");
     expect(text).not.toContain("/ar/resources");
