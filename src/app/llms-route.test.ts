@@ -12,6 +12,12 @@ describe("GET /llms.txt", () => {
     );
     expect(text).toContain("https://zarivelle.com/resources");
     expect(text).toContain(
+      "Your First Wholesale Sterling Silver Jewellery Order: A Checklist",
+    );
+    expect(text).toContain(
+      "https://zarivelle.com/resources/first-wholesale-sterling-silver-jewelry-order",
+    );
+    expect(text).toContain(
       "https://zarivelle.com/resources/moissanite-vs-cubic-zirconia",
     );
     expect(text).toContain(
