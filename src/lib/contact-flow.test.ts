@@ -81,7 +81,7 @@ describe("Phase 7A contact flow helpers", () => {
     expect(url.searchParams.get("source")).toBe("products");
     expect(url.searchParams.get("interest")).toBe("moissanite-jewelry");
     expect(url.searchParams.get("contactMethod")).toBe("whatsapp");
-    expect(url.searchParams.get("text")).toContain("Hello Xingyue, I am interested in discussing this product for my collection.");
+    expect(url.searchParams.get("text")).toContain("Hello Zarivelle, I am interested in discussing this product for my collection.");
     expect(url.searchParams.get("text")).toContain("Name: Mia");
     expect(url.searchParams.get("text")).not.toContain("consent");
     expect(url.searchParams.get("text")).not.toContain("honeypot");
@@ -105,10 +105,10 @@ describe("Phase 7A contact flow helpers", () => {
       formData: completeInquiry,
     })).searchParams.get("text");
 
-    expect(spanish).toContain("Hola Xingyue, estoy preparando una marca de joyería y quiero hablar sobre la primera dirección de producto.");
+    expect(spanish).toContain("Hola Zarivelle, estoy preparando una marca de joyería y quiero hablar sobre la primera dirección de producto.");
     expect(spanish).not.toContain("Reference Image");
     expect(spanish).not.toMatch(/\n\s*\n/);
-    expect(arabic).toContain("مرحباً Xingyue، أرغب في مناقشة فحوصات الجودة والمراجعة قبل الشحن.");
+    expect(arabic).toContain("مرحباً Zarivelle، أرغب في مناقشة فحوصات الجودة والمراجعة قبل الشحن.");
     expect(arabic).toContain("الكمية المستهدفة أو النطاق");
   });
 

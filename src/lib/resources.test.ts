@@ -48,7 +48,7 @@ function validMarkdown(overrides: Record<string, unknown> = {}, body = "Article 
     tags: ["sourcing", "jewelry"],
     publishedAt: "2026-07-20",
     updatedAt: "2026-07-21",
-    author: "Xingyue Jewelry",
+    author: "Zarivelle Jewelry",
     coverImage: "/images/cover.jpg",
     locale: "en",
     draft: false,
@@ -104,7 +104,7 @@ describe("resource Markdown validation", () => {
       tags: ["sourcing", "jewelry"],
       publishedAt: "2026-07-20",
       updatedAt: "2026-07-21",
-      author: "Xingyue Jewelry",
+      author: "Zarivelle Jewelry",
       coverImage: "/images/cover.jpg",
       locale: "en",
       draft: false,
@@ -254,7 +254,7 @@ describe("published resource queries", () => {
 
     expect(article).toMatchObject({
       title:
-        "How to Source Custom 925 Sterling Silver Jewelry with Moissanite or Lab-Grown Diamonds",
+        "How to Source 925 Silver Finished Jewelry with Moissanite or Lab-Grown Diamonds",
       description:
         "Learn how to source custom 925 sterling silver jewelry from moissanite and lab-grown diamond jewelry manufacturers, from specifications to quality control.",
       coverImage: "/images/xingyue-ring-sample.jpg",

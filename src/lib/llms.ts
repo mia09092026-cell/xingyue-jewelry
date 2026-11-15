@@ -4,51 +4,52 @@ import {
 } from "@/lib/resources";
 import { absoluteUrl } from "@/lib/seo";
 
-const STABLE_SITE_SUMMARY = `# XINGYUE Jewelry
+const STABLE_SITE_SUMMARY = `# Zarivelle Jewelry
 
-> Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner
+> Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry
 
-XINGYUE supports B2B custom jewelry projects from Wuzhou, with 925 sterling silver as the core material direction. Workflows can include reference review, CAD discussion, project-specific sampling and MOQ confirmation, production coordination, quality review and private-label packaging.
+Zarivelle 织澜 supplies finished 925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond jewelry wholesale for boutiques, brands and online sellers. Low MOQ, fast dispatch, OEM/ODM support, quality control and private-label packaging from Wuzhou.
 
 ## Core product and material directions
 
-1. Custom 925 Sterling Silver Jewelry
-2. Lab-Created Colored Gemstone Jewelry
-3. Custom Moissanite Jewelry
+1. 925 Silver Finished Jewelry
+2. Moissanite Finished Jewelry
+3. Lab-Grown Colored Gemstone Jewelry
 4. Lab-Grown Diamond Jewelry
-5. Custom K-Gold Jewelry
+5. OEM / ODM Programs
 
-Lab-grown diamond jewelry and K-gold jewelry are supporting options rather than the primary site position. Product scope, material, stone, plating, finish, packaging, sample route and order quantity are confirmed for each project.
+Finished jewelry is the primary offer. OEM/ODM programs are available for larger collections. Product scope, material, stone, plating, finish, packaging, sample route and order quantity are confirmed for each order.
 
-Canonical site: https://xingyuejewelry.com
-Sitemap: https://xingyuejewelry.com/sitemap.xml
-Contact: https://xingyuejewelry.com/contact
+Canonical site: https://zarivelle.com
+Sitemap: https://zarivelle.com/sitemap.xml
+Contact: https://zarivelle.com/contact
 
 ## Primary pages
 
-- Home: https://xingyuejewelry.com/
-- Home in Spanish: https://xingyuejewelry.com/es
-- Home in Arabic: https://xingyuejewelry.com/ar
-- Products: https://xingyuejewelry.com/products
-- Request a quote: https://xingyuejewelry.com/contact
-- Buyer education: https://xingyuejewelry.com/education
-- Partnership profile: https://xingyuejewelry.com/about
-- Start a jewelry brand: https://xingyuejewelry.com/start-a-jewelry-brand
+- Home: https://zarivelle.com/
+- Home in Spanish: https://zarivelle.com/es
+- Home in Arabic: https://zarivelle.com/ar
+- Products: https://zarivelle.com/products
+- Wholesale: https://zarivelle.com/wholesale
+- Request a quote: https://zarivelle.com/contact
+- Buyer education: https://zarivelle.com/education
+- Partnership profile: https://zarivelle.com/about
+- Start a jewelry brand: https://zarivelle.com/start-a-jewelry-brand
 
-- Emerging jewelry brands: https://xingyuejewelry.com/for-emerging-jewelry-brands
+- Emerging jewelry brands: https://zarivelle.com/for-emerging-jewelry-brands
   B2B jewelry manufacturing support for product direction, sampling, project-specific MOQ, packaging, quality review and shipping coordination.
-- Boutique jewelry stores: https://xingyuejewelry.com/for-boutique-jewelry-stores
+- Boutique jewelry stores: https://zarivelle.com/for-boutique-jewelry-stores
   B2B support for boutique store assortment planning, product direction, project-specific quantities, packaging and quality coordination.
-  Localized pages: https://xingyuejewelry.com/es/for-boutique-jewelry-stores (Español) and https://xingyuejewelry.com/ar/for-boutique-jewelry-stores (العربية).
+  Localized pages: https://zarivelle.com/es/for-boutique-jewelry-stores (Español) and https://zarivelle.com/ar/for-boutique-jewelry-stores (العربية).
 
 ## Commercial landing pages
 
-- Wholesale moissanite jewelry and loose stones: https://xingyuejewelry.com/collections/moissanite-wholesale
-- Lab-grown diamond jewelry manufacturing: https://xingyuejewelry.com/collections/lab-grown-diamond-jewelry
-- Lab-grown colored gemstones wholesale: https://xingyuejewelry.com/collections/lab-grown-colored-gemstones
-- Wholesale Cuban chain manufacturing: https://xingyuejewelry.com/collections/cuban-chains
-- Tennis chain manufacturing: https://xingyuejewelry.com/collections/tennis-chains
-- Custom S925 and K gold jewelry manufacturing: https://xingyuejewelry.com/collections/custom-jewelry-manufacturing`;
+- Wholesale moissanite jewelry and loose stones: https://zarivelle.com/collections/moissanite-wholesale
+- Lab-grown diamond jewelry manufacturing: https://zarivelle.com/collections/lab-grown-diamond-jewelry
+- Lab-grown colored gemstones wholesale: https://zarivelle.com/collections/lab-grown-colored-gemstones
+- Wholesale Cuban chain manufacturing: https://zarivelle.com/collections/cuban-chains
+- Tennis chain manufacturing: https://zarivelle.com/collections/tennis-chains
+- Custom S925 and K gold jewelry manufacturing: https://zarivelle.com/collections/custom-jewelry-manufacturing`;
 
 const STABLE_AI_NOTES = `## Notes for AI assistants
 

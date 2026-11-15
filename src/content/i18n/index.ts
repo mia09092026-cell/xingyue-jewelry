@@ -325,51 +325,50 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     locale: "en",
     dir: "ltr",
     navigation: [
-      { label: "Home", href: "/" },
-      { label: "Products", href: "/products" },
-      { label: "Gemstones", href: "/lab-grown-gemstones" },
-      { label: "Moissanite Wholesale", href: "/collections/moissanite-wholesale" },
+      { label: "Shop", href: "/products" },
+      { label: "Moissanite", href: "/collections/moissanite-wholesale" },
+      { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
+      { label: "Wholesale", href: "/wholesale" },
       { label: "OEM / ODM", href: "/collections/custom-jewelry-manufacturing" },
       { label: "Resources", href: "/resources" },
-      { label: "About Us", href: "/about" },
-      { label: "FAQ", href: "/faq" },
+      { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
     footer: {
       intro:
-        "Jewelry manufacturing and supply chain support for emerging brands, boutique stores, independent designers and entrepreneurs.",
+        "Wholesale finished 925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers.",
       pages: "Pages",
-      collections: "B2B Paths",
+      collections: "Collections",
       reachUs: "Reach Us",
       email: "Email",
-      inquiry: "OEM / ODM Inquiry",
+      inquiry: "Wholesale Inquiry",
     },
     cta: {
       getWholesalePrice: "Get Wholesale Price",
-      requestCatalog: "Request Catalog",
+      requestCatalog: "Request Wholesale Catalog",
       sendInquiry: "Send Inquiry",
       contactWhatsapp: "Contact Us on WhatsApp",
       sendDesign: "Send Your Design",
-      headerStartProject: "Start Your Project",
-      discussCollection: "Discuss Your Custom Jewelry Project",
+      headerStartProject: "Request Wholesale Catalog",
+      discussCollection: "Discuss Wholesale Collections",
       exploreCapabilities: "Explore Materials & Capabilities",
-      viewProducts: "View Products",
-      finalStartProject: "Start Your Jewelry Project",
-      discussSamplesMoq: "Discuss Samples & MOQ",
+      viewProducts: "View Finished Collections",
+      finalStartProject: "Request Wholesale Catalog",
+      discussSamplesMoq: "Ask About MOQ & Samples",
       discussQualityRequirements: "Discuss Your Quality Requirements",
-      sendProjectDetails: "Send Your Project Details",
+      sendProjectDetails: "Send Your Wholesale Inquiry",
     },
     home: {
       seo: {
-        title: "Custom 925 Sterling Silver Jewelry Manufacturer | Xingyue",
+        title: "Zarivelle 织澜 | Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
         description:
-          "Custom 925 sterling silver jewelry manufacturing with lab-created colored gemstones, moissanite, OEM/ODM sampling, quality control and private-label packaging.",
+          "Wholesale finished 925 silver, moissanite, colored lab-grown gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. Low MOQ, fast dispatch and OEM/ODM support.",
       },
-      eyebrow: "Custom Jewelry Manufacturing from Wuzhou",
-      title: "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
-      subtitle: "Develop custom sterling silver jewelry with lab-created colored gemstones, moissanite, lab-grown diamonds and project-specific K-gold options—from reference images and CAD development to sampling, production, quality control and private-label packaging.",
+      eyebrow: "Wholesale Finished Jewelry from Wuzhou",
+      title: "Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
+      subtitle: "Finished 925 silver, moissanite, colored lab-grown gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. Low MOQ, fast dispatch and consistent quality, with OEM/ODM support for larger programs.",
       copy:
-        "Xingyue Jewelry supports brands, wholesalers, retailers, designers and online sellers with coordinated custom jewelry development and supply-chain support from Wuzhou.",
+        "Zarivelle 织澜 supplies finished jewelry from Wuzhou, with wholesale pricing, sample support and consistent quality for overseas buyers.",
       heroImage: {
         src: "/images/factory-workshop-overview.webp",
         alt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
@@ -415,41 +414,41 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         ],
       },
       factoryVideo: {
-        title: "See How Custom Jewelry Is Made",
-        copy: "From CAD design and model preparation to stone setting, polishing, and final inspection, see how we turn custom concepts into production-ready jewelry.",
-        cta: "Start Your OEM/ODM Project",
+        title: "Inside Our Finished Jewelry Workshop",
+        copy: "From CAD and wax models to stone setting, polishing and final inspection, see how we produce finished pieces for wholesale collections.",
+        cta: "Request Wholesale Catalog",
       },
       stats: [
-        { value: "925 Silver / 14K / 18K", label: "Project-specific silver and K-gold options for custom jewelry collections" },
-        { value: "Project-Specific Sampling & MOQ", label: "Sample scope and order quantity reviewed for each product and project" },
-        { value: "OEM/ODM Coordination", label: "Reference review, CAD discussion, production, quality review and packaging" },
+        { value: "925 Silver / Moissanite / Lab-Grown", label: "Core finished jewelry materials for wholesale collections" },
+        { value: "Low MOQ", label: "Wholesale-friendly order quantities and mixed-style options" },
+        { value: "Fast Dispatch", label: "In-stock and quick-replenishment options for repeat buyers" },
       ],
       audience: {
-        eyebrow: "Built for Growing Jewelry Businesses",
-        title: "Who We Support",
+        eyebrow: "Built for Wholesale Buyers",
+        title: "Who We Supply",
         items: [
-          "Emerging Jewelry Brands",
           "Boutique Jewelry Stores",
-          "Independent Designers",
-          "Jewelry Entrepreneurs",
+          "Emerging Jewelry Brands",
+          "Online Sellers",
+          "Wholesalers & Distributors",
         ],
       },
       coreValues: {
-        eyebrow: "Manufacturing & Supply Chain",
-        title: "Manufacturing Support from Brief to Shipment",
-        copy: "A coordinated workflow connects product specifications, sample approval, production follow-through, quality review, packaging, and shipment planning.",
+        eyebrow: "Finished Jewelry Wholesale",
+        title: "Low MOQ. Fast Dispatch. Consistent Quality.",
+        copy: "A straightforward wholesale workflow for finished 925 silver, moissanite and lab-grown jewelry.",
         items: [
           {
-            title: "Custom Jewelry Development",
-            copy: "Review product references, material, stones, settings, and branding requirements before the sample scope is confirmed.",
+            title: "Finished Collections",
+            copy: "Stock and quick-replenishment styles across 925 silver, moissanite, colored lab-grown gemstones and lab-grown diamonds.",
           },
           {
-            title: "Production Coordination",
-            copy: "Coordinate the approved sample, project specifications, production scope, and project-specific order requirements.",
+            title: "Wholesale Pricing & MOQ",
+            copy: "Clear MOQ and tiered pricing for boutiques, brands and online sellers.",
           },
           {
-            title: "Quality, Packaging & Shipping",
-            copy: "Align quality checkpoints, private-label packaging, and shipment preparation with the confirmed project.",
+            title: "OEM / ODM for Larger Programs",
+            copy: "Custom development, sampling, private label and packaging support when your collection needs more.",
           },
         ],
       },
@@ -467,14 +466,14 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         ],
       },
       sampleMoq: {
-        eyebrow: "Sampling & Order Planning",
-        title: "Samples & Project-Specific MOQ",
-        copy: "Sample requirements, cost, expected timing and MOQ are reviewed for each project. Product type, material, stone, setting complexity and packaging all affect the appropriate route. We confirm the sample scope first, then align the production scope after the sample is approved.",
+        eyebrow: "Wholesale MOQ & Samples",
+        title: "Low MOQ and Sample Support",
+        copy: "Finished styles start from low MOQs, with mixed-order options where available. Sample costs and lead times are confirmed by style, stock status and finish.",
         items: [
-          { title: "Project-Specific MOQ", copy: "MOQ is confirmed according to product type, metal or material, stone, process complexity and packaging." },
-          { title: "Sample Quotation & Timing", copy: "Sample cost and expected timing are quoted after the design or reference, specifications and destination are reviewed." },
-          { title: "Approval Before Production", copy: "Material, setting, finish and packaging direction are reviewed with the sample before the production scope is confirmed." },
-          { title: "Availability by Product", copy: "The sample route and quantity options depend on the product; one-piece samples or small production runs are not assumed for every product." },
+          { title: "Low MOQ", copy: "Start from 6–12 pieces per style, with mixed-style orders where available." },
+          { title: "Sample Orders", copy: "Sample requests are confirmed by style, finish and current stock status." },
+          { title: "Mixed Collections", copy: "Combine rings, earrings, pendants, bracelets and chains in one wholesale order." },
+          { title: "Stock & Replenishment", copy: "Ask for the current stock list and quick-replenishment options for best sellers." },
         ],
         image: null,
       },
@@ -512,76 +511,76 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         image: null,
       },
       finalCta: {
-        eyebrow: "Start a Project",
-        title: "Ready to Bring Your Jewelry Collection Forward?",
-        copy: "Share your collection direction and project requirements so we can discuss the appropriate next step.",
+        eyebrow: "Wholesale Inquiry",
+        title: "Ready to Add Finished Jewelry to Your Collection?",
+        copy: "Request our wholesale catalog, current stock list or sample kit. We'll confirm MOQ, pricing and lead time for your market.",
       },
       sections: {
-        productsEyebrow: "Product Routes",
-        productsTitle: "Products & Manufacturing Capabilities",
+        productsEyebrow: "Finished Collections",
+        productsTitle: "Shop Finished 925 Silver & Lab-Grown Jewelry",
         productsCopy:
-          "Start with custom 925 sterling silver jewelry, then align gemstone, moissanite, lab-grown diamond or K-gold options with your collection brief.",
-        manufacturingEyebrow: "Manufacturing",
-        manufacturingTitle: "OEM / ODM customization without retail cart friction.",
+          "Start with finished 925 silver styles, then add moissanite, colored lab-grown gemstones or lab-grown diamonds for your collection.",
+        manufacturingEyebrow: "OEM / ODM",
+        manufacturingTitle: "Need a custom program? We can support that too.",
         manufacturingCopy:
-          "The workflow is built for buyers who need quotation, MOQ confirmation, sampling and production planning.",
+          "For larger collections, we support custom development, sampling, production and private-label packaging.",
       },
       productCards: [
         {
-          title: "Custom 925 Sterling Silver Jewelry",
-          copy: "Develop rings, earrings, pendants, bracelets and chains with project-specific settings, finishes, plating and private-label direction.",
-          href: "/collections/custom-jewelry-manufacturing",
+          title: "925 Silver Finished Jewelry",
+          copy: "Finished rings, earrings, pendants, bracelets and chains in 925 silver for boutique and online collections.",
+          href: "/products",
           image: sharedImages.packaging,
-          alt: "Sterling silver jewelry samples prepared for custom collection review",
+          alt: "Finished 925 silver jewelry for wholesale buyers",
         },
         {
-          title: "Lab-Created Colored Gemstone Jewelry",
-          copy: "Review color, shape, cut, size and matching requirements for custom colored gemstone jewelry applications.",
+          title: "Lab-Grown Colored Gemstone Jewelry",
+          copy: "Finished colored gemstone styles in lab-grown ruby, sapphire, emerald and fancy colors.",
           href: "/collections/lab-grown-colored-gemstones",
           image: sharedImages.loose,
-          alt: "Lab-created colored gemstones prepared for jewelry production",
+          alt: "Lab-grown colored gemstone jewelry for wholesale collections",
         },
         {
-          title: "Custom Moissanite Jewelry",
-          copy: "Discuss loose stones, finished S925 styles, custom settings and repeat wholesale collection requirements.",
+          title: "Moissanite Finished Jewelry",
+          copy: "Finished moissanite rings, studs, pendants and tennis styles with strong fire and wholesale pricing.",
           href: "/collections/moissanite-wholesale",
           image: sharedImages.hero,
-          alt: "Loose moissanite stones for custom sterling silver jewelry",
+          alt: "Finished moissanite jewelry for wholesale buyers",
         },
         {
           title: "Lab-Grown Diamond Jewelry",
-          copy: "Add lab-grown diamond jewelry as an optional product program with specifications reviewed for the project.",
+          copy: "Finished lab-grown diamond pieces with certificate options for premium wholesale collections.",
           href: "/collections/lab-grown-diamond-jewelry",
           image: sharedImages.labDiamond,
           alt: "Lab-grown diamond jewelry packaging for wholesale buyers",
         },
         {
-          title: "Custom 925 Sterling Silver & K-Gold Jewelry",
-          copy: "Review project-specific S925 silver or 10K, 14K and 18K gold options for custom jewelry directions.",
-          href: "/collections/custom-jewelry-manufacturing",
+          title: "Wholesale Program",
+          copy: "Low MOQ, sample support, tiered pricing and fast dispatch for boutiques, brands and online sellers.",
+          href: "/wholesale",
           image: sharedImages.bracelet,
-          alt: "Custom sterling silver and K-gold tennis bracelet options for a jewelry collection",
+          alt: "Wholesale finished jewelry program for boutiques and brands",
         },
       ],
       manufacturingCards: [
         {
-          title: "MOQ & Bulk Order Planning",
-          copy: "Share target quantity, metal, stone size and delivery city to receive a practical wholesale quote.",
+          title: "Wholesale MOQ & Pricing",
+          copy: "Share target styles, quantity and market to receive a practical wholesale quote.",
         },
         {
-          title: "Send Your Design",
-          copy: "Reference photos, CAD ideas and product families can be translated into sample development.",
+          title: "Samples & Stock",
+          copy: "Sample requests and in-stock availability are confirmed by style and finish.",
         },
         {
           title: "Worldwide Shipping",
-          copy: "Production, quality check, export packaging and shipment timing are discussed before confirmation.",
+          copy: "QC photos, export packaging and shipment timing are confirmed before dispatch.",
         },
       ],
       faqs: [
         {
-          question: "Do you manufacture custom 925 sterling silver jewelry?",
+          question: "Do you supply finished jewelry for wholesale?",
           answer:
-            "Yes. Xingyue supports custom 925 sterling silver jewelry projects for brands, wholesalers, retailers, designers and online sellers. Product scope, specifications, sampling and production requirements are reviewed for each project.",
+            "Yes. We supply finished 925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. MOQ, stock status and lead time are confirmed by style.",
         },
         {
           question: "Can buyers send a reference image, sketch, or CAD direction?",
@@ -596,7 +595,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         {
           question: "How are samples and MOQ confirmed?",
           answer:
-            "Sample scope, sample pricing, expected timing and MOQ are reviewed for each project according to product type, material, stone, process complexity, packaging and destination.",
+            "MOQ and sample availability are confirmed by style, finish and current stock status. Mixed-style orders may be possible where stock allows.",
         },
         {
           question: "Can finish, plating, packaging, and private-label requirements be reviewed?",
@@ -673,7 +672,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     collections: {
       "lab-grown-diamond-jewelry": {
         seo: {
-          title: "Lab Grown Diamond Jewelry Manufacturing Partner | Xingyue",
+          title: "Lab Grown Diamond Jewelry Manufacturing Partner | Zarivelle",
           description:
             "Source wholesale lab grown diamond jewelry with OEM / ODM support, 14K / 18K gold customization, IGI / GIA certificate options and private label packaging.",
         },
@@ -714,7 +713,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
           {
             question: "Can you supply wholesale lab grown diamond jewelry?",
             answer:
-              "Yes. Xingyue Jewelry supports finished jewelry programs for brands, wholesalers and private label sellers.",
+              "Yes. Zarivelle Jewelry supports finished jewelry programs for brands, wholesalers and private label sellers.",
           },
           {
             question: "Can jewelry be made in 14K or 18K gold?",
@@ -788,18 +787,18 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     about: {
       seo: {
-        title: "About Xingyue Jewelry | Manufacturing & Supply Chain Partner",
+        title: "About Zarivelle Jewelry | Manufacturing & Supply Chain Partner",
         description:
-          "Learn how Xingyue Jewelry supports emerging brands, boutique stores and independent designers with manufacturing and supply chain coordination.",
+          "Learn how Zarivelle Jewelry supports emerging brands, boutique stores and independent designers with manufacturing and supply chain coordination.",
       },
       eyebrow: "How We Work With Brands",
-      title: "About Xingyue Jewelry",
+      title: "About Zarivelle Jewelry",
       subtitle:
         "A jewelry manufacturing and supply chain partner for lab grown jewelry, moissanite, custom gold settings and private-label programs.",
       profileEyebrow: "Who We Support",
       profileTitle: "Built for emerging brands, boutique stores and independent designers.",
       profileCopy: [
-        "Xingyue Jewelry supports jewelry startups, boutique stores, independent designers and entrepreneurs that need a practical manufacturing partner rather than a retail shopping cart.",
+        "Zarivelle Jewelry supports jewelry startups, boutique stores, independent designers and entrepreneurs that need a practical manufacturing partner rather than a retail shopping cart.",
         "Our work covers loose stone coordination, finished jewelry production, sample development, private label packaging, quality checks and worldwide shipping discussion.",
       ],
       facts: [
@@ -838,7 +837,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
             {
               question: "Do you accept bulk orders?",
               answer:
-                "Yes. Xingyue Jewelry supports bulk order planning for lab grown diamond jewelry, moissanite jewelry and custom gold pieces.",
+                "Yes. Zarivelle Jewelry supports bulk order planning for lab grown diamond jewelry, moissanite jewelry and custom gold pieces.",
             },
           ],
         },
@@ -876,9 +875,9 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     contact: {
       seo: {
-        title: "Contact Xingyue Jewelry | Send Wholesale Jewelry Inquiry",
+        title: "Contact Zarivelle Jewelry | Send Wholesale Jewelry Inquiry",
         description:
-          "Contact Xingyue Jewelry for wholesale lab grown diamond jewelry, OEM / ODM customization, catalog requests, MOQ, private label packaging and bulk orders.",
+          "Contact Zarivelle Jewelry for wholesale lab grown diamond jewelry, OEM / ODM customization, catalog requests, MOQ, private label packaging and bulk orders.",
       },
       eyebrow: "Contact Us",
       title: "Send a Wholesale Jewelry Inquiry",
@@ -973,7 +972,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "مصنّع مجوهرات فضة 925 حسب الطلب | Xingyue",
+        title: "مصنّع مجوهرات فضة 925 حسب الطلب | Zarivelle",
         description:
           "تصنيع OEM/ODM لمجوهرات فضة 925 حسب الطلب مع أحجار ملونة مصنّعة مخبرياً وموسانيت وعينات وفحص جودة وتغليف بعلامة خاصة.",
       },
@@ -981,7 +980,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       title: "مصنّع مجوهرات فضة إسترلينية 925 حسب الطلب وشريك OEM/ODM",
       subtitle: "طوّر مجوهرات مخصصة من فضة 925 مع أحجار ملونة مصنّعة مخبرياً، وموسانيت، وألماس مزروع، وخيارات ذهب K حسب المشروع، بدءاً من الصورة المرجعية وتطوير CAD وصولاً إلى العينة والإنتاج وفحص الجودة والتغليف بعلامة خاصة.",
       copy:
-        "تدعم Xingyue Jewelry العلامات التجارية وتجار الجملة والتجزئة والمصممين والبائعين عبر الإنترنت من خلال تطوير المجوهرات المخصصة وتنسيق سلسلة التوريد من ووتشو.",
+        "تدعم Zarivelle Jewelry العلامات التجارية وتجار الجملة والتجزئة والمصممين والبائعين عبر الإنترنت من خلال تطوير المجوهرات المخصصة وتنسيق سلسلة التوريد من ووتشو.",
       heroImage: {
         src: "/images/factory-workshop-overview.webp",
         alt: "حرفيو مجوهرات يعملون على طاولات الترصيع في ورشة في ووتشو",
@@ -1172,7 +1171,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       faqs: [
         {
           question: "هل تصنّعون مجوهرات فضة 925 حسب الطلب؟",
-          answer: "نعم. تدعم Xingyue مشاريع مجوهرات فضة 925 المخصصة للعلامات التجارية وتجار الجملة والتجزئة والمصممين والبائعين عبر الإنترنت. نراجع نطاق المنتج والمواصفات والعينات ومتطلبات الإنتاج لكل مشروع.",
+          answer: "نعم. تدعم Zarivelle مشاريع مجوهرات فضة 925 المخصصة للعلامات التجارية وتجار الجملة والتجزئة والمصممين والبائعين عبر الإنترنت. نراجع نطاق المنتج والمواصفات والعينات ومتطلبات الإنتاج لكل مشروع.",
         },
         {
           question: "هل يمكن للمشتري إرسال صورة مرجعية أو رسم أو اتجاه CAD؟",
@@ -1224,7 +1223,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     collections: {
       "lab-grown-diamond-jewelry": {
-        seo: { title: "شريك تصنيع مجوهرات الألماس المزروع | Xingyue Jewelry", description: "دعم مجوهرات الألماس المزروع بالجملة مع OEM / ODM، ذهب 14K / 18K، خيارات شهادات وتغليف خاص." },
+        seo: { title: "شريك تصنيع مجوهرات الألماس المزروع | Zarivelle Jewelry", description: "دعم مجوهرات الألماس المزروع بالجملة مع OEM / ODM، ذهب 14K / 18K، خيارات شهادات وتغليف خاص." },
         eyebrow: "مجوهرات ألماس مزروع بالجملة",
         title: "شريك تصنيع مجوهرات الألماس المزروع بالجملة",
         subtitle: "مسار إنتاج B2B للعلامات التي تحتاج مجوهرات مكتملة ودعم علامة خاصة وتواصل واضح للطلبات الكبيرة.",
@@ -1251,13 +1250,13 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       },
     },
     about: {
-      seo: { title: "حول Xingyue Jewelry | شريك تصنيع وسلسلة توريد", description: "تعرف على دعم Xingyue Jewelry للعلامات الناشئة ومتاجر البوتيك والمصممين المستقلين عبر التصنيع وخدمات OEM / ODM." },
+      seo: { title: "حول Zarivelle Jewelry | شريك تصنيع وسلسلة توريد", description: "تعرف على دعم Zarivelle Jewelry للعلامات الناشئة ومتاجر البوتيك والمصممين المستقلين عبر التصنيع وخدمات OEM / ODM." },
       eyebrow: "كيف نعمل مع العلامات التجارية",
-      title: "حول Xingyue Jewelry",
+      title: "حول Zarivelle Jewelry",
       subtitle: "شريك تصنيع وسلسلة توريد لمجوهرات الألماس المزروع والموسانيت وتخصيص الذهب وبرامج العلامة الخاصة.",
       profileEyebrow: "من نخدم",
       profileTitle: "نخدم العلامات التجارية الناشئة ومتاجر المجوهرات الراقية والمصممين المستقلين.",
-      profileCopy: ["تدعم Xingyue Jewelry شركات المجوهرات الناشئة ومتاجر البوتيك والمصممين المستقلين ورواد الأعمال الذين يحتاجون شريك تصنيع عملي وليس متجر تجزئة.", "يغطي عملنا تنسيق الأحجار، إنتاج المجوهرات، تطوير العينات، التغليف الخاص، الفحص ومناقشة الشحن العالمي."],
+      profileCopy: ["تدعم Zarivelle Jewelry شركات المجوهرات الناشئة ومتاجر البوتيك والمصممين المستقلين ورواد الأعمال الذين يحتاجون شريك تصنيع عملي وليس متجر تجزئة.", "يغطي عملنا تنسيق الأحجار، إنتاج المجوهرات، تطوير العينات، التغليف الخاص، الفحص ومناقشة الشحن العالمي."],
       facts: [{ value: "علامات ناشئة", label: "دعم تطوير مشاريع المجوهرات المتنامية" }, { value: "متاجر المجوهرات الراقية واستوديوهات التصميم", label: "تخطيط مرن للمتاجر والمصممين المستقلين" }, { value: "B2B", label: "جملة، OEM / ODM، علامة خاصة" }],
       capabilityTitle: "ما الذي نساعد المشترين على تأكيده.",
       capabilityCopy: "كل مشروع يتم تسعيره حسب التصميم والمادة والحجر والشهادة وMOQ والتغليف وخطة التسليم.",
@@ -1275,7 +1274,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       ],
     },
     contact: {
-      seo: { title: "اتصل بـ Xingyue Jewelry | استفسار مجوهرات بالجملة", description: "تواصل مع Xingyue Jewelry لمجوهرات الألماس المزروع، OEM / ODM، الكتالوج، MOQ، التغليف الخاص والطلبات الكبيرة." },
+      seo: { title: "اتصل بـ Zarivelle Jewelry | استفسار مجوهرات بالجملة", description: "تواصل مع Zarivelle Jewelry لمجوهرات الألماس المزروع، OEM / ODM، الكتالوج، MOQ، التغليف الخاص والطلبات الكبيرة." },
       eyebrow: "اتصل بنا",
       title: "أرسل استفسار مجوهرات بالجملة",
       subtitle: "أخبرنا بنوع المنتج والكمية والدولة والمادة والتخصيص والتغليف المطلوب.",
@@ -1339,7 +1338,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
     },
     home: {
       seo: {
-        title: "Fabricante de joyería personalizada en plata 925 | Xingyue",
+        title: "Fabricante de joyería personalizada en plata 925 | Zarivelle",
         description:
           "Fabricación OEM/ODM de joyería personalizada en plata 925 con gemas de color creadas en laboratorio, moissanita, muestras, control de calidad y empaque privado.",
       },
@@ -1347,7 +1346,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       title: "Fabricante de joyería personalizada en plata 925 y socio OEM/ODM",
       subtitle: "Desarrolla joyería personalizada en plata 925 con gemas de color creadas en laboratorio, moissanita, diamantes de laboratorio y opciones de oro K según el proyecto, desde la imagen de referencia y el desarrollo CAD hasta la muestra, la producción, el control de calidad y el empaque de marca privada.",
       copy:
-        "Xingyue Jewelry apoya a marcas, mayoristas, minoristas, diseñadores y vendedores online con desarrollo coordinado de joyería personalizada y soporte de cadena de suministro desde Wuzhou.",
+        "Zarivelle Jewelry apoya a marcas, mayoristas, minoristas, diseñadores y vendedores online con desarrollo coordinado de joyería personalizada y soporte de cadena de suministro desde Wuzhou.",
       heroImage: {
         src: "/images/factory-workshop-overview.webp",
         alt: "Artesanos de joyería trabajando en bancos de engaste en un taller de Wuzhou",
@@ -1506,7 +1505,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         { title: "Envío mundial", copy: "Producción, control de calidad, empaque de exportación y tiempos se revisan antes de confirmar." },
       ],
       faqs: [
-        { question: "¿Fabrican joyería personalizada en plata 925?", answer: "Sí. Xingyue apoya proyectos de joyería personalizada en plata 925 para marcas, mayoristas, minoristas, diseñadores y vendedores online. Revisamos el alcance, las especificaciones, las muestras y los requisitos de producción de cada proyecto." },
+        { question: "¿Fabrican joyería personalizada en plata 925?", answer: "Sí. Zarivelle apoya proyectos de joyería personalizada en plata 925 para marcas, mayoristas, minoristas, diseñadores y vendedores online. Revisamos el alcance, las especificaciones, las muestras y los requisitos de producción de cada proyecto." },
         { question: "¿Pueden los compradores enviar una imagen, un boceto o una dirección CAD?", answer: "Sí. Puedes compartir imágenes de referencia, bocetos o una dirección CAD existente. Revisamos diseño, material, piedra, medidas, acabado y requisitos de marca antes de confirmar la muestra." },
         { question: "¿Qué opciones de gemas se pueden consultar?", answer: "Se pueden revisar gemas de color creadas en laboratorio, moissanita, diamantes de laboratorio y otras opciones confirmadas, incluidos color, forma, talla, tamaño y uniformidad." },
         { question: "¿Cómo se confirman las muestras y el MOQ?", answer: "El alcance, el precio y el plazo previsto de la muestra, junto con el MOQ, se revisan para cada proyecto según el producto, material, piedra, proceso, empaque y destino." },
@@ -1564,13 +1563,13 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       },
     },
     about: {
-      seo: { title: "Sobre Xingyue Jewelry | Socio de fabricación y suministro", description: "Conoce cómo Xingyue Jewelry apoya marcas emergentes, joyerías boutique y diseñadores independientes con fabricación y OEM / ODM." },
+      seo: { title: "Sobre Zarivelle Jewelry | Socio de fabricación y suministro", description: "Conoce cómo Zarivelle Jewelry apoya marcas emergentes, joyerías boutique y diseñadores independientes con fabricación y OEM / ODM." },
       eyebrow: "Cómo trabajamos con las marcas",
-      title: "Sobre Xingyue Jewelry",
+      title: "Sobre Zarivelle Jewelry",
       subtitle: "Socio de fabricación y cadena de suministro para joyería lab grown, moissanita, oro personalizado y programas de marca privada.",
       profileEyebrow: "A quién ayudamos",
       profileTitle: "Diseñada para marcas emergentes, joyerías boutique y diseñadores independientes.",
-      profileCopy: ["Xingyue Jewelry apoya startups de joyería, tiendas boutique, diseñadores independientes y emprendedores que necesitan un socio de fabricación, no un carrito minorista.", "Nuestro trabajo cubre selección de piedras, producción, muestras, empaque privado, control de calidad y planificación de envío."],
+      profileCopy: ["Zarivelle Jewelry apoya startups de joyería, tiendas boutique, diseñadores independientes y emprendedores que necesitan un socio de fabricación, no un carrito minorista.", "Nuestro trabajo cubre selección de piedras, producción, muestras, empaque privado, control de calidad y planificación de envío."],
       facts: [{ value: "Marcas emergentes", label: "Apoyo para negocios de joyería en crecimiento" }, { value: "Joyerías boutique y estudios de diseño", label: "Planificación flexible para tiendas y diseñadores" }, { value: "B2B", label: "Mayorista, OEM / ODM y marca privada" }],
       capabilityTitle: "Lo que ayudamos a confirmar.",
       capabilityCopy: "Cada proyecto se cotiza por diseño, material, piedra, certificado, MOQ, empaque y entrega.",
@@ -1588,7 +1587,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       ],
     },
     contact: {
-      seo: { title: "Contactar Xingyue Jewelry | Consulta de joyería mayorista", description: "Contacta a Xingyue Jewelry para joyería lab grown, OEM / ODM, catálogo, MOQ, empaque privado y pedidos a granel." },
+      seo: { title: "Contactar Zarivelle Jewelry | Consulta de joyería mayorista", description: "Contacta a Zarivelle Jewelry para joyería lab grown, OEM / ODM, catálogo, MOQ, empaque privado y pedidos a granel." },
       eyebrow: "Contacto",
       title: "Enviar consulta de joyería mayorista",
       subtitle: "Cuéntanos producto, cantidad, país, material, personalización y empaque.",

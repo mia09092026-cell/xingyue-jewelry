@@ -32,7 +32,7 @@ export async function generateMetadata({
 
   if (!collection) {
     return {
-      title: "Collection Not Found | XINGYUE",
+      title: "Collection Not Found | ZARIVELLE",
     };
   }
 

@@ -14,24 +14,24 @@ import Home from "./page";
 import ProductsPage from "./products/page";
 import ProductDetailPage from "./products/[slug]/page";
 
-describe("XINGYUE independent site pages", () => {
+describe("Zarivelle independent site pages", () => {
   it("renders the Home page with wholesale and fine jewelry positioning", () => {
     const { container } = render(<Home />);
 
-    expect(screen.getAllByText(/XINGYUE/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Zarivelle/i).length).toBeGreaterThan(0);
     expect(
-      screen.getByRole("heading", { name: /Products & Manufacturing Capabilities/i }),
+      screen.getByRole("heading", { name: /Shop Finished 925 Silver & Lab-Grown Jewelry/i }),
     ).toBeInTheDocument();
     expect(screen.getAllByText(/Lab-Grown Diamond Jewelry/i).length).toBeGreaterThan(0);
     expect(container.textContent).not.toMatch(
       /Moissanite Diamond Wholesale|first homepage version|can be added later|Sample Products/i,
     );
-    expect(screen.getByRole("link", { name: "View Products" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "View Finished Collections" })).toHaveAttribute(
       "href",
       "/products",
     );
     expect(
-      screen.getByText("Custom Jewelry Manufacturing from Wuzhou"),
+      screen.getByText("Wholesale Finished Jewelry from Wuzhou"),
     ).toBeInTheDocument();
   });
 
@@ -142,15 +142,15 @@ describe("XINGYUE independent site pages", () => {
   it("renders the About Us page", () => {
     const { container } = render(<AboutPage />);
 
-    expect(screen.getByRole("heading", { name: /About XINGYUE/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /About Zarivelle/i })).toBeInTheDocument();
     expect(screen.getAllByText(/emerging brands/i).length).toBeGreaterThan(0);
     expect(screen.getByAltText(/jewelry production workshop/i)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /One partner, one coordinated workflow/i })).toBeInTheDocument();
-    expect(screen.getByText("How We Work With Brands")).toBeInTheDocument();
-    expect(screen.getAllByText("Who We Support").length).toBeGreaterThan(0);
+    expect(screen.getByRole("heading", { name: /Finished jewelry, without the friction/i })).toBeInTheDocument();
+    expect(screen.getByText("Wholesale Finished Jewelry")).toBeInTheDocument();
+    expect(screen.getAllByText("Who We Supply").length).toBeGreaterThan(0);
     expect(
-      screen.getByText("Boutique Jewelry Stores & Design Studios"),
-    ).toBeInTheDocument();
+      screen.getAllByText("Boutique Jewelry Stores").length,
+    ).toBeGreaterThan(0);
     expect(container.textContent).not.toMatch(/\bfactory\b|\bmanufacturer\b|1000\+|15\+ Years/i);
     expect(container.textContent).not.toMatch(/[\u4e00-\u9fff]/);
   });
@@ -192,9 +192,9 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByLabelText("Custom Requirement")).toBeInTheDocument();
     expect(screen.getByLabelText("Message")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Submit Inquiry/i })).toBeInTheDocument();
-    const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@xingyuejewelry.com" });
+    const salesEmailLinks = screen.getAllByRole("link", { name: "Email: sales@zarivelle.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      "mailto:sales@xingyuejewelry.com?subject=Jewelry%20Project%20Inquiry&locale=en&source=contact-page&interest=other&contactMethod=email",
+      "mailto:sales@zarivelle.com?subject=Jewelry%20Project%20Inquiry&locale=en&source=contact-page&interest=other&contactMethod=email",
     );
     expect(
       screen.getByText(
@@ -203,7 +203,7 @@ describe("XINGYUE independent site pages", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Email Your Inquiry/i })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com?subject=Jewelry%20Project%20Inquiry&locale=en&source=contact-page&interest=other&contactMethod=email",
+      "mailto:sales@zarivelle.com?subject=Jewelry%20Project%20Inquiry&locale=en&source=contact-page&interest=other&contactMethod=email",
     );
     expect(container.textContent).not.toMatch(/front-end design only|next version|[\u4e00-\u9fff]/);
   });
@@ -236,13 +236,13 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByLabelText("الرسالة")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /أرسل استفساراً/i })).toBeInTheDocument();
     expect(document.querySelector('input[name="website"]')?.parentElement?.parentElement).toHaveClass("sr-only");
-    const salesEmailLinks = screen.getAllByRole("link", { name: "البريد الإلكتروني: sales@xingyuejewelry.com" });
+    const salesEmailLinks = screen.getAllByRole("link", { name: "البريد الإلكتروني: sales@zarivelle.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("استفسار عن مشروع مجوهرات")}&locale=ar&source=contact-page&interest=other&contactMethod=email`,
+      `mailto:sales@zarivelle.com?subject=${encodeURIComponent("استفسار عن مشروع مجوهرات")}&locale=ar&source=contact-page&interest=other&contactMethod=email`,
     );
     expect(screen.getByRole("link", { name: /أرسل عبر البريد/i })).toHaveAttribute(
       "href",
-      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("استفسار عن مشروع مجوهرات")}&locale=ar&source=contact-page&interest=other&contactMethod=email`,
+      `mailto:sales@zarivelle.com?subject=${encodeURIComponent("استفسار عن مشروع مجوهرات")}&locale=ar&source=contact-page&interest=other&contactMethod=email`,
     );
   });
 
@@ -264,7 +264,7 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getAllByText(/IGI \/ GIA/i).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /Contactar por WhatsApp/i })).toHaveAttribute(
       "href",
-      "https://wa.me/8613324888759?text=Hola+Xingyue%2C+me+interesa+analizar+este+producto+para+mi+colecci%C3%B3n.&locale=es&source=collection-detail&interest=lab-grown-diamond-jewelry&contactMethod=whatsapp",
+      "https://wa.me/8613324888759?text=Hola+Zarivelle%2C+me+interesa+analizar+este+producto+para+mi+colecci%C3%B3n.&locale=es&source=collection-detail&interest=lab-grown-diamond-jewelry&contactMethod=whatsapp",
     );
     collectionPage.unmount();
 
@@ -280,13 +280,13 @@ describe("XINGYUE independent site pages", () => {
     expect(screen.getByLabelText("Requisitos de personalización")).toBeInTheDocument();
     expect(screen.getByLabelText("Mensaje")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Enviar consulta/i })).toBeInTheDocument();
-    const salesEmailLinks = screen.getAllByRole("link", { name: "Correo electrónico: sales@xingyuejewelry.com" });
+    const salesEmailLinks = screen.getAllByRole("link", { name: "Correo electrónico: sales@zarivelle.com" });
     expect(salesEmailLinks.map((link) => link.getAttribute("href"))).toContain(
-      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("Consulta de proyecto de joyería")}&locale=es&source=contact-page&interest=other&contactMethod=email`,
+      `mailto:sales@zarivelle.com?subject=${encodeURIComponent("Consulta de proyecto de joyería")}&locale=es&source=contact-page&interest=other&contactMethod=email`,
     );
     expect(screen.getByRole("link", { name: /Enviar por email/i })).toHaveAttribute(
       "href",
-      `mailto:sales@xingyuejewelry.com?subject=${encodeURIComponent("Consulta de proyecto de joyería")}&locale=es&source=contact-page&interest=other&contactMethod=email`,
+      `mailto:sales@zarivelle.com?subject=${encodeURIComponent("Consulta de proyecto de joyería")}&locale=es&source=contact-page&interest=other&contactMethod=email`,
     );
   });
 });

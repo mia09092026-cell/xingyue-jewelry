@@ -4,9 +4,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Xingyue Jewelry",
+  title: "Privacy Policy | Zarivelle Jewelry",
   description:
-    "How Xingyue Jewelry collects and uses inquiry information and website analytics data.",
+    "How Zarivelle Jewelry collects and uses inquiry information and website analytics data.",
   alternates: { canonical: `${siteConfig.url}/privacy` },
 };
 
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
           <section className="space-y-3">
             <h2 className="font-serif text-2xl text-[#17202a]">Who we are</h2>
             <p>
-              Xingyue Jewelry provides custom 925 sterling silver, moissanite,
+              Zarivelle Jewelry provides custom 925 sterling silver, moissanite,
               lab-grown diamond and colored gemstone jewelry manufacturing for
               wholesale buyers, brands and retailers. You can contact us at{" "}
               <a

@@ -35,7 +35,7 @@ export async function generateMetadata({
 
   if (!article) {
     return createPageMetadata({
-      title: "Resource Not Found | Xingyue Jewelry",
+      title: "Resource Not Found | Zarivelle Jewelry",
       description: "The requested jewelry buyer resource could not be found.",
       path: `/resources/${slug}`,
     });

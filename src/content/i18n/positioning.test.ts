@@ -3,7 +3,7 @@ import { getI18nContent } from ".";
 import type { SupportedLocale } from "@/lib/i18n";
 
 const expectedPositioning: Record<SupportedLocale, string> = {
-  en: "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
+  en: "Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
   es: "Fabricante de joyería personalizada en plata 925 y socio OEM/ODM",
   ar: "مصنّع مجوهرات فضة إسترلينية 925 حسب الطلب وشريك OEM/ODM",
 };
@@ -21,8 +21,8 @@ const expectedBrandPartnerCopy: Record<
   en: {
     aboutEyebrow: "How We Work With Brands",
     audience: "Boutique Jewelry Stores & Design Studios",
-    heroCtas: ["Discuss Your Custom Jewelry Project", "Explore Materials & Capabilities"],
-    homeEyebrow: "Custom Jewelry Manufacturing from Wuzhou",
+    heroCtas: ["Discuss Wholesale Collections", "Explore Materials & Capabilities"],
+    homeEyebrow: "Wholesale Finished Jewelry from Wuzhou",
     profileEyebrow: "Who We Support",
   },
   es: {
@@ -44,15 +44,19 @@ const expectedBrandPartnerCopy: Record<
 const expectedProductCards = [
   {
     title: {
-      en: "Custom 925 Sterling Silver Jewelry",
+      en: "925 Silver Finished Jewelry",
       es: "Joyería personalizada en plata 925",
       ar: "مجوهرات فضة 925 مخصصة",
     },
-    href: "/collections/custom-jewelry-manufacturing",
+    href: {
+      en: "/products",
+      es: "/collections/custom-jewelry-manufacturing",
+      ar: "/collections/custom-jewelry-manufacturing",
+    },
   },
   {
     title: {
-      en: "Lab-Created Colored Gemstone Jewelry",
+      en: "Lab-Grown Colored Gemstone Jewelry",
       es: "Joyería con gemas de color creadas en laboratorio",
       ar: "مجوهرات بأحجار ملونة مصنّعة مخبرياً",
     },
@@ -60,7 +64,7 @@ const expectedProductCards = [
   },
   {
     title: {
-      en: "Custom Moissanite Jewelry",
+      en: "Moissanite Finished Jewelry",
       es: "Joyería personalizada con moissanita",
       ar: "مجوهرات موسانيت مخصصة",
     },
@@ -76,11 +80,15 @@ const expectedProductCards = [
   },
   {
     title: {
-      en: "Custom 925 Sterling Silver & K-Gold Jewelry",
+      en: "Wholesale Program",
       es: "Joyería personalizada en plata 925 y oro K",
       ar: "مجوهرات فضة 925 وذهب K مخصصة",
     },
-    href: "/collections/custom-jewelry-manufacturing",
+    href: {
+      en: "/wholesale",
+      es: "/collections/custom-jewelry-manufacturing",
+      ar: "/collections/custom-jewelry-manufacturing",
+    },
   },
 ] as const;
 
@@ -151,8 +159,8 @@ describe("localized B2B positioning", () => {
   it.each([
     {
       locale: "en",
-      proof: "925 Silver / 14K / 18K",
-      capability: "Custom 925 Sterling Silver & K-Gold Jewelry",
+      proof: "925 Silver / Moissanite / Lab-Grown",
+      capability: "Wholesale Program",
       pendant: "Lab-Created Colored Gemstone Pendant",
       pendantAlt: "Blue lab-created colored gemstone pendant and matching earrings",
       braceletMaterial: "S925 silver / 10K / 14K / 18K gold custom order",
@@ -206,17 +214,17 @@ describe("localized B2B positioning", () => {
 
       expect(content.home.stats.map(({ value }) => value)).toEqual([
         locale === "en"
-          ? "925 Silver / 14K / 18K"
+          ? "925 Silver / Moissanite / Lab-Grown"
           : locale === "es"
             ? "Plata 925 / oro 14K / 18K"
             : "فضة 925 / ذهب 14K / 18K",
         locale === "en"
-          ? "Project-Specific Sampling & MOQ"
+          ? "Low MOQ"
           : locale === "es"
             ? "Muestras y MOQ según el proyecto"
             : "العينات والحد الأدنى حسب المشروع",
         locale === "en"
-          ? "OEM/ODM Coordination"
+          ? "Fast Dispatch"
           : locale === "es"
             ? "Coordinación OEM/ODM"
             : "تنسيق OEM/ODM",
@@ -227,13 +235,14 @@ describe("localized B2B positioning", () => {
       ).toEqual(
         expectedProductCards.map((card) => ({
           title: card.title[locale],
-          href: card.href,
+          href:
+            typeof card.href === "string" ? card.href : card.href[locale],
         })),
       );
       expect(content.home.faqs).toHaveLength(6);
       expect(content.home.faqs[0]?.question).toBe(
         locale === "en"
-          ? "Do you manufacture custom 925 sterling silver jewelry?"
+          ? "Do you supply finished jewelry for wholesale?"
           : locale === "es"
             ? "¿Fabrican joyería personalizada en plata 925?"
             : "هل تصنّعون مجوهرات فضة 925 حسب الطلب؟",

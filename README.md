@@ -1,7 +1,8 @@
-# XINGYUE Jewelry Website
+# Zarivelle 织澜 Jewelry Website
 
-Next.js 16 (App Router) marketing site for Xingyue Jewelry: custom 925 sterling
-silver, moissanite and lab-grown gemstone manufacturing.
+Next.js 16 (App Router) marketing site for Zarivelle 织澜: wholesale finished
+925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond
+jewelry, with OEM/ODM support.
 
 ## Requirements
 
@@ -30,6 +31,8 @@ npm run build
 ## Deployment
 
 - Hosted on Vercel; production branch is `main`.
+- Primary domain: `zarivelle.com`. Keep `xingyuejewelry.com` registered and
+  redirect it to `zarivelle.com` during the rebrand transition.
 - Required environment variables are documented in `.env.local.example`
   (Google Sheets inquiry storage + optional test token).
 - `NEXT_PUBLIC_SITE_URL` controls canonical URLs and sitemap output.
@@ -41,8 +44,8 @@ npm run build
   served from the CDN. The `<html lang/dir>` attributes are set by an inline
   `beforeInteractive` script plus `HtmlLangSync` for client-side navigation.
 - Keep `next/image` images sized with an explicit `sizes` prop. The header logo
-  must stay close to its rendered size (64–72 px); a large intrinsic width makes
-  Next request 1920/3840 px variants and adds hundreds of KB per page.
+  must stay close to its rendered size (128–176 px wide); a large intrinsic
+  width makes Next request oversized variants and adds hundreds of KB per page.
 - Photo assets should be WebP/AVIF. `next.config.ts` limits the largest device
   candidate to 2048 px to avoid 4K downloads.
 - `/resources` is intentionally dynamic because it reads `searchParams`; all

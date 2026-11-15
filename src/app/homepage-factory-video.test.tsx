@@ -30,10 +30,10 @@ const homeCases = [
   {
     locale: "en",
     renderPage: async () => <Home />,
-    title: "See How Custom Jewelry Is Made",
+    title: "Inside Our Finished Jewelry Workshop",
     copy:
-      "From CAD design and model preparation to stone setting, polishing, and final inspection, see how we turn custom concepts into production-ready jewelry.",
-    cta: "Start Your OEM/ODM Project",
+      "From CAD and wax models to stone setting, polishing and final inspection, see how we produce finished pieces for wholesale collections.",
+    cta: "Request Wholesale Catalog",
     href: "/contact?locale=en&source=homepage-prepare-inquiry&contactMethod=form&interest=other",
   },
   {
@@ -113,7 +113,7 @@ describe("homepage factory process video", () => {
     expect(video.loop).toBe(true);
     expect(video.playsInline).toBe(true);
     expect(video).toHaveAttribute("preload", "none");
-    expect(video).toHaveAccessibleName("Xingyue Jewelry factory manufacturing process video");
+    expect(video).toHaveAccessibleName("Zarivelle Jewelry factory manufacturing process video");
     expect(within(section as HTMLElement).getByRole("button", { name: "Play factory process video" })).toBeInTheDocument();
 
     act(() => {
@@ -157,7 +157,7 @@ describe("homepage factory process video", () => {
 
     expect(
       within(section as HTMLElement).getByRole("img", {
-        name: "Xingyue Jewelry factory process poster",
+        name: "Zarivelle Jewelry factory process poster",
       }),
     ).toHaveAttribute("src", expect.stringContaining("xingyue-factory-process-poster.jpg"));
   });

@@ -14,32 +14,32 @@ describe("structured data", () => {
     const schema = organizationSchema();
 
     expect(schema["@type"]).toBe("Organization");
-    expect(schema.url).toBe("https://xingyuejewelry.com");
-    expect(schema.logo).toBe("https://xingyuejewelry.com/xingyue-jewelry-logo.png");
+    expect(schema.url).toBe("https://zarivelle.com");
+    expect(schema.logo).toBe("https://zarivelle.com/zarivelle-logo.svg");
     expect(schema).not.toHaveProperty("aggregateRating");
     expect(schema).not.toHaveProperty("address");
   });
 
   it("localizes the organization description for Spanish and Arabic pages", () => {
     expect(organizationSchema("es").description).toContain(
-      "joyería personalizada en plata 925",
+      "joyería terminada en plata 925",
     );
     expect(organizationSchema("ar").description).toContain(
-      "مجوهرات فضة 925 حسب الطلب",
+      "مجوهرات جاهزة من الفضة 925",
     );
   });
 
   it("orders the organization expertise around the approved 925-first hierarchy", () => {
     expect(organizationSchema("en").knowsAbout).toEqual([
-      "Custom 925 sterling silver jewelry",
-      "Lab-created colored gemstone jewelry",
-      "Custom moissanite jewelry",
+      "Wholesale finished 925 silver jewelry",
+      "Moissanite wholesale jewelry",
+      "Lab-grown colored gemstone jewelry",
       "Lab-grown diamond jewelry",
-      "Custom K-gold jewelry",
+      "Finished jewelry wholesale",
       "OEM/ODM jewelry manufacturing",
-      "CAD and sample development",
       "Jewelry quality control",
       "Private-label packaging",
+      "Wuzhou jewelry supply",
     ]);
   });
 
@@ -51,10 +51,10 @@ describe("structured data", () => {
     const list = itemListSchema([{ name: "Moissanite", path: "/collections/moissanite-wholesale" }]);
 
     expect(breadcrumbs.itemListElement[1].item).toBe(
-      "https://xingyuejewelry.com/collections",
+      "https://zarivelle.com/collections",
     );
     expect(list.itemListElement[0].url).toBe(
-      "https://xingyuejewelry.com/collections/moissanite-wholesale",
+      "https://zarivelle.com/collections/moissanite-wholesale",
     );
   });
 
@@ -83,7 +83,7 @@ describe("structured data", () => {
 
   it("builds Article structured data from visible resource metadata without unsupported claims", () => {
     const schema = articleSchema({
-      author: "Xingyue Jewelry",
+      author: "Zarivelle Jewelry",
       dateModified: "2026-07-27",
       datePublished: "2026-07-26",
       description: "A practical sterling silver sourcing guide.",
@@ -98,12 +98,12 @@ describe("structured data", () => {
       datePublished: "2026-07-26",
       dateModified: "2026-07-27",
       mainEntityOfPage:
-        "https://xingyuejewelry.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
+        "https://zarivelle.com/resources/choose-925-sterling-silver-jewelry-manufacturer",
       image:
-        "https://xingyuejewelry.com/images/b2b-manual-setting-workshop.webp",
+        "https://zarivelle.com/images/b2b-manual-setting-workshop.webp",
       author: {
         "@type": "Organization",
-        name: "Xingyue Jewelry",
+        name: "Zarivelle Jewelry",
       },
     });
     expect(schema).not.toHaveProperty("review");

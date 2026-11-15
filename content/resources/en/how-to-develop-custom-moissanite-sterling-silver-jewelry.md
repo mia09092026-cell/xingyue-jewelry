@@ -11,7 +11,7 @@ tags:
   - "jewelry manufacturing"
 publishedAt: "2026-07-30"
 updatedAt: "2026-07-30"
-author: "Xingyue Jewelry"
+author: "Zarivelle Jewelry"
 coverImage: "/images/manual-gemstone-setting.webp"
 locale: "en"
 draft: false
@@ -106,4 +106,4 @@ If some details are not yet decided, mark them as open questions. A clear brief 
 
 A custom moissanite and 925 sterling silver jewelry collection is easier to evaluate when product direction, stone specifications, metal structure, CAD, sampling, finishing, packaging, and production planning are treated as one connected process. Clear records and sample approval give both buyer and supplier a practical basis for quotation and follow-through.
 
-To discuss a project, [send Xingyue Jewelry your reference images and requirements](/contact), including the preferred material, moissanite specifications, target quantity or range, packaging needs, destination country, and expected timing. The project scope, sample route, order quantity, and production plan can then be reviewed against the specific designs.
+To discuss a project, [send Zarivelle Jewelry your reference images and requirements](/contact), including the preferred material, moissanite specifications, target quantity or range, packaging needs, destination country, and expected timing. The project scope, sample route, order quantity, and production plan can then be reviewed against the specific designs.

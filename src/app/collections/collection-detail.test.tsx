@@ -73,12 +73,11 @@ describe("collection landing pages", () => {
   it("links the homepage to one consolidated products entrance", () => {
     render(<Home />);
 
-    expect(screen.getByRole("link", { name: "View Products" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "View Finished Collections" })).toHaveAttribute(
       "href",
       "/products",
     );
     expect(screen.queryByText("Core Products")).not.toBeInTheDocument();
-    expect(screen.queryByText("Collections")).not.toBeInTheDocument();
     expect(screen.queryByText("Featured Products")).not.toBeInTheDocument();
   });
 

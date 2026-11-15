@@ -12,7 +12,7 @@ function fillRequiredInquiryFields() {
   fireEvent.change(screen.getByLabelText("Country"), { target: { value: "United States" } });
   fireEvent.change(screen.getByLabelText("Custom Requirement"), { target: { value: "Private label packaging" } });
   fireEvent.change(screen.getByLabelText("Message"), { target: { value: "Looking for a project discussion." } });
-  fireEvent.click(screen.getByRole("checkbox", { name: /agree that Xingyue/i }));
+  fireEvent.click(screen.getByRole("checkbox", { name: /agree that Zarivelle/i }));
 }
 
 describe("Contact inquiry page form", () => {
@@ -26,7 +26,7 @@ describe("Contact inquiry page form", () => {
     for (const removedLabel of ["Business Type", "Target Market", "Reference Image / Design", "Material", "Stone", "Expected Timing"]) {
       expect(screen.queryByLabelText(removedLabel)).not.toBeInTheDocument();
     }
-    expect(screen.getByRole("checkbox", { name: /agree that Xingyue/i })).not.toBeChecked();
+    expect(screen.getByRole("checkbox", { name: /agree that Zarivelle/i })).not.toBeChecked();
     expect(screen.getByRole("button", { name: /Submit Inquiry/i })).toBeInTheDocument();
     expect(document.querySelector('input[name="website"]')).toHaveAttribute("tabindex", "-1");
   });

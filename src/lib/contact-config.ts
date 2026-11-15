@@ -1,4 +1,4 @@
-const businessEmail = "sales@xingyuejewelry.com";
+const businessEmail = "sales@zarivelle.com";
 const businessWhatsApp = "+8613324888759";
 
 export const contactConfig = {

@@ -24,13 +24,13 @@ const homeCases = [
   {
     locale: "en",
     renderPage: async () => <Home />,
-    h1: "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
+    h1: "Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
     heroAlt: "Jewelry artisans working at setting benches in a Wuzhou workshop",
     audience: "Emerging Jewelry Brands",
-    manufacturingTitle: "Manufacturing Support from Brief to Shipment",
-    primaryCta: "Discuss Your Custom Jewelry Project",
+    manufacturingTitle: "Low MOQ. Fast Dispatch. Consistent Quality.",
+    primaryCta: "Discuss Wholesale Collections",
     secondaryCta: "Explore Materials & Capabilities",
-    productsCta: "View Products",
+    productsCta: "View Finished Collections",
   },
   {
     locale: "es",
@@ -156,10 +156,9 @@ describe("factory-positioned multilingual homepage structure", () => {
 
     const productsSection = screen.getByTestId("products-capabilities");
     expect(within(productsSection).getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Products & Manufacturing Capabilities",
+      "Shop Finished 925 Silver & Lab-Grown Jewelry",
     );
     expect(screen.queryByText("Core Products")).not.toBeInTheDocument();
-    expect(screen.queryByText("Collections")).not.toBeInTheDocument();
     expect(screen.queryByText("Featured Products")).not.toBeInTheDocument();
   });
 });

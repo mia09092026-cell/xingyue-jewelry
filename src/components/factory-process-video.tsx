@@ -113,7 +113,7 @@ export function FactoryProcessVideo({
         <div className="relative mx-auto aspect-[9/16] max-h-[42rem] w-full max-w-[24rem] overflow-hidden rounded-md bg-[#17202a] shadow-[0_24px_70px_rgba(23,32,42,0.18)]">
           <video
             ref={videoRef}
-            aria-label="Xingyue Jewelry factory manufacturing process video"
+            aria-label="Zarivelle Jewelry factory manufacturing process video"
             className="h-full w-full object-cover"
             loop
             muted
@@ -131,7 +131,7 @@ export function FactoryProcessVideo({
           {hasError ? (
             <Image
               src={POSTER_SRC}
-              alt="Xingyue Jewelry factory process poster"
+              alt="Zarivelle Jewelry factory process poster"
               fill
               sizes="(min-width: 1024px) 24rem, 100vw"
               className="object-cover"

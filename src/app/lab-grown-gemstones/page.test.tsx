@@ -13,21 +13,21 @@ describe("lab-grown gemstone App Router page", () => {
       }),
     ).toBeInTheDocument();
     expect(metadata.title).toBe(
-      "Lab-Grown Gemstones Wholesale by Color | Xingyue Jewelry",
+      "Lab-Grown Gemstones Wholesale by Color | Zarivelle Jewelry",
     );
     expect(metadata.alternates?.canonical).toBe(
-      "https://xingyuejewelry.com/lab-grown-gemstones",
+      "https://zarivelle.com/lab-grown-gemstones",
     );
     expect(metadata.alternates?.languages).toMatchObject({
-      en: "https://xingyuejewelry.com/lab-grown-gemstones",
-      ar: "https://xingyuejewelry.com/ar/lab-grown-gemstones",
-      es: "https://xingyuejewelry.com/es/lab-grown-gemstones",
-      "x-default": "https://xingyuejewelry.com/lab-grown-gemstones",
+      en: "https://zarivelle.com/lab-grown-gemstones",
+      ar: "https://zarivelle.com/ar/lab-grown-gemstones",
+      es: "https://zarivelle.com/es/lab-grown-gemstones",
+      "x-default": "https://zarivelle.com/lab-grown-gemstones",
     });
     expect(metadata.openGraph).toMatchObject({
       images: [
         {
-          url: "https://xingyuejewelry.com/images/xingyue-colored-gemstones.jpg",
+          url: "https://zarivelle.com/images/xingyue-colored-gemstones.jpg",
         },
       ],
     });

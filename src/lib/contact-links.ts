@@ -179,8 +179,8 @@ export function contactInquiryHref({
 
 const emailSubjects: Record<SupportedLocale, string> = {
   en: "Wholesale Jewelry Inquiry",
-  es: "Consulta de joyería mayorista XINGYUE",
-  ar: "استفسار مجوهرات بالجملة من XINGYUE",
+  es: "Consulta de joyería mayorista ZARIVELLE",
+  ar: "استفسار مجوهرات بالجملة من ZARIVELLE",
 };
 
 const contextEmailSubjects: Record<ContactMessageContext, Record<SupportedLocale, string>> = {
@@ -287,34 +287,34 @@ const messageLabels: Record<SupportedLocale, Record<ContactInquiryField, string>
 
 const whatsappOpenings: Record<ContactMessageContext, Record<SupportedLocale, string>> = {
   general: {
-    en: "Hello Xingyue, I would like to discuss a jewelry project.",
-    es: "Hola Xingyue, me gustaría hablar sobre un proyecto de joyería.",
-    ar: "مرحباً Xingyue، أود مناقشة مشروع مجوهرات.",
+    en: "Hello Zarivelle, I would like to discuss a jewelry project.",
+    es: "Hola Zarivelle, me gustaría hablar sobre un proyecto de joyería.",
+    ar: "مرحباً Zarivelle، أود مناقشة مشروع مجوهرات.",
   },
   product: {
-    en: "Hello Xingyue, I am interested in discussing this product for my collection.",
-    es: "Hola Xingyue, me interesa analizar este producto para mi colección.",
-    ar: "مرحباً Xingyue، أرغب في مناقشة هذا المنتج لمجموعتي.",
+    en: "Hello Zarivelle, I am interested in discussing this product for my collection.",
+    es: "Hola Zarivelle, me interesa analizar este producto para mi colección.",
+    ar: "مرحباً Zarivelle، أرغب في مناقشة هذا المنتج لمجموعتي.",
   },
   "start-jewelry-brand": {
-    en: "Hello Xingyue, I am planning a jewelry brand and would like to discuss the first product direction.",
-    es: "Hola Xingyue, estoy preparando una marca de joyería y quiero hablar sobre la primera dirección de producto.",
-    ar: "مرحباً Xingyue، أعمل على إطلاق علامة مجوهرات وأرغب في مناقشة اتجاه المنتج الأول.",
+    en: "Hello Zarivelle, I am planning a jewelry brand and would like to discuss the first product direction.",
+    es: "Hola Zarivelle, estoy preparando una marca de joyería y quiero hablar sobre la primera dirección de producto.",
+    ar: "مرحباً Zarivelle، أعمل على إطلاق علامة مجوهرات وأرغب في مناقشة اتجاه المنتج الأول.",
   },
   "sample-moq": {
-    en: "Hello Xingyue, I would like to discuss sample scope and project-specific MOQ for a jewelry project.",
-    es: "Hola Xingyue, me gustaría hablar sobre el alcance de las muestras y el MOQ específico del proyecto.",
-    ar: "مرحباً Xingyue، أرغب في مناقشة نطاق العينات والحد الأدنى للطلب حسب المشروع.",
+    en: "Hello Zarivelle, I would like to discuss sample scope and project-specific MOQ for a jewelry project.",
+    es: "Hola Zarivelle, me gustaría hablar sobre el alcance de las muestras y el MOQ específico del proyecto.",
+    ar: "مرحباً Zarivelle، أرغب في مناقشة نطاق العينات والحد الأدنى للطلب حسب المشروع.",
   },
   "quality-control": {
-    en: "Hello Xingyue, I would like to discuss quality checks and pre-shipment review for a jewelry project.",
-    es: "Hola Xingyue, me gustaría hablar sobre los controles de calidad y la revisión antes del envío.",
-    ar: "مرحباً Xingyue، أرغب في مناقشة فحوصات الجودة والمراجعة قبل الشحن.",
+    en: "Hello Zarivelle, I would like to discuss quality checks and pre-shipment review for a jewelry project.",
+    es: "Hola Zarivelle, me gustaría hablar sobre los controles de calidad y la revisión antes del envío.",
+    ar: "مرحباً Zarivelle، أرغب في مناقشة فحوصات الجودة والمراجعة قبل الشحن.",
   },
   "contact-form": {
-    en: "Hello Xingyue, I would like to discuss a jewelry project.",
-    es: "Hola Xingyue, me gustaría hablar sobre un proyecto de joyería.",
-    ar: "مرحباً Xingyue، أود مناقشة مشروع مجوهرات.",
+    en: "Hello Zarivelle, I would like to discuss a jewelry project.",
+    es: "Hola Zarivelle, me gustaría hablar sobre un proyecto de joyería.",
+    ar: "مرحباً Zarivelle، أود مناقشة مشروع مجوهرات.",
   },
 };
 

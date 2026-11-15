@@ -24,16 +24,16 @@ describe("localized lab-grown gemstone App Router page", () => {
       }),
     ).toBeInTheDocument();
     expect(metadata.title).toBe(
-      "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون | Xingyue Jewelry",
+      "أحجار كريمة مُنتَجة في المختبر بالجملة حسب اللون | Zarivelle Jewelry",
     );
     expect(metadata.alternates?.canonical).toBe(
-      "https://xingyuejewelry.com/ar/lab-grown-gemstones",
+      "https://zarivelle.com/ar/lab-grown-gemstones",
     );
     expect(metadata.alternates?.languages).toMatchObject({
-      en: "https://xingyuejewelry.com/lab-grown-gemstones",
-      ar: "https://xingyuejewelry.com/ar/lab-grown-gemstones",
-      es: "https://xingyuejewelry.com/es/lab-grown-gemstones",
-      "x-default": "https://xingyuejewelry.com/lab-grown-gemstones",
+      en: "https://zarivelle.com/lab-grown-gemstones",
+      ar: "https://zarivelle.com/ar/lab-grown-gemstones",
+      es: "https://zarivelle.com/es/lab-grown-gemstones",
+      "x-default": "https://zarivelle.com/lab-grown-gemstones",
     });
   });
 
@@ -54,16 +54,16 @@ describe("localized lab-grown gemstone App Router page", () => {
       }),
     ).toBeInTheDocument();
     expect(metadata.title).toBe(
-      "Gemas de laboratorio al por mayor por color | Xingyue Jewelry",
+      "Gemas de laboratorio al por mayor por color | Zarivelle Jewelry",
     );
     expect(metadata.alternates?.canonical).toBe(
-      "https://xingyuejewelry.com/es/lab-grown-gemstones",
+      "https://zarivelle.com/es/lab-grown-gemstones",
     );
     expect(metadata.alternates?.languages).toMatchObject({
-      en: "https://xingyuejewelry.com/lab-grown-gemstones",
-      ar: "https://xingyuejewelry.com/ar/lab-grown-gemstones",
-      es: "https://xingyuejewelry.com/es/lab-grown-gemstones",
-      "x-default": "https://xingyuejewelry.com/lab-grown-gemstones",
+      en: "https://zarivelle.com/lab-grown-gemstones",
+      ar: "https://zarivelle.com/ar/lab-grown-gemstones",
+      es: "https://zarivelle.com/es/lab-grown-gemstones",
+      "x-default": "https://zarivelle.com/lab-grown-gemstones",
     });
   });
 });

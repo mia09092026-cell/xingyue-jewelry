@@ -13,19 +13,19 @@ import { buildLlmsText } from "@/lib/llms";
 const homeCases = [
   {
     locale: "en",
-    canonical: "https://xingyuejewelry.com/",
+    canonical: "https://zarivelle.com/",
     ogLocale: "en_US",
-    title: "Custom 925 Sterling Silver Jewelry Manufacturer | Xingyue",
+    title: "Zarivelle 织澜 | Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
     description:
-      "Custom 925 sterling silver jewelry manufacturing with lab-created colored gemstones, moissanite, OEM/ODM sampling, quality control and private-label packaging.",
-    serviceName: "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
+      "Wholesale finished 925 silver, moissanite, colored lab-grown gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. Low MOQ, fast dispatch and OEM/ODM support.",
+    serviceName: "Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
     renderPage: async () => <Home />,
   },
   {
     locale: "es",
-    canonical: "https://xingyuejewelry.com/es",
+    canonical: "https://zarivelle.com/es",
     ogLocale: "es_ES",
-    title: "Fabricante de joyería personalizada en plata 925 | Xingyue",
+    title: "Fabricante de joyería personalizada en plata 925 | Zarivelle",
     description:
       "Fabricación OEM/ODM de joyería personalizada en plata 925 con gemas de color creadas en laboratorio, moissanita, muestras, control de calidad y empaque privado.",
     serviceName: "Fabricante de joyería personalizada en plata 925 y socio OEM/ODM",
@@ -33,9 +33,9 @@ const homeCases = [
   },
   {
     locale: "ar",
-    canonical: "https://xingyuejewelry.com/ar",
+    canonical: "https://zarivelle.com/ar",
     ogLocale: "ar",
-    title: "مصنّع مجوهرات فضة 925 حسب الطلب | Xingyue",
+    title: "مصنّع مجوهرات فضة 925 حسب الطلب | Zarivelle",
     description:
       "تصنيع OEM/ODM لمجوهرات فضة 925 حسب الطلب مع أحجار ملونة مصنّعة مخبرياً وموسانيت وعينات وفحص جودة وتغليف بعلامة خاصة.",
     serviceName: "مصنّع مجوهرات فضة إسترلينية 925 حسب الطلب وشريك OEM/ODM",
@@ -66,17 +66,17 @@ describe("multilingual homepage SEO and GEO contracts", () => {
       expect(metadata.description).toBe(description);
       expect(metadata.alternates?.canonical).toBe(canonical);
       expect(metadata.alternates?.languages).toEqual({
-        en: "https://xingyuejewelry.com/",
-        es: "https://xingyuejewelry.com/es",
-        ar: "https://xingyuejewelry.com/ar",
-        "x-default": "https://xingyuejewelry.com/",
+        en: "https://zarivelle.com/",
+        es: "https://zarivelle.com/es",
+        ar: "https://zarivelle.com/ar",
+        "x-default": "https://zarivelle.com/",
       });
       expect(metadata.openGraph).toMatchObject({
         locale: ogLocale,
         url: canonical,
         images: [
           {
-            url: "https://xingyuejewelry.com/images/factory-workshop-overview.webp",
+            url: "https://zarivelle.com/images/factory-workshop-overview.webp",
           },
         ],
       });
@@ -98,8 +98,8 @@ describe("multilingual homepage SEO and GEO contracts", () => {
         name: serviceName,
         provider: {
           "@type": "Organization",
-          name: "XINGYUE",
-          url: "https://xingyuejewelry.com",
+          name: "Zarivelle",
+          url: "https://zarivelle.com",
         },
       });
       expect(String(service?.description)).not.toHaveLength(0);
@@ -112,22 +112,22 @@ describe("multilingual homepage SEO and GEO contracts", () => {
     const website = websiteSchema();
 
     expect(organization.description).toContain(
-      "custom 925 sterling silver jewelry",
+      "finished 925 silver",
     );
     expect(organization.knowsAbout).toEqual([
-      "Custom 925 sterling silver jewelry",
-      "Lab-created colored gemstone jewelry",
-      "Custom moissanite jewelry",
+      "Wholesale finished 925 silver jewelry",
+      "Moissanite wholesale jewelry",
+      "Lab-grown colored gemstone jewelry",
       "Lab-grown diamond jewelry",
-      "Custom K-gold jewelry",
+      "Finished jewelry wholesale",
       "OEM/ODM jewelry manufacturing",
-      "CAD and sample development",
       "Jewelry quality control",
       "Private-label packaging",
+      "Wuzhou jewelry supply",
     ]);
     expect(organization.contactPoint).toMatchObject({
       contactType: "sales",
-      email: "sales@xingyuejewelry.com",
+      email: "sales@zarivelle.com",
       availableLanguage: ["English", "Spanish", "Arabic"],
     });
     expect(website.inLanguage).toEqual(["en", "es", "ar"]);
@@ -139,9 +139,9 @@ describe("multilingual homepage SEO and GEO contracts", () => {
   it("keeps the homepage indexable and aligned across sitemap, robots and llms.txt", () => {
     const homeEntries = sitemap().filter(({ url }) =>
       [
-        "https://xingyuejewelry.com/",
-        "https://xingyuejewelry.com/es",
-        "https://xingyuejewelry.com/ar",
+        "https://zarivelle.com/",
+        "https://zarivelle.com/es",
+        "https://zarivelle.com/ar",
       ].includes(url),
     );
     const llms = buildLlmsText();
@@ -149,17 +149,17 @@ describe("multilingual homepage SEO and GEO contracts", () => {
     expect(robots().rules).toContainEqual({ userAgent: "OAI-SearchBot", allow: "/" });
     expect(homeEntries).toHaveLength(3);
     expect(homeEntries.every((entry) => entry.alternates?.languages?.["x-default"] ===
-      "https://xingyuejewelry.com/")).toBe(true);
+      "https://zarivelle.com/")).toBe(true);
     expect(llms).toContain(
-      "Custom 925 Sterling Silver Jewelry Manufacturer & OEM/ODM Partner",
+      "Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
     );
-    expect(llms).toContain("Lab-Created Colored Gemstone Jewelry");
-    expect(llms).toContain("Custom Moissanite Jewelry");
-    expect(llms.indexOf("Custom 925 Sterling Silver Jewelry")).toBeLessThan(
+    expect(llms).toContain("Lab-Grown Colored Gemstone Jewelry");
+    expect(llms).toContain("Moissanite Finished Jewelry");
+    expect(llms.indexOf("925 Silver Finished Jewelry")).toBeLessThan(
       llms.indexOf("Lab-Grown Diamond Jewelry"),
     );
-    expect(llms).toContain("https://xingyuejewelry.com/es");
-    expect(llms).toContain("https://xingyuejewelry.com/ar");
+    expect(llms).toContain("https://zarivelle.com/es");
+    expect(llms).toContain("https://zarivelle.com/ar");
     expect(llms).not.toMatch(
       /fixed MOQ of|guaranteed lead time of|operates? (an )?owned laborator/i,
     );

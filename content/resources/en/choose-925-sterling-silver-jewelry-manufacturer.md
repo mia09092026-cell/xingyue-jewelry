@@ -9,7 +9,7 @@ tags:
   - "jewelry sourcing"
 publishedAt: "2026-07-26"
 updatedAt: "2026-07-27"
-author: "Xingyue Jewelry"
+author: "Zarivelle Jewelry"
 coverImage: "/images/b2b-manual-setting-workshop.webp"
 locale: "en"
 draft: false
@@ -105,4 +105,4 @@ Send the same core information to each potential partner so that differences in 
 
 A suitable manufacturing partner should make project boundaries clear, identify missing information, and coordinate the next step without offering unsupported guarantees about quantities, timing, sales, or commercial success.
 
-To discuss a 925 sterling silver project, prepare your references, specifications, target quantity or range, packaging needs, and destination market, then use the [Xingyue Jewelry contact page](/contact?source=general).
+To discuss a 925 sterling silver project, prepare your references, specifications, target quantity or range, packaging needs, and destination market, then use the [Zarivelle Jewelry contact page](/contact?source=general).

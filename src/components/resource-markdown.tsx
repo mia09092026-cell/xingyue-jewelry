@@ -6,7 +6,7 @@ type SafeLink = {
   external: boolean;
 };
 
-const SITE_ORIGIN = "https://xingyuejewelry.com";
+const SITE_ORIGIN = "https://zarivelle.com";
 
 export function resolveSafeResourceLink(href?: string): SafeLink | null {
   const value = href?.trim();

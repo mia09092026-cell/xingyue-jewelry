@@ -63,18 +63,18 @@ describe("boutique jewelry stores audience page", () => {
 
   it("publishes localized SEO, sitemap, llms and schema contracts", () => {
     expect(getLanguageAlternates("/for-boutique-jewelry-stores")).toEqual({
-      en: "https://xingyuejewelry.com/for-boutique-jewelry-stores",
-      ar: "https://xingyuejewelry.com/ar/for-boutique-jewelry-stores",
-      es: "https://xingyuejewelry.com/es/for-boutique-jewelry-stores",
-      "x-default": "https://xingyuejewelry.com/for-boutique-jewelry-stores",
+      en: "https://zarivelle.com/for-boutique-jewelry-stores",
+      ar: "https://zarivelle.com/ar/for-boutique-jewelry-stores",
+      es: "https://zarivelle.com/es/for-boutique-jewelry-stores",
+      "x-default": "https://zarivelle.com/for-boutique-jewelry-stores",
     });
 
     const urls = sitemap().map((entry) => entry.url);
     expect(urls).toEqual(
       expect.arrayContaining([
-        "https://xingyuejewelry.com/for-boutique-jewelry-stores",
-        "https://xingyuejewelry.com/es/for-boutique-jewelry-stores",
-        "https://xingyuejewelry.com/ar/for-boutique-jewelry-stores",
+        "https://zarivelle.com/for-boutique-jewelry-stores",
+        "https://zarivelle.com/es/for-boutique-jewelry-stores",
+        "https://zarivelle.com/ar/for-boutique-jewelry-stores",
       ]),
     );
 
@@ -88,9 +88,9 @@ describe("boutique jewelry stores audience page", () => {
     expect(faq.mainEntity).toHaveLength(boutiqueStoresContentByLocale.en.faq.items.length);
 
     const llms = buildLlmsText();
-    expect(llms).toContain("https://xingyuejewelry.com/for-boutique-jewelry-stores");
-    expect(llms).toContain("https://xingyuejewelry.com/es/for-boutique-jewelry-stores");
-    expect(llms).toContain("https://xingyuejewelry.com/ar/for-boutique-jewelry-stores");
+    expect(llms).toContain("https://zarivelle.com/for-boutique-jewelry-stores");
+    expect(llms).toContain("https://zarivelle.com/es/for-boutique-jewelry-stores");
+    expect(llms).toContain("https://zarivelle.com/ar/for-boutique-jewelry-stores");
     expect(existsSync("src/app/api/inquiry")).toBe(false);
   });
 
@@ -99,10 +99,10 @@ describe("boutique jewelry stores audience page", () => {
     expect(englishMetadata.description).toContain("product assortment planning");
     expect(englishMetadata.openGraph).toMatchObject({
       type: "website",
-      url: "https://xingyuejewelry.com/for-boutique-jewelry-stores",
+      url: "https://zarivelle.com/for-boutique-jewelry-stores",
     });
     expect(englishMetadata.alternates).toEqual({
-      canonical: "https://xingyuejewelry.com/for-boutique-jewelry-stores",
+      canonical: "https://zarivelle.com/for-boutique-jewelry-stores",
       languages: getLanguageAlternates("/for-boutique-jewelry-stores"),
     });
 
@@ -111,12 +111,12 @@ describe("boutique jewelry stores audience page", () => {
         params: Promise.resolve({ locale }),
       });
       expect(metadata.alternates?.canonical).toBe(
-        `https://xingyuejewelry.com/${locale}/for-boutique-jewelry-stores`,
+        `https://zarivelle.com/${locale}/for-boutique-jewelry-stores`,
       );
       expect(metadata.alternates?.languages).toEqual(englishMetadata.alternates?.languages);
       expect(metadata.openGraph).toMatchObject({
         type: "website",
-        url: `https://xingyuejewelry.com/${locale}/for-boutique-jewelry-stores`,
+        url: `https://zarivelle.com/${locale}/for-boutique-jewelry-stores`,
       });
     }
 

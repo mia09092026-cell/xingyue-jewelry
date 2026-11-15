@@ -15,7 +15,7 @@ import { breadcrumbSchema, itemListSchema } from "@/lib/structured-data";
 import { contactInquiryHref } from "@/lib/contact-links";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Collections | XINGYUE Jewelry Supply Chain Partner",
+  title: "Collections | ZARIVELLE Jewelry Supply Chain Partner",
   description:
     "Browse moissanite wholesale, lab-grown diamonds, colored gemstones, Cuban chains, tennis chains and OEM jewelry production options.",
   path: "/collections",

@@ -40,26 +40,26 @@ describe("site chrome brand identity", () => {
     },
   );
 
-  it("uses the XINGYUE Jewelry brand logo in the header home link", () => {
+  it("uses the Zarivelle brand logo in the header home link", () => {
     render(<SiteHeader />);
 
     expect(
-      screen.getByRole("link", { name: /XINGYUE Jewelry logo/i }),
+      screen.getByRole("link", { name: /Zarivelle 织澜珠宝 logo/i }),
     ).toHaveAttribute("href", "/");
-    const logo = screen.getByRole("img", { name: /XINGYUE Jewelry logo/i });
+    const logo = screen.getByRole("img", { name: /Zarivelle 织澜珠宝 logo/i });
     expect(logo).toHaveAttribute(
       "src",
-      expect.stringContaining("xingyue-jewelry-logo.png"),
+      expect.stringContaining("zarivelle-logo.svg"),
     );
-    expect(logo).toHaveClass("h-16", "w-16", "sm:h-[4.5rem]", "sm:w-[4.5rem]");
+    expect(logo).toHaveClass("h-8", "w-auto", "sm:h-11");
   });
 
-  it("uses the XINGYUE Jewelry brand logo in the footer", () => {
+  it("uses the Zarivelle brand logo in the footer", () => {
     render(<SiteFooter />);
 
-    expect(screen.getByRole("img", { name: /XINGYUE Jewelry logo/i })).toHaveClass(
-      "h-28",
-      "w-28",
+    expect(screen.getByRole("img", { name: /Zarivelle 织澜珠宝 logo/i })).toHaveClass(
+      "h-16",
+      "w-auto",
     );
   });
 
@@ -73,9 +73,9 @@ describe("site chrome brand identity", () => {
   it("shows the sales email contact link in the footer", () => {
     render(<SiteFooter />);
 
-    expect(screen.getByRole("link", { name: "Email: sales@xingyuejewelry.com" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Email: sales@zarivelle.com" })).toHaveAttribute(
       "href",
-      "mailto:sales@xingyuejewelry.com?subject=Wholesale%20Jewelry%20Inquiry&locale=en&source=footer&interest=other&contactMethod=email",
+      "mailto:sales@zarivelle.com?subject=Wholesale%20Jewelry%20Inquiry&locale=en&source=footer&interest=other&contactMethod=email",
     );
   });
 
@@ -83,7 +83,7 @@ describe("site chrome brand identity", () => {
     const { unmount } = render(<SiteHeader />);
 
     expect(
-      screen.getByRole("link", { name: "Gemstones" }),
+      screen.getByRole("link", { name: "Lab-Grown Gemstones" }),
     ).toHaveAttribute("href", "/lab-grown-gemstones");
     unmount();
 
@@ -109,9 +109,9 @@ describe("site chrome brand identity", () => {
     {
       locale: "en",
       items: [
-        ["Products", "/products"],
-        ["Gemstones", "/lab-grown-gemstones"],
-        ["Moissanite Wholesale", "/collections/moissanite-wholesale"],
+        ["Moissanite", "/collections/moissanite-wholesale"],
+        ["Lab-Grown Gemstones", "/lab-grown-gemstones"],
+        ["Wholesale", "/wholesale"],
         ["OEM / ODM", "/collections/custom-jewelry-manufacturing"],
       ],
     },
@@ -148,14 +148,14 @@ describe("site chrome brand identity", () => {
   it("uses the localized products landing page in every header and footer", () => {
     const header = render(<SiteHeader />);
 
-    expect(screen.getByRole("link", { name: "Products" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Shop" })).toHaveAttribute(
       "href",
       "/products",
     );
     header.unmount();
 
     render(<SiteFooter />);
-    expect(screen.getByRole("link", { name: "Products" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Shop" })).toHaveAttribute(
       "href",
       "/products",
     );
@@ -202,13 +202,13 @@ describe("site chrome brand identity", () => {
   it("allows the mobile inquiry action to shrink without widening the viewport", () => {
     render(
       <SiteHeader
-        inquiryLabel="Discuss Your Custom Jewelry Project"
+        inquiryLabel="Discuss Wholesale Collections"
         languagePath="/"
       />,
     );
 
     const inquiryLink = screen.getByRole("link", {
-      name: "Discuss Your Custom Jewelry Project",
+      name: "Discuss Wholesale Collections",
     });
 
     expect(inquiryLink).toHaveClass("min-w-0");
@@ -216,7 +216,7 @@ describe("site chrome brand identity", () => {
   });
 
   it.each([
-    ["en", "Main navigation", "Products"],
+    ["en", "Main navigation", "Shop"],
     ["es", "Navegación principal", "Productos"],
     ["ar", "التنقل الرئيسي", "المنتجات"],
   ] as const)(
@@ -262,7 +262,7 @@ describe("site chrome brand identity", () => {
     fireEvent.click(toggle);
 
     const mobileNavigation = screen.getByTestId("mobile-navigation");
-    fireEvent.click(within(mobileNavigation).getByRole("link", { name: "Products" }));
+    fireEvent.click(within(mobileNavigation).getByRole("link", { name: "Shop" }));
 
     expect(toggle).toHaveAttribute("aria-expanded", "false");
     expect(mobileNavigation).toHaveAttribute("hidden");

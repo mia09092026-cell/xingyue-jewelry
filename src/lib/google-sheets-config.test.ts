@@ -46,7 +46,7 @@ function healthCheckRecord() {
   return createInquirySheetRecord(
     {
       name: "Health Check Test",
-      company: "Xingyue Jewelry",
+      company: "Zarivelle Jewelry",
       email: "health-check@example.com",
       phone: "+86 133 2488 8759",
       country: "Health Check",
@@ -148,7 +148,7 @@ describe("Google Sheets configuration helpers", () => {
 
   it("reports invalid service account email format without exposing the email", async () => {
     configureGoogleSheetsTestEnv();
-    process.env.GOOGLE_SHEETS_CLIENT_EMAIL = "sales@xingyuejewelry.com";
+    process.env.GOOGLE_SHEETS_CLIENT_EMAIL = "sales@zarivelle.com";
     const fetchSpy = vi.spyOn(globalThis, "fetch");
 
     expect(getGoogleSheetsHealthStatus()).toMatchObject({

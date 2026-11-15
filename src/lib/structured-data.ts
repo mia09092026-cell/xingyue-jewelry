@@ -7,9 +7,9 @@ type Product = (typeof products)[number];
 type LinkItem = { name: string; path: string };
 
 const organizationDescriptions: Record<SupportedLocale, string> = {
-  en: "Xingyue provides custom 925 sterling silver jewelry manufacturing and OEM/ODM coordination from Wuzhou for brands, wholesalers, retailers, designers and online sellers, with supporting lab-created colored gemstone, moissanite, lab-grown diamond and K-gold options.",
-  es: "Xingyue ofrece fabricación de joyería personalizada en plata 925 y coordinación OEM/ODM desde Wuzhou para marcas, mayoristas, minoristas, diseñadores y vendedores online, con opciones complementarias de gemas de color creadas en laboratorio, moissanita, diamantes de laboratorio y oro K.",
-  ar: "تقدم Xingyue من ووتشو تصنيع مجوهرات فضة 925 حسب الطلب وتنسيق OEM/ODM للعلامات التجارية وتجار الجملة والتجزئة والمصممين والبائعين عبر الإنترنت، مع خيارات مساندة من الأحجار الملونة المصنّعة مخبرياً والموسانيت والألماس المزروع وذهب K.",
+  en: "Zarivelle 织澜 supplies finished 925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond jewelry wholesale for boutiques, brands and online sellers, with OEM/ODM support, quality control and private-label packaging from Wuzhou.",
+  es: "Zarivelle 织澜 ofrece joyería terminada en plata 925, moissanita, gemas de color cultivadas en laboratorio y diamantes de laboratorio al por mayor para boutiques, marcas y vendedores online, con soporte OEM/ODM, control de calidad y embalaje de marca privada desde Wuzhou.",
+  ar: "تقدم Zarivelle 织澜 مجوهرات جاهزة من الفضة 925 والموسانيت والأحجار الملونة المزروعة مخبرياً والألماس المزروع بالجملة للمتاجر والعلامات التجارية والبائعين عبر الإنترنت، مع دعم OEM/ODM ومراقبة الجودة والتغليف بعلامة خاصة من ووتشو.",
 };
 
 export function organizationSchema(locale: SupportedLocale = "en") {
@@ -18,19 +18,19 @@ export function organizationSchema(locale: SupportedLocale = "en") {
     "@type": "Organization",
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: absoluteUrl("/xingyue-jewelry-logo.png"),
+    logo: absoluteUrl("/zarivelle-logo.svg"),
     email: siteConfig.email,
     description: organizationDescriptions[locale],
     knowsAbout: [
-      "Custom 925 sterling silver jewelry",
-      "Lab-created colored gemstone jewelry",
-      "Custom moissanite jewelry",
+      "Wholesale finished 925 silver jewelry",
+      "Moissanite wholesale jewelry",
+      "Lab-grown colored gemstone jewelry",
       "Lab-grown diamond jewelry",
-      "Custom K-gold jewelry",
+      "Finished jewelry wholesale",
       "OEM/ODM jewelry manufacturing",
-      "CAD and sample development",
       "Jewelry quality control",
       "Private-label packaging",
+      "Wuzhou jewelry supply",
     ],
     contactPoint: {
       "@type": "ContactPoint",
@@ -178,7 +178,7 @@ export function articleSchema({
       url: siteConfig.url,
       logo: {
         "@type": "ImageObject",
-        url: absoluteUrl("/xingyue-jewelry-logo.png"),
+        url: absoluteUrl("/zarivelle-logo.svg"),
       },
     },
   };

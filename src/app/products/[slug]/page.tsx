@@ -28,12 +28,12 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   if (!product) {
     return {
-      title: "Product Not Found | XINGYUE",
+      title: "Product Not Found | ZARIVELLE",
     };
   }
 
   return createPageMetadata({
-    title: `${product.name} | Wholesale Jewelry | XINGYUE`,
+    title: `${product.name} | Wholesale Jewelry | ZARIVELLE`,
     description: product.description,
     path: `/products/${product.slug}`,
     image: product.image,

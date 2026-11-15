@@ -66,9 +66,9 @@ const navigationLabels: Record<SupportedLocale, string> = {
 };
 
 const logoAlts: Record<SupportedLocale, string> = {
-  en: "XINGYUE Jewelry logo",
-  es: "Logotipo de XINGYUE Jewelry",
-  ar: "شعار XINGYUE للمجوهرات",
+  en: "ZARIVELLE Jewelry logo",
+  es: "Logotipo de ZARIVELLE Jewelry",
+  ar: "شعار ZARIVELLE للمجوهرات",
 };
 
 const pageImageAlts: Record<SupportedLocale, { workshop: string; contact: string }> = {

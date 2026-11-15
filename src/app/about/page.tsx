@@ -11,22 +11,22 @@ import { getLanguageAlternates } from "@/lib/i18n";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About XINGYUE | Jewelry Manufacturing & Supply Chain Partner",
+  title: "About Zarivelle 织澜 | Wholesale 925 Silver & Lab-Grown Jewelry",
   description:
-    "Meet XINGYUE, a jewelry manufacturing and supply chain partner for emerging brands, boutique stores and independent designers.",
+    "Zarivelle 织澜 supplies finished 925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond jewelry wholesale for boutiques, brands and online sellers, with OEM/ODM support from Wuzhou.",
   path: "/about",
   languages: getLanguageAlternates("/about"),
 });
 
 const capabilities = [
   {
-    title: "Loose Stone Expertise",
-    copy: "Moissanite, lab-grown diamonds, colored gemstones and zirconia selected for stable repeat supply.",
+    title: "Finished Jewelry Collections",
+    copy: "Finished 925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond styles for wholesale buyers.",
     icon: Gem,
   },
   {
-    title: "OEM / ODM Manufacturing",
-    copy: "Photo-to-sample development, S925 silver production and custom 10K, 14K or 18K gold settings.",
+    title: "Wholesale & OEM/ODM",
+    copy: "Low-MOQ finished orders, tiered pricing, samples and custom development for larger programs.",
     icon: Factory,
   },
   {
@@ -37,9 +37,9 @@ const capabilities = [
 ];
 
 const partnershipFacts = [
-  ["Emerging Brands", "Development support for growing jewelry businesses"],
-  ["Boutique Jewelry Stores & Design Studios", "Flexible planning for stores and independent designers"],
-  ["Global B2B", "Wholesale, OEM / ODM and private-label coordination"],
+  ["Boutique Jewelry Stores", "Finished collections and low-MOQ reorders"],
+  ["Emerging Brands", "Wholesale styles plus OEM/ODM support as you grow"],
+  ["Wholesalers & Distributors", "Stock, quick replenishment and private-label coordination"],
 ];
 
 export default function AboutPage() {
@@ -47,15 +47,15 @@ export default function AboutPage() {
     <main className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
       <SiteHeader languagePath="/about" />
       <PageHero
-        eyebrow="How We Work With Brands"
-        title="About XINGYUE"
-        subtitle="A jewelry manufacturing and supply chain partner for emerging brands, boutique jewelry stores, independent designers and entrepreneurs."
+        eyebrow="Wholesale Finished Jewelry"
+        title="About Zarivelle"
+        subtitle="A finished jewelry supplier for boutiques, emerging brands, online sellers and wholesalers, with OEM/ODM support for larger programs."
       >
         <Link
-          href="/contact"
+          href="/wholesale"
           className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
         >
-          Start a Partnership Inquiry
+          Request Wholesale Catalog
           <ArrowRight aria-hidden="true" className="h-4 w-4" />
         </Link>
       </PageHero>
@@ -65,7 +65,7 @@ export default function AboutPage() {
           <div className="relative min-h-[480px] overflow-hidden rounded-md bg-[#e9e4d9]">
             <Image
               src="/images/b2b-factory-workshop.jpg"
-              alt="XINGYUE jewelry production workshop"
+              alt="ZARIVELLE jewelry production workshop"
               fill
               priority
               sizes="(min-width: 1024px) 52vw, 100vw"
@@ -73,20 +73,20 @@ export default function AboutPage() {
             />
           </div>
           <div>
-            <p className="mb-3 text-sm text-[#8a734b]">Who We Support</p>
+            <p className="mb-3 text-sm text-[#8a734b]">Who We Supply</p>
             <h2 className="text-balance font-serif text-4xl leading-tight">
-              One partner, one coordinated workflow.
+              Finished jewelry, without the friction.
             </h2>
             <p className="mt-6 leading-8 text-[#596575]">
-              XINGYUE combines loose stone selection, jewelry development,
-              setting, quality control and packaging in one supply workflow.
-              This makes communication clearer for overseas buyers and helps
-              repeat orders stay consistent.
+              Zarivelle supplies finished 925 silver, moissanite,
+              lab-grown colored gemstone and lab-grown diamond jewelry from
+              Wuzhou. Boutiques, brands and online sellers can order from
+              finished collections with clear MOQ, pricing and lead times.
             </p>
             <p className="mt-5 leading-8 text-[#596575]">
-              Our core range covers moissanite, lab-grown diamonds, lab-grown
-              colored gemstones, zirconia, Cuban chains, tennis chains, rings,
-              necklaces and bracelets.
+              For larger collections, we also support OEM/ODM development,
+              sampling, private label and packaging — without making custom
+              work the default path for every buyer.
             </p>
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {partnershipFacts.map(([value, label]) => (
@@ -103,8 +103,8 @@ export default function AboutPage() {
       <section className="bg-[#fbfaf7] px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
-            eyebrow="Integrated Supply"
-            title="Built for overseas inquiry and repeat production."
+            eyebrow="Wholesale Supply"
+            title="Built for overseas wholesale and repeat orders."
             copy="Each capability answers a practical question buyers ask before trusting a new jewelry supplier."
           />
           <div className="grid gap-4 md:grid-cols-3">

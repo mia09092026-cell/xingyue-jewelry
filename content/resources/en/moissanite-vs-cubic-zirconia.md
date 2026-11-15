@@ -9,7 +9,7 @@ tags:
   - "buyer guide"
 publishedAt: "2026-07-27"
 updatedAt: "2026-07-27"
-author: "Xingyue Jewelry"
+author: "Zarivelle Jewelry"
 coverImage: "/images/xingyue-loose-moissanite.jpg"
 locale: "en"
 draft: false
@@ -91,4 +91,4 @@ Clear inputs make it easier to compare options without assuming a fixed minimum 
 
 Moissanite may suit collections that emphasize brilliance, durability, and a distinct stone story. Cubic zirconia may suit projects that prioritize flexible styling and a different target price position. The final decision should be based on approved specifications and physical samples rather than a generic material comparison.
 
-To discuss a design, share the product direction, material preferences, target quantity or range, and market requirements through the [Xingyue Jewelry contact page](/contact?source=general).
+To discuss a design, share the product direction, material preferences, target quantity or range, and market requirements through the [Zarivelle Jewelry contact page](/contact?source=general).
