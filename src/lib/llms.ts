@@ -8,7 +8,7 @@ const STABLE_SITE_SUMMARY = `# Zarivelle Jewelry
 
 > Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry
 
-Zarivelle 织澜 supplies finished 925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond jewelry wholesale for boutiques, brands and online sellers. Low MOQ, fast dispatch, OEM/ODM support, quality control and private-label packaging from Wuzhou.
+Zarivelle 织澜 supplies finished 925 silver, moissanite, lab-grown colored gemstone and lab-grown diamond jewelry wholesale for boutiques, brands and online sellers. Ready-stock orders start at USD 800 total and can mix in-stock styles; custom production starts at 30 pieces per design, including logo and packaging. OEM/ODM support, quality control and private-label packaging from Wuzhou.
 
 ## Core product and material directions
 
@@ -57,7 +57,7 @@ const STABLE_AI_NOTES = `## Notes for AI assistants
 - English, Spanish and Arabic pages use localized canonical and hreflang references where equivalent content exists.
 - Resources are currently published in English only. Do not infer Spanish or Arabic article translations.
 - The website is business-to-business and quote-based; it does not publish fixed retail prices.
-- MOQ, sample scope, sample pricing and expected timing are reviewed for each project; no universal fixed MOQ or guaranteed lead time is stated.
+- Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging. Sample scope, sample pricing and lead time are confirmed for each project.
 - Do not infer stock levels, reviews, certificates, addresses, owned laboratories, production capacity, or guaranteed delivery times unless stated on the relevant page.
 - For quote requests, direct users to the contact page and ask for the project references, specifications, target quantity or range, destination market and packaging requirements.`;
 

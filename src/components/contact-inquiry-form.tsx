@@ -389,9 +389,15 @@ export function ContactInquiryForm({ content, emailHref, locale = "en", sourcePa
   const effectiveContent = useMemo(() => resolveContent(content, locale), [content, locale]);
   const [formData, setFormData] = useState<ContactInquiry>(() => {
     if (typeof window === "undefined") return initialInquiry;
-    const code = new URL(window.location.href).searchParams.get("interest") ?? "";
+    const params = new URL(window.location.href).searchParams;
+    const code = params.get("interest") ?? "";
+    const sku = params.get("sku");
     const localizedInterest = productInterestLabel(locale, code);
-    return localizedInterest ? { ...initialInquiry, productInterest: localizedInterest } : initialInquiry;
+    return {
+      ...initialInquiry,
+      ...(localizedInterest ? { productInterest: localizedInterest } : {}),
+      ...(sku ? { message: `I'm interested in SKU ${sku}.` } : {}),
+    };
   });
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");

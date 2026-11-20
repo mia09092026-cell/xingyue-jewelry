@@ -139,6 +139,7 @@ type ContactInquiryHrefOptions = {
   locale?: string;
   source?: string;
   sourcePath?: string;
+  sku?: string;
 };
 
 function sourceFromPath(sourcePath?: string) {
@@ -161,6 +162,7 @@ export function contactInquiryHref({
   locale,
   source,
   sourcePath,
+  sku,
 }: ContactInquiryHrefOptions) {
   const normalizedLocale = normalizeLocale(locale);
   const normalizedSource = normalizeSource(source ?? sourceFromPath(sourcePath));
@@ -172,6 +174,10 @@ export function contactInquiryHref({
 
   if (interest) {
     params.set("interest", normalizeInterest(interest));
+  }
+
+  if (sku) {
+    params.set("sku", sku);
   }
 
   return `${localizedPath("/contact", normalizedLocale)}?${params.toString()}`;

@@ -21,6 +21,7 @@ import { HomepageManufacturingGallery } from "@/components/homepage-manufacturin
 import { HowWeWork } from "@/components/how-we-work";
 import { PageHero } from "@/components/page-hero";
 import { PrepareInquirySection } from "@/components/prepare-inquiry-section";
+import { ProductCard } from "@/components/product-card";
 import { ProductSummaryCard } from "@/components/product-summary-card";
 import { QualityControlSection } from "@/components/quality-control-section";
 import { SampleMoqSection } from "@/components/sample-moq-section";
@@ -37,7 +38,9 @@ import {
   contactInquiryHref,
   emailInquiryHref,
 } from "@/lib/contact-links";
+import { catalogSeriesMeta, getStockSeriesCounts } from "@/lib/catalog";
 import { contactConfig } from "@/lib/contact-config";
+import { products } from "@/lib/site-data";
 
 type LocalizedPageProps = {
   locale: SupportedLocale;
@@ -54,6 +57,36 @@ const boutiqueStoresLinkLabels: Record<SupportedLocale, string> = {
   es: "Conoce el apoyo para tiendas boutique de joyería",
   ar: "استكشف دعم متاجر المجوهرات البوتيك",
 };
+
+const readyStockLabels: Record<
+  SupportedLocale,
+  { title: string; copy: string; seriesTitle: string; featuredTitle: string }
+> = {
+  en: {
+    title: "Ready-stock SKUs",
+    copy: "Ready-stock loose stones, 925 silver and 18K gold. Orders start at USD 800 total and can mix any in-stock SKUs.",
+    seriesTitle: "Shop by series",
+    featuredTitle: "Featured ready stock",
+  },
+  es: {
+    title: "SKU en stock",
+    copy: "Piedras sueltas, plata 925 y oro 18K disponibles. Los pedidos comienzan en USD 800 en total y pueden combinar SKU en stock.",
+    seriesTitle: "Comprar por serie",
+    featuredTitle: "Selección en stock",
+  },
+  ar: {
+    title: "رموز SKU المتوفرة",
+    copy: "أحجار مفردة وفضة 925 وذهب 18K متوفرة. تبدأ الطلبات من 800 دولار إجمالاً ويمكن دمج رموز SKU المتوفرة.",
+    seriesTitle: "تسوق حسب السلسلة",
+    featuredTitle: "مختارات متوفرة",
+  },
+};
+
+const readyStockProducts = products.filter(
+  (product) => product.orderType === "stock",
+);
+const readyStockFeatured = readyStockProducts.slice(0, 8);
+const stockSeriesCounts = getStockSeriesCounts();
 
 type LocalizedCollectionProps = LocalizedPageProps & {
   slug: string;
@@ -536,6 +569,48 @@ export function LocalizedProducts({ locale }: LocalizedPageProps) {
           interest="other"
         />
       </PageHero>
+
+      <section className="px-5 py-16 sm:px-8">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Ready Stock"
+            title={readyStockLabels[locale].title}
+            copy={readyStockLabels[locale].copy}
+          />
+          <h2 className="mt-10 font-serif text-2xl text-[#17202a]">
+            {readyStockLabels[locale].seriesTitle}
+          </h2>
+          <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {stockSeriesCounts.map(({ series, count }) => (
+              <Link
+                key={series}
+                href={`/products/series/${series}`}
+                className="group rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm transition hover:-translate-y-1 hover:border-[#d4b76d]"
+              >
+                <p className="text-sm text-[#8a734b]">{count} SKUs</p>
+                <h3 className="mt-2 font-serif text-2xl text-[#17202a]">
+                  {catalogSeriesMeta[series].title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-[#596575]">
+                  {catalogSeriesMeta[series].copy}
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#17202a]">
+                  View series
+                  <ArrowRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+                </span>
+              </Link>
+            ))}
+          </div>
+          <h2 className="mt-12 font-serif text-2xl text-[#17202a]">
+            {readyStockLabels[locale].featuredTitle}
+          </h2>
+          <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {readyStockFeatured.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">

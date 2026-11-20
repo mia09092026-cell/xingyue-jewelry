@@ -135,6 +135,7 @@ export function productSchema(product: Product) {
     image: absoluteUrl(product.image),
     material: product.material,
     category: product.category,
+    ...(product.sku ? { sku: product.sku, mpn: product.sku } : {}),
     brand: {
       "@type": "Brand",
       name: siteConfig.name,

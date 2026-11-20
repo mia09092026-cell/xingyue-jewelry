@@ -21,7 +21,19 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-[#f4efe3] text-[#a98945]">
           <Gem aria-hidden="true" className="h-5 w-5" />
         </div>
-        <p className="text-sm text-[#8a734b]">{product.category}</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-sm text-[#8a734b]">{product.category}</p>
+          {product.sku ? (
+            <span className="rounded-full border border-[#d8c28a] bg-[#fbfaf7] px-2 py-0.5 text-xs font-medium text-[#8a734b]">
+              SKU {product.sku}
+            </span>
+          ) : null}
+          {product.stockStatus === "in-stock" ? (
+            <span className="rounded-full bg-[#e8f2e6] px-2 py-0.5 text-xs font-medium text-[#3f6b3a]">
+              Ready stock
+            </span>
+          ) : null}
+        </div>
         <h3 className="mt-2 font-serif text-2xl text-[#17202a]">{product.name}</h3>
         <p className="mt-5 flex-1 leading-7 text-[#596575]">{product.description}</p>
         <div className="mt-6 border-t border-[#e7ddc8] pt-5 text-sm text-[#344150]">

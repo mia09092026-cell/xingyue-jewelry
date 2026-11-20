@@ -1,6 +1,55 @@
+import limonGenerated from "@/data/catalog/limon.generated.json";
 import { contactConfig } from "@/lib/contact-config";
 
 const defaultEmailHref = `mailto:${contactConfig.email}?subject=${encodeURIComponent("Wholesale Jewelry Inquiry")}`;
+
+export const commercialTerms = {
+  stockMinimumOrderUsd: 800,
+  stockMixAndMatch: true,
+  customMinimumPieces: 30,
+  customIncludes: ["logo", "packaging"],
+} as const;
+
+export type ProductSeries =
+  | "loose-stones"
+  | "925-silver"
+  | "18k-gold"
+  | "14k-gold"
+  | "other"
+  | "sample";
+
+export type ProductStockStatus = "in-stock" | "low-stock" | "made-to-order";
+
+export type ProductVariant = {
+  label: string;
+  note?: string;
+};
+
+export type Product = {
+  slug: string;
+  collectionSlug: string;
+  name: string;
+  category: string;
+  material: string;
+  stone: string;
+  setting: string;
+  wholesale: string;
+  priceNote: string;
+  image: string;
+  alt: string;
+  gallery: Array<{ src: string; alt: string }>;
+  description: string;
+  highlights: string[];
+  b2bSellingPoints: Array<{ title: string; copy: string; image: string; alt: string }>;
+  specs: string[][];
+  sku?: string;
+  series?: ProductSeries;
+  stockStatus?: ProductStockStatus;
+  orderType?: "stock" | "custom";
+  variants?: ProductVariant[];
+  interest?: string;
+  moqNote?: string;
+};
 
 export const brand = {
   name: "Zarivelle",
@@ -13,16 +62,7 @@ export const brand = {
   tagline: "Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry",
 };
 
-export const navigation = [
-  { label: "Shop", href: "/products" },
-  { label: "Moissanite", href: "/collections/moissanite-wholesale" },
-  { label: "Lab-Grown Gemstones", href: "/lab-grown-gemstones" },
-  { label: "Wholesale", href: "/wholesale" },
-  { label: "OEM / ODM", href: "/collections/custom-jewelry-manufacturing" },
-  { label: "Resources", href: "/resources" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
+export { navigation } from "@/lib/navigation";
 
 export const collectionCategories = [
   {
@@ -96,7 +136,7 @@ export const b2bInquiryProofs = [
   },
 ];
 
-export const products = [
+export const products: Product[] = [
   {
     slug: "moissanite-solitaire-ring",
     collectionSlug: "moissanite-wholesale",
@@ -341,6 +381,539 @@ export const products = [
       ["Service", "Made-to-order wholesale production"],
     ],
   },
+  {
+    slug: "lm0029-white-lab-grown-diamond-loose-stones",
+    collectionSlug: "",
+    sku: "LM0029",
+    series: "loose-stones",
+    stockStatus: "in-stock",
+    orderType: "stock",
+    interest: "lab-grown-diamond-jewelry",
+    name: "Lab-Grown White Diamond Loose Stones",
+    category: "Loose Stones",
+    material: "Lab-grown diamond",
+    stone: "Lab-grown white diamond, assorted shapes and sizes",
+    setting: "Loose stone — setting not included",
+    wholesale: "Ready stock — mixed-style orders welcome",
+    priceNote: "Wholesale quote by shape, size and quantity.",
+    image: "/images/products/lm0029-white-lab-grown-diamond-loose-stones/01.webp",
+    alt: "Lab-grown white diamond loose stones in assorted shapes",
+    gallery: [],
+    description:
+      "Lab-grown white diamond loose stones for jewelers and brands sourcing calibrated or near-calibrated stones. Shapes and sizes are confirmed against current stock before quotation.",
+    highlights: [
+      "Round, oval, pear and emerald cuts shown in the reference photo",
+      "Sold as loose stones — setting not included",
+      "Sizes confirmed against current stock before quotation",
+      "Suitable for sample sets, repairs and small production runs",
+    ],
+    b2bSellingPoints: [
+      {
+        title: "Stone Matching",
+        copy: "Stones can be matched by shape, size and color direction before packing.",
+        image: "/images/b2b-bulk-loose-stones.jpg",
+        alt: "Bulk loose stones for matching",
+      },
+      {
+        title: "Checked Before Packing",
+        copy: "Selected stones are checked under the loupe before they leave the workshop.",
+        image: "/images/b2b-stone-testing-certificate.jpg",
+        alt: "Stone testing before packing",
+      },
+      {
+        title: "Quote With Your SKU",
+        copy: "Send SKU LM0029 with the shapes, sizes and quantity you need for a cleaner quotation.",
+        image: "/images/b2b-sample-packaging.jpg",
+        alt: "Sample packaging for loose stones",
+      },
+    ],
+    specs: [
+      ["SKU", "LM0029"],
+      ["Stone", "Lab-grown white diamond"],
+      ["Forms", "Assorted shapes — confirm before order"],
+      ["Order", "Ready-stock orders from USD 800 total, mixed styles allowed"],
+    ],
+    variants: [
+      { label: "Round" },
+      { label: "Oval" },
+      { label: "Pear" },
+      { label: "Emerald" },
+    ],
+    moqNote:
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
+  },
+  {
+    slug: "lm0030-pink-lab-grown-diamond-loose-stones",
+    collectionSlug: "",
+    sku: "LM0030",
+    series: "loose-stones",
+    stockStatus: "in-stock",
+    orderType: "stock",
+    interest: "lab-grown-diamond-jewelry",
+    name: "Lab-Grown Pink Diamond Loose Stones",
+    category: "Loose Stones",
+    material: "Lab-grown diamond",
+    stone: "Lab-grown pink diamond, assorted shapes and sizes",
+    setting: "Loose stone — setting not included",
+    wholesale: "Ready stock — mixed-style orders welcome",
+    priceNote: "Wholesale quote by shape, size, color and quantity.",
+    image: "/images/products/lm0030-pink-lab-grown-diamond-loose-stones/01.webp",
+    alt: "Lab-grown pink diamond loose stones in assorted shapes",
+    gallery: [],
+    description:
+      "Lab-grown pink diamond loose stones for colored-stone programs, sample sets and repair work. Exact color, shape and size are confirmed against current stock before quotation.",
+    highlights: [
+      "Pink lab-grown diamonds shown in assorted shapes",
+      "Color and size matched to your brief where stock allows",
+      "Sold as loose stones — setting not included",
+      "Useful for accent stones, sample sets and small runs",
+    ],
+    b2bSellingPoints: [
+      {
+        title: "Color Matching",
+        copy: "Pink stones can be matched by tone and size direction before packing.",
+        image: "/images/b2b-color-stone-inventory.jpg",
+        alt: "Colored stone inventory for matching",
+      },
+      {
+        title: "Checked Before Packing",
+        copy: "Stones are checked for visible inclusions and shape consistency before dispatch.",
+        image: "/images/b2b-stone-testing-certificate.jpg",
+        alt: "Stone testing before packing",
+      },
+      {
+        title: "Quote With Your SKU",
+        copy: "Send SKU LM0030 with the shapes, sizes and quantity you need.",
+        image: "/images/b2b-sample-packaging.jpg",
+        alt: "Sample packaging for loose stones",
+      },
+    ],
+    specs: [
+      ["SKU", "LM0030"],
+      ["Stone", "Lab-grown pink diamond"],
+      ["Forms", "Assorted shapes — confirm before order"],
+      ["Order", "Ready-stock orders from USD 800 total, mixed styles allowed"],
+    ],
+    variants: [
+      { label: "Round" },
+      { label: "Oval" },
+      { label: "Pear" },
+      { label: "Square" },
+    ],
+    moqNote:
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
+  },
+  {
+    slug: "lm0031-yellow-lab-grown-diamond-loose-stones",
+    collectionSlug: "",
+    sku: "LM0031",
+    series: "loose-stones",
+    stockStatus: "in-stock",
+    orderType: "stock",
+    interest: "lab-grown-diamond-jewelry",
+    name: "Lab-Grown Yellow Diamond Loose Stones",
+    category: "Loose Stones",
+    material: "Lab-grown diamond",
+    stone: "Lab-grown yellow diamond, assorted shapes and sizes",
+    setting: "Loose stone — setting not included",
+    wholesale: "Ready stock — mixed-style orders welcome",
+    priceNote: "Wholesale quote by shape, size, color and quantity.",
+    image: "/images/products/lm0031-yellow-lab-grown-diamond-loose-stones/01.webp",
+    alt: "Lab-grown yellow diamond loose stones in assorted shapes",
+    gallery: [],
+    description:
+      "Lab-grown yellow diamond loose stones for warm-color collections, accent sets and repair work. Shape, size and tone are confirmed against current stock before quotation.",
+    highlights: [
+      "Yellow lab-grown diamonds shown in assorted shapes",
+      "Warm color direction for accent and center stones",
+      "Sold as loose stones — setting not included",
+      "Sizes confirmed against current stock",
+    ],
+    b2bSellingPoints: [
+      {
+        title: "Color Matching",
+        copy: "Yellow stones can be matched by tone and size direction before packing.",
+        image: "/images/b2b-color-options.jpg",
+        alt: "Colored stone options for matching",
+      },
+      {
+        title: "Checked Before Packing",
+        copy: "Stones are checked for shape and visible consistency before dispatch.",
+        image: "/images/b2b-stone-testing-certificate.jpg",
+        alt: "Stone testing before packing",
+      },
+      {
+        title: "Quote With Your SKU",
+        copy: "Send SKU LM0031 with the shapes, sizes and quantity you need.",
+        image: "/images/b2b-sample-packaging.jpg",
+        alt: "Sample packaging for loose stones",
+      },
+    ],
+    specs: [
+      ["SKU", "LM0031"],
+      ["Stone", "Lab-grown yellow diamond"],
+      ["Forms", "Assorted shapes — confirm before order"],
+      ["Order", "Ready-stock orders from USD 800 total, mixed styles allowed"],
+    ],
+    variants: [
+      { label: "Round" },
+      { label: "Oval" },
+      { label: "Pear" },
+      { label: "Square" },
+    ],
+    moqNote:
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
+  },
+  {
+    slug: "lm0032-blue-lab-grown-diamond-loose-stones",
+    collectionSlug: "",
+    sku: "LM0032",
+    series: "loose-stones",
+    stockStatus: "in-stock",
+    orderType: "stock",
+    interest: "lab-grown-diamond-jewelry",
+    name: "Lab-Grown Blue Diamond Loose Stones",
+    category: "Loose Stones",
+    material: "Lab-grown diamond",
+    stone: "Lab-grown blue diamond, assorted shapes and sizes",
+    setting: "Loose stone — setting not included",
+    wholesale: "Ready stock — mixed-style orders welcome",
+    priceNote: "Wholesale quote by shape, size, color and quantity.",
+    image: "/images/products/lm0032-blue-lab-grown-diamond-loose-stones/01.webp",
+    alt: "Lab-grown blue diamond loose stones in assorted shapes",
+    gallery: [],
+    description:
+      "Lab-grown blue diamond loose stones for cool-tone collections, accent sets and repair work. Exact color, shape and size are confirmed against current stock before quotation.",
+    highlights: [
+      "Blue lab-grown diamonds shown in assorted shapes",
+      "Cool color direction for accent and center stones",
+      "Sold as loose stones — setting not included",
+      "Sizes confirmed against current stock",
+    ],
+    b2bSellingPoints: [
+      {
+        title: "Color Matching",
+        copy: "Blue stones can be matched by tone and size direction before packing.",
+        image: "/images/b2b-color-options.jpg",
+        alt: "Colored stone options for matching",
+      },
+      {
+        title: "Checked Before Packing",
+        copy: "Stones are checked for shape and visible consistency before dispatch.",
+        image: "/images/b2b-stone-testing-certificate.jpg",
+        alt: "Stone testing before packing",
+      },
+      {
+        title: "Quote With Your SKU",
+        copy: "Send SKU LM0032 with the shapes, sizes and quantity you need.",
+        image: "/images/b2b-sample-packaging.jpg",
+        alt: "Sample packaging for loose stones",
+      },
+    ],
+    specs: [
+      ["SKU", "LM0032"],
+      ["Stone", "Lab-grown blue diamond"],
+      ["Forms", "Assorted shapes — confirm before order"],
+      ["Order", "Ready-stock orders from USD 800 total, mixed styles allowed"],
+    ],
+    variants: [
+      { label: "Round" },
+      { label: "Oval" },
+      { label: "Pear" },
+      { label: "Square" },
+    ],
+    moqNote:
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
+  },
+  {
+    slug: "lm0093-round-lab-grown-diamond-loose-stone",
+    collectionSlug: "",
+    sku: "LM0093",
+    series: "loose-stones",
+    stockStatus: "in-stock",
+    orderType: "stock",
+    interest: "lab-grown-diamond-jewelry",
+    name: "Round Lab-Grown Diamond Loose Stone",
+    category: "Loose Stones",
+    material: "Lab-grown diamond",
+    stone: "Round brilliant lab-grown diamond",
+    setting: "Loose stone — setting not included",
+    wholesale: "Ready stock — mixed-style orders welcome",
+    priceNote: "Wholesale quote by carat, color and quantity.",
+    image: "/images/products/lm0093-round-lab-grown-diamond-loose-stone/01.webp",
+    alt: "Round brilliant lab-grown diamond held in tweezers",
+    gallery: [
+      {
+        src: "/images/products/lm0093-round-lab-grown-diamond-loose-stone/02.webp",
+        alt: "Round lab-grown diamond in a gemstone box",
+      },
+      {
+        src: "/images/products/lm0093-round-lab-grown-diamond-loose-stone/03.webp",
+        alt: "Round lab-grown diamond inspected by hand",
+      },
+      {
+        src: "/images/products/lm0093-round-lab-grown-diamond-loose-stone/04.webp",
+        alt: "Round lab-grown diamond close detail",
+      },
+    ],
+    description:
+      "A round brilliant lab-grown diamond shown loose and ready for setting. Carat weight, color and clarity options are confirmed against current stock before quotation.",
+    highlights: [
+      "Round brilliant cut for classic solitaire and accent use",
+      "Loose stone — setting not included",
+      "Carat, color and clarity confirmed before quotation",
+      "Suitable for sample sets and small production runs",
+    ],
+    b2bSellingPoints: [
+      {
+        title: "Stone Matching",
+        copy: "Stones can be matched by size, color and clarity direction before packing.",
+        image: "/images/b2b-bulk-loose-stones.jpg",
+        alt: "Bulk loose stones for matching",
+      },
+      {
+        title: "Checked Under Loupe",
+        copy: "The selected stone is checked before packing and can be photographed for approval.",
+        image: "/images/b2b-finished-jewelry-qc.jpg",
+        alt: "Jewelry quality check before packing",
+      },
+      {
+        title: "Quote With Your SKU",
+        copy: "Send SKU LM0093 with the carat range and quantity you need.",
+        image: "/images/b2b-certificate-packaging.jpg",
+        alt: "Certificate and packaging support",
+      },
+    ],
+    specs: [
+      ["SKU", "LM0093"],
+      ["Stone", "Round brilliant lab-grown diamond"],
+      ["Form", "Loose stone — setting not included"],
+      ["Order", "Ready-stock orders from USD 800 total, mixed styles allowed"],
+    ],
+    variants: [
+      { label: "Round brilliant", note: "Carat options confirmed before order" },
+    ],
+    moqNote:
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
+  },
+  {
+    slug: "lm0023-925-silver-lab-grown-gemstone-ring",
+    collectionSlug: "lab-grown-colored-gemstones",
+    sku: "LM0023",
+    series: "925-silver",
+    stockStatus: "in-stock",
+    orderType: "stock",
+    interest: "colored-gemstone-jewelry",
+    name: "925 Silver Lab-Grown Gemstone Ring",
+    category: "Rings",
+    material: "925 Sterling Silver",
+    stone: "Lab-grown colored gemstone with lab-grown diamond accents",
+    setting: "Open-band prong setting with side accents",
+    wholesale: "Ready stock — mixed-style orders welcome",
+    priceNote: "Wholesale quote by color, ring size and quantity.",
+    image: "/images/products/lm0023-925-silver-lab-grown-gemstone-ring/01.webp",
+    alt: "925 silver ring with a green lab-grown gemstone",
+    gallery: [
+      {
+        src: "/images/products/lm0023-925-silver-lab-grown-gemstone-ring/02.webp",
+        alt: "925 silver gemstone ring in a purple stone option",
+      },
+      {
+        src: "/images/products/lm0023-925-silver-lab-grown-gemstone-ring/03.webp",
+        alt: "925 silver gemstone ring in a red stone option",
+      },
+      {
+        src: "/images/products/lm0023-925-silver-lab-grown-gemstone-ring/04.webp",
+        alt: "925 silver gemstone ring in a blue stone option",
+      },
+    ],
+    description:
+      "A 925 sterling silver ring with a lab-grown colored center stone and small diamond accents. Color options are confirmed against current stock before quotation.",
+    highlights: [
+      "925 sterling silver setting",
+      "Lab-grown colored center stone with diamond accents",
+      "Green, purple, red and blue options shown",
+      "Ring sizes and stone sizes confirmed before order",
+    ],
+    b2bSellingPoints: [
+      {
+        title: "Ready Stock, Mixed Orders",
+        copy: "Combine this ring with other in-stock 925 silver styles to reach the USD 800 order minimum.",
+        image: "/images/b2b-sample-packaging.jpg",
+        alt: "Ready-stock jewelry packaging",
+      },
+      {
+        title: "Checked Before Packing",
+        copy: "Stone setting, prongs and finish are checked before the ring is packed.",
+        image: "/images/b2b-finished-jewelry-qc.jpg",
+        alt: "Jewelry quality check before packing",
+      },
+      {
+        title: "Quote With Your SKU",
+        copy: "Send SKU LM0023 with the colors, ring sizes and quantity you need.",
+        image: "/images/b2b-certificate-packaging.jpg",
+        alt: "Packaging and certificate support",
+      },
+    ],
+    specs: [
+      ["SKU", "LM0023"],
+      ["Material", "925 Sterling Silver"],
+      ["Stone", "Lab-grown colored gemstone with diamond accents"],
+      ["Order", "Ready-stock orders from USD 800 total, mixed styles allowed"],
+    ],
+    variants: [
+      { label: "Green" },
+      { label: "Purple" },
+      { label: "Red" },
+      { label: "Blue" },
+    ],
+    moqNote:
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
+  },
+  {
+    slug: "lm0024-925-silver-lab-grown-gemstone-halo-ring",
+    collectionSlug: "lab-grown-colored-gemstones",
+    sku: "LM0024",
+    series: "925-silver",
+    stockStatus: "in-stock",
+    orderType: "stock",
+    interest: "colored-gemstone-jewelry",
+    name: "925 Silver Lab-Grown Gemstone Halo Ring",
+    category: "Rings",
+    material: "925 Sterling Silver",
+    stone: "Lab-grown colored gemstone with a diamond halo",
+    setting: "Halo setting with pavé shoulders",
+    wholesale: "Ready stock — mixed-style orders welcome",
+    priceNote: "Wholesale quote by color, ring size and quantity.",
+    image: "/images/products/lm0024-925-silver-lab-grown-gemstone-halo-ring/01.webp",
+    alt: "925 silver halo ring with a blue lab-grown gemstone",
+    gallery: [
+      {
+        src: "/images/products/lm0024-925-silver-lab-grown-gemstone-halo-ring/02.webp",
+        alt: "925 silver halo ring in a purple stone option",
+      },
+      {
+        src: "/images/products/lm0024-925-silver-lab-grown-gemstone-halo-ring/03.webp",
+        alt: "925 silver halo ring in a red stone option",
+      },
+      {
+        src: "/images/products/lm0024-925-silver-lab-grown-gemstone-halo-ring/04.webp",
+        alt: "925 silver halo ring in a yellow stone option",
+      },
+    ],
+    description:
+      "A 925 sterling silver halo ring with a lab-grown colored center stone and pavé-set shoulders. Multiple color options are shown in the gallery; current availability is confirmed before quotation.",
+    highlights: [
+      "925 sterling silver halo setting",
+      "Lab-grown colored center stone with pavé shoulders",
+      "Multiple color options shown in the gallery",
+      "Ring sizes and stone sizes confirmed before order",
+    ],
+    b2bSellingPoints: [
+      {
+        title: "Ready Stock, Mixed Orders",
+        copy: "Combine this halo ring with other in-stock 925 silver styles to reach the USD 800 order minimum.",
+        image: "/images/b2b-sample-packaging.jpg",
+        alt: "Ready-stock jewelry packaging",
+      },
+      {
+        title: "Checked Before Packing",
+        copy: "Halo stones, prongs and finish are checked before the ring is packed.",
+        image: "/images/b2b-finished-jewelry-qc.jpg",
+        alt: "Jewelry quality check before packing",
+      },
+      {
+        title: "Quote With Your SKU",
+        copy: "Send SKU LM0024 with the colors, ring sizes and quantity you need.",
+        image: "/images/b2b-certificate-packaging.jpg",
+        alt: "Packaging and certificate support",
+      },
+    ],
+    specs: [
+      ["SKU", "LM0024"],
+      ["Material", "925 Sterling Silver"],
+      ["Stone", "Lab-grown colored gemstone with diamond halo"],
+      ["Order", "Ready-stock orders from USD 800 total, mixed styles allowed"],
+    ],
+    variants: [
+      { label: "Color options shown in gallery", note: "Availability confirmed before order" },
+    ],
+    moqNote:
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
+  },
+  {
+    slug: "lm0002-925-silver-moissanite-square-stud-earrings",
+    collectionSlug: "moissanite-wholesale",
+    sku: "LM0002",
+    series: "925-silver",
+    stockStatus: "in-stock",
+    orderType: "stock",
+    interest: "moissanite-jewelry",
+    name: "925 Silver Moissanite Square Stud Earrings",
+    category: "Earrings",
+    material: "925 Sterling Silver",
+    stone: "Square moissanite with a pavé halo",
+    setting: "Square halo stud setting with secure posts",
+    wholesale: "Ready stock — mixed-style orders welcome",
+    priceNote: "Wholesale quote by stone size and quantity.",
+    image: "/images/products/lm0002-925-silver-moissanite-square-stud-earrings/01.webp",
+    alt: "925 silver square moissanite stud earrings",
+    gallery: [
+      {
+        src: "/images/products/lm0002-925-silver-moissanite-square-stud-earrings/02.webp",
+        alt: "Square moissanite stud earrings in white stone",
+      },
+      {
+        src: "/images/products/lm0002-925-silver-moissanite-square-stud-earrings/03.webp",
+        alt: "Square moissanite stud earrings in a green stone option",
+      },
+      {
+        src: "/images/products/lm0002-925-silver-moissanite-square-stud-earrings/04.webp",
+        alt: "Square moissanite stud earrings detail",
+      },
+    ],
+    description:
+      "A pair of 925 sterling silver square stud earrings set with moissanite and a pavé halo. White and green options are shown; current availability is confirmed before quotation.",
+    highlights: [
+      "925 sterling silver stud setting",
+      "Square moissanite center with a pavé halo",
+      "White and green options shown",
+      "Stone size and quantity confirmed before order",
+    ],
+    b2bSellingPoints: [
+      {
+        title: "Ready Stock, Mixed Orders",
+        copy: "Combine these studs with other in-stock 925 silver styles to reach the USD 800 order minimum.",
+        image: "/images/b2b-sample-packaging.jpg",
+        alt: "Ready-stock jewelry packaging",
+      },
+      {
+        title: "Checked Before Packing",
+        copy: "Stone setting, posts and finish are checked before the pair is packed.",
+        image: "/images/b2b-finished-jewelry-qc.jpg",
+        alt: "Jewelry quality check before packing",
+      },
+      {
+        title: "Quote With Your SKU",
+        copy: "Send SKU LM0002 with the color, stone size and quantity you need.",
+        image: "/images/b2b-certificate-packaging.jpg",
+        alt: "Packaging and certificate support",
+      },
+    ],
+    specs: [
+      ["SKU", "LM0002"],
+      ["Material", "925 Sterling Silver"],
+      ["Stone", "Square moissanite with pavé halo"],
+      ["Order", "Ready-stock orders from USD 800 total, mixed styles allowed"],
+    ],
+    variants: [
+      { label: "White moissanite" },
+      { label: "Green stone option" },
+    ],
+    moqNote:
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
+  },
+  ...(limonGenerated as unknown as Product[]),
 ];
 
 export const educationTopics = [

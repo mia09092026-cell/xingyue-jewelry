@@ -49,6 +49,27 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   }
 
   const collection = getCollectionLandingPage(product.collectionSlug);
+  const inquiryInterest = product.interest ?? productInterestFromSlug(product.slug);
+  const isLooseStone = product.category === "Loose Stones";
+  const quoteFacts: string[][] = [
+    ...(product.sku ? [["SKU", product.sku]] : []),
+    ["Stone", product.stone],
+    ...(isLooseStone ? [] : [["Metal", product.material]]),
+    ["Setting", product.setting],
+    ...(product.stockStatus
+      ? [
+          [
+            "Availability",
+            product.stockStatus === "in-stock"
+              ? "Ready stock"
+              : product.stockStatus === "low-stock"
+                ? "Low stock"
+                : "Made to order",
+          ],
+        ]
+      : []),
+    ["Wholesale", product.wholesale],
+  ];
 
   return (
     <main className="min-h-screen bg-[#f8f6ef] text-[#17202a]">
@@ -104,7 +125,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <Link
             href={contactInquiryHref({
               source: "products",
-              interest: productInterestFromSlug(product.slug),
+              interest: inquiryInterest,
+              sku: product.sku,
             })}
             className="inline-flex items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542]"
           >
@@ -134,22 +156,24 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 priority
               />
             </div>
-            <div className="mt-4 grid gap-4 sm:grid-cols-3">
-              {product.gallery.map((image) => (
-                <div
-                  key={image.src}
-                  className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#e3dbcb] bg-white"
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(min-width: 1024px) 18vw, 33vw"
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+            {product.gallery.length > 0 ? (
+              <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                {product.gallery.map((image) => (
+                  <div
+                    key={image.src}
+                    className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#e3dbcb] bg-white"
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(min-width: 1024px) 18vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <div className="rounded-md border border-[#e3dbcb] bg-white/86 p-6 shadow-sm">
@@ -157,12 +181,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <h2 className="font-serif text-4xl">Quote Information</h2>
             <p className="mt-6 leading-8 text-[#596575]">{product.description}</p>
             <div className="mt-8 grid gap-3">
-              {[
-                ["Stone", product.stone],
-                ["Metal", product.material],
-                ["Setting", product.setting],
-                ["Wholesale", product.wholesale],
-              ].map(([label, value]) => (
+              {quoteFacts.map(([label, value]) => (
                 <div key={label} className="rounded-md bg-[#f8f6ef] p-4">
                   <p className="text-sm text-[#8a734b]">{label}</p>
                   <p className="mt-1 font-medium text-[#17202a]">{value}</p>
@@ -180,10 +199,35 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 </div>
               ))}
             </div>
+            {product.moqNote ? (
+              <div className="mt-6 rounded-md border border-[#d8c28a] bg-[#fbfaf7] p-4">
+                <p className="text-sm font-semibold text-[#8a734b]">Ready-stock terms</p>
+                <p className="mt-2 text-sm leading-6 text-[#344150]">{product.moqNote}</p>
+              </div>
+            ) : null}
+            {product.variants?.length ? (
+              <div className="mt-6">
+                <p className="text-sm font-semibold text-[#8a734b]">Variants</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {product.variants.map((variant) => (
+                    <span
+                      key={variant.label}
+                      className="rounded-full border border-[#d8c28a] bg-white px-3 py-1 text-xs text-[#344150]"
+                    >
+                      {variant.label}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-2 text-xs text-[#596575]">
+                  Variant availability is confirmed on inquiry.
+                </p>
+              </div>
+            ) : null}
             <Link
               href={contactInquiryHref({
                 source: "products",
-                interest: productInterestFromSlug(product.slug),
+                interest: inquiryInterest,
+                sku: product.sku,
               })}
               className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#17202a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#2a3542] sm:w-auto"
             >
@@ -194,6 +238,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         </div>
       </section>
 
+      {product.b2bSellingPoints.length > 0 ? (
       <section className="bg-[#fbfaf7] px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
@@ -225,6 +270,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           </div>
         </div>
       </section>
+      ) : null}
 
       <section className="px-5 py-20 sm:px-8">
         <div className="mx-auto max-w-7xl">

@@ -193,9 +193,12 @@ export default function CollectionsPage() {
             copy="The first product cards now use real images and are structured for wholesale inquiry rather than retail checkout."
           />
           <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
-            {products.map((product) => (
-              <ProductCard key={product.slug} product={product} />
-            ))}
+            {products
+              .filter((product) => !product.orderType)
+              .slice(0, 4)
+              .map((product) => (
+                <ProductCard key={product.slug} product={product} />
+              ))}
           </div>
         </div>
       </section>

@@ -467,10 +467,10 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
       },
       sampleMoq: {
         eyebrow: "Wholesale MOQ & Samples",
-        title: "Low MOQ and Sample Support",
-        copy: "Finished styles start from low MOQs, with mixed-order options where available. Sample costs and lead times are confirmed by style, stock status and finish.",
+        title: "Ready Stock and Sample Support",
+        copy: "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging. Sample costs and lead times are confirmed by style and finish.",
         items: [
-          { title: "Low MOQ", copy: "Start from 6–12 pieces per style, with mixed-style orders where available." },
+          { title: "USD 800 Stock Minimum", copy: "Mix any in-stock styles in one order; no per-style minimum on ready stock." },
           { title: "Sample Orders", copy: "Sample requests are confirmed by style, finish and current stock status." },
           { title: "Mixed Collections", copy: "Combine rings, earrings, pendants, bracelets and chains in one wholesale order." },
           { title: "Stock & Replenishment", copy: "Ask for the current stock list and quick-replenishment options for best sellers." },
@@ -556,7 +556,7 @@ export const i18nContent: Record<SupportedLocale, LocaleContent> = {
         },
         {
           title: "Wholesale Program",
-          copy: "Low MOQ, sample support, tiered pricing and fast dispatch for boutiques, brands and online sellers.",
+          copy: "USD 800 ready-stock minimum with mixed styles, sample support, tiered pricing and fast dispatch for boutiques, brands and online sellers.",
           href: "/wholesale",
           image: sharedImages.bracelet,
           alt: "Wholesale finished jewelry program for boutiques and brands",

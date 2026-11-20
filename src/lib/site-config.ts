@@ -7,6 +7,6 @@ export const siteConfig = {
   url: configuredUrl.replace(/\/$/, ""),
   email: contactConfig.email,
   description:
-    "Wholesale finished 925 silver, moissanite, colored lab-grown gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. Low MOQ, OEM/ODM support and fast dispatch.",
+    "Wholesale finished 925 silver, moissanite, colored lab-grown gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. Ready-stock orders from USD 800 total; custom production from 30 pieces per design.",
   socialImage: "/images/factory-workshop-overview.webp",
 };

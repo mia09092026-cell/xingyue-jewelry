@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand-logo";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { localizedPath, type SupportedLocale } from "@/lib/i18n";
-import { navigation } from "@/lib/site-data";
+import { navigation } from "@/lib/navigation";
 
 type NavigationItem = {
   label: string;

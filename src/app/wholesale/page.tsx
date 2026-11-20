@@ -11,7 +11,7 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = createPageMetadata({
   title: "Wholesale 925 Silver & Lab-Grown Jewelry | Zarivelle 织澜",
   description:
-    "Wholesale finished 925 silver, moissanite, colored lab-grown gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. Low MOQ, samples, fast dispatch and OEM/ODM support.",
+    "Wholesale finished 925 silver, moissanite, colored lab-grown gemstone and lab-grown diamond jewelry for boutiques, brands and online sellers. Ready-stock orders from USD 800 total; custom production from 30 pieces per design.",
   path: "/wholesale",
 });
 
@@ -43,7 +43,8 @@ const categories = [
 ];
 
 const terms = [
-  ["MOQ", "From 6–12 pieces per style; mixed-style orders where available"],
+  ["Ready stock", "Orders from USD 800 total; mix any in-stock styles"],
+  ["Custom production", "From 30 pieces per design, including logo and packaging"],
   ["Pricing", "Tiered wholesale pricing by quantity; quoted by style and finish"],
   ["Samples", "Sample orders confirmed by style, stock and finish"],
   ["Lead time", "In-stock dispatch or 7–15 days for quick replenishment"],
@@ -60,7 +61,7 @@ const faqs = [
   {
     question: "What is the MOQ?",
     answer:
-      "Typical MOQ starts from 6–12 pieces per style, with mixed-style orders where stock allows. Final MOQ is confirmed by style, finish and current stock.",
+      "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including your logo and packaging.",
   },
   {
     question: "Can I order samples?",
@@ -81,7 +82,7 @@ export default function WholesalePage() {
       <PageHero
         eyebrow="Wholesale"
         title="Wholesale 925 Silver, Moissanite & Lab-Grown Jewelry"
-        subtitle="Finished jewelry for boutiques, brands and online sellers. Low MOQ. Fast dispatch. Consistent quality."
+        subtitle="Finished jewelry for boutiques, brands and online sellers. Ready-stock orders from USD 800 total; custom production from 30 pieces per design."
       >
         <Link
           href="/contact?source=wholesale"
@@ -144,7 +145,7 @@ export default function WholesalePage() {
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
               {[
-                { icon: BadgeCheck, title: "Low MOQ", copy: "Start from 6–12 pieces per style." },
+                { icon: BadgeCheck, title: "USD 800 Stock Minimum", copy: "Mix any in-stock styles in one order." },
                 { icon: PackageCheck, title: "QC Photos", copy: "See your order before dispatch." },
                 { icon: Truck, title: "Fast Dispatch", copy: "In-stock and quick-replenishment options." },
               ].map(({ icon: Icon, title, copy }) => (
