@@ -1,9 +1,10 @@
 /**
  * Search-index allowlist for stock product pages.
  *
- * Product pages outside this list stay accessible to buyers but are
- * noindexed and excluded from the sitemap until they have unique copy.
- * Generated from Zarivelle_索引SKU候选130_925优先_20261122.csv.
+ * Phase 1: 925 silver / moissanite / lab-grown / curated + colored gemstone.
+ * Phase 2 (18K gold) is deferred until the 925 hubs are live and the first
+ * 18K pages have unique copy. Everything outside this list stays accessible
+ * to buyers but is noindexed and excluded from the sitemap.
  */
 export const indexableProductSlugs = new Set<string>([
   // A-925/莫桑/培育钻
@@ -77,68 +78,6 @@ export const indexableProductSlugs = new Set<string>([
   "lm0034-lab-grown-colored-gemstone-necklace-lm0034",
   "lm0036-lab-grown-colored-gemstone-necklace-lm0036",
   "lm0033-lab-grown-colored-gemstone-jewelry-lm0033",
-  // B-18K金
-  "lm0068-18k-rose-gold-lab-grown-stone-necklace-lm0068",
-  "lm0069-18k-gold-lab-grown-stone-necklace-lm0069",
-  "lm0070-18k-white-gold-lab-grown-stone-bracelet-lm0070",
-  "lm0071-18k-white-gold-lab-grown-stone-bracelet-lm0071",
-  "lm0072-18k-white-gold-lab-grown-stone-bracelet-lm0072",
-  "lm0073-18k-white-gold-lab-grown-stone-necklace-lm0073",
-  "lm0074-18k-white-gold-lab-grown-stone-necklace-lm0074",
-  "lm0075-18k-white-gold-lab-grown-stone-necklace-lm0075",
-  "lm0076-18k-white-gold-emerald-necklace-lm0076",
-  "lm0077-18k-white-gold-yellow-diamond-necklace-lm0077",
-  "lm0078-18k-white-gold-lab-grown-stone-necklace-lm0078",
-  "lm0079-18k-white-gold-lab-grown-stone-necklace-lm0079",
-  "lm0080-18k-white-gold-lab-grown-stone-necklace-lm0080",
-  "lm0090-18k-gold-lab-grown-stone-necklace-lm0090",
-  "lm0095-18k-white-gold-lab-grown-stone-necklace-lm0095",
-  "lm0096-18k-white-gold-lab-grown-stone-necklace-lm0096",
-  "lm0097-18k-yellow-gold-yellow-diamond-necklace-lm0097",
-  "lm0110-18k-white-gold-lab-grown-stone-earrings-lm0110",
-  "lm0111-18k-white-gold-lab-grown-stone-earrings-lm0111",
-  "lm0112-18k-white-gold-lab-grown-stone-earrings-lm0112",
-  "lm0113-18k-white-gold-lab-grown-stone-earrings-lm0113",
-  "lm0114-18k-white-gold-lab-grown-stone-earrings-lm0114",
-  "lm0115-18k-white-gold-lab-grown-stone-earrings-lm0115",
-  "lm0116-18k-white-gold-lab-grown-stone-earrings-lm0116",
-  "lm0117-18k-white-gold-lab-grown-stone-earrings-lm0117",
-  "lm0118-18k-gold-lab-grown-stone-necklace-lm0118",
-  "lm0124-18k-gold-lab-grown-stone-ring-lm0124",
-  "lm0126-18k-gold-lab-grown-stone-necklace-lm0126",
-  "lm0127-18k-gold-lab-grown-stone-bracelet-lm0127",
-  "lm0128-18k-gold-pink-diamond-bracelet-lm0128",
-  "lm0129-18k-gold-necklace-lm0129",
-  "lm0130-18k-gold-necklace-lm0130",
-  "lm0132-18k-gold-blue-diamond-bracelet-lm0132",
-  "lm0134-18k-gold-diamond-bracelet-lm0134",
-  "lm0136-18k-gold-emerald-ring-lm0136",
-  "lm0146-18k-yellow-gold-emerald-ring-lm0146",
-  "lm0149-18k-gold-ring-lm0149",
-  "lm0150-18k-gold-ring-lm0150",
-  "lm0151-18k-gold-ring-lm0151",
-  "lm0152-18k-gold-ring-lm0152",
-  "lm0153-18k-gold-ring-lm0153",
-  "lm0154-18k-gold-ring-lm0154",
-  "lm0155-18k-gold-ring-lm0155",
-  "lm0302-18k-gold-lab-grown-stone-bracelet-lm0302",
-  "lm0303-18k-gold-lab-grown-stone-bracelet-lm0303",
-  "lm0304-18k-gold-lab-grown-stone-bracelet-lm0304",
-  "lm0305-18k-yellow-gold-lab-grown-stone-bracelet-lm0305",
-  "lm0306-18k-gold-lab-grown-stone-bracelet-lm0306",
-  "lm0307-18k-gold-lab-grown-stone-bracelet-lm0307",
-  "lm0408-18k-gold-bracelet-lm0408",
-  "lm0409-18k-gold-bracelet-lm0409",
-  "lm0120-18k-gold-earrings-lm0120",
-  "lm0125-18k-gold-lab-grown-stone-earrings-lm0125",
-  "lm0131-18k-gold-necklace-lm0131",
-  "lm0133-18k-gold-blue-diamond-necklace-lm0133",
-  "lm0135-18k-gold-lab-grown-stone-necklace-lm0135",
-  "lm0137-18k-gold-lab-grown-stone-earrings-lm0137",
-  "lm0138-18k-gold-lab-grown-stone-earrings-lm0138",
-  "lm0139-18k-gold-lab-grown-stone-earrings-lm0139",
-  "lm0140-18k-gold-lab-grown-stone-earrings-lm0140",
-  "lm0141-18k-gold-lab-grown-stone-earrings-lm0141",
 ]);
 
 export function isIndexableProduct(slug: string) {
