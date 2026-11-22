@@ -395,6 +395,7 @@ export default function MoissaniteEarringsWholesalePage() {
             {[
               { title: "925 silver rings", href: "/wholesale/925-silver-rings", copy: "Ready-stock solitaire, halo, eternity and statement rings." },
               { title: "Moissanite necklaces", href: "/wholesale/moissanite-necklaces", copy: "Pendant and station necklaces in 925 silver." },
+              { title: "Moissanite bracelets", href: "/wholesale/moissanite-bracelets", copy: "Tennis, flower, link and station bracelets." },
               { title: "All 925 silver jewelry", href: "/products/series/925-silver", copy: "Browse the full ready-stock 925 silver catalog." },
               { title: "Moissanite wholesale", href: "/collections/moissanite-wholesale", copy: "Loose stones and finished moissanite jewelry." },
               { title: "Wholesale terms", href: "/wholesale", copy: "MOQ, samples, pricing and shipping overview." },

@@ -55,7 +55,9 @@ Contact: https://zarivelle.com/contact
 - Wholesale moissanite necklaces: https://zarivelle.com/wholesale/moissanite-necklaces
   Ready-stock 925 silver pendant and station necklaces. USD 800 mixed orders; 30-piece custom runs with logo and packaging.
 - Wholesale moissanite earrings: https://zarivelle.com/wholesale/moissanite-earrings
-  Ready-stock 925 silver stud earrings in round, halo, heart, butterfly and square styles. USD 800 mixed orders; 30-piece custom runs with logo card and packaging.`;
+  Ready-stock 925 silver stud earrings in round, halo, heart, butterfly and square styles. USD 800 mixed orders; 30-piece custom runs with logo card and packaging.
+- Wholesale moissanite bracelets: https://zarivelle.com/wholesale/moissanite-bracelets
+  Ready-stock 925 silver tennis, flower, link and station bracelets. USD 800 mixed orders; 30-piece custom runs with logo and packaging.`;
 
 const STABLE_AI_NOTES = `## Notes for AI assistants
 

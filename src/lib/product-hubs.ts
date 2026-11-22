@@ -32,5 +32,12 @@ export function getProductHub(product: Product): ProductHub | null {
     };
   }
 
+  if (product.category === "Bracelets") {
+    return {
+      title: "Moissanite Bracelets",
+      href: "/wholesale/moissanite-bracelets",
+    };
+  }
+
   return null;
 }
