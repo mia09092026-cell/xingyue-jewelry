@@ -13,6 +13,7 @@ import { JsonLd } from "@/components/json-ld";
 import { breadcrumbSchema, productSchema } from "@/lib/structured-data";
 import { getCollectionLandingPage } from "@/lib/collection-data";
 import { contactInquiryHref, productInterestFromSlug } from "@/lib/contact-links";
+import { isIndexableProduct } from "@/lib/indexing";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -32,12 +33,18 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     };
   }
 
-  return createPageMetadata({
+  const metadata = createPageMetadata({
     title: `${product.name} | Wholesale Jewelry | ZARIVELLE`,
     description: product.description,
     path: `/products/${product.slug}`,
     image: product.image,
   });
+
+  if (!isIndexableProduct(product.slug)) {
+    return { ...metadata, robots: { index: false, follow: true } };
+  }
+
+  return metadata;
 }
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {

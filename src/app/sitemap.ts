@@ -12,9 +12,9 @@ import { absoluteUrl } from "@/lib/seo";
 import { getPublishedResourceArticles } from "@/lib/resources";
 import {
   catalogSeriesOrder,
-  getSeriesPageCount,
   getStockProductsBySeries,
 } from "@/lib/catalog";
+import { isIndexableProduct } from "@/lib/indexing";
 import { products } from "@/lib/site-data";
 
 function localizedPriority(path: LocalizedPublicPage) {
@@ -79,24 +79,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...catalogSeriesOrder.flatMap((series) => {
       const count = getStockProductsBySeries(series).length;
       if (count === 0) return [];
-      const totalPages = getSeriesPageCount(series, 48);
       return [
         {
           url: absoluteUrl(`/products/series/${series}`),
           changeFrequency: "weekly" as const,
           priority: 0.8,
         },
-        ...Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({
-          url: absoluteUrl(`/products/series/${series}/page/${index + 2}`),
-          changeFrequency: "weekly" as const,
-          priority: 0.6,
-        })),
       ];
     }),
-    ...products.map(({ slug }) => ({
-      url: absoluteUrl(`/products/${slug}`),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
+    ...products
+      .filter(({ slug }) => isIndexableProduct(slug))
+      .map(({ slug }) => ({
+        url: absoluteUrl(`/products/${slug}`),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })),
   ];
 }

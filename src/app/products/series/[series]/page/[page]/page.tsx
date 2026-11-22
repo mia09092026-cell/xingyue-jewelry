@@ -38,11 +38,13 @@ export async function generateMetadata({ params }: SeriesPageProps): Promise<Met
     return { title: "Series Not Found | ZARIVELLE" };
   }
   const meta = catalogSeriesMeta[value];
-  return createPageMetadata({
+  const metadata = createPageMetadata({
     title: `${meta.title} Ready Stock — Page ${page} | ZARIVELLE`,
     description: meta.description,
     path: `/products/series/${value}/page/${page}`,
   });
+
+  return { ...metadata, robots: { index: false, follow: true } };
 }
 
 export default async function SeriesPageNumber({ params }: SeriesPageProps) {

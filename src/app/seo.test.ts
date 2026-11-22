@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { statSync } from "node:fs";
 import { resolve } from "node:path";
 import { collectionLandingPages } from "@/lib/collection-data";
+import { isIndexableProduct } from "@/lib/indexing";
 import { getLanguageAlternates, localizedPath, localizedPublicPages } from "@/lib/i18n";
 import { collectionCategories, products } from "@/lib/site-data";
 import { createPageMetadata } from "@/lib/seo";
@@ -23,7 +24,7 @@ describe("SEO foundations", () => {
     expect(value.rules).toContainEqual({ userAgent: "GPTBot", disallow: "/" });
   });
 
-  it("lists every static, collection, and product URL once", () => {
+  it("lists every static, collection, and indexable product URL once", () => {
     const urls = sitemap().map((entry) => entry.url);
 
     expect(urls).toContain("https://zarivelle.com/");
@@ -58,7 +59,12 @@ describe("SEO foundations", () => {
       expect(urls).toContain(`https://zarivelle.com/collections/${page.slug}`);
     }
     for (const product of products) {
-      expect(urls).toContain(`https://zarivelle.com/products/${product.slug}`);
+      const url = `https://zarivelle.com/products/${product.slug}`;
+      if (isIndexableProduct(product.slug)) {
+        expect(urls).toContain(url);
+      } else {
+        expect(urls).not.toContain(url);
+      }
     }
     expect(new Set(urls).size).toBe(urls.length);
   });
