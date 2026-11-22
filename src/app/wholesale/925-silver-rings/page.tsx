@@ -25,7 +25,9 @@ const rings = products.filter(
   (product) => product.series === "925-silver" && product.category === "Rings",
 );
 
-const ringImage = rings[0]?.image ?? "/images/b2b-sample-packaging.jpg";
+const heroRing =
+  rings.find((product) => product.slug.startsWith("moissanite-ring-")) ?? rings[0];
+const ringImage = heroRing?.image ?? "/images/b2b-sample-packaging.jpg";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Wholesale 925 Sterling Silver Rings | Moissanite & Gemstone Rings",
