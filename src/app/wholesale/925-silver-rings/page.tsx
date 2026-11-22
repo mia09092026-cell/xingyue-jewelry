@@ -389,6 +389,7 @@ export default function SilverRingsWholesalePage() {
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {[
               { title: "Moissanite necklaces", href: "/wholesale/moissanite-necklaces", copy: "Pendant and station necklaces in 925 silver." },
+              { title: "Moissanite earrings", href: "/wholesale/moissanite-earrings", copy: "Round, halo, heart and butterfly stud earrings." },
               { title: "All 925 silver jewelry", href: "/products/series/925-silver", copy: "Browse the full ready-stock 925 silver catalog." },
               { title: "Moissanite wholesale", href: "/collections/moissanite-wholesale", copy: "Loose stones and finished moissanite jewelry." },
               { title: "Wholesale terms", href: "/wholesale", copy: "MOQ, samples, pricing and shipping overview." },

@@ -87,6 +87,12 @@ export function SeriesCatalog({ series, page, pageSize = 48 }: SeriesCatalogProp
               >
                 Shop moissanite necklaces
               </Link>
+              <Link
+                href="/wholesale/moissanite-earrings"
+                className="rounded-full border border-[#d8c28a] px-4 py-2 text-sm font-semibold text-[#17202a] transition hover:bg-white"
+              >
+                Shop moissanite earrings
+              </Link>
             </div>
           ) : null}
 

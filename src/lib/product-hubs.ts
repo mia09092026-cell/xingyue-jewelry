@@ -25,5 +25,12 @@ export function getProductHub(product: Product): ProductHub | null {
     };
   }
 
+  if (product.category === "Earrings") {
+    return {
+      title: "Moissanite Earrings",
+      href: "/wholesale/moissanite-earrings",
+    };
+  }
+
   return null;
 }
