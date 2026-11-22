@@ -1,4 +1,5 @@
 import limonGenerated from "@/data/catalog/limon.generated.json";
+import moissaniteGenerated from "@/data/catalog/moissanite.generated.json";
 import { contactConfig } from "@/lib/contact-config";
 
 const defaultEmailHref = `mailto:${contactConfig.email}?subject=${encodeURIComponent("Wholesale Jewelry Inquiry")}`;
@@ -914,6 +915,7 @@ export const products: Product[] = [
       "Ready-stock orders start at USD 800 total and can mix any in-stock styles. Custom production starts at 30 pieces per design, including logo and packaging.",
   },
   ...(limonGenerated as unknown as Product[]),
+  ...(moissaniteGenerated as unknown as Product[]),
 ];
 
 export const educationTopics = [
