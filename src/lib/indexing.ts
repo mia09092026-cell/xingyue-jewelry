@@ -109,6 +109,27 @@ export const indexableProductSlugs = new Set<string>([
   "moissanite-bracelet-glms-b0522y",
   "moissanite-bracelet-gmz-b0580b",
   "moissanite-bracelet-glms-x0169r",
+  // A3-Moissanite rings (925 silver, second batch)
+  "moissanite-ring-mj-0214by",
+  "moissanite-ring-mj-0625b",
+  "moissanite-ring-glms-r0506",
+  "moissanite-ring-glms-r0026",
+  "moissanite-ring-glms-r0045",
+  "moissanite-ring-glms-0150r",
+  "moissanite-ring-mj-0926b",
+  "moissanite-ring-mj-0607bx",
+  "moissanite-ring-mj-0830b",
+  "moissanite-ring-glms-r0370",
+  "moissanite-ring-mj-0933b",
+  "moissanite-ring-glmj-x327",
+  "moissanite-ring-mj-0808b",
+  "moissanite-ring-glms-r0364",
+  "moissanite-ring-mj-0321bx",
+  "moissanite-ring-glms-r291",
+  "moissanite-ring-mj-0682bx",
+  "moissanite-ring-mj-0801bx",
+  "moissanite-ring-mj-0505bz",
+  "moissanite-ring-glms-r0361",
 ]);
 
 export function isIndexableProduct(slug: string) {
