@@ -61,6 +61,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: absoluteUrl("/wholesale/moissanite-necklaces"),
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
+    {
       url: absoluteUrl("/privacy"),
       changeFrequency: "yearly" as const,
       priority: 0.3,
