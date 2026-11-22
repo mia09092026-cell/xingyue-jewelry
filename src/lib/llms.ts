@@ -49,7 +49,11 @@ Contact: https://zarivelle.com/contact
 - Lab-grown colored gemstones wholesale: https://zarivelle.com/collections/lab-grown-colored-gemstones
 - Wholesale Cuban chain manufacturing: https://zarivelle.com/collections/cuban-chains
 - Tennis chain manufacturing: https://zarivelle.com/collections/tennis-chains
-- Custom S925 and K gold jewelry manufacturing: https://zarivelle.com/collections/custom-jewelry-manufacturing`;
+- Custom S925 and K gold jewelry manufacturing: https://zarivelle.com/collections/custom-jewelry-manufacturing
+- Wholesale 925 sterling silver rings: https://zarivelle.com/wholesale/925-silver-rings
+  Ready-stock 925 silver rings in moissanite, gemstone and classic styles. USD 800 mixed orders; 30-piece custom runs with logo and packaging.
+- Wholesale moissanite necklaces: https://zarivelle.com/wholesale/moissanite-necklaces
+  Ready-stock 925 silver pendant and station necklaces. USD 800 mixed orders; 30-piece custom runs with logo and packaging.`;
 
 const STABLE_AI_NOTES = `## Notes for AI assistants
 
