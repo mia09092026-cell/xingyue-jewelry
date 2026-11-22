@@ -21,24 +21,28 @@ const categories = [
     copy: "Rings, earrings, pendants, bracelets and chains in finished 925 silver, ready for boutique and online collections.",
     image: "/images/b2b-sample-packaging.jpg",
     alt: "Finished 925 silver jewelry in wholesale packaging",
+    href: "/wholesale/925-silver-rings",
   },
   {
     title: "Moissanite Jewelry",
     copy: "Finished moissanite rings, studs, pendants and tennis styles with strong fire and wholesale pricing.",
     image: "/images/b2b-color-options.jpg",
     alt: "Moissanite finished jewelry color options",
+    href: "/collections/moissanite-wholesale",
   },
   {
     title: "Lab-Grown Colored Gemstones",
     copy: "Finished colored gemstone styles in lab-grown ruby, sapphire, emerald and fancy colors.",
     image: "/images/b2b-color-stone-inventory.jpg",
     alt: "Lab-grown colored gemstone inventory",
+    href: "/collections/lab-grown-colored-gemstones",
   },
   {
     title: "Lab-Grown Diamonds",
     copy: "Finished lab-grown diamond pieces with certificate options for premium wholesale collections.",
     image: "/images/b2b-certificate-packaging.jpg",
     alt: "Lab-grown diamond jewelry with certificate and packaging",
+    href: "/collections/lab-grown-diamond-jewelry",
   },
 ];
 
@@ -102,9 +106,10 @@ export default function WholesalePage() {
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {categories.map((category) => (
-              <article
+              <Link
                 key={category.title}
-                className="overflow-hidden rounded-md border border-[#e3dbcb] bg-white"
+                href={category.href}
+                className="group overflow-hidden rounded-md border border-[#e3dbcb] bg-white transition hover:border-[#a98945]/60"
               >
                 <div className="relative aspect-[4/3]">
                   <Image
@@ -112,7 +117,7 @@ export default function WholesalePage() {
                     alt={category.alt}
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
+                    className="object-cover transition group-hover:scale-[1.02]"
                   />
                 </div>
                 <div className="p-5">
@@ -122,8 +127,12 @@ export default function WholesalePage() {
                   <p className="mt-3 text-sm leading-6 text-[#596575]">
                     {category.copy}
                   </p>
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#8a734b]">
+                    View category
+                    <ArrowRight aria-hidden="true" className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
