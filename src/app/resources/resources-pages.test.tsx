@@ -11,6 +11,7 @@ import {
   ResourceMarkdown,
   resolveSafeResourceLink,
 } from "@/components/resource-markdown";
+import { getPublishedResourceArticles } from "@/lib/resources";
 
 const { notFoundMock } = vi.hoisted(() => ({
   notFoundMock: vi.fn(() => {
@@ -50,7 +51,7 @@ describe("Resources list page", () => {
     ).toBeInTheDocument();
 
     const articles = container.querySelectorAll("article");
-    expect(articles).toHaveLength(5);
+    expect(articles).toHaveLength(getPublishedResourceArticles("en").length);
     expect(
       screen.getByRole("link", {
         name: /Your First Wholesale Sterling Silver Jewellery Order: A Checklist/,
@@ -117,7 +118,16 @@ describe("Resources list page", () => {
     });
     const { container } = render(result);
 
-    expect(container.querySelectorAll("article")).toHaveLength(2);
+    const moissaniteCount = getPublishedResourceArticles("en").filter(
+      (article) => article.category === "Moissanite",
+    ).length;
+    expect(container.querySelectorAll("article")).toHaveLength(moissaniteCount);
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "Moissanite Necklaces Wholesale: Pendant Styles, Chain Lengths and Order Planning",
+      }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 2,
@@ -211,12 +221,12 @@ describe("Resource article page", () => {
       screen
         .getByRole("heading", {
           level: 2,
-          name: "Your First Wholesale Sterling Silver Jewellery Order: A Checklist",
+          name: "Moissanite Necklaces Wholesale: Pendant Styles, Chain Lengths and Order Planning",
         })
         .closest("a"),
     ).toHaveAttribute(
       "href",
-      "/resources/first-wholesale-sterling-silver-jewelry-order",
+      "/resources/moissanite-necklaces-wholesale-guide",
     );
     expect(
       screen.getByRole("link", { name: "Discuss Your Jewelry Project" }),
@@ -254,15 +264,22 @@ describe("Resource article page", () => {
   });
 
   it("generates static params for published English articles only", () => {
-    expect(generateStaticParams()).toEqual([
-      { slug: "first-wholesale-sterling-silver-jewelry-order" },
-      {
-        slug: "source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
-      },
-      { slug: "how-to-develop-custom-moissanite-sterling-silver-jewelry" },
-      { slug: "moissanite-vs-cubic-zirconia" },
-      { slug: "choose-925-sterling-silver-jewelry-manufacturer" },
-    ]);
+    const params = generateStaticParams();
+
+    expect(params).toHaveLength(getPublishedResourceArticles("en").length);
+    expect(params).toEqual(
+      expect.arrayContaining([
+        { slug: "925-sterling-silver-rings-wholesale-guide" },
+        { slug: "moissanite-necklaces-wholesale-guide" },
+        { slug: "first-wholesale-sterling-silver-jewelry-order" },
+        {
+          slug: "source-custom-925-sterling-silver-moissanite-lab-grown-diamond-jewelry",
+        },
+        { slug: "how-to-develop-custom-moissanite-sterling-silver-jewelry" },
+        { slug: "moissanite-vs-cubic-zirconia" },
+        { slug: "choose-925-sterling-silver-jewelry-manufacturer" },
+      ]),
+    );
   });
 
   it("resolves unknown slugs through notFound", async () => {

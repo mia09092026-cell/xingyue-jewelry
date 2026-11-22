@@ -14,6 +14,7 @@ import { breadcrumbSchema, productSchema } from "@/lib/structured-data";
 import { getCollectionLandingPage } from "@/lib/collection-data";
 import { contactInquiryHref, productInterestFromSlug } from "@/lib/contact-links";
 import { isIndexableProduct } from "@/lib/indexing";
+import { getProductHub } from "@/lib/product-hubs";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -56,6 +57,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   }
 
   const collection = getCollectionLandingPage(product.collectionSlug);
+  const hub = getProductHub(product);
   const inquiryInterest = product.interest ?? productInterestFromSlug(product.slug);
   const isLooseStone = product.category === "Loose Stones";
   const quoteFacts: string[][] = [
@@ -147,6 +149,15 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             {collection ? `Back to ${collection.eyebrow}` : "Back to Products"}
             <Gem aria-hidden="true" className="h-4 w-4" />
           </Link>
+          {hub ? (
+            <Link
+              href={hub.href}
+              className="inline-flex items-center justify-center gap-2 rounded-md border border-[#d8c28a] px-6 py-3 text-sm font-semibold text-[#17202a] transition hover:bg-white"
+            >
+              Shop {hub.title}
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+          ) : null}
         </div>
       </PageHero>
 

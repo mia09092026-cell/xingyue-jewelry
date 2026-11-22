@@ -73,7 +73,24 @@ export function SeriesCatalog({ series, page, pageSize = 48 }: SeriesCatalogProp
             </p>
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {series === "925-silver" ? (
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/wholesale/925-silver-rings"
+                className="rounded-full border border-[#d8c28a] px-4 py-2 text-sm font-semibold text-[#17202a] transition hover:bg-white"
+              >
+                Shop 925 silver rings
+              </Link>
+              <Link
+                href="/wholesale/moissanite-necklaces"
+                className="rounded-full border border-[#d8c28a] px-4 py-2 text-sm font-semibold text-[#17202a] transition hover:bg-white"
+              >
+                Shop moissanite necklaces
+              </Link>
+            </div>
+          ) : null}
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {visibleProducts.map((product) => (
               <ProductCard key={product.slug} product={product} />
             ))}
